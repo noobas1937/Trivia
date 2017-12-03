@@ -19,10 +19,10 @@ import java.util.List;
 public class WebSocketHandler extends TextWebSocketHandler {
 
     private static Logger logger = LoggerFactory.getLogger(SessionService.class);
+    /**存储在线用户 */
+    private final static List<WebSocketSession> SESSIONS = Collections.synchronizedList(new ArrayList<WebSocketSession>());
 
-    private final static List<WebSocketSession> sessions = Collections.synchronizedList(new ArrayList<WebSocketSession>());
-
-    //接收文本消息，并发送出去
+    //消息处理
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
@@ -32,9 +32,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @SuppressWarnings("unchecked")
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        logger.debug("connect to the websocket chat success......");
-        sessions.add(session);
-        //处理离线消息
+        logger.debug("session:"+session.getId()+" | connect to the websocket success......");
+        SESSIONS.add(session);
     }
 
     //抛出异常时处理
@@ -43,15 +42,15 @@ public class WebSocketHandler extends TextWebSocketHandler {
         if(session.isOpen()){
             session.close();
         }
-        logger.debug("websocket chat connection closed......");
-        sessions.remove(session);
+        logger.debug("session:"+session.getId()+" | connection closed......");
+        SESSIONS.remove(session);
     }
 
     //连接关闭后处理
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        logger.debug("websocket chat connection closed......");
-        sessions.remove(session);
+        logger.debug("session:"+session.getId()+" | connection closed......");
+        SESSIONS.remove(session);
     }
 
     @Override
