@@ -1,0 +1,4 @@
+Key,id,projectId,tableId,requestUserId,reason,createDate,status,updateDate,handleUserId
+A1,-1,-1,-1,-1,申请此数据用于统计分析,"2015-04-09 18:39:16",active,"2015-04-09 18:39:16",
+A2,-2,-1,-2,-1,本月报表需要此表数据参与计算,"2015-04-09 18:39:16",active,"2015-04-09 18:39:16",
+A3,0,-1,-3,0,申请数据进行分析,,,,

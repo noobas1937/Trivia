@@ -1,0 +1,82 @@
+{
+  "id": -2,
+  "description": "商品数据",
+  "caption": "商品数据",
+  "dimensionList": [
+    {
+      "id": -2,
+      "caption": "商品数据表",
+      "children": [
+        {
+          "id": -103,
+          "description": "销售时间_年/月/日",
+          "caption": "销售时间",
+          "concreteType": "year_month_date",
+          "children": [
+            {
+              "id": -103,
+              "description": "销售时间_年/月/日",
+              "caption": "销售时间_年/月/日",
+              "concreteType": "year_month_date",
+              "category": "DATE",
+              "yearMonthDateCubeFieldId": -103
+            },
+            {
+              "id": -110,
+              "description": "销售时间_年",
+              "caption": "销售时间_年",
+              "concreteType": "year",
+              "yearMonthDateCubeFieldId": -103,
+              "category": "DATE"
+            },
+            {
+              "id": -109,
+              "description": "销售时间_年/半年",
+              "caption": "销售时间_年/半年",
+              "concreteType": "year_halfyear",
+              "yearMonthDateCubeFieldId": -103,
+              "category": "DATE"
+            },
+            {
+              "id": -108,
+              "description": "销售时间_年/季度",
+              "caption": "销售时间_年/季度",
+              "concreteType": "year_quarter",
+              "yearMonthDateCubeFieldId": -103,
+              "category": "DATE"
+            },
+            {
+              "id": -107,
+              "description": "销售时间_年/月",
+              "caption": "销售时间_年/月",
+              "concreteType": "year_month",
+              "yearMonthDateCubeFieldId": -103,
+              "category": "DATE"
+            },
+            {
+              "id": -106,
+              "description": "销售时间_年/周",
+              "caption": "销售时间_年/周",
+              "concreteType": "year_week",
+              "yearMonthDateCubeFieldId": -103,
+              "category": "DATE"
+            }
+          ],
+          "category": "DATE"
+        },
+        {
+          "id": -102,
+          "description": "商品名2",
+          "caption": "商品名2",
+          "category": null
+        },
+        {
+          "id": -101,
+          "description": "商品名",
+          "caption": "商品名",
+          "category": null
+        }
+      ]
+    }
+  ]
+}

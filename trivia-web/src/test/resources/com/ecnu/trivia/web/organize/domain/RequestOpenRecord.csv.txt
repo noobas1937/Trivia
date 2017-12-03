@@ -1,0 +1,2 @@
+Key,id,openType,openKey,openLink,validFlag,invalidDate,createDate,updateDate,createUserId,updateUserId
+R1,-1,organization,-1,6bb61e3b7bce0931da574d19d1d82c88,1,,,,,

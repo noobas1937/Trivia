@@ -1,0 +1,4 @@
+Key,id,username,password,valid,date
+V1,-1,username1,password1,false,2014-12-12
+V2,-2,username2,password2,true,2014-12-12 12:12:12
+V3,-3,"abc,efg","pass""word""",true,2015-01-01

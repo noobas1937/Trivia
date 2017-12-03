@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecnu.trivia.common.component.mapper.BaseMapper">
+    <insert id="saveWithId">
+        insert into ${dt.table} (
+        <foreach collection="dt.propertyColumnList" item="pc" separator=",">
+            ${pc.column}
+        </foreach>
+        ) values (
+        <foreach collection="dt.propertyColumnList" item="pc" separator=",">
+            #{p.${pc.property},jdbcType=${pc.columnType}}
+        </foreach>
+        )
+    </insert>
+
+    <insert id="save" useGeneratedKeys="true">
+        insert into ${dt.table} (
+        <foreach collection="dt.nonGeneratedPropertyColumnList" item="pc" separator=",">
+            ${pc.column}
+        </foreach>
+        ) values (
+        <foreach collection="dt.nonGeneratedPropertyColumnList" item="pc" separator=",">
+            #{p.${pc.property},jdbcType=${pc.columnType}}
+        </foreach>
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM ${dt.table} where
+
+        <!-- 强制以where结尾,避免全表删除 -->
+        <foreach collection="pcList" item="pc" separator="and">
+            ${pc.propertyColumn.column} = #{pc.value,jdbcType=${pc.propertyColumn.columnType}}
+        </foreach>
+    </delete>
+
+    <update id="update">
+        update ${dt.table}
+        set
+
+        <foreach collection="ucList" item="uc" separator=",">
+            ${uc.propertyColumn.column} = #{uc.value,jdbcType=${uc.propertyColumn.columnType}}
+        </foreach>
+
+        where
+
+        <!-- 强制以where结尾,避免全表删除 -->
+        <foreach collection="pcList" item="pc" separator="and">
+            ${pc.propertyColumn.column} = #{pc.value,jdbcType=${pc.propertyColumn.columnType}}
+        </foreach>
+    </update>
+
+    <!-- 此处的resultType仅是一个占位符,与具体的逻辑无关,具体查询时会使用_clazz变量替换当前的结果类型 -->
+    <select id="get" resultType="com.ecnu.trivia.common.component.domain.Domain">
+        SELECT * FROM ${dt.table} where
+
+        <foreach collection="pcList" item="pc" separator="and">
+            ${pc.propertyColumn.column} = #{pc.value,jdbcType=${pc.propertyColumn.columnType}}
+        </foreach>
+
+        <!-- 强制限制一条记录,避免全表查询 -->
+        limit 1
+    </select>
+
+    <!-- 此处的resultType仅是一个占位符,与具体的逻辑无关,具体查询时会使用_clazz变量替换当前的结果类型 -->
+    <select id="list" resultType="com.ecnu.trivia.common.component.domain.Domain">
+        SELECT *
+        FROM ${dt.table}
+
+        <!-- 强制进行排序，以避免分页错误 -->
+        <if test="dt.keyColumnList.size != 0">
+            order by
+            <foreach collection="dt.keyColumnList" item="kc" separator=",">
+                ${kc.column} asc
+            </foreach>
+        </if>
+    </select>
+</mapper>

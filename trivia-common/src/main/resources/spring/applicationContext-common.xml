@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 修改器 start -->
+    <bean class="com.ecnu.trivia.common.frameworkext.FastJsonJSONObjectModifier"/>
+    <bean class="com.ecnu.trivia.common.frameworkext.FastJsonAsmFactoryModifier"/>
+    <bean class="com.ecnu.trivia.common.frameworkext.FastResultSetHandlerModifier"/>
+    <!--<bean class="MapperProxyModifier"/>-->
+    <!-- 修改器 end -->
+
+    <!-- 加载bean start -->
+    <context:component-scan base-package="com.ecnu.trivia">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <context:annotation-config/>
+
+    <context:load-time-weaver/>
+
+    <!-- 加载bean end -->
+
+    <!-- 缓存支持 start -->
+
+    <!--<bean id="cacheManager" class="CacheManager"/>-->
+    <!--<bean id="keyGenerator" class="DomainKeyGenerator"/>-->
+
+    <!--<bean class="CacheAspect" factory-method="aspectOf">-->
+        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <!--<property name="keyGenerator" ref="keyGenerator"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="cacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">-->
+        <!--<property name="configLocation" value="classpath:ehcache/ehcache.xml" />-->
+    <!--</bean>-->
+
+    <!--<bean id="ehCacheCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">-->
+        <!--<property name="cacheManager"  ref="cacheManagerFactory"/>-->
+    <!--</bean>-->
+
+    <!-- 缓存支持 end -->
+
+    <!-- 初始化器 start -->
+
+    <bean class="com.ecnu.trivia.common.component.metric.MetricsReporterIniter"/>
+
+    <!-- 初始化器 end -->
+
+</beans>

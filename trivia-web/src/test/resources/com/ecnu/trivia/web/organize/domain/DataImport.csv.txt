@@ -1,0 +1,2 @@
+Key,id,fileUploadId,importTableId,typeParam,importSuccessRecordNum,importFailRecordNum,importFailRecordFile,importFailReasonFile,importFinishDate,importUserId,createDate
+U1,-1,-1,-3,1,1,1,1,1,,1,

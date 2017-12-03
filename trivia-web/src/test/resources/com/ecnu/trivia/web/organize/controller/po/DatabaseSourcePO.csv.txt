@@ -1,0 +1,2 @@
+Key,caption,dataStorageTypeValue,host,port,databaseName,userName,password,sourceType
+t1,junitTest,vertica,172.18.2.74,5433,newbi,newbi,123456,3

@@ -1,0 +1,5 @@
+Key,id,limitDefineId,values,createDate,type,subjectType,subjectKey
+LV1,-1,1,"1,2,3",,org,org,-1
+LV2,-2,2,数云食堂,,org,org,-1
+LV3,-3,1,"4,5,6",,org,org,-2
+LV4,-4,2,数云食堂2,,org,org,-2

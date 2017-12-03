@@ -1,0 +1,2 @@
+Key,tableIdLeft,tableIdRight,tableFieldLeft,tableFieldRight,relationType,tableNameLeft,tableNameRight
+T1,,,ORDER_ID,ORDER_ID,left,T_SALES_MAIN,T_SALES_DETAIL

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<aspectj>
+    <weaver options="-Xset:weaveJavaxPackages=true -Xlint:ignore -verbose">
+        <!-- only weave classes in this package -->
+        <include within="com.ecnu.trivia..*"/>
+        <exclude within="*..*CGLIB*"/>
+        <exclude within="*..*cglib*"/>
+        <exclude within="*..*JAVASSIST*"/>
+        <exclude within="*..*javassist*"/>
+    </weaver>
+    <aspects>
+        <aspect name="com.ecnu.trivia.common.log.LoggerAdvice"/>
+        <aspect name="com.ecnu.trivia.common.component.domain.init.DomainRecordAdvice"/>
+        <aspect name="com.ecnu.trivia.common.component.cache.CacheAspect"/>
+
+        <exclude within="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect"/>
+        <exclude within="org.springframework.scheduling.aspectj.AnnotationAsyncExecutionAspect"/>
+        <!--<exclude within="org.springframework.transaction.aspectj.AnnotationTransactionAspect"/>-->
+        <exclude within="org.springframework.cache.aspectj.AnnotationCacheAspect"/>
+
+        <!-- 被调用方法，一量发生异常，自动重试运行。 -->
+        <aspect name="com.ecnu.trivia.common.exception.RetryExceptionAdvice"/>
+    </aspects>
+</aspectj>

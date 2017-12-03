@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecnu.trivia.web.rbac.mapper.UserMapper">
+    <select id="getUserByAccount" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        SELECT *
+        FROM user AS u
+        WHERE u.status = 1
+              AND u.account = #{account}
+              AND u.password = MD5(#{password})
+    </select>
+
+    <select id="getUserById" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        SELECT *
+        FROM user AS u
+        WHERE u.status = 1
+        AND u.id = ${id}
+    </select>
+
+</mapper>

@@ -1,0 +1,4 @@
+Key,id,tableName,caption,description,ownerType,ownerKey,dictionarySourceId,dataUpdateStrategy,partitionFieldName,createDate,dictionarySourceType
+T1,-1,good_basic,流量转化表,,-1,-1,-1,3,,,-1
+T2,-2,flow_trans,商品基础表,,-2,-1,-1,3,,,-1
+T3,-3,goods_appraise,评论表,评论表,organization,-1,-1,-3,-1,,-1

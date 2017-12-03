@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../ehcache/ehcache.xsd">
+    <!--配置存储路径-->
+    <diskStore path="java.io.tmpdir/ehcache"/>
+
+    <!--本地文件缓存，只分配最大内存20M，过期时间30分钟，最大存储文件2G,内存策略采用LFU(最不常使用的)-->
+    <cache name="localFile"
+           maxBytesLocalDisk="2G"
+           maxBytesLocalHeap="20M"
+           memoryStoreEvictionPolicy="LFU"
+           timeToLiveSeconds="1800">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+</ehcache>

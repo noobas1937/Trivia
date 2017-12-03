@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.yunat.newbi</groupId>
+        <artifactId>newbi-parent</artifactId>
+        <version>4.1.1</version>
+    </parent>
+
+    <artifactId>newbi-web</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>New BI Web</name>
+    <description>
+        Shuyun New BI Web Project
+    </description>
+
+    <properties>
+        <enunciate.version>1.25</enunciate.version>
+        <jersey.version>1.11</jersey.version>
+        <repository2></repository2>
+
+    </properties>
+
+    <dependencies>
+        <!-- 项目引用 -->
+        <dependency>
+            <groupId>com.yunat.newbi</groupId>
+            <artifactId>newbi-olap</artifactId>
+            <version>3.1.5-SNAPSHOT</version>
+        </dependency>
+
+        <!-- common引用组件 -->
+        <dependency>
+            <groupId>commons-vfs</groupId>
+            <artifactId>commons-vfs</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
+        </dependency>
+
+        <!-- xml解析 -->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+
+        <!-- Spring modules -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- rest支持 -->
+        <dependency>
+            <groupId>org.codehaus.enunciate</groupId>
+            <artifactId>enunciate-jersey-rt</artifactId>
+            <version>${enunciate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey.contribs</groupId>
+            <artifactId>jersey-multipart</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.enunciate</groupId>
+            <artifactId>enunciate-rt</artifactId>
+            <version>${enunciate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.enunciate</groupId>
+            <artifactId>enunciate-spring3-app-rt</artifactId>
+            <version>${enunciate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jettison</groupId>
+            <artifactId>jettison</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- 数据库 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.32</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vertica</groupId>
+            <artifactId>vertica-jdbc</artifactId>
+            <version>7.0.2-1</version>
+        </dependency>
+
+        <!-- Batik/SVG -->
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-transcoder</artifactId>
+            <version>1.7</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis-ext</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-codec</artifactId>
+            <version>1.7</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-framework</artifactId>
+            <version>4.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>xmlgraphics-commons</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>4.2.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- taobao sdk调用 -->
+        <dependency>
+            <groupId>com.taobao.taobao-sdk</groupId>
+            <artifactId>taobao-sdk-java-auto</artifactId>
+            <version>1403750204352-20140626</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>1.8.5</version>
+        </dependency>
+
+        <!-- json -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+
+        <!-- servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey.jersey-test-framework</groupId>
+            <artifactId>jersey-test-framework-core</artifactId>
+            <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.grizzly</groupId>
+            <artifactId>grizzly-servlet-webserver</artifactId>
+            <version>1.9.18-i</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.5</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <finalName>ROOT</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <outputDirectory>${publish}</outputDirectory>
+                    <packagingExcludes>
+                        <!--editor/editor.pre.js,-->
+                        <!--editor/editor.framework.js,-->
+                        <!--editor/editor.widget.js,-->
+                        <!--editor/editor.widget.filter.js,-->
+                        <!--editor/editor.main.js-->
+                    </packagingExcludes>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true
+                            </addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true
+                            </addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.mybatis.maven</groupId>
+                <artifactId>migrations-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <skip>false</skip>
+					 <repository>${repository2}</repository>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>migration-chack</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>pending</goal>
+                        </goals>
+                        <configuration>
+                           <repository>${repository2}</repository>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.32</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis</artifactId>
+                        <version>${mybatis.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>ro.isdc.wro4j</groupId>-->
+                <!--<artifactId>wro4j-maven-plugin</artifactId>-->
+                <!--<version>1.7.5</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>wro4j</id>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<skip>false</skip>-->
+                    <!--&lt;!&ndash; 是否压缩，minimizedResource &ndash;&gt;-->
+                    <!--<minimize>true</minimize>-->
+                    <!--&lt;!&ndash; web资源目录，webSourceDirectory这个是自定义变量 &ndash;&gt;-->
+                    <!--<contextFolder>${basedir}/src/main/webapp/</contextFolder>-->
+                    <!--<wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory-->
+                    <!--</wroManagerFactory>-->
+                    <!--&lt;!&ndash; wro4j的配置文件，指定需要合并和压缩的文件 &ndash;&gt;-->
+                    <!--<wroFile>${basedir}/src/main/webapp/WEB-INF/wro.xml</wroFile>-->
+                    <!--&lt;!&ndash; wro4j的配置文件，指定压缩和合并工具的配置 &ndash;&gt;-->
+                    <!--<extraConfigFile>${basedir}/src/main/webapp/WEB-INF/wro.properties</extraConfigFile>-->
+                    <!--&lt;!&ndash; 处理后的css存放目录 &ndash;&gt;-->
+                    <!--<cssDestinationFolder>${basedir}/src/main/webapp/editor/</cssDestinationFolder>-->
+                    <!--&lt;!&ndash; 处理后的js存放目录 &ndash;&gt;-->
+                    <!--<jsDestinationFolder>${basedir}/src/main/webapp/editor/</jsDestinationFolder>-->
+                    <!--<ignoreMissingResources>false</ignoreMissingResources>-->
+                    <!--<failNever>false</failNever>-->
+                    <!--<failFast>false</failFast>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        </plugins>
+
+    </build>
+</project>

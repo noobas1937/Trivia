@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	   http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+    <!-- 这个配置文件和applicationContext.xml是处在不同的容器，所以需要重新配置属性文件 -->
+    <context:property-placeholder location="classpath*:conf/business.properties" ignore-unresolvable="true"/>
+
+    <context:component-scan base-package="com.ecnu.trivia" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <context:annotation-config/>
+
+    <!--配置Json自动转换-->
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="com.ecnu.trivia.web.common.param.GetRequestBodyArgumentResolver"/>
+        </mvc:argument-resolvers>
+        <mvc:message-converters>
+            <bean class="com.ecnu.trivia.common.component.web.mvc.message.FastJsonMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/*.html"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <bean class="com.ecnu.trivia.common.component.web.mvc.interceptor.MethodInjectInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/*.html"/>
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/session/**"/>
+            <bean class="com.ecnu.trivia.web.common.interceptor.SessionRequiredInterceptor">
+                <property name="mappingURL"
+                          value="^/trivia/(device|common|task|user|scenario)/.*$"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <mvc:default-servlet-handler/>
+
+    <!-- Rest异常处理,提供异常封装 -->
+    <bean id="handlerExceptionResolver"
+          class="com.ecnu.trivia.common.component.web.mvc.interceptor.ExceptionInterceptor"/>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--允许最大上传文件大小1G-->
+        <property name="maxUploadSize" value="1073741824"/>
+        <property name="maxInMemorySize" value="10240"/>
+    </bean>
+</beans>

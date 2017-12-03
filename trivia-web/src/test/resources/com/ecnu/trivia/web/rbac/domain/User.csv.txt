@@ -1,0 +1,5 @@
+Key,id,email,nickName,password,avatar,editFlag,createDate
+U1,-1,admin@iflym1.com,flym-admin,123456,null,false,"2014-12-12 12:12:12"
+U2,-2,www@iflym2.com,flym-www,111111,null,false,"2014-12-12 12:12:12"
+U3,-3,www@iflym3.com,flym-www,111111,null,false,"2014-12-12 12:12:12"
+U4,-4,www@iflym4.com,flym-www4,111111,null,false,"2014-12-12 12:12:12"

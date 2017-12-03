@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="newbi-common" parallel="false">
+    <test verbose="1" name="newbi-common" annotations="JDK">
+        <packages>
+            <package name="com.yunat.newbi.common.*">
+            </package>
+        </packages>
+    </test>
+</suite>
