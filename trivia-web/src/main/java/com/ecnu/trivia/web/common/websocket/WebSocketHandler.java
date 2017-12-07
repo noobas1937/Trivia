@@ -19,38 +19,39 @@ import java.util.List;
 public class WebSocketHandler extends TextWebSocketHandler {
 
     private static Logger logger = LoggerFactory.getLogger(SessionService.class);
-    /**存储在线用户 */
-    private final static List<WebSocketSession> SESSIONS = Collections.synchronizedList(new ArrayList<WebSocketSession>());
 
-    //消息处理
+    /**存储在线用户*/
+    private final static List<WebSocketSession> ONLINE_USER = Collections.synchronizedList(new ArrayList<WebSocketSession>());
+
+    /**消息处理*/
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         super.handleTextMessage(session, message);
     }
 
-    //连接建立后处理
+    /**连接建立后处理*/
     @SuppressWarnings("unchecked")
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        logger.info("session:"+session.getId()+" | connect to the websocket success......");
-        SESSIONS.add(session);
+        logger.debug("session:"+session.getId()+" | connect to the websocket success......");
+        ONLINE_USER.add(session);
     }
 
-    //抛出异常时处理
+    /**抛出异常时处理*/
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         if(session.isOpen()){
             session.close();
         }
-        logger.info("session:"+session.getId()+" | connection closed......");
-        SESSIONS.remove(session);
+        logger.debug("session:"+session.getId()+" | connection closed......");
+        ONLINE_USER.remove(session);
     }
 
-    //连接关闭后处理
+    /**连接关闭后处理*/
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        logger.info("session:"+session.getId()+" | connection closed......");
-        SESSIONS.remove(session);
+        logger.debug("session:"+session.getId()+" | connection closed......");
+        ONLINE_USER.remove(session);
     }
 
     @Override
