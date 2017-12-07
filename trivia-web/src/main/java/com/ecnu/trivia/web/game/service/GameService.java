@@ -11,6 +11,7 @@
 package com.ecnu.trivia.web.game.service;
 
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.web.game.domain.vo.RoomVO;
 import com.ecnu.trivia.web.game.mapper.RoomMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Service
@@ -28,15 +30,8 @@ public class GameService implements Logable{
     @Resource
     private RoomMapper roomMapper;
 
-    public User getUserByAccount(String account,String password){
-        User user = roomMapper.getUserByAccount(account,password);
-        user.setPassword("");
-        return user;
-    }
-
-    public User getUserById(Integer id){
-        User user = roomMapper.getUserById(id);
-        user.setPassword("");
-        return user;
+    public List<RoomVO> getRoomList(){
+        List<RoomVO> list = roomMapper.getRoomList();
+        return list;
     }
 }

@@ -25,7 +25,7 @@ public class QuestionService implements Logable{
 
     @Resource
     private RoomMapper roomMapper;
-
+/*
     public User getUserByAccount(String account,String password){
         User user = roomMapper.getUserByAccount(account,password);
         user.setPassword("");
@@ -37,4 +37,5 @@ public class QuestionService implements Logable{
         user.setPassword("");
         return user;
     }
+    */
 }

@@ -18,6 +18,7 @@ package com.ecnu.trivia.web.game.controller;
 
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.vo.RoomVO;
 import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserAccountVO;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/game", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,25 +46,10 @@ public class GameController {
     * @Author: Jack Chen
     * @Date: 16:29 2017/10/12
     */
-    @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Resp login(@RequestBody UserAccountVO userParam) {
-        if (ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
-            return new Resp(HttpRespCode.PARAM_ERROR);
-        }
-        User user = gameService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
-        if(ObjectUtils.isNullOrEmpty(user)){
-            return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
-        }
-        //加密用户资料并生成token
-        String subject = JwtUtils.generalSubject(user);
-        String token = null;
-        try {
-            token = JwtUtils.createJWT(Constants.JWT_ID, subject, Constants.JWT_TTL);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
-        }
-        return new Resp(HttpRespCode.SUCCESS, token);
+    @RequestMapping(value = "/room/list/", method = RequestMethod.GET)
+    public Resp getRoomList() {
+        List<RoomVO> list = gameService.getRoomList();
+        return new Resp(HttpRespCode.SUCCESS,list);
     }
 
     /**

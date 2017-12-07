@@ -40,39 +40,8 @@ public class QuestionController {
     protected GameService gameService;
 
     /**
-    * @Description: 登录
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
-    */
-    @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Resp login(@RequestBody UserAccountVO userParam) {
-        if (ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
-            return new Resp(HttpRespCode.PARAM_ERROR);
-        }
-        User user = gameService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
-        if(ObjectUtils.isNullOrEmpty(user)){
-            return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
-        }
-        //加密用户资料并生成token
-        String subject = JwtUtils.generalSubject(user);
-        String token = null;
-        try {
-            token = JwtUtils.createJWT(Constants.JWT_ID, subject, Constants.JWT_TTL);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
-        }
-        return new Resp(HttpRespCode.SUCCESS, token);
-    }
-
-    /**
-    * @Description: 登出
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
-    */
-    @RequestMapping(value = "/logout/", method = RequestMethod.GET)
-    public Resp logout(HttpSession session) {
-        session.invalidate();
-        return new Resp(HttpRespCode.SUCCESS);
-    }
+     * @Description: 登录
+     * @Author: Jack Chen
+     * @Date: 16:29 2017/10/12
+     */
 }

@@ -3,4 +3,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecnu.trivia.web.game.mapper.RoomMapper">
 
+    <select id="getRoomList" resultMap="RoomDataMap">
+        SELECT
+        r.id AS r_id,
+        r.room_name AS r_roomName,
+        r.status AS r_status,
+        r.gmt_created AS r_gmtCreated,
+        r.gmt_modified AS r_gmtModified,
+        p.id AS p_id,
+        p.user_id AS p_userId,
+        p.room_id AS p_roomId,
+        p.balance AS p_balance,
+        p.position AS p_position,
+        p.status AS p_status,
+        p.gmt_created AS p_gmtCreated,
+        p.gmt_modified AS p_gmtModified
+        FROM room AS r,player as p
+        WHERE r.id = p.room_id
+    </select>
+
+    <resultMap id="RoomDataMap" type="com.ecnu.trivia.web.game.domain.vo.RoomVO" >
+        <id property="id" column="r_id" />
+        <result property="roomName" column="r_roomName" />
+        <result property="status" column="r_status" />
+        <result property="gmtCreated" column="r_gmtCreated" />
+        <result property="gmtModified" column="r_gmtModified" />
+        <collection property="playerList" ofType="com.ecnu.trivia.web.game.domain.Player">
+            <id property="id" column="p_id" />
+            <result property="userId" column="p_userId" />
+            <result property="roomId" column="p_roomId" />
+            <result property="balance" column="p_balance" />
+            <result property="position" column="p_position" />
+            <result property="status" column="p_status" />
+            <result property="gmtCreated" column="p_gmtCreated" />
+            <result property="gmtModified" column="p_gmtModified" />
+        </collection>
+    </resultMap>
+
 </mapper>
