@@ -32,7 +32,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @SuppressWarnings("unchecked")
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        logger.debug("session:"+session.getId()+" | connect to the websocket success......");
+        logger.info("session:"+session.getId()+" | connect to the websocket success......");
         SESSIONS.add(session);
     }
 
@@ -42,14 +42,14 @@ public class WebSocketHandler extends TextWebSocketHandler {
         if(session.isOpen()){
             session.close();
         }
-        logger.debug("session:"+session.getId()+" | connection closed......");
+        logger.info("session:"+session.getId()+" | connection closed......");
         SESSIONS.remove(session);
     }
 
     //连接关闭后处理
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        logger.debug("session:"+session.getId()+" | connection closed......");
+        logger.info("session:"+session.getId()+" | connection closed......");
         SESSIONS.remove(session);
     }
 
