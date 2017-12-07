@@ -1,4 +1,4 @@
-package com.ecnu.trivia.web.game.domain;
+package com.ecnu.trivia.web.question.domain;
 
 import com.ecnu.trivia.common.component.domain.Column;
 import com.ecnu.trivia.common.component.domain.Domain;
@@ -8,17 +8,18 @@ import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
 
-public class Room extends Domain<Room>{
+/**
+ * 问题类型实体类
+ * @author Jack Chen
+ */
+public class QuestionType extends Domain<QuestionType> {
 
     @Id(generated = true)
     @Column(jdbcType = JdbcType.INTEGER)
     private Integer id;
 
-    @Column(value = "room_name", jdbcType = JdbcType.VARCHAR)
-    private String roomName;
-
-    @Column(value = "status", jdbcType = JdbcType.INTEGER)
-    private Integer status;
+    @Column(value = "name", jdbcType = JdbcType.VARCHAR)
+    private String name;
 
     @Column(value = "gmt_created", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtCreated;
@@ -26,7 +27,11 @@ public class Room extends Domain<Room>{
     @Column(value = "gmt_modified", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtModified;
 
-    public Room() {
+    public QuestionType() {
+    }
+
+    public QuestionType(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
@@ -37,20 +42,12 @@ public class Room extends Domain<Room>{
         this.id = id;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Timestamp getGmtCreated() {
@@ -71,11 +68,11 @@ public class Room extends Domain<Room>{
 
     @Override
     public Key key() {
-        return Key.of(id);
+        return null;
     }
 
     @Override
     public void clearKey() {
-        id = 0;
+
     }
 }

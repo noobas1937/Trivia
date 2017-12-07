@@ -8,17 +8,29 @@ import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
 
-public class Room extends Domain<Room>{
-
+/**
+ * 玩家实体类
+ * @author Jack Chen
+ */
+public class Player extends Domain<Player>{
     @Id(generated = true)
     @Column(jdbcType = JdbcType.INTEGER)
     private Integer id;
 
-    @Column(value = "room_name", jdbcType = JdbcType.VARCHAR)
-    private String roomName;
+    @Column(value = "user_id", jdbcType = JdbcType.INTEGER)
+    private Integer userId;
+
+    @Column(value = "room_id", jdbcType = JdbcType.INTEGER)
+    private Integer roomId;
+
+    @Column(value = "balance", jdbcType = JdbcType.INTEGER)
+    private Integer balance;
+
+    @Column(value = "position", jdbcType = JdbcType.INTEGER)
+    private Integer position;
 
     @Column(value = "status", jdbcType = JdbcType.INTEGER)
-    private Integer status;
+    private String status;
 
     @Column(value = "gmt_created", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtCreated;
@@ -26,7 +38,11 @@ public class Room extends Domain<Room>{
     @Column(value = "gmt_modified", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtModified;
 
-    public Room() {
+    public Player() {
+    }
+
+    public Player(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
@@ -37,19 +53,43 @@ public class Room extends Domain<Room>{
         this.id = id;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getStatus() {
+    public Integer getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
