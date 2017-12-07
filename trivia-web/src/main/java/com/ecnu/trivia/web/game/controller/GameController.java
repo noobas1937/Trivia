@@ -42,9 +42,9 @@ public class GameController {
     protected GameService gameService;
 
     /**
-    * @Description: 登录
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
+    * @Description: 获取房间列表
+    * @Author: Handsome Zhao
+    * @Date: 16:29 2017/12/7
     */
     @RequestMapping(value = "/room/list/", method = RequestMethod.GET)
     public Resp getRoomList() {
@@ -53,13 +53,16 @@ public class GameController {
     }
 
     /**
-    * @Description: 登出
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
-    */
-    @RequestMapping(value = "/logout/", method = RequestMethod.GET)
-    public Resp logout(HttpSession session) {
-        session.invalidate();
-        return new Resp(HttpRespCode.SUCCESS);
+     * @Description: 根据id号获取特定的房间
+     * @Author: Handsome Zhao
+     * @Date: 16:29 2017/12/7
+     */
+    @RequestMapping(value = "/room/detail/", method = RequestMethod.GET)
+    public Resp getRoomList(Integer roomId) {
+        RoomVO roomVO = gameService.getRoomById(roomId);
+        return new Resp(HttpRespCode.SUCCESS,roomVO);
     }
+
+
+
 }

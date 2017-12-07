@@ -34,4 +34,9 @@ public class GameService implements Logable{
         List<RoomVO> list = roomMapper.getRoomList();
         return list;
     }
+
+    public RoomVO getRoomById(Integer id){
+        RoomVO roomVO = roomMapper.getRoomById(id);
+        return roomVO;
+    }
 }

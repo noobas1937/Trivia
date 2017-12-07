@@ -18,8 +18,28 @@
         p.status AS p_status,
         p.gmt_created AS p_gmtCreated,
         p.gmt_modified AS p_gmtModified
-        FROM room AS r,player as p
-        WHERE r.id = p.room_id
+        FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
+    </select>
+
+
+
+    <select id="getRoomById" resultMap="RoomDataMap">
+        SELECT
+        r.id AS r_id,
+        r.room_name AS r_roomName,
+        r.status AS r_status,
+        r.gmt_created AS r_gmtCreated,
+        r.gmt_modified AS r_gmtModified,
+        p.id AS p_id,
+        p.user_id AS p_userId,
+        p.room_id AS p_roomId,
+        p.balance AS p_balance,
+        p.position AS p_position,
+        p.status AS p_status,
+        p.gmt_created AS p_gmtCreated,
+        p.gmt_modified AS p_gmtModified
+        FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
+        WHERE r.id = ${id}
     </select>
 
     <resultMap id="RoomDataMap" type="com.ecnu.trivia.web.game.domain.vo.RoomVO" >

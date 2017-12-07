@@ -24,4 +24,5 @@ import java.util.List;
 @Repository
 public interface RoomMapper extends Mapper<User> {
     List<RoomVO>  getRoomList();
+    RoomVO getRoomById(@Param("id")Integer id);
 }
