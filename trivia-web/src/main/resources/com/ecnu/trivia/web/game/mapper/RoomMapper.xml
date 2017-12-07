@@ -31,6 +31,18 @@
         LIMIT #{page.pageSize} OFFSET #{page.startIndex};
     </select>
 
+    <resultMap id="DeviceDataMap" type="com.terrui.tecloud.web.device.domain.vo.DeviceDataVO" >
+        <id property="id" column="id" />
+        <result property="value" column="value" />
+        <result property="gmtCreate" column="gmt_create" />
+        <association property="function" javaType="com.terrui.tecloud.web.device.domain.Function">
+            <id property="id" column="f_id" />
+            <result property="description" column="f_description" />
+            <result property="address" column="f_address" />
+            <result property="functionType" column="f_functionType" />
+            <result property="enable" column="f_enable" />
+        </association>
+    </resultMap>
     <select id="getDeviceDataByDeviceType" resultType="com.terrui.tecloud.web.device.domain.vo.DeviceDataListVO">
         SELECT
         t.id AS id,
