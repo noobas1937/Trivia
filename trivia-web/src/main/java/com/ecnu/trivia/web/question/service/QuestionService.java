@@ -18,24 +18,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
-
-@Service("sessionService")
+@Service
 public class QuestionService implements Logable{
 
     private static Logger logger = LoggerFactory.getLogger(QuestionService.class);
 
     @Resource
-    private RoomMapper userMapper;
+    private RoomMapper roomMapper;
 
     public User getUserByAccount(String account,String password){
-        User user = userMapper.getUserByAccount(account,password);
+        User user = roomMapper.getUserByAccount(account,password);
         user.setPassword("");
         return user;
     }
 
     public User getUserById(Integer id){
-        User user = userMapper.getUserById(id);
+        User user = roomMapper.getUserById(id);
         user.setPassword("");
         return user;
     }

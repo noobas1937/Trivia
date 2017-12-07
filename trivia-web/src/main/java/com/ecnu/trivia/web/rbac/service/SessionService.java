@@ -30,8 +30,11 @@ public class SessionService implements Logable{
 
     public User getUserByAccount(String account,String password){
         User user = userMapper.getUserByAccount(account,password);
-        user.setPassword("");
         return user;
+    }
+
+    public void setUserLastLogin(String account){
+        userMapper.setLastLogin(account);
     }
 
     public User getUserById(Integer id){

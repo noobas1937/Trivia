@@ -37,12 +37,12 @@ public class SessionController {
     protected SessionService sessionService;
 
     /**
-    * @Description: 登录
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
-    */
+     * @Description: 登录
+     * @Author: Lucto Zhang
+     * @Date: 20:30 2017/12/07
+     */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Resp login(@RequestBody UserAccountVO userParam) {
+    public Resp login(@RequestBody UserAccountVO userParam,HttpSession session) {
         if (ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
@@ -50,16 +50,9 @@ public class SessionController {
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
         }
-        //加密用户资料并生成token
-        String subject = JwtUtils.generalSubject(user);
-        String token = null;
-        try {
-            token = JwtUtils.createJWT(Constants.JWT_ID, subject, Constants.JWT_TTL);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
-        }
-        return new Resp(HttpRespCode.SUCCESS, token);
+        session.setAttribute("user",user);
+        sessionService.setUserLastLogin(userParam.getAccount());
+        return new Resp(HttpRespCode.SUCCESS);
     }
 
     /**
@@ -69,6 +62,17 @@ public class SessionController {
     */
     @RequestMapping(value = "/logout/", method = RequestMethod.GET)
     public Resp logout(HttpSession session) {
+        session.invalidate();
+        return new Resp(HttpRespCode.SUCCESS);
+    }
+
+    /**
+     * @Description: 注册
+     * @Author: Jack Chen
+     * @Date: 16:29 2017/10/12
+     */
+    @RequestMapping(value = "/register/", method = RequestMethod.GET)
+    public Resp register(HttpSession session,@RequestBody UserAccountVO userParam) {
         session.invalidate();
         return new Resp(HttpRespCode.SUCCESS);
     }

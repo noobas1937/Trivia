@@ -5,7 +5,7 @@
     <select id="getUserByAccount" resultType="com.ecnu.trivia.web.rbac.domain.User">
         SELECT *
         FROM user AS u
-        WHERE u.status = 1
+        WHERE u.status = 0
               AND u.account = #{account}
               AND u.password = MD5(#{password})
     </select>
@@ -15,6 +15,11 @@
         FROM user AS u
         WHERE u.status = 1
         AND u.id = ${id}
+    </select>
+
+    <select id="setLastLogin" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        UPDATE user SET last_login = NOW()
+        WHERE u.account = ${account}
     </select>
 
 </mapper>

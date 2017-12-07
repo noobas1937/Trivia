@@ -34,10 +34,10 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping(value = "/session", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QuestionController {
     @Resource
-    protected GameService sessionService;
+    protected GameService gameService;
 
     /**
     * @Description: 登录
@@ -49,7 +49,7 @@ public class QuestionController {
         if (ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        User user = sessionService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
+        User user = gameService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
         }

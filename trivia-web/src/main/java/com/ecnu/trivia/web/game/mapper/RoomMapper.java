@@ -14,12 +14,13 @@
 package com.ecnu.trivia.web.game.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
+import com.ecnu.trivia.web.game.domain.Room;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoomMapper extends Mapper<User> {
+public interface RoomMapper extends Mapper<Room> {
     User getUserByAccount(@Param("account") String account, @Param("password") String password);
 
     User getUserById(@Param("id") Integer id);
