@@ -1,9 +1,6 @@
 package com.ecnu.trivia.web.question.domain;
 
-import com.ecnu.trivia.common.component.domain.Column;
-import com.ecnu.trivia.common.component.domain.Domain;
-import com.ecnu.trivia.common.component.domain.Id;
-import com.ecnu.trivia.common.component.domain.Key;
+import com.ecnu.trivia.common.component.domain.*;
 import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
@@ -12,6 +9,7 @@ import java.sql.Timestamp;
  * 问题类型实体类
  * @author Jack Chen
  */
+@Table("question_type")
 public class QuestionType extends Domain<QuestionType> {
 
     @Id(generated = true)

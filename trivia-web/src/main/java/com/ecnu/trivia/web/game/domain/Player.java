@@ -1,9 +1,6 @@
 package com.ecnu.trivia.web.game.domain;
 
-import com.ecnu.trivia.common.component.domain.Column;
-import com.ecnu.trivia.common.component.domain.Domain;
-import com.ecnu.trivia.common.component.domain.Id;
-import com.ecnu.trivia.common.component.domain.Key;
+import com.ecnu.trivia.common.component.domain.*;
 import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
@@ -12,6 +9,7 @@ import java.sql.Timestamp;
  * 玩家实体类
  * @author Jack Chen
  */
+@Table("player")
 public class Player extends Domain<Player>{
     @Id(generated = true)
     @Column(jdbcType = JdbcType.INTEGER)
