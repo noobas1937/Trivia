@@ -22,4 +22,9 @@
         WHERE account = #{account}
     </select>
 
+    <select id="setUserRegisterInfo" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        INSERT INTO user (nick_name,head_pic,account,`password`,user_type,balance,status,last_login,gmt_created,gmt_modified)
+        VALUES (#{nickname},#{headpic},#{account},MD5(#{password}),0,100000,0,NOW(),NOW(),NOW())
+    </select>
+
 </mapper>

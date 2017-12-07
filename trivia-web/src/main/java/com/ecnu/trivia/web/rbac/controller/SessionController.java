@@ -20,6 +20,7 @@ import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserAccountVO;
+import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.JwtUtils;
 import com.ecnu.trivia.web.utils.Constants;
@@ -68,12 +69,17 @@ public class SessionController {
 
     /**
      * @Description: 注册
-     * @Author: Jack Chen
-     * @Date: 16:29 2017/10/12
+     * @Author: Lucto Zhang
+     * @Date: 22:24 2017/12/07
      */
-    @RequestMapping(value = "/register/", method = RequestMethod.GET)
-    public Resp register(HttpSession session,@RequestBody UserAccountVO userParam) {
-        session.invalidate();
+    @RequestMapping(value = "/register/", method = RequestMethod.POST)
+    public Resp register(HttpSession session, @RequestBody UserRegisterVO userParam) {
+        if (ObjectUtils.isNullOrEmpty(userParam.getNickname()) || ObjectUtils.isNullOrEmpty(userParam.getHeadpic()) || ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        sessionService.setUserRegisterInfo(userParam.getNickname(),userParam.getHeadpic(),userParam.getAccount(),userParam.getPassword());
+        User user = sessionService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
+        session.setAttribute("user",user);
         return new Resp(HttpRespCode.SUCCESS);
     }
 }

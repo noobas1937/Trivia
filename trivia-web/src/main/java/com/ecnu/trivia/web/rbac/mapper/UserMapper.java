@@ -25,4 +25,6 @@ public interface UserMapper extends Mapper<User> {
     User getUserById(@Param("id")Integer id);
 
     void setLastLogin(@Param("account")String account);
+
+    void setUserRegisterInfo(@Param("nickname")String nickname,@Param("headpic")String headpic,@Param("account")String account,@Param("password")String password);
 }

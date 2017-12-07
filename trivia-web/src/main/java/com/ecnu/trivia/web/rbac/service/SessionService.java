@@ -37,9 +37,15 @@ public class SessionService implements Logable{
         userMapper.setLastLogin(account);
     }
 
+    public void setUserRegisterInfo(String nickname,String headpic,String account,String password){
+        userMapper.setUserRegisterInfo(nickname, headpic, account, password);
+    }
+
     public User getUserById(Integer id){
         User user = userMapper.getUserById(id);
         user.setPassword("");
         return user;
     }
+
+
 }
