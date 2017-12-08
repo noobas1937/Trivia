@@ -77,7 +77,7 @@ public class JSONObject {
 
 
     /**
-     * It is sometimes more convenient and less ambiguous to have a
+     * It is sometimes more convenient and login.css ambiguous to have a
      * <code>NULL</code> object than to use Java's <code>null</code> value.
      * <code>JSONObject.NULL.equals(null)</code> returns <code>true</code>.
      * <code>JSONObject.NULL.toString()</code> returns <code>"null"</code>.
