@@ -57,26 +57,6 @@ public class SessionController {
     }
 
     /**
-     * @Description: 登录2
-     * @Author: Lucto Zhang
-     * @Date: 20:30 2017/12/07
-     */
-    @RequestMapping(value = "/login/{account}/{password}", method = RequestMethod.GET)
-    public Resp login(@PathVariable("account") String account,
-                      @PathVariable("password") String password,HttpSession session) {
-        if (ObjectUtils.isNullOrEmpty(account) || ObjectUtils.isNullOrEmpty(password)) {
-            return new Resp(HttpRespCode.PARAM_ERROR);
-        }
-        User user = sessionService.getUserByAccount(account,password);
-        if(ObjectUtils.isNullOrEmpty(user)){
-            return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
-        }
-        session.setAttribute(Constants.ONLINE_USER,user);
-        sessionService.setUserLastLogin(account);
-        return new Resp(HttpRespCode.SUCCESS);
-    }
-
-    /**
     * @Description: 登出
     * @Author: Jack Chen
     * @Date: 16:29 2017/10/12
