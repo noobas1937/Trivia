@@ -4,10 +4,10 @@
 <mapper namespace="com.ecnu.trivia.web.rbac.mapper.UserMapper">
     <select id="getUserByAccount" resultType="com.ecnu.trivia.web.rbac.domain.User">
         SELECT *
-        FROM user AS u
-        WHERE u.status = 1
-              AND u.account = #{account}
-              AND u.password = MD5(#{password})
+        FROM user
+        WHERE status = 0
+              AND account = #{account}
+              AND password = MD5(#{password})
     </select>
 
     <select id="getUserById" resultType="com.ecnu.trivia.web.rbac.domain.User">
@@ -15,6 +15,16 @@
         FROM user AS u
         WHERE u.status = 1
         AND u.id = ${id}
+    </select>
+
+    <select id="setLastLogin" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        UPDATE user SET last_login = NOW()
+        WHERE account = #{account}
+    </select>
+
+    <select id="setUserRegisterInfo" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        INSERT INTO user (nick_name,head_pic,account,`password`,user_type,balance,status,last_login,gmt_created,gmt_modified)
+        VALUES (#{nickname},#{headpic},#{account},MD5(#{password}),0,100000,0,NOW(),NOW(),NOW())
     </select>
 
 </mapper>

@@ -8,44 +8,34 @@
  *
  * @author Jack Chen
  */
-package com.ecnu.trivia.web.rbac.service;
+package com.ecnu.trivia.web.question.service;
 
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.web.game.mapper.RoomMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
-import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+@Service
+public class QuestionService implements Logable{
 
-
-@Service("sessionService")
-public class SessionService implements Logable{
-
-    private static Logger logger = LoggerFactory.getLogger(SessionService.class);
+    private static Logger logger = LoggerFactory.getLogger(QuestionService.class);
 
     @Resource
-    private UserMapper userMapper;
-
+    private RoomMapper roomMapper;
+/*
     public User getUserByAccount(String account,String password){
-        User user = userMapper.getUserByAccount(account,password);
-        return user;
-    }
-
-    public void setUserLastLogin(String account){
-        userMapper.setLastLogin(account);
-    }
-
-    public void setUserRegisterInfo(String nickname,String headpic,String account,String password){
-        userMapper.setUserRegisterInfo(nickname, headpic, account, password);
-    }
-
-    public User getUserById(Integer id){
-        User user = userMapper.getUserById(id);
+        User user = roomMapper.getUserByAccount(account,password);
         user.setPassword("");
         return user;
     }
 
-
+    public User getUserById(Integer id){
+        User user = roomMapper.getUserById(id);
+        user.setPassword("");
+        return user;
+    }
+    */
 }

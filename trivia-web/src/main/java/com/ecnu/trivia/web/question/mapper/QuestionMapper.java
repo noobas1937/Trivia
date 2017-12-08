@@ -11,7 +11,7 @@
  *
  * @author Jack Chen
  */
-package com.ecnu.trivia.web.rbac.mapper;
+package com.ecnu.trivia.web.question.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.rbac.domain.User;
@@ -19,12 +19,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserMapper extends Mapper<User> {
-    User getUserByAccount(@Param("account")String account,@Param("password")String password);
+public interface QuestionMapper extends Mapper<User> {
+    User getUserByAccount(@Param("account") String account, @Param("password") String password);
 
-    User getUserById(@Param("id")Integer id);
-
-    void setLastLogin(@Param("account")String account);
-
-    void setUserRegisterInfo(@Param("nickname")String nickname,@Param("headpic")String headpic,@Param("account")String account,@Param("password")String password);
+    User getUserById(@Param("id") Integer id);
 }

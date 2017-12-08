@@ -20,6 +20,7 @@ import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserAccountVO;
+import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.JwtUtils;
 import com.ecnu.trivia.web.utils.Constants;
@@ -37,12 +38,12 @@ public class SessionController {
     protected SessionService sessionService;
 
     /**
-    * @Description: 登录
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
-    */
+     * @Description: 登录
+     * @Author: Lucto Zhang
+     * @Date: 20:30 2017/12/07
+     */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Resp login(@RequestBody UserAccountVO userParam) {
+    public Resp login(@RequestBody UserAccountVO userParam,HttpSession session) {
         if (ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
@@ -50,16 +51,29 @@ public class SessionController {
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
         }
-        //加密用户资料并生成token
-        String subject = JwtUtils.generalSubject(user);
-        String token = null;
-        try {
-            token = JwtUtils.createJWT(Constants.JWT_ID, subject, Constants.JWT_TTL);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
+        session.setAttribute(Constants.ONLINE_USER,user);
+        sessionService.setUserLastLogin(userParam.getAccount());
+        return new Resp(HttpRespCode.SUCCESS);
+    }
+
+    /**
+     * @Description: 登录2
+     * @Author: Lucto Zhang
+     * @Date: 20:30 2017/12/07
+     */
+    @RequestMapping(value = "/login/{account}/{password}", method = RequestMethod.GET)
+    public Resp login(@PathVariable("account") String account,
+                      @PathVariable("password") String password,HttpSession session) {
+        if (ObjectUtils.isNullOrEmpty(account) || ObjectUtils.isNullOrEmpty(password)) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        return new Resp(HttpRespCode.SUCCESS, token);
+        User user = sessionService.getUserByAccount(account,password);
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
+        }
+        session.setAttribute(Constants.ONLINE_USER,user);
+        sessionService.setUserLastLogin(account);
+        return new Resp(HttpRespCode.SUCCESS);
     }
 
     /**
@@ -70,6 +84,22 @@ public class SessionController {
     @RequestMapping(value = "/logout/", method = RequestMethod.GET)
     public Resp logout(HttpSession session) {
         session.invalidate();
+        return new Resp(HttpRespCode.SUCCESS);
+    }
+
+    /**
+     * @Description: 注册
+     * @Author: Lucto Zhang
+     * @Date: 22:24 2017/12/07
+     */
+    @RequestMapping(value = "/register/", method = RequestMethod.POST)
+    public Resp register(HttpSession session, @RequestBody UserRegisterVO userParam) {
+        if (ObjectUtils.isNullOrEmpty(userParam.getNickname()) || ObjectUtils.isNullOrEmpty(userParam.getHeadpic()) || ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        sessionService.setUserRegisterInfo(userParam.getNickname(),userParam.getHeadpic(),userParam.getAccount(),userParam.getPassword());
+        User user = sessionService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
+        session.setAttribute(Constants.ONLINE_USER,user);
         return new Resp(HttpRespCode.SUCCESS);
     }
 }

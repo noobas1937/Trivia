@@ -15,6 +15,10 @@ import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
 
+/**
+ * 用户实体类
+ * @author Jack Chen
+ */
 @Table("user")
 public class User extends Domain<User>{
     /**
@@ -37,32 +41,36 @@ public class User extends Domain<User>{
     @Column(value = "password", jdbcType = JdbcType.VARCHAR)
     private String password;
 
-    @Column(value = "head_img", jdbcType = JdbcType.VARCHAR)
-    private String headImg;
+    @Column(value = "nick_name", jdbcType = JdbcType.VARCHAR)
+    private String nickName;
 
-    @Column(value = "user_type", jdbcType = JdbcType.INTEGER)
-    private int userType;
+    @Column(value = "head_pic", jdbcType = JdbcType.VARCHAR)
+    private String headPic;
 
-    @Column(value = "user_name", jdbcType = JdbcType.VARCHAR)
-    private String userName;
-
-    @Column(value = "mobile", jdbcType = JdbcType.VARCHAR)
-    private String mobile;
-
-    @Column(value = "company_id", jdbcType = JdbcType.INTEGER)
-    private int companyId;
+    @Column(value = "balance", jdbcType = JdbcType.INTEGER)
+    private Integer balance;
 
     @Column(value = "status", jdbcType = JdbcType.INTEGER)
-    private int status;
+    private Integer status;
+
+    @Column(value = "user_type", jdbcType = JdbcType.INTEGER)
+    private Integer userType;
 
     @Column(value = "last_login", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp lastLogin;
 
-    @Column(value = "gmt_create", jdbcType = JdbcType.TIMESTAMP)
-    private Timestamp gmtCreate;
+    @Column(value = "gmt_created", jdbcType = JdbcType.TIMESTAMP)
+    private Timestamp gmtCreated;
 
     @Column(value = "gmt_modified", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtModified;
+
+    public User() {
+    }
+
+    public User(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -88,44 +96,28 @@ public class User extends Domain<User>{
         this.password = password;
     }
 
-    public String getHeadImg() {
-        return headImg;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setHeadImg(String headImg) {
-        this.headImg = headImg;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public int getUserType() {
-        return userType;
+    public String getHeadPic() {
+        return headPic;
     }
 
-    public void setUserType(int userType) {
-        this.userType = userType;
+    public void setHeadPic(String headPic) {
+        this.headPic = headPic;
     }
 
-    public String getUserName() {
-        return userName;
+    public Integer getBalance() {
+        return balance;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public int getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     public int getStatus() {
@@ -136,6 +128,14 @@ public class User extends Domain<User>{
         this.status = status;
     }
 
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
+
     public Timestamp getLastLogin() {
         return lastLogin;
     }
@@ -144,12 +144,12 @@ public class User extends Domain<User>{
         this.lastLogin = lastLogin;
     }
 
-    public Timestamp getGmtCreate() {
-        return gmtCreate;
+    public Timestamp getGmtCreated() {
+        return gmtCreated;
     }
 
-    public void setGmtCreate(Timestamp gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public void setGmtCreated(Timestamp gmtCreated) {
+        this.gmtCreated = gmtCreated;
     }
 
     public Timestamp getGmtModified() {
@@ -158,14 +158,6 @@ public class User extends Domain<User>{
 
     public void setGmtModified(Timestamp gmtModified) {
         this.gmtModified = gmtModified;
-    }
-
-    public User() {
-        super();
-    }
-
-    public User(Integer id) {
-        this.id = id;
     }
 
     /**
