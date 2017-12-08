@@ -3,18 +3,18 @@
 
 <head lang="en">
     <meta charset="UTF-8">
-    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+    <!--<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>-->
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <title>webSocket-用户66</title>
+    <title>webSocket</title>
     <script type="text/javascript">
         $(function() {
             var websocket;
             if('WebSocket' in window) {
                 console.log("此浏览器支持websocket");
-                websocket = new WebSocket("ws://127.0.0.1:8080/trivia/websocket/");
+                websocket = new WebSocket("ws://localhost:8080/trivia/websocket/");
             } else if('MozWebSocket' in window) {
                 alert("此浏览器只支持MozWebSocket");
             } else {
@@ -55,8 +55,8 @@
     <div class="input-group">
         <input type="text" class="form-control" placeholder="发送信息..." id="message">
         <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" id="send" >发送</button>
-                </span>
+            <button class="btn btn-default" type="button" id="send" >发送</button>
+        </span>
     </div>
 </div>
 </body>
