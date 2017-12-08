@@ -31,7 +31,7 @@
 
     <context:load-time-weaver/>
 
-    <bean id="websocket" class="com.ecnu.trivia.web.common.websocket.WebSocketHandler"/>
+    <!--<bean id="websocket" class="com.ecnu.trivia.web.common.websocket.WebSocketHandler"/>-->
 
     <!-- 加载bean end -->
 
