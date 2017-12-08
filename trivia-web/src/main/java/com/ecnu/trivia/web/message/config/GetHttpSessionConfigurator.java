@@ -12,7 +12,7 @@ import javax.websocket.server.ServerEndpointConfig.Configurator;
  * 重写配置文件，以获取HTTPSession
  * @author Jack Chen
  */
-public class GetHttpSessionConfigurator extends Configurator {
+public class GetHttpSessionConfigurator extends ServerEndpointConfig.Configurator {
 
     @Override
     public void modifyHandshake(ServerEndpointConfig sec,
