@@ -112,11 +112,9 @@ Character.prototype.onmove = function () {
           /* document.getElementById('question').style.display='block';*/
 
            document.getElementById('light').style.display='block';
+            document.getElementById('fade').innerHTML=map[i][j];
             document.getElementById('fade').style.display='block';
-            document.getElementById('ques').innerHTML=map[i][j];
-            document.getElementById('ques').style.display='block';
-            document.getElementById('money').innerHTML=map[i][j];
-            document.getElementById('money').style.display='block';
+
 
 
         }
