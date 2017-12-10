@@ -17,11 +17,12 @@ function checklogin() {
     }
     $.ajax({
         type: "POST",
-        url: "http://localhost/trivia/session/login/",
-        data: {
+        url: "http://localhost:8080/trivia/session/login/",
+        data: JSON.stringify({
             account : $("#username").val(),
             password : $("#userpwd").val()
-        },
+        }),
+        contentType: "application/json; charset=utf-8",
         success: function (data) {
             console.log(data);
             if (data == "200") {
