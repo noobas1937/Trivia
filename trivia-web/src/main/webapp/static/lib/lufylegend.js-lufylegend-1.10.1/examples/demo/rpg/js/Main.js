@@ -212,12 +212,15 @@ function addChara(){
 	}
 }
 var count=0;
+
 function ondown(event){
 	//根据点击位置，判断移动方向
+
+
 	if(event.offsetX >= ctrlLayer.x + 40 && event.offsetX <= ctrlLayer.x+80){
 		if(event.offsetY >= ctrlLayer.y && event.offsetY <= ctrlLayer.y+40){
 			player.changeDir(UP);
-			count++;
+            count++;
 
 		}else if(event.offsetY >= ctrlLayer.y+80 && event.offsetY <= ctrlLayer.y+120){
 			player.changeDir(DOWN);
@@ -236,7 +239,7 @@ function ondown(event){
 		}
 	}
 
-    document.getElementsById('1').style.display='block';
+
 	isKeyDown = true;
 }
 function onup(event){

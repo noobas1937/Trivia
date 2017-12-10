@@ -109,14 +109,21 @@ Character.prototype.onmove = function () {
             self.move = false;
            var i=(self.x-8)/32;
            var j=(self.y)/32;
-          /* document.getElementById('question').style.display='block';*/
 
            document.getElementById('light').style.display='block';
             document.getElementById('fade').style.display='block';
-            document.getElementById('ques').innerHTML=map[i][j];
-            document.getElementById('ques').style.display='block';
             document.getElementById('money').innerHTML=map[i][j];
             document.getElementById('money').style.display='block';
+
+            document.getElementById('ques').innerHTML=map[i][j];
+            document.getElementById('ques').style.display='block';
+            var btn=document.getElementById('quit');
+            btn.onclick= function () {
+                document.getElementById('light').style.display='none';
+                count=0;
+            }
+
+
 
 
         }
