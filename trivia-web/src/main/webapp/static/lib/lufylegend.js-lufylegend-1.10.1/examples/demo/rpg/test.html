@@ -1,22 +1,49 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>LIGHTBOX EXAMPLE</title>
-    <style>
-        .black_overlay{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;
-            background-color: black;  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }
-        .white_content {  display: none;  position: absolute;  top: 25%;  left: 25%;  width: 50%;
-            height: 50%;  padding: 16px;  border: 16px solid orange;  background-color: white;  z-index:1002;
-            overflow: auto;  }  </style>
+    <meta charset="UTF-8">
+    <title>CSS3实现折角效果</title>
+    <link href="./css/border.css" rel="stylesheet" type="text/css" >
+    <style media="screen">
+
+    </style>
 </head>
 <body>
-<p>可以根据自己要求修改css样式<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
-document.getElementById('fade').style.display='block'">点击这里打开窗口</a></p>
-<div id="light" class="white_content">
-
-    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
-        Close</a></div>
-<div id="fade" class="black_overlay">
+<p class="title">
+    不需要纯色背景的CSS3折角实现
+</p>
+<div class="wrapper">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+        sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
 </div>
+
+<div class="container">
+    <h2>使用Bootstrap创建模态框</h2>
+    <div id="example" class="modal hide fade in" style="display: none; ">
+        <div class="modal-header">
+            <a class="close" data-dismiss="modal">×</a>
+            <h3>这是一个模态框标题</h3>
+        </div>
+        <div class="modal-body">
+            <h4>模态框中的文本</h4>
+            <p>你可以在这添加一些文本。</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-success">唤醒活动</a>
+            <a href="#" class="btn" data-dismiss="modal">关闭</a>
+        </div>
+    </div>
+    <p><a data-toggle="modal" href="#example" class="btn btn-primary btn-large">发动演示模态框</a></p>
+</div>
+<script src=""></script>
+<script src="/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-modal.js"></script>
+<br>
+
 </body>
 </html>
-

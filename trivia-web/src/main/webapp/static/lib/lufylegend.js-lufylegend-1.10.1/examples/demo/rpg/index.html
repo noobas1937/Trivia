@@ -5,8 +5,12 @@
 <title>trivia</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+    <link href="./css/border.css" rel="stylesheet" type="text/css" >
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">-->
+    <link href="css/component.css" rel="stylesheet">
     <script type="text/javascript" src="../load_lufylegend.js"></script>
     <script type="text/javascript" src="./js/Main.js"></script>
+    <script type="text/javascript" src="./js/btn.js"></script>
     <script type="text/javascript" src="./js/Character.js"></script>
     <script type="text/javascript" src="http://www.aspku.com/ajaxjs/jquery-1.9.1.min.js"></script>
     <script type="text/css" src="./css/touzi.css"></script>
@@ -64,40 +68,87 @@
         });
     </script>
 </head>
-<body style="margin:-120px 0px 0px 0px;padding:0px 0px 0px 0px;overflow:hidden;" >
-
+<body style="overflow:hidden">
+<div style="margin:-120px 0px 0px 0px;padding:0px 0px 0px 0px;" >
 <div id="mylegend">loading……</div>
+        <h2 class="top_title"></h2>
+        <div class="demo">
+            <div class="wrap">
+                <p><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
+                document.getElementById('fade').style.display='block';document.getElementById('ques').style.display='block'
+                      document.getElementById('money').style.display='block'" >点击这里打开窗口</a></p>
+                <div id="btn" >
+                    <button>click</button>
 
-<div id="1" >
+                </div>
+               <div id="dice" class="dice dice_1"></div>
+                <div id="light" class="white_content">
 
 
-    <h2 class="top_title"></h2>
-    <div class="demo">
-        <div class="wrap">
-            <p><a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
-            document.getElementById('fade').style.display='block';document.getElementById('ques').style.display='block'
-                  document.getElementById('money').style.display='block'" >点击这里打开窗口</a></p>
-            <div id="btn" >
-                <button>click</button>
+                <div id="fade" class="black_overlay">
+                    <div id="ques"  style="background-color: black;display: none;position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 50%;
+               ;  z-index:1003;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80); "></div>
+                    <div id="money" style="display: none;position: absolute;  top: 50%;  left: 0%;  width: 100%;  height: 30%;
+               ;  z-index:1003 ;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80); ">
+                        <div id="ans" style="height:200px">
+                            <div id="ques1"></div>
+                            <div id="ques2"></div>
+                            <div id="ques3"></div>
+                            <div id="ques4"></div>
+                        </div>
+                        <div style="position: absolute;top:80%">
+                            <div style="position: absolute;height:120px;color:black">我的选择是：</div>
 
+                            <div id="chose_button" style="top:90%;">
+                                <td><button a href="javascript:;"style="float: left;margin-left:100px" id="A1" class="md-trigger btn btn-primary btn-sm" data-modal="modal-4">
+                                    A</button></td>
+                                <td><button a href="javascript:;" id="B1" class="md-trigger btn btn-primary btn-sm" data-modal="modal-4">
+                                    B</button></td>
+                                <td><button a href="javascript:;" id="C1" class="md-trigger btn btn-primary btn-sm" data-modal="modal-4">
+                                    C</button></td>
+                                <td><button a href="javascript:;" id="D1" class="md-trigger btn btn-primary btn-sm" data-modal="modal-4">
+                                    D</button></td>
+
+                              <!--  <button id="A" style="float: left;margin-left:100px" value="A">A</button>
+                                <button id="B" style="float: left;" value="B">B</button>
+                                <button id="C" style="float: left;" value="C">C</button>
+                                <button id="D" style="float: left;" value="D">D</button>-->
+                            </div>
+                        </div>
+                      <div>  <button id="ok"  style="position: absolute;  margin-top:50px;top: 90%;  left: 45%;
+               ;  z-index:1004 ;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80); "
+                                >OK</button>
+                      </div>
+                    </div>
+
+                </div>
             </div>
-           <div id="dice" class="dice dice_1"></div>
-            <div id="light" class="white_content">
 
-
-            <div id="fade" class="black_overlay">
-                <div id="ques"  style="background-color: black;display: none;position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 50%;
-           ;  z-index:1003;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80); "></div>
-                <div id="money" style="background-color: yellow;display: none;position: absolute;  top: 50%;  left: 0%;  width: 100%;  height: 30%;
-           ;  z-index:1003 ;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80); "></div>
-                <button id="quit"  style="position: absolute;  top: 70%;  left: 0%;
-           ;  z-index:1004 ;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80); " onclick="document.getElementById('light').style.display='none'">quit</button>
-            </div>
         </div>
 
     </div>
+    <div style="background-color: green;z-index:1005;float:right;width:400px;height:1200px;margin-top:-130px;">
+        <button  id="stand" style="left:1000px;top:500px;position: absolute">stand by</button>
+        <button  id="tui" style="left:1200px;top:500px;position: absolute">quit</button>
 
+    </div>
 </div>
+<!--<div id="res" class="wrapper" style="">哈哈哈-->
+   <!-- <td><a href="javascript:;" id="A1" class="md-trigger btn btn-primary btn-sm" data-modal="modal-4">-->
+        Show Me</a></td>
+</div>
+<div class="md-modal md-effect-4" id="modal-4">
+    <div class="md-content">
+        <h3>Modal Dialog</h3>
+        <div>
+            <p>This is a modal window. You can do the following things with it:</p>
+
+            <button class="md-close btn-sm btn-primary">Close me!</button>
+        </div>
+    </div>
 </div>
 </body>
+<script type="text/javascript" src="./js/btn.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/modalEffects.js"></script>
 </html>

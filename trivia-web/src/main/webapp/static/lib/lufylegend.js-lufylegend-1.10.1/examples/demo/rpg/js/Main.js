@@ -235,7 +235,7 @@ function ondown(event){
 	}else if(event.offsetX >= ctrlLayer.x+80 && event.offsetX <= ctrlLayer.x+120){
 		if(event.offsetY >= ctrlLayer.y +40 && event.offsetY <= ctrlLayer.y+80){
 			player.changeDir(RIGHT);
-            count++;
+            count();
 		}
 	}
 

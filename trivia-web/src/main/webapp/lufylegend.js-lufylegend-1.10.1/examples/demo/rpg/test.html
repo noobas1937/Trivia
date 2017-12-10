@@ -1,22 +1,32 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>LIGHTBOX EXAMPLE</title>
-    <style>
-        .black_overlay{  display: none;  position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;
-            background-color: black;  z-index:1001;  -moz-opacity: 0.8;  opacity:.80;  filter: alpha(opacity=80);  }
-        .white_content {  display: none;  position: absolute;  top: 25%;  left: 25%;  width: 50%;
-            height: 50%;  padding: 16px;  border: 16px solid orange;  background-color: white;  z-index:1002;
-            overflow: auto;  }  </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link href="css/component.css" rel="stylesheet">
 </head>
 <body>
-<p>可以根据自己要求修改css样式<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';
-document.getElementById('fade').style.display='block'">点击这里打开窗口</a></p>
-<div id="light" class="white_content">
 
-    <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">
-        Close</a></div>
-<div id="fade" class="black_overlay">
+<tr>
+    <td class="middle-align">Newspaper</td>
+    <td><a href="javascript:;" class="md-trigger btn btn-primary btn-sm" data-modal="modal-4">Show Me</a></td>
+</tr>
+<div class="md-modal md-effect-4" id="modal-4">
+    <div class="md-content">
+        <h3>Modal Dialog</h3>
+        <div>
+            <p>This is a modal window. You can do the following things with it:</p>
+            <ul>
+                <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
+                <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+                <li><strong>Close:</strong> click on the button below to close the modal.</li>
+            </ul>
+            <button class="md-close btn-sm btn-primary">Close me!</button>
+        </div>
+    </div>
 </div>
 </body>
+<script src="js/classie.js"></script>
+<script src="js/modalEffects.js"></script>
 </html>
-
