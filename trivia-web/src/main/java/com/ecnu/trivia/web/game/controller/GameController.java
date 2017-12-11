@@ -29,10 +29,12 @@ public class GameController {
      */
     @RequestMapping(value = "/ready/{isReady}}", method = RequestMethod.GET)
     public Resp isReady(@PathVariable("isReady")Integer ready, HttpSession session) {
-        User user = (User) session.getAttribute(Constants.ONLINE_USER);
-        if (!ObjectUtils.isNullOrEmpty(user)) {
-            int userId = user.getId();
-            gameService.isReady(userId, ready);
+        if(ready == Constants.PLAYER_READY || ready == Constants.PLAYER_WAITING) {
+            User user = (User) session.getAttribute(Constants.ONLINE_USER);
+            if (!ObjectUtils.isNullOrEmpty(user)) {
+                int userId = user.getId();
+                gameService.isReady(userId, ready);
+            }
         }
         return new Resp(HttpRespCode.SUCCESS);
     }
