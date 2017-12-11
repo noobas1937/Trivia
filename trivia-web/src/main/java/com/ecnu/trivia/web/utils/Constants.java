@@ -27,6 +27,13 @@ public class Constants {
 	public static final int ACCOUNT_ADMIN = 1;
 	public static final int ACCOUNT_DELETE = -1;
 
+	/**房间参数定义*/
+	public static Integer ROOM_ENTER = 0;
+	public static Integer ROOM_EXIT = 0;
+
+	/**系统环境变量定义*/
+	public static final int MAX_PLAYER_COUNT = 4;
+
 	/**
 	 * jwt
 	 */

@@ -73,6 +73,7 @@ public enum HttpRespCode implements Serializable {
     OPERATE_IS_NOT_ALLOW("403", "当前操作不被允许"),
     FILE_NOT_EXIST("404", "文件不存在！"),
     DATA_NOT_EXIST("404", "数据不存在"),
+    ROOM_FULL("405", "房间人数已满"),
     FILE_TYPE_NOT_MATCH("415", "上传文件类型不匹配"),
     FILE_CONTENT_EMPTY("415", "上传文件内容为空！"),
 

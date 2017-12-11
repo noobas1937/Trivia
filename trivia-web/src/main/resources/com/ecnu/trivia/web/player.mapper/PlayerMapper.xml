@@ -3,11 +3,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecnu.trivia.web.game.mapper.PlayerMapper">
 
-    <select id="isReady" resultType="com.ecnu.trivia.web.game.domain.Player">
+    <update id="isReady">
         UPDATE player
         SET status = ${isReady}
         WHERE user_id = ${userId}
+    </update>
+    
+    <select id="getPlayerCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM player WHERE room_id = ${roomID}
     </select>
+
+    <insert id="addPlayer">
+        INSERT INTO player (user_id, room_id, balance, position, status, gmt_created, gmt_modified)
+                VALUES (${userID},${roomID},0,0,0,NOW(),NOW())
+    </insert>
+
+    <delete id="removePlayer">
+        DELETE FROM player WHERE user_id=${userID}
+    </delete>
 
 
 </mapper>

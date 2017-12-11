@@ -17,13 +17,14 @@
 package com.ecnu.trivia.web.room.controller;
 
 import com.ecnu.trivia.common.component.web.HttpRespCode;
+import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -54,6 +55,20 @@ public class RoomController {
     public Resp getRoomList(Integer roomId) {
         RoomVO roomVO = roomService.getRoomById(roomId);
         return new Resp(HttpRespCode.SUCCESS,roomVO);
+    }
+
+    @RequestMapping(value = "/type/", method = RequestMethod.GET)
+    public Resp editPlayerRoom(@RequestParam("isEnter") Integer isEnter,
+                               @RequestParam("roomId") Integer roomId) {
+        if(ObjectUtils.isNullOrEmpty(isEnter)
+                ||ObjectUtils.isNullOrEmpty(roomId)){
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        User user = UserUtils.fetchUser();
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        }
+        return roomService.editPlayerRoom(roomId,user.getId(),isEnter);
     }
 
 }
