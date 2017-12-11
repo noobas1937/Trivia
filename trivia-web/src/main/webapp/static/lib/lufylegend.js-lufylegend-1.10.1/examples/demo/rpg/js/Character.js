@@ -39,7 +39,7 @@ var num;
  **/
 function clickthis(num1){
     num=num1;
-    alert(num);
+
 }
 /**
  * 循环事件 
@@ -70,8 +70,8 @@ Character.prototype.onframe = function (){
  * 计算人所在的地图板块
  */
 function pos(x,y) {
-	var X=x/65;
-	var Y=y/65;
+	var X=x/64;
+	var Y=y/64;
     var pos=new Array(X,Y);
 }
 
@@ -122,14 +122,15 @@ Character.prototype.onmove = function () {
 
         if (count > num) {
         	self.move = false;
-           var i=(self.x-8)/65;
-           var j=(self.y)/65;
-            document.getElementById('light').style.display='block';
+
+           var i=(self.x-8)/64;
+           var j=(self.y)/64;
+            /*document.getElementById('lighalert(map[i][j]);t').style.display='block';*/
             document.getElementById('fade').style.display='block';
-            document.getElementById('ques').innerHTML=map[i][j];
+            document.getElementById('ques').innerHTML=self.x;
             document.getElementById('ques').style.display='block';
 
-            document.getElementById('money').style.display='block';
+            /*document.getElementById('money').style.display='block';*/
            /*document.getElementById('light').style.display='block';
             document.getElementById('fade').style.display='block';
 
@@ -298,13 +299,13 @@ Character.prototype.checkMap = function (dir){
 			break;
 		case RIGHT:
 			if(self.x < 5000 - 2*STEP)break;
-			if(975 - mapLayer.x >= map[0].length*STEP)break;
+			if(960- mapLayer.x >= map[0].length*STEP)break;
 			addMap(1,0);
 			mapmove = false;
 			break;
 		case DOWN:
 			if(self.y < 3000 - 2*STEP)break;
-			if(650 - mapLayer.y >= map.length*STEP)break;
+			if(640- mapLayer.y >= map.length*STEP)break;
 			addMap(0,1);
 			mapmove = false;
 			break;

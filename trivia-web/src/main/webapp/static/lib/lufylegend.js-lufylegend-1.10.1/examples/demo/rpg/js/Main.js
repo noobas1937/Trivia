@@ -5,7 +5,7 @@
  * @email lufy.legend@gmail.com
  **/
 
-init(50,"mylegend",975,1080,main);
+init(50,"mylegend",1024,1080,main);
 /**层变量*/
 //显示进度条所用层
 var loadingLayer;
@@ -28,7 +28,7 @@ var LEFT = 1;
 var RIGHT = 2;
 var UP = 3;
 //人物每次移动的距离，相当于地图上每一块的长度
-var STEP =65;
+var STEP =64;
 //点击状态
 var isKeyDown = false;
 //地图滚动
@@ -147,7 +147,7 @@ function initMap(){
 		//地图图片数据
 		bitmapdata = new LBitmapData(imglist["map"]);
 		//将地图图片拆分，得到拆分后的各个小图片的坐标数组
-		imageArray = LGlobal.divideCoordinate(bitmapdata.image.width,bitmapdata.image.height,65,65);
+		imageArray = LGlobal.divideCoordinate(bitmapdata.image.width,bitmapdata.image.height,64,64);
 	}
 }
 //添加地图
@@ -168,7 +168,7 @@ function addMap(cx,cy){
 			//小图片的横坐标
 			indexX = index - indexY*10;
 			//得到小图片
-			bitmapdata = new LBitmapData(imglist["map"],indexX*65,indexY*65,65,65);
+			bitmapdata = new LBitmapData(imglist["map"],indexX*64,indexY*64,64,64);
 			bitmap = new LBitmap(bitmapdata);
 			//设置小图片的显示位置
 			bitmap.x = j*STEP - mapLayer.x;
@@ -206,8 +206,8 @@ function addChara(){
 			bitmapdata = new LBitmapData(imglist[charaObj.img]);
 			chara = new Character(false,i,bitmapdata,4,4);
 		}
-		chara.x = charaObj.x * 65;
-		chara.y = charaObj.y * 65;
+		chara.x = charaObj.x * 64;
+		chara.y = charaObj.y * 64;
 		charaLayer.addChild(chara);
 	}
 }

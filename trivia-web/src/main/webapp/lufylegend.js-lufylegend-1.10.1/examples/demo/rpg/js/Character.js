@@ -30,7 +30,7 @@ function Character(isHero,index,data,row,col,speed){
 	//在一个移动步长中的移动次数设定
 	self.moveIndex = 0;
 };
-var num;
+var  num;
 /**
  * 循环事件 
  **/
@@ -107,12 +107,12 @@ Character.prototype.onmove = function () {
 
         if (count > num) {
             self.move = false;
-           var i=(self.x-8)/32;
-           var j=(self.y)/32;
+           var i=(self.x-8)/64;
+           var j=(self.y)/64;
           /* document.getElementById('question').style.display='block';*/
 
-           document.getElementById('light').style.display='block';
-            document.getElementById('fade').innerHTML=map[i][j];
+
+            document.getElementById('ques').innerHTML=map[i][j];
             document.getElementById('fade').style.display='block';
 
 

@@ -8,6 +8,10 @@
        btn.onclick = function () {
 
        };
+
+
+
+
        var score=0;
         var ok_btn=document.getElementById('ok');
         var chose_btn=document.getElementById('chose_button');
@@ -24,7 +28,7 @@
                }
                else
                {
-                   show.innerHTML="you are closed into prisin";
+                   show.innerHTML="you are closed into prisin"+num;
                    self.prisin=false;
 
                }
