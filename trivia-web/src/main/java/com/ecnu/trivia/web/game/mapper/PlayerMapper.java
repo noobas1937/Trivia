@@ -1,7 +1,7 @@
 package com.ecnu.trivia.web.game.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
-import com.ecnu.trivia.web.room.domain.Player;
+import com.ecnu.trivia.web.game.domain.Player;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

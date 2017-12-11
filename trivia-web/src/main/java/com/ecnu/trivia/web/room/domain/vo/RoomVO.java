@@ -1,6 +1,6 @@
 package com.ecnu.trivia.web.room.domain.vo;
 
-import com.ecnu.trivia.web.room.domain.Player;
+import com.ecnu.trivia.web.game.domain.Player;
 
 import java.sql.Timestamp;
 import java.util.List;

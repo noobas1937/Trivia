@@ -1,4 +1,4 @@
-package com.ecnu.trivia.web.room.domain;
+package com.ecnu.trivia.web.game.domain;
 
 import com.ecnu.trivia.common.component.domain.*;
 import org.apache.ibatis.type.JdbcType;
