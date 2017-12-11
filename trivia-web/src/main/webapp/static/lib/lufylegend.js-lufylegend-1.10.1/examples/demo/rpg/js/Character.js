@@ -10,8 +10,11 @@
 function Character(isHero,index,data,row,col,speed){
 	base(this,LSprite,[]);
 	var self = this;
+	self.a=0;
 	self.isHero = isHero;
 	self.index = index;
+	//人物是否在监狱中
+	self.prisin=true;
 	//设定人物动作速度
 	self.speed = speed==null?3:speed;
 	self.speedIndex = 0;
@@ -32,19 +35,6 @@ function Character(isHero,index,data,row,col,speed){
 };
 var num;
 /**
- * 循环事件 
- **/
-Character.prototype.onframe = function (){
-	var self = this;
-	//人物动作速度控制
-	if(self.speedIndex++ < self.speed)return;
-	self.speedIndex = 0;
-	//当人物可移动，则开始移动
-	if(self.move)self.onmove();
-	//人物动画播放
-	self.anime.onframe();
-};
-/**
  * 传递骰子点数
  **/
 function clickthis(num1){
@@ -52,11 +42,36 @@ function clickthis(num1){
     alert(num);
 }
 /**
+ * 循环事件 
+ **/
+
+Character.prototype.onframe = function (){
+	a=num%2;
+	var self = this;
+	//人物动作速度控制
+	if(self.speedIndex++ < self.speed)return;
+	self.speedIndex = 0;
+	//当人物可移动，则开始移动
+
+    if(self.move){
+
+    	self.onmove();
+    }
+
+
+
+	/*if(self.move||(a&&!self.move))self.onmove();*/
+
+	//人物动画播放
+	self.anime.onframe();
+};
+
+/**
  * 计算人所在的地图板块
  */
 function pos(x,y) {
-	var X=x/32;
-	var Y=y/32
+	var X=x/65;
+	var Y=y/65;
     var pos=new Array(X,Y);
 }
 
@@ -106,22 +121,46 @@ Character.prototype.onmove = function () {
     self.moveIndex++;
 
         if (count > num) {
-            self.move = false;
-           var i=(self.x-8)/32;
-           var j=(self.y)/32;
-
-           document.getElementById('light').style.display='block';
+        	self.move = false;
+           var i=(self.x-8)/65;
+           var j=(self.y)/65;
+            document.getElementById('light').style.display='block';
             document.getElementById('fade').style.display='block';
-            document.getElementById('money').innerHTML=map[i][j];
-            document.getElementById('money').style.display='block';
-
             document.getElementById('ques').innerHTML=map[i][j];
             document.getElementById('ques').style.display='block';
-            var btn=document.getElementById('quit');
+
+            document.getElementById('money').style.display='block';
+           /*document.getElementById('light').style.display='block';
+            document.getElementById('fade').style.display='block';
+
+            document.getElementById('money').style.display='block';
+
+            document.getElementById('ques').style.display='block';*/
+            var btn=document.getElementById('close');
             btn.onclick= function () {
-                document.getElementById('light').style.display='none';
                 count=0;
+
             }
+            /*var chose_btn=document.getElementById('chose_button');
+            var res=document.getElementById('');
+            chose_btn.onclick=function (event){
+                document.getElementById('light').style.display='none';
+                //冒泡处理
+                var id = event.target.id;
+                var show=document.getElementById('neirong');
+                if(id.indexOf('A1')){
+                    score++;
+                    show.innerHTML="you win"+"now your score is"+score;
+                    self.move=true;
+                }
+                else
+                {
+                    show.innerHTML="you are closed into prisin";
+                    self.move=false;
+
+                }
+
+            }*/
 
 
 
@@ -142,6 +181,12 @@ Character.prototype.onmove = function () {
             self.direction = self.direction_next;
             self.anime.setAction(self.direction);
         }
+        if(isKeyDown&&!self.prisin&&!self.a)
+		{
+			self.move = false;
+            return;
+
+		}
         //如果已经松开移动键，或者前方为障碍物，则停止移动，否则继续移动
         if(!isKeyDown || !self.checkRoad()){
             self.move = false;
@@ -253,13 +298,13 @@ Character.prototype.checkMap = function (dir){
 			break;
 		case RIGHT:
 			if(self.x < 5000 - 2*STEP)break;
-			if(480 - mapLayer.x >= map[0].length*STEP)break;
+			if(975 - mapLayer.x >= map[0].length*STEP)break;
 			addMap(1,0);
 			mapmove = false;
 			break;
 		case DOWN:
 			if(self.y < 3000 - 2*STEP)break;
-			if(288 - mapLayer.y >= map.length*STEP)break;
+			if(650 - mapLayer.y >= map.length*STEP)break;
 			addMap(0,1);
 			mapmove = false;
 			break;

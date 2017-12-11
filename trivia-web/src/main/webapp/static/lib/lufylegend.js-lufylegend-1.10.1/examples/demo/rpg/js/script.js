@@ -133,7 +133,7 @@ function checkJump(){
 	var jumpstage;
 	for(var i=0;i<jump.length;i++){
 		jumpstage = jump[0];
-		if(player.x == jumpstage.at.x * 32 && player.y == jumpstage.at.y * 32){
+		if(player.x == jumpstage.at.x * 65 && player.y == jumpstage.at.y * 65){
 			//获取该场景脚本数据
 			stage = script[jumpstage.to];
 			//开始跳转
