@@ -22,5 +22,35 @@
         DELETE FROM player WHERE user_id=${userID}
     </delete>
 
+    <select id="getPlayerIdByUserId" resultType="java.lang.Integer">
+        SELECT
+        p.id
+        FROM
+        player AS p
+        WHERE
+        p.user_id = ${userID}
+    </select>
+
+    <select id="getRoomCurrentPlayerIdByPlayerId" resultType="java.lang.Integer">
+        SELECT
+        g.current_player_id
+        FROM
+        player AS p,room AS r,game AS g
+        WHERE
+        p.room_id = r.id AND r.id = g.room_id AND p.id = ${playerID}
+    </select>
+
+    <select id="getPlayerStatusByPlayerId" resultType="java.lang.Integer">
+        SELECT
+        p.status
+        FROM
+        player AS p
+        WHERE
+        p.id = ${playerID}
+    </select>
+
+    <select id="getQuestionCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM question
+    </select>
 
 </mapper>

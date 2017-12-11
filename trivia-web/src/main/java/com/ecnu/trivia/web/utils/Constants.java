@@ -21,6 +21,14 @@ public class Constants {
 	/**玩家状态定义*/
 	public static final int PLAYER_WAITING = 0;
 	public static final int PLAYER_READY = 1;
+	public static final int PLAYER_GAMING_FREE = 2;
+	public static final int PLAYER_GAMING_HOLD = 3;
+
+	/**游戏状态定义*/
+	public static final int GAME_READY = 0;
+	public static final int GAME_DICE_RESULT = 1;
+	public static final int GAME_ANSWERING_QUESTION = 2;
+	public static final int GAME_ANSWER_QUESTION_RESULT = 3;
 
 	/**账户状态定义*/
 	public static final int ACCOUNT_NORMAL = 0;

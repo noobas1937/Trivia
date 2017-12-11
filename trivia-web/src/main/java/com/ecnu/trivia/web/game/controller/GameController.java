@@ -38,4 +38,18 @@ public class GameController {
         }
         return new Resp(HttpRespCode.SUCCESS);
     }
+
+    /**
+     * @Description: 用户掷骰子
+     * @Author: Handsome Zhao
+     * @Date: 20:05 2017/12/11
+     */
+    @RequestMapping(value = "/playing/roll", method = RequestMethod.POST)
+    public Resp rollDice(HttpSession session) {
+        User user = (User) session.getAttribute(Constants.ONLINE_USER);
+        if(!ObjectUtils.isNullOrEmpty(user)){
+            String result = gameService.rollDice(user.getId());
+        }
+        return new Resp(HttpRespCode.LENGTH_REQUIRED);
+    }
 }
