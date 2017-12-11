@@ -14,6 +14,7 @@ import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * WebSocket 通讯器
@@ -23,8 +24,10 @@ import org.slf4j.LoggerFactory;
 public class WebSocketCommunicator {
     private static Logger logger = LoggerFactory.getLogger(WebSocketCommunicator.class);
 
-    private static Map<Integer, WebSocketCommunicator> ONLINE_USER = new HashMap<>();
+    /**全局唯一，用户列表*/
+    public static Map<Integer, WebSocketCommunicator> ONLINE_USER = new HashMap<>();
 
+    /**每个类私有的属性，每个在线用户都拥有一个*/
     private HttpSession httpSession;
     private Session session;
     private User user;
@@ -50,7 +53,7 @@ public class WebSocketCommunicator {
             logger.info("当前用户id:{}已有其他终端登录",id);
             session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT,"已有其他终端登录"));
         }else {
-            logger.info("当前用户id:{}终端登录",id);
+            logger.info("用户id:{}登录",id);
             ONLINE_USER.put(id, this);
         }
         logger.info("当前在线用户数为：{}",ONLINE_USER.size());
@@ -102,11 +105,12 @@ public class WebSocketCommunicator {
     }
 
     /**
-     * 向所有用户发送消息
+     * 向用户发送消息
      * @param message 发送的消息
      */
-    public void sendMessageToUser(String message){
-        for (WebSocketCommunicator communicator : ONLINE_USER.values()) {
+    public void sendMessageToUser(String message,Integer userId){
+        WebSocketCommunicator communicator = ONLINE_USER.get(userId);
+        if (ObjectUtils.isNullOrEmpty(communicator)) {
             try {
                 communicator.session.getBasicRemote().sendText(message);
                 logger.info(" 给用户id为：{}的终端发送消息：{}",communicator.user.getId(),message);
