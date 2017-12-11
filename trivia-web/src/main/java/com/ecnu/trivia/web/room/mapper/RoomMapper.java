@@ -11,10 +11,10 @@
  *
  * @author Jack Chen
  */
-package com.ecnu.trivia.web.game.mapper;
+package com.ecnu.trivia.web.room.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
-import com.ecnu.trivia.web.game.domain.vo.RoomVO;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

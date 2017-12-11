@@ -14,24 +14,46 @@
  *
  *   @author Jack Chen
  */
-package com.ecnu.trivia.web.question.controller;
+package com.ecnu.trivia.web.room.controller;
 
+import com.ecnu.trivia.common.component.web.HttpRespCode;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_VALUE)
-public class QuestionController {
+@RequestMapping(value = "/room", produces = MediaType.APPLICATION_JSON_VALUE)
+public class RoomController {
     @Resource
     protected RoomService roomService;
 
     /**
-     * @Description: 登录
-     * @Author: Jack Chen
-     * @Date: 16:29 2017/10/12
+    * @Description: 获取房间列表
+    * @Author: Handsome Zhao
+    * @Date: 16:29 2017/12/7
+    */
+    @RequestMapping(value = "/list/", method = RequestMethod.GET)
+    public Resp getRoomList() {
+        List<RoomVO> list = roomService.getRoomList();
+        return new Resp(HttpRespCode.SUCCESS,list);
+    }
+
+    /**
+     * @Description: 根据id号获取特定的房间
+     * @Author: Handsome Zhao
+     * @Date: 16:29 2017/12/7
      */
+    @RequestMapping(value = "/detail/", method = RequestMethod.GET)
+    public Resp getRoomList(Integer roomId) {
+        RoomVO roomVO = roomService.getRoomById(roomId);
+        return new Resp(HttpRespCode.SUCCESS,roomVO);
+    }
+
 }

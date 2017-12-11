@@ -32,7 +32,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping(value = "/session", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/session", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 public class SessionController {
     @Resource
     protected SessionService sessionService;
@@ -51,6 +51,7 @@ public class SessionController {
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
         }
+        user.setPassword("");
         session.setAttribute(Constants.ONLINE_USER,user);
         sessionService.setUserLastLogin(userParam.getAccount());
         return new Resp(HttpRespCode.SUCCESS);
@@ -82,4 +83,16 @@ public class SessionController {
         session.setAttribute(Constants.ONLINE_USER,user);
         return new Resp(HttpRespCode.SUCCESS);
     }
+
+    /**
+     * @Description: 从Session获取当前用户信息
+     * @Author: Lucto Zhang
+     * @Date: 15:14 2017/12/11
+     */
+    @RequestMapping(value = "/getUserInfo/", method = RequestMethod.GET)
+    public User getUserInfo(HttpSession session) {
+        User user = (User)session.getAttribute(Constants.ONLINE_USER);
+        return user;
+    }
+
 }

@@ -1,31 +1,17 @@
-package com.ecnu.trivia.web.game.domain;
+package com.ecnu.trivia.web.room.domain.vo;
 
-import com.ecnu.trivia.common.component.domain.*;
-import org.apache.ibatis.type.JdbcType;
+import com.ecnu.trivia.web.room.domain.Player;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-@Table("room")
-public class Room extends Domain<Room>{
-
-    @Id(generated = true)
-    @Column(jdbcType = JdbcType.INTEGER)
+public class RoomVO {
     private Integer id;
-
-    @Column(value = "room_name", jdbcType = JdbcType.VARCHAR)
     private String roomName;
-
-    @Column(value = "status", jdbcType = JdbcType.INTEGER)
-    private Integer status;
-
-    @Column(value = "gmt_created", jdbcType = JdbcType.TIMESTAMP)
+    private String status;
     private Timestamp gmtCreated;
-
-    @Column(value = "gmt_modified", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtModified;
-
-    public Room() {
-    }
+    private List<Player> playerList;
 
     public Integer getId() {
         return id;
@@ -43,11 +29,11 @@ public class Room extends Domain<Room>{
         this.roomName = roomName;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -67,13 +53,11 @@ public class Room extends Domain<Room>{
         this.gmtModified = gmtModified;
     }
 
-    @Override
-    public Key key() {
-        return Key.of(id);
+    public List<Player> getPlayerList() {
+        return playerList;
     }
 
-    @Override
-    public void clearKey() {
-        id = 0;
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 }

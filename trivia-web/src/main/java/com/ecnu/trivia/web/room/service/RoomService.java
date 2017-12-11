@@ -8,33 +8,34 @@
  *
  * @author Jack Chen
  */
-package com.ecnu.trivia.web.question.service;
+package com.ecnu.trivia.web.room.service;
 
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-@Service
-public class QuestionService implements Logable{
+import java.util.List;
 
-    private static Logger logger = LoggerFactory.getLogger(QuestionService.class);
+
+@Service
+public class RoomService implements Logable{
+
+    private static Logger logger = LoggerFactory.getLogger(RoomService.class);
 
     @Resource
     private RoomMapper roomMapper;
-/*
-    public User getUserByAccount(String account,String password){
-        User user = roomMapper.getUserByAccount(account,password);
-        user.setPassword("");
-        return user;
+
+    public List<RoomVO> getRoomList(){
+        List<RoomVO> list = roomMapper.getRoomList();
+        return list;
     }
 
-    public User getUserById(Integer id){
-        User user = roomMapper.getUserById(id);
-        user.setPassword("");
-        return user;
+    public RoomVO getRoomById(Integer id){
+        RoomVO roomVO = roomMapper.getRoomById(id);
+        return roomVO;
     }
-    */
 }

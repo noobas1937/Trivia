@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ecnu.trivia.web.game.mapper.RoomMapper">
+<mapper namespace="com.ecnu.trivia.web.room.mapper.RoomMapper">
 
     <select id="getRoomList" resultMap="RoomDataMap">
         SELECT
@@ -42,13 +42,13 @@
         WHERE r.id = ${id}
     </select>
 
-    <resultMap id="RoomDataMap" type="com.ecnu.trivia.web.game.domain.vo.RoomVO" >
+    <resultMap id="RoomDataMap" type="com.ecnu.trivia.web.room.domain.vo.RoomVO" >
         <id property="id" column="r_id" />
         <result property="roomName" column="r_roomName" />
         <result property="status" column="r_status" />
         <result property="gmtCreated" column="r_gmtCreated" />
         <result property="gmtModified" column="r_gmtModified" />
-        <collection property="playerList" ofType="com.ecnu.trivia.web.game.domain.Player">
+        <collection property="playerList" ofType="com.ecnu.trivia.web.room.domain.Player">
             <id property="id" column="p_id" />
             <result property="userId" column="p_userId" />
             <result property="roomId" column="p_roomId" />
