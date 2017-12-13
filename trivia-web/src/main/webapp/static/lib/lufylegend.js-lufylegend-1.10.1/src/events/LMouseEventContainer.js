@@ -81,7 +81,7 @@
  * 		trace("onmouseOther object : " + object + "(" + object.objectIndex + ")");
  * 		trace("onmouseOther object == event.currentTarget : " + (object == event.currentTarget), "");
  * 	}
- * @examplelink <p><a href="../../../api/LMouseEventContainer/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LMouseEventContainer/1.html" target="_blank">Try it »</a></p>
  * @public
  */
 /** @language japanese
@@ -124,7 +124,7 @@
  * 		trace("onmouseOther object : " + object + "(" + object.objectIndex + ")");
  * 		trace("onmouseOther object == event.currentTarget : " + (object == event.currentTarget), "");
  * 	}
- * @examplelink <p><a href="../../../api/LMouseEventContainer/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LMouseEventContainer/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LMouseEventContainer = (function () {
@@ -655,7 +655,7 @@ var LMouseEventContainer = (function () {
 		 * 		var bitmap = new LBitmap(bitmapdata);
 		 * 		addChild(bitmap);
 		 * 	}
-		 * @examplelink <p><a href="../../../api/LMouseEventContainer/index.html" target="_blank">测试链接</a></p>
+		 * @examplelink <p><a href="../../../api/LMouseEventContainer/1.html" target="_blank">测试链接</a></p>
 		 * @public
 		 * @since 1.8.5
 		 */
@@ -687,7 +687,7 @@ var LMouseEventContainer = (function () {
 		 * 		var bitmap = new LBitmap(bitmapdata);
 		 * 		addChild(bitmap);
 		 * 	}
-		 * @examplelink <p><a href="../../../api/LMouseEventContainer/index.html" target="_blank">Try it »</a></p>
+		 * @examplelink <p><a href="../../../api/LMouseEventContainer/1.html" target="_blank">Try it »</a></p>
 		 * @public
 		 * @since 1.8.5
 		 */
@@ -719,7 +719,7 @@ var LMouseEventContainer = (function () {
 		 * 		var bitmap = new LBitmap(bitmapdata);
 		 * 		addChild(bitmap);
 		 * 	}
-		 * @examplelink <p><a href="../../../api/LMouseEventContainer/index.html" target="_blank">実際のサンプルを見る</a></p>
+		 * @examplelink <p><a href="../../../api/LMouseEventContainer/1.html" target="_blank">実際のサンプルを見る</a></p>
 		 * @public
 		 * @since 1.8.5
 		 */

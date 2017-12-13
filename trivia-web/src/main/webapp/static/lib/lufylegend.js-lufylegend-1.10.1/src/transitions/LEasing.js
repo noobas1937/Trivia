@@ -35,7 +35,7 @@
  * @class LEasing
  * @constructor
  * @since 1.4.0
- * @examplelink <p><a href="../../../api/LEasing/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LEasing/1.html" target="_blank">Try it »</a></p>
  * @public
  */
 /** @language japanese
@@ -55,7 +55,7 @@
  * @class LEasing
  * @constructor
  * @since 1.4.0
- * @examplelink <p><a href="../../../api/LEasing/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LEasing/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LEasing = {

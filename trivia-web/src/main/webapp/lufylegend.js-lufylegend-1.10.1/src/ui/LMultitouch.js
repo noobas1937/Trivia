@@ -203,7 +203,7 @@
  * 			backLayer.addChild(title);
  * 		}
  * 	}
- * @examplelink <p><a href="../../../api/LMultitouch/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LMultitouch/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LMultitouch = function () {throw "LMultitouch cannot be instantiated";};

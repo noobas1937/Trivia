@@ -81,7 +81,7 @@
  * 		trace("onmouseOther object : " + object + "(" + object.objectIndex + ")");
  * 		trace("onmouseOther object == event.currentTarget : " + (object == event.currentTarget), "");
  * 	}
- * @examplelink <p><a href="../../../api/LMouseEvent/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LMouseEvent/1.html" target="_blank">Try it »</a></p>
  * @public
  */
 /** @language japanese
@@ -124,7 +124,7 @@
  * 		trace("onmouseOther object : " + object + "(" + object.objectIndex + ")");
  * 		trace("onmouseOther object == event.currentTarget : " + (object == event.currentTarget), "");
  * 	}
- * @examplelink <p><a href="../../../api/LMouseEvent/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LMouseEvent/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LMouseEvent = function (){throw "LMouseEvent cannot be instantiated";};

@@ -28,7 +28,7 @@
  * 		addChild(shape);
  * 		shape.graphics.drawRect(2, "#ff0000", [10, 10, 50, 100], true, "#880088");
  * 	}
- * @examplelink <p><a href="../../../api/LGraphics/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LGraphics/1.html" target="_blank">Try it »</a></p>
  * @since 1.0.0
  * @public
  */
@@ -45,7 +45,7 @@
  * 		addChild(shape);
  * 		shape.graphics.drawRect(2, "#ff0000", [10, 10, 50, 100], true, "#880088");
  * 	}
- * @examplelink <p><a href="../../../api/LGraphics/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LGraphics/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.0.0
  * @public
  */

@@ -51,7 +51,7 @@ var LLoader = (function () {
 	 * 		var bitmap = new LBitmap(bitmapdata);
 	 * 		addChild(bitmap);
 	 * 	}
-	 * @examplelink <p><a href="../../../api/LLoader/index.html" target="_blank">测试链接</a></p>
+	 * @examplelink <p><a href="../../../api/LLoader/1.html" target="_blank">测试链接</a></p>
 	 * @public
 	 * @since 1.0.0
 	 */
@@ -76,7 +76,7 @@ var LLoader = (function () {
 	 * 		var bitmap = new LBitmap(bitmapdata);
 	 * 		addChild(bitmap);
 	 * 	}
-	 * @examplelink <p><a href="../../../api/LLoader/index.html" target="_blank">Try it »</a></p>
+	 * @examplelink <p><a href="../../../api/LLoader/1.html" target="_blank">Try it »</a></p>
 	 * @public
 	 * @since 1.0.0
 	 */
@@ -101,7 +101,7 @@ var LLoader = (function () {
 	 * 		var bitmap = new LBitmap(bitmapdata);
 	 * 		addChild(bitmap);
 	 * 	}
-	 * @examplelink <p><a href="../../../api/LLoader/index.html" target="_blank">実際のサンプルを見る</a></p>
+	 * @examplelink <p><a href="../../../api/LLoader/1.html" target="_blank">実際のサンプルを見る</a></p>
 	 * @public
 	 * @since 1.0.0
 	 */

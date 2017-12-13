@@ -33,7 +33,7 @@
  * 	function timerHandler(e){
  * 		trace("timerHandler: " + event);
  * 	}
- * @examplelink <p><a href="../../../api/LTimerEvent/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LTimerEvent/1.html" target="_blank">Try it »</a></p>
  * @public
  */
 /** @language japanese
@@ -52,7 +52,7 @@
  * 	function timerHandler(e){
  * 		trace("timerHandler: " + event);
  * 	}
- * @examplelink <p><a href="../../../api/LTimerEvent/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LTimerEvent/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LTimerEvent = function (){throw "LTimerEvent cannot be instantiated";};

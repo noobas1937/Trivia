@@ -24,7 +24,7 @@
  * 	var img = new LBitmap(new LBitmapData(dataList["img"]));
  * 	imgLayer.addChild(img);
  * 	img.blendMode = LBlendMode.LIGHTER;
- * @examplelink <p><a href="../../../api/LBlendMode/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LBlendMode/1.html" target="_blank">Try it »</a></p>
  * @since 1.8.0
  * @public
  */
@@ -39,7 +39,7 @@
  * 	var img = new LBitmap(new LBitmapData(dataList["img"]));
  * 	imgLayer.addChild(img);
  * 	img.blendMode = LBlendMode.LIGHTER;
- * @examplelink <p><a href="../../../api/LBlendMode/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LBlendMode/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.8.0
  * @public
  */

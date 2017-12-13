@@ -60,7 +60,7 @@
  * 	function onframe(){
  * 		player.onframe();
  * 	}
- * @examplelink <p><a href="../../../api/LAnimation/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LAnimation/1.html" target="_blank">Try it »</a></p>
  * @since 1.3.1
  * @public
  */
@@ -93,7 +93,7 @@
  * 	function onframe(){
  * 		player.onframe();
  * 	}
- * @examplelink <p><a href="../../../api/LAnimation/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LAnimation/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.3.1
  * @public
  */

@@ -22,7 +22,7 @@
  * 	webview.setViewPort(new LRectangle(100,10,600,400));
  * 	webview.loadURL("http://www.lufylegend.com");
  * 	webview.show();
- * @examplelink <p><a href="../../../api/LStageWebView/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LStageWebView/1.html" target="_blank">Try it »</a></p>
  * @since 1.7.2
  * @public
  */
@@ -36,7 +36,7 @@
  * 	webview.setViewPort(new LRectangle(100,10,600,400));
  * 	webview.loadURL("http://www.lufylegend.com");
  * 	webview.show();
- * @examplelink <p><a href="../../../api/LStageWebView/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LStageWebView/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.7.2
  * @public
  */

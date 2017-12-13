@@ -52,7 +52,7 @@ var LURLLoader = (function () {
 	 * 		trace(event.currentTarget.data == event.target);//true
 	 * 		trace("event.target = " + event.target);
 	 * 	}
-	 * @examplelink <p><a href="../../../api/LURLLoader/index.html" target="_blank">测试链接</a></p>
+	 * @examplelink <p><a href="../../../api/LURLLoader/1.html" target="_blank">测试链接</a></p>
 	 * @public
 	 * @since 1.0.0
 	 */
@@ -75,7 +75,7 @@ var LURLLoader = (function () {
 	 * 		trace(event.currentTarget.data == event.target);//true
 	 * 		trace("event.target = " + event.target);
 	 * 	}
-	 * @examplelink <p><a href="../../../api/LURLLoader/index.html" target="_blank">Try it »</a></p>
+	 * @examplelink <p><a href="../../../api/LURLLoader/1.html" target="_blank">Try it »</a></p>
 	 * @public
 	 * @since 1.0.0
 	 */
@@ -98,7 +98,7 @@ var LURLLoader = (function () {
 	 * 		trace(event.currentTarget.data == event.target);//true
 	 * 		trace("event.target = " + event.target);
 	 * 	}
-	 * @examplelink <p><a href="../../../api/LURLLoader/index.html" target="_blank">実際のサンプルを見る</a></p>
+	 * @examplelink <p><a href="../../../api/LURLLoader/1.html" target="_blank">実際のサンプルを見る</a></p>
 	 * @public
 	 * @since 1.0.0
 	 */

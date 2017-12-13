@@ -60,7 +60,7 @@
  * 		bitmap2.x = 200;
  * 		addChild(bitmap2);
  * 	}
- * @examplelink <p><a href="../../../api/LBitmapData/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LBitmapData/1.html" target="_blank">Try it »</a></p>
  * @since 1.0.0
  * @public
  */
@@ -93,7 +93,7 @@
  * 		bitmap2.x = 200;
  * 		addChild(bitmap2);
  * 	}
- * @examplelink <p><a href="../../../api/LBitmapData/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LBitmapData/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.0.0
  * @public
  */

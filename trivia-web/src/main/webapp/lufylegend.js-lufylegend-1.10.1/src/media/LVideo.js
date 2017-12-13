@@ -56,7 +56,7 @@
  * 		backLayer.addChild(layer);
  * 		video.play();
  * 	}
- * @examplelink <p><a href="../../../api/LVideo/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LVideo/2.html" target="_blank">Try it »</a></p>
  * @since 1.6.0
  * @public
  */
@@ -87,7 +87,7 @@
  * 		backLayer.addChild(layer);
  * 		video.play();
  * 	}
- * @examplelink <p><a href="../../../api/LVideo/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LVideo/2.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.6.0
  * @public
  */

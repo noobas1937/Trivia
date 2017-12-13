@@ -59,7 +59,7 @@
  * 	function keypress (e) {
  * 		trace("keypress e.keyCode = " + e.keyCode);
  * 	}
- * @examplelink <p><a href="../../../api/LKeyboardEvent/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LKeyboardEvent/1.html" target="_blank">Try it »</a></p>
  * @public
  */
 /** @language japanese
@@ -91,7 +91,7 @@
  * 	function keypress (e) {
  * 		trace("keypress e.keyCode = " + e.keyCode);
  * 	}
- * @examplelink <p><a href="../../../api/LKeyboardEvent/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LKeyboardEvent/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LKeyboardEvent = function () {throw "LKeyboardEvent cannot be instantiated";};

@@ -28,7 +28,7 @@
  * 		addChild(shape);
  * 		shape.graphics.drawRect(2, "#ff0000", [10, 10, 50, 100], true, "#880088");
  * 	}
- * @examplelink <p><a href="../../../api/LShape/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LShape/1.html" target="_blank">Try it »</a></p>
  * @since 1.8.5
  * @public
  */
@@ -45,7 +45,7 @@
  * 		addChild(shape);
  * 		shape.graphics.drawRect(2, "#ff0000", [10, 10, 50, 100], true, "#880088");
  * 	}
- * @examplelink <p><a href="../../../api/LShape/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LShape/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.8.5
  * @public
  */

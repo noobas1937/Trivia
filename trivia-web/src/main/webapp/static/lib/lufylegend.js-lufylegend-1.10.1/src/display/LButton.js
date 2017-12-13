@@ -34,7 +34,7 @@
  * 	var bitmapOver = new LBitmap(bitmapDataOver);
  * 	var button02 = new LButton(bitmapUp,bitmapOver);
  * 	backLayer.addChild(button02);
- * @examplelink <p><a href="../../../api/LButton/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LButton/1.html" target="_blank">Try it »</a></p>
  * @since 1.0.0
  * @public
  */
@@ -54,7 +54,7 @@
  * 	var bitmapOver = new LBitmap(bitmapDataOver);
  * 	var button02 = new LButton(bitmapUp,bitmapOver);
  * 	backLayer.addChild(button02);
- * @examplelink <p><a href="../../../api/LButton/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LButton/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.0.0
  * @public
  */

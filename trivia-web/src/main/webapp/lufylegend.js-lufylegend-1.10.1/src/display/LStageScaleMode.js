@@ -40,7 +40,7 @@
  * 		var bitmap = new LBitmap(bitmapdata);
  * 		addChild(bitmap);
  * 	}
- * @examplelink <p><a href="../../../api/LStageScaleMode/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LStageScaleMode/1.html" target="_blank">Try it »</a></p>
  * @since 1.8.0
  * @public
  */
@@ -63,7 +63,7 @@
  * 		var bitmap = new LBitmap(bitmapdata);
  * 		addChild(bitmap);
  * 	}
- * @examplelink <p><a href="../../../api/LStageScaleMode/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LStageScaleMode/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.8.0
  * @public
  */

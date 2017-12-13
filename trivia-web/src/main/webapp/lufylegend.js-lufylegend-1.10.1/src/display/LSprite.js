@@ -34,7 +34,7 @@
  * 		var bm = new LBitmap(bmd);
  * 		layer.addChild(bm);
  * 	}
- * @examplelink <p><a href="../../../api/LSprite/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LSprite/1.html" target="_blank">Try it »</a></p>
  * @since 1.0.0
  * @public
  */
@@ -54,7 +54,7 @@
  * 		var bm = new LBitmap(bmd);
  * 		layer.addChild(bm);
  * 	}
- * @examplelink <p><a href="../../../api/LSprite/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LSprite/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.0.0
  * @public
  */

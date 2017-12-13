@@ -782,7 +782,7 @@ var LIris = (function() {
  * @class LTransitionManager
  * @constructor
  * @param {LDisplayObject} displayObject 要应用过渡效果的对象。
- * @examplelink <p><a href="../../../api/LTransitionManager/index.html" target="_blank">测试链接</a></p>
+ * @examplelink <p><a href="../../../api/LTransitionManager/1.html" target="_blank">测试链接</a></p>
  * @since 1.8.0
  * @public
  */

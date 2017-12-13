@@ -32,7 +32,7 @@
  * 	addChild(bitmap);
  * 	var shadow = new LDropShadowFilter(5,45,"#000000");
  * 	bitmap.filters = [shadow];
- * @examplelink <p><a href="../../../api/LDropShadowFilter/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LDropShadowFilter/1.html" target="_blank">Try it »</a></p>
  * @since 1.6.0
  * @public
  */
@@ -51,7 +51,7 @@
  * 	addChild(bitmap);
  * 	var shadow = new LDropShadowFilter(5,45,"#000000");
  * 	bitmap.filters = [shadow];
- * @examplelink <p><a href="../../../api/LDropShadowFilter/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LDropShadowFilter/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.6.0
  * @public
  */

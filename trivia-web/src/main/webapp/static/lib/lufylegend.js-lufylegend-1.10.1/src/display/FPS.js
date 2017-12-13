@@ -25,7 +25,7 @@
  * @constructor
  * @example
  * 	addChild(new FPS());
- * @examplelink <p><a href="../../../api/FPS/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/FPS/1.html" target="_blank">Try it »</a></p>
  * @since 1.7.6
  * @public
  */
@@ -36,7 +36,7 @@
  * @constructor
  * @example
  * 	addChild(new FPS());
- * @examplelink <p><a href="../../../api/FPS/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/FPS/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.7.6
  * @public
  */

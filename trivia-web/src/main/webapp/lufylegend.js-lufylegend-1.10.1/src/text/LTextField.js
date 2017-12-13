@@ -26,7 +26,7 @@
  * 	theTextField.x = 10;
  * 	theTextField.y = 10;
  * 	addChild(theTextField);
- * @examplelink <p><a href="../../../api/LTextField/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LTextField/1.html" target="_blank">Try it »</a></p>
  * @since 1.0.0
  * @public
  */
@@ -42,7 +42,7 @@
  * 	theTextField.x = 10;
  * 	theTextField.y = 10;
  * 	addChild(theTextField);
- * @examplelink <p><a href="../../../api/LTextField/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LTextField/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @since 1.0.0
  * @public
  */

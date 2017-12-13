@@ -62,7 +62,7 @@
  * 	function outfocus(e){
  * 		trace(e.currentTarget + "(" + e.currentTarget.objectIndex + ") FOCUS_OUT");
  * 	}
- * @examplelink <p><a href="../../../api/LFocusEvent/index.html" target="_blank">Try it »</a></p>
+ * @examplelink <p><a href="../../../api/LFocusEvent/1.html" target="_blank">Try it »</a></p>
  * @public
  */
 /** @language japanese
@@ -95,7 +95,7 @@
  * 	function outfocus(e){
  * 		trace(e.currentTarget + "(" + e.currentTarget.objectIndex + ") FOCUS_OUT");
  * 	}
- * @examplelink <p><a href="../../../api/LFocusEvent/index.html" target="_blank">実際のサンプルを見る</a></p>
+ * @examplelink <p><a href="../../../api/LFocusEvent/1.html" target="_blank">実際のサンプルを見る</a></p>
  * @public
  */
 var LFocusEvent = function (){throw "LFocusEvent cannot be instantiated";};

@@ -123,11 +123,11 @@ Character.prototype.onmove = function () {
         if (count > num) {
         	self.move = false;
 
-           var i=(self.x-8)/64;
+           var i=(self.x-16)/64;
            var j=(self.y)/64;
+           document.getElementById('ques').innerHTML=map[i][j];
             /*document.getElementById('lighalert(map[i][j]);t').style.display='block';*/
             document.getElementById('fade').style.display='block';
-            document.getElementById('ques').innerHTML=self.x;
             document.getElementById('ques').style.display='block';
 
             /*document.getElementById('money').style.display='block';*/

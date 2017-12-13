@@ -284,7 +284,7 @@ var LLoadManage = (function () {
 	 * @public
 	 * @static
 	 * @since 1.4.0
-	 * @examplelink <p><a href="../../../api/LLoadManage/index.html" target="_blank">测试链接</a></p>
+	 * @examplelink <p><a href="../../../api/LLoadManage/1.html" target="_blank">测试链接</a></p>
 	 */
 	/** @language english
 	 * loads data from the specified list.
