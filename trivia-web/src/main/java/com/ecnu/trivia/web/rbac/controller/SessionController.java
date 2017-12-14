@@ -32,7 +32,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping(value = "/session", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+@RequestMapping(value = "/session", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class SessionController {
     @Resource
     protected SessionService sessionService;
@@ -69,8 +69,8 @@ public class SessionController {
     }
 
     /**
-     * @Description: 注册
-     * @Author: Lucto Zhang
+     * 注册
+     * @author: Lucto Zhang
      * @Date: 22:24 2017/12/07
      */
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
@@ -89,7 +89,7 @@ public class SessionController {
      * @Author: Lucto Zhang
      * @Date: 15:14 2017/12/11
      */
-    @RequestMapping(value = "/getUserInfo/", method = RequestMethod.GET)
+    @RequestMapping(value = "/current/", method = RequestMethod.GET)
     public User getUserInfo(HttpSession session) {
         User user = (User)session.getAttribute(Constants.ONLINE_USER);
         return user;
