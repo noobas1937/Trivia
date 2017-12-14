@@ -15,14 +15,24 @@ import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 
 @Service("sessionService")
 public class SessionService implements Logable{
 
+    @Value("${jwt.secretKey}")
+    private String url;
     private static Logger logger = LoggerFactory.getLogger(SessionService.class);
 
     @Resource
@@ -30,6 +40,11 @@ public class SessionService implements Logable{
 
     public User getUserByAccount(String account,String password){
         User user = userMapper.getUserByAccount(account,password);
+        return user;
+    }
+
+    public User getUserByAccountWithoutPassword(String account){
+        User user = userMapper.getUserByAccountWithoutPassword(account);
         return user;
     }
 
@@ -47,5 +62,40 @@ public class SessionService implements Logable{
         return user;
     }
 
+    public String uploadHeadPic(MultipartHttpServletRequest request){
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+        /** 构建文件保存的目录* */
+        String logoPathDir = "/upload/"
+                + dateformat.format(new Date());
+        /** 得到文件保存目录的真实路径* */
+        String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
+        /** 根据真实路径创建目录* */
+        File logoSaveFile = new File(logoRealPathDir);
+        if (!logoSaveFile.exists()) {
+            logoSaveFile.mkdirs();
+        }
+        /** 页面控件的文件流* */
+        MultipartFile multipartFile = request.getFile("headpic");
+        /** 获取文件的后缀* */
+        String suffix = multipartFile.getOriginalFilename().substring(
+                multipartFile.getOriginalFilename().lastIndexOf("."));
+        /** 使用UUID生成文件名称* */
+        // 构建文件名称
+        String logImageName = UUID.randomUUID().toString() + suffix;
+        /** 拼成完整的文件保存路径加文件* */
+        String fileName = logoRealPathDir + File.separator + logImageName;
+        File file = new File(fileName);
+        try {
+            multipartFile.transferTo(file);
+        } catch (IllegalStateException e) {
+            return "0";
+        } catch (IOException e) {
+            return "0";
+        }
+        /** 打印出上传到服务器的文件的绝对路径* */
+        System.out.println("****************"+fileName+"**************");
+        String uri = url+logoPathDir+"/"+logImageName;
 
+        return uri;
+    }
 }

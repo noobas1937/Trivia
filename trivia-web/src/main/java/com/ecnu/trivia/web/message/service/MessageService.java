@@ -37,7 +37,7 @@ public class MessageService {
      * @return
      */
     public void sendToAllTerminal(String message,User user){
-        if(user==null||user.getId()==null) { throw new IllegalArgumentException(); }
+        if(user==null) { throw new IllegalArgumentException(); }
         WebSocketCommunicator communicator = onlineUser.get(user.getId());
 
         if (ObjectUtils.isNotNullOrEmpty(communicator)) {

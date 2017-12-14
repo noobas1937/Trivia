@@ -27,8 +27,11 @@ import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -78,10 +81,25 @@ public class SessionController {
         if (ObjectUtils.isNullOrEmpty(userParam.getNickname()) || ObjectUtils.isNullOrEmpty(userParam.getHeadpic()) || ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
+        if(sessionService.getUserByAccountWithoutPassword(userParam.getAccount())!=null){
+            return new Resp(HttpRespCode.USER_ACCOUNT_EXISTS);
+        }
         sessionService.setUserRegisterInfo(userParam.getNickname(),userParam.getHeadpic(),userParam.getAccount(),userParam.getPassword());
         User user = sessionService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
         session.setAttribute(Constants.ONLINE_USER,user);
         return new Resp(HttpRespCode.SUCCESS);
+    }
+
+    /**
+     * 上传
+     * @Author: Lucto Zhang
+     * @Date: 22:10 2017/12/14
+     */
+    @RequestMapping(value = "/upload/", method = RequestMethod.POST)
+    public Resp register(MultipartFile request) {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        String uri = sessionService.uploadHeadPic(multipartRequest);
+        return new Resp(HttpRespCode.SUCCESS,uri);
     }
 
     /**

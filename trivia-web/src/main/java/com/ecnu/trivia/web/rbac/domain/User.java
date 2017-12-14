@@ -20,7 +20,7 @@ import java.sql.Timestamp;
  * @author Jack Chen
  */
 @Table("user")
-public class User extends Domain<User>{
+public class User{
     /**
      * 表示一个不存在的用户
      */
@@ -33,7 +33,7 @@ public class User extends Domain<User>{
 
     @Id(generated = true)
     @Column(jdbcType = JdbcType.INTEGER)
-    private Integer id;
+    private int id;
 
     @Column(value = "account", jdbcType = JdbcType.VARCHAR)
     private String account;
@@ -72,11 +72,11 @@ public class User extends Domain<User>{
         this.id = id;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -165,16 +165,5 @@ public class User extends Domain<User>{
      */
     public static User nullUser() {
         return nullUser;
-    }
-
-    @Override
-    public Key key()
-    {
-        return Key.of(id);
-    }
-
-    @Override
-    public void clearKey() {
-        id=0;
     }
 }

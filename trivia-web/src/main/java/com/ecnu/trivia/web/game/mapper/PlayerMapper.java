@@ -4,6 +4,7 @@ import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.game.domain.Player;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Repository
 public interface PlayerMapper extends Mapper<Player> {
@@ -30,4 +31,6 @@ public interface PlayerMapper extends Mapper<Player> {
 
     /**获取问题的总数量*/
     Integer getQuestionCount();
+
+
 }

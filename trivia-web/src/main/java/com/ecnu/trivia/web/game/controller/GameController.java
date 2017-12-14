@@ -16,18 +16,18 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping(value = "/game", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+@RequestMapping(value = "/game", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class GameController {
 
     @Resource
     protected GameService gameService;
 
     /**
-     * @Description: 用户准备（取消准备）
-     * @Author: Lucto Zhang
+     * 用户准备（取消准备）
+     * @author: Lucto Zhang
      * @Date: 16:05 2017/12/11
      */
-    @RequestMapping(value = "/ready/{isReady}}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ready/{isReady}", method = RequestMethod.GET)
     public Resp isReady(@PathVariable("isReady")Integer ready, HttpSession session) {
         if(ready == Constants.PLAYER_READY || ready == Constants.PLAYER_WAITING) {
             User user = (User) session.getAttribute(Constants.ONLINE_USER);
@@ -39,11 +39,11 @@ public class GameController {
         return new Resp(HttpRespCode.SUCCESS);
     }
 
-    /**
+/*    *//**
      * @Description: 用户掷骰子
      * @Author: Handsome Zhao
      * @Date: 20:05 2017/12/11
-     */
+     *//*
     @RequestMapping(value = "/playing/roll", method = RequestMethod.POST)
     public Resp rollDice(HttpSession session) {
         User user = (User) session.getAttribute(Constants.ONLINE_USER);
@@ -51,5 +51,5 @@ public class GameController {
             String result = gameService.rollDice(user.getId());
         }
         return new Resp(HttpRespCode.LENGTH_REQUIRED);
-    }
+    }*/
 }
