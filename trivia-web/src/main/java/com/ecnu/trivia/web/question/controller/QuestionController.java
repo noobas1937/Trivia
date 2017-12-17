@@ -16,22 +16,42 @@
  */
 package com.ecnu.trivia.web.question.controller;
 
+import com.ecnu.trivia.common.component.web.HttpRespCode;
+import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.service.QuestionService;
+import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QuestionController {
     @Resource
-    protected RoomService roomService;
+    protected QuestionService questionService;
 
     /**
-     * @Description: 登录
-     * @Author: Jack Chen
-     * @Date: 16:29 2017/10/12
+     * 为系统增加问题
+     * @Author: Lucto
+     * * @Date: 19:51 2017/12/17
      */
+    @RequestMapping(value = "/add/", method = RequestMethod.POST)
+    public Resp addQuestion(@RequestBody Question questionParam) {
+        if (ObjectUtils.isNullOrEmpty(questionParam.getDescription()) || ObjectUtils.isNullOrEmpty(questionParam.getChooseA())
+                ||  ObjectUtils.isNullOrEmpty(questionParam.getChooseB()) || ObjectUtils.isNullOrEmpty(questionParam.getChooseC())
+                || ObjectUtils.isNullOrEmpty(questionParam.getChooseD()) ||ObjectUtils.isNullOrEmpty(questionParam.getAnswer())
+                || ObjectUtils.isNullOrEmpty(questionParam.getTypeId())) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        questionService.addQuestion(questionParam.getDescription(),questionParam.getChooseA(),questionParam.getChooseB(),
+                questionParam.getChooseC(),questionParam.getChooseD(),questionParam.getAnswer(),questionParam.getTypeId());
+        return new Resp(HttpRespCode.SUCCESS);
+    }
 }

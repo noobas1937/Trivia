@@ -55,4 +55,92 @@ public class Question extends Domain<Question> {
     public void clearKey() {
         id = 0;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getChooseA() {
+        return chooseA;
+    }
+
+    public void setChooseA(String chooseA) {
+        this.chooseA = chooseA;
+    }
+
+    public String getChooseB() {
+        return chooseB;
+    }
+
+    public void setChooseB(String chooseB) {
+        this.chooseB = chooseB;
+    }
+
+    public String getChooseC() {
+        return chooseC;
+    }
+
+    public void setChooseC(String chooseC) {
+        this.chooseC = chooseC;
+    }
+
+    public String getChooseD() {
+        return chooseD;
+    }
+
+    public void setChooseD(String chooseD) {
+        this.chooseD = chooseD;
+    }
+
+    public Integer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Integer answer) {
+        this.answer = answer;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Timestamp getGmtCreated() {
+        return gmtCreated;
+    }
+
+    public void setGmtCreated(Timestamp gmtCreated) {
+        this.gmtCreated = gmtCreated;
+    }
+
+    public Timestamp getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Timestamp gmtModified) {
+        this.gmtModified = gmtModified;
+    }
 }

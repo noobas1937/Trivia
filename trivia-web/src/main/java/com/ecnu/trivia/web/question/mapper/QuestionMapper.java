@@ -24,4 +24,8 @@ public interface QuestionMapper extends Mapper<Question> {
     User getUserByAccount(@Param("account") String account, @Param("password") String password);
 
     User getUserById(@Param("id") Integer id);
+
+    void addQuestion(@Param("content") String content,@Param("chooserA") String chooserA,@Param("chooserB") String chooserB,
+                     @Param("chooserC") String chooserC,@Param("chooserD") String chooserD,@Param("answer") Integer answer,
+                     @Param("type") Integer type);
 }

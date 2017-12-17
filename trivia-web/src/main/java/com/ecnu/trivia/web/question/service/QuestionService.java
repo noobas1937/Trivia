@@ -11,28 +11,36 @@
 package com.ecnu.trivia.web.question.service;
 
 import com.ecnu.trivia.common.log.Logable;
-import com.ecnu.trivia.web.room.mapper.RoomMapper;
+import com.ecnu.trivia.web.question.mapper.QuestionMapper;
+import com.ecnu.trivia.web.rbac.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+
 @Service
 public class QuestionService implements Logable{
 
     private static Logger logger = LoggerFactory.getLogger(QuestionService.class);
 
     @Resource
-    private RoomMapper roomMapper;
+    private QuestionMapper questionMapper;
+
+    public void addQuestion(String content,String chooserA,String chooserB,String chooserC,String chooserD,Integer answer,Integer type){
+        questionMapper.addQuestion(content,chooserA,chooserB,chooserC,chooserD,answer,type);
+        return;
+    }
+
 /*
     public User getUserByAccount(String account,String password){
-        User user = roomMapper.getUserByAccount(account,password);
+        User user = questionMapper.getUserByAccount(account,password);
         user.setPassword("");
         return user;
     }
 
     public User getUserById(Integer id){
-        User user = roomMapper.getUserById(id);
+        User user = questionMapper.getUserById(id);
         user.setPassword("");
         return user;
     }
