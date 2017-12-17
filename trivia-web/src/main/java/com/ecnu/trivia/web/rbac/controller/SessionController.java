@@ -25,6 +25,7 @@ import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.JwtUtils;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
+import org.apache.commons.io.monitor.FileEntry;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -97,9 +98,9 @@ public class SessionController {
      * @Date: 22:10 2017/12/14
      */
     @RequestMapping(value = "/upload/", method = RequestMethod.POST)
-    public Resp register(@Param("file") MultipartFile file) {
+    public Resp register(@RequestParam("file") MultipartFile file) {
         String uri = sessionService.uploadHeadPic(file);
-        if(uri.equals("1001") || uri.equals("1002")){
+        if("1001".equals(uri) || "1002".equals(uri)){
             return new Resp(HttpRespCode.FILE_UPLOAD_FAIL);
         }
         return new Resp(HttpRespCode.SUCCESS,uri);
