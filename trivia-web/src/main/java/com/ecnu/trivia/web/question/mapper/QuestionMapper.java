@@ -27,7 +27,7 @@ public interface QuestionMapper extends Mapper<Question> {
                      @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
                      @Param("type") Integer type);
 
-    /**删除问题**/
+     /**删除问题**/
     void deleteQuestion(@Param("id") Integer questionId);
 
     /**通过id获取问题**/

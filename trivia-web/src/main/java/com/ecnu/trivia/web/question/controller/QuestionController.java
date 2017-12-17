@@ -21,6 +21,10 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.service.QuestionService;
+import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
+import com.ecnu.trivia.web.rbac.utils.UserUtils;
+import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +38,9 @@ public class QuestionController {
     protected QuestionService questionService;
 
     /**
-     * 为系统增加问题
-     * @Author: Lucto
-     * * @Date: 19:51 2017/12/17
+     * 增加问题到题库
+     * @author: Lucto
+     * @Date: 19:51 2017/12/17
      */
     @RequestMapping(value = "/add/", method = RequestMethod.POST)
     public Resp addQuestion(@RequestBody Question questionParam) {
@@ -52,9 +56,28 @@ public class QuestionController {
     }
 
     /**
-     * 为系统删除问题
-     * @Author: Lucto
-     * * @Date: 21:17 2017/12/17
+     * 校验用户回答
+     * @param questionId
+     * @param userAnswer
+     * @return
+     * @author Jack Chen
+     */
+    @RequestMapping(value = "/answer/", method = RequestMethod.POST)
+    public Resp checkQuestionAnswer(@RequestParam("questionId") Integer questionId,@RequestParam("answer") Integer userAnswer) {
+        if (ObjectUtils.isNullOrEmpty(questionId) || ObjectUtils.isNullOrEmpty(userAnswer)) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        User user = UserUtils.fetchUser();
+        if(user.equals(User.nullUser())){
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        }
+        return questionService.checkQuestionAnswer(user.getId(),questionId,userAnswer);
+    }
+
+    /**
+     * 删除题库中的问题
+     * @author: Lucto
+     * @Date: 21:17 2017/12/17
      */
     @RequestMapping(value = "/delete/{id}/", method = RequestMethod.DELETE)
     public Resp deleteQuestion(@PathVariable("id")Integer questionId) {
@@ -72,8 +95,8 @@ public class QuestionController {
 
     /**
      * 编辑系统中问题
-     * @Author: Lucto
-     * * @Date: 22:24 2017/12/17
+     * @author: Lucto
+     * @Date: 22:24 2017/12/17
      */
     @RequestMapping(value = "/modify/", method = RequestMethod.POST)
     public Resp modifyQuestion(@RequestBody Question questionParam) {

@@ -77,7 +77,9 @@ public class GameService implements Logable {
             messageService.refreshUI(player.getRoomId());
         }
         else{
-            //当前玩家答题操作
+            //玩家前进 && 当前玩家答题操作
+            playerMapper.updatePlayer(curPlayerID,player.getBalance()+1,
+                    player.getPosition()+game.getDiceNumber(),Constants.PLAYER_GAMING_FREE);
             gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,questionOrder,Constants.GAME_ANSWERING_QUESTION);
             messageService.refreshUI(player.getRoomId());
         }

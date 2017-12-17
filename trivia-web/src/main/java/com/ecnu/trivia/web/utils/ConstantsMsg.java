@@ -42,4 +42,5 @@ public class ConstantsMsg {
     public static  final String SYSTEM_NOT_VERIFIED = "本地系统未验证，无法上传，请检查license！";
     public static final String REMOTE_URI_ERROR = "服务器地址未配置，请检查服务器路径！";
     public static final String ROOM_STATE_ERROR = "房间状态出错！";
+    public static final String ROOM_GAME_OVER = "房间：{} 游戏结束！";
 }

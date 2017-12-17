@@ -32,5 +32,10 @@ public interface PlayerMapper extends Mapper<Player> {
     /**获取问题的总数量*/
     Integer getQuestionCount();
 
+    /**更新玩家信息*/
+    void updatePlayer(@Param("id")Integer playerId,
+                      @Param("balance")Integer balance,
+                      @Param("position")Integer position,
+                      @Param("status")Integer status);
 
 }

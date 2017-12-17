@@ -33,6 +33,7 @@ public class Constants {
 	public static final int GAME_DICE_RESULT = 1;
 	public static final int GAME_ANSWERING_QUESTION = 2;
 	public static final int GAME_ANSWER_QUESTION_RESULT = 3;
+	public static final int GAME_OVER = 4;
 
 	/**账户状态定义*/
 	public static final int ACCOUNT_NORMAL = 0;
@@ -54,4 +55,5 @@ public class Constants {
 	public static final int JWT_TTL = 60*60*1000;
 	public static final int JWT_REFRESH_INTERVAL = 55*60*1000;
 	public static final int JWT_REFRESH_TTL = 12*60*60*1000;
+	public static int MAX_BALANCE_COUNT = 6;
 }
