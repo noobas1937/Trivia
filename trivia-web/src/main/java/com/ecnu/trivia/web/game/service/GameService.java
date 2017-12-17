@@ -25,10 +25,10 @@ public class GameService implements Logable {
         playerMapper.isReady(userId,isReady);
     }
 
-    public boolean rollDice(Integer userId){
+/*    public boolean rollDice(Integer userId){
 
         //检验该玩家掷骰子的行为是否合法
-        Integer playerId = playerMapper.getPlayerIdByUserId(userId);
+        Integer playerId = playerMapper.getPlayerByUserId(userId).getId();
         if(playerId == null) {
             return false;
         }
@@ -51,5 +51,5 @@ public class GameService implements Logable {
             //打包发送2 可以答题,此时stage = GAME_ANSWERING_QUESTION ,current_player = player_id
         }
         return true;
-    }
+    }*/
 }

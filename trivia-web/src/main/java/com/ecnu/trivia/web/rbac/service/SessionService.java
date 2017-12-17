@@ -31,9 +31,13 @@ import java.util.UUID;
 @Service("sessionService")
 public class SessionService implements Logable{
 
-    @Value("${file.path}")
-    private String url;
     private static Logger logger = LoggerFactory.getLogger(SessionService.class);
+
+    @Value("${file.path}")
+    private String path;
+
+    @Value("${file.url}")
+    private String url;
 
     @Resource
     private UserMapper userMapper;
@@ -64,11 +68,9 @@ public class SessionService implements Logable{
 
     public String uploadHeadPic(MultipartFile file){
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        /** 构建文件保存的目录* */
-        String logoPathDir = "/upload/"
-                + dateformat.format(new Date());
+
         /** 根据真实路径创建目录* */
-        File logoSaveFile = new File(url);
+        File logoSaveFile = new File(path);
         if (!logoSaveFile.exists()) {
             logoSaveFile.mkdirs();
         }
@@ -79,7 +81,7 @@ public class SessionService implements Logable{
         // 构建文件名称
         String logImageName = UUID.randomUUID().toString() + suffix;
         /** 拼成完整的文件保存路径加文件* */
-        String fileName = url + File.separator + logImageName;
+        String fileName = path + File.separator + logImageName;
         File files = new File(fileName);
         try {
             file.transferTo(files);
@@ -90,7 +92,7 @@ public class SessionService implements Logable{
         }
         /** 打印出上传到服务器的文件的绝对路径* */
         System.out.println("****************"+fileName+"**************");
-        String uri = url+logoPathDir+"/"+logImageName;
+        String uri = url+ "/"+logImageName;
 
         return uri;
     }
