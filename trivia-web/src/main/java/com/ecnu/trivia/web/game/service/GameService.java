@@ -1,15 +1,21 @@
 package com.ecnu.trivia.web.game.service;
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.room.domain.Room;
+import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
+import com.ecnu.trivia.web.utils.ConstantsMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Service
@@ -19,37 +25,62 @@ public class GameService implements Logable {
     @Resource
     private PlayerMapper playerMapper;
     @Resource
+    private RoomMapper roomMapper;
+    @Resource
+    private GameMapper gameMapper;
+    @Resource
     private MessageService messageService;
 
     public void isReady(int userId,int isReady){
         playerMapper.isReady(userId,isReady);
     }
 
-/*    public boolean rollDice(Integer userId){
-
-        //检验该玩家掷骰子的行为是否合法
-        Integer playerId = playerMapper.getPlayerByUserId(userId).getId();
-        if(playerId == null) {
+    public boolean rollDice(Integer userId){
+        //判断玩家是否合法 && 游戏是否为待掷骰子状态
+        Player player = playerMapper.getPlayerByUserId(userId);
+        if(player == null) { return false; }
+        Game game = gameMapper.getGameById(player.getRoomId());
+        if(!game.getStage().equals(Constants.GAME_READY)){ return false; }
+        //判断当前玩家是不是该玩家
+        Integer curPlayerID = game.getCurrentPlayerId();
+        if(curPlayerID == null || !Objects.equals(curPlayerID, player.getId())) {
             return false;
         }
-        Room room = playerMapper.getRoomByPlayerID(playerId);
-        if(currentPlayerId == null || !currentPlayerId.equals(playerId)) {
-            return false;
-        }
 
+        //开始掷骰子 && 生成随机题目
         Integer questionCount = playerMapper.getQuestionCount();
-        Integer questionNumber = (new Random().nextInt(questionCount)) + 1;
-        Integer diceNumber = (new Random().nextInt(6)) + 1;
-        //打包发送1 此时stage = GAME_DICE_RESULT ,current_player = player_id
-        messageService.refreshUI();
-        boolean isPlayerCanAnswerQuestion;
-        if(playerMapper.getPlayerStatusByPlayerId(playerId).equals(Constants.PLAYER_GAMING_HOLD)
+        Random random = new Random();
+        Integer questionOrder = (random.nextInt(questionCount));
+        Integer diceNumber = (random.nextInt(6)) + 1;
+        gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,questionOrder,Constants.GAME_DICE_RESULT);
+        //发送掷骰子结果
+        messageService.refreshUI(player.getRoomId());
+
+        //判断玩家状态（能否答题）
+        if(player.getStatus().equals(Constants.PLAYER_GAMING_HOLD)
                 && (diceNumber%2) == 1){
-            //打包发送2 在监狱中而且不能脱困,此时stage = GAME_READY ,current_player = next_player
+            //在监狱中而且不能脱困,此时stage = GAME_READY ,current_player = next_player
+            Integer curPlayerId = player.getId();
+            List<Player> players = playerMapper.getPlayers(curPlayerId);
+            Integer nextPlayer = null;
+            for (int i = 0; i < players.size(); i++) {
+                if(Objects.equals(players.get(i).getId(), curPlayerId)){
+                    nextPlayer = ++i%players.size();
+                }
+            }
+            if(nextPlayer==null){
+                logger.error(ConstantsMsg.ROOM_STATE_ERROR);
+                return false;
+            }
+            //转向下一个玩家
+            gameMapper.updateGameStatus(game.getId(),nextPlayer,diceNumber,questionOrder,Constants.GAME_READY);
+            messageService.refreshUI(player.getRoomId());
         }
         else{
-            //打包发送2 可以答题,此时stage = GAME_ANSWERING_QUESTION ,current_player = player_id
+            //当前玩家答题操作
+            gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,questionOrder,Constants.GAME_ANSWERING_QUESTION);
+            messageService.refreshUI(player.getRoomId());
         }
         return true;
-    }*/
+    }
 }

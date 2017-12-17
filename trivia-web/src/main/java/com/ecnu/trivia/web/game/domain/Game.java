@@ -28,7 +28,7 @@ public class Game extends Domain<Game>{
     private Integer questionId;
 
     @Column(value = "stage", jdbcType = JdbcType.INTEGER)
-    private String stage;
+    private Integer stage;
 
     @Column(value = "gmt_created", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtCreated;
@@ -83,11 +83,11 @@ public class Game extends Domain<Game>{
         this.questionId = questionId;
     }
 
-    public String getStage() {
+    public Integer getStage() {
         return stage;
     }
 
-    public void setStage(String stage) {
+    public void setStage(Integer stage) {
         this.stage = stage;
     }
 

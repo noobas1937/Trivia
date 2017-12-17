@@ -29,4 +29,7 @@ public interface RoomMapper extends Mapper<Room> {
 
     /**根据房间ID获取房间信息*/
     RoomVO getRoomById(@Param("id")Integer id);
+
+    /**根据player_id获取房间*/
+    Room getRoomByPlayerID(@Param("id")Integer playerID);
 }

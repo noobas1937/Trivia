@@ -19,9 +19,13 @@ public class Constants {
 	public static final int ROOM_PLAYING = 1;
 
 	/**玩家状态定义*/
+	//等待游戏开始
 	public static final int PLAYER_WAITING = 0;
+	//玩家准备
 	public static final int PLAYER_READY = 1;
+	//自由
 	public static final int PLAYER_GAMING_FREE = 2;
+	//监狱
 	public static final int PLAYER_GAMING_HOLD = 3;
 
 	/**游戏状态定义*/
