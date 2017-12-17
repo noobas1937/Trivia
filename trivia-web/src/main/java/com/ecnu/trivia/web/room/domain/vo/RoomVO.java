@@ -1,5 +1,6 @@
 package com.ecnu.trivia.web.room.domain.vo;
 
+import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
 
 import java.sql.Timestamp;
@@ -8,10 +9,14 @@ import java.util.List;
 public class RoomVO {
     private Integer id;
     private String roomName;
-    private String status;
+    private Integer status;
     private Timestamp gmtCreated;
     private Timestamp gmtModified;
+    private Game game;
     private List<Player> playerList;
+
+    public RoomVO() {
+    }
 
     public Integer getId() {
         return id;
@@ -29,11 +34,11 @@ public class RoomVO {
         this.roomName = roomName;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -59,5 +64,13 @@ public class RoomVO {
 
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

@@ -1,12 +1,22 @@
 package com.ecnu.trivia.web.message.service;
 
+import com.alibaba.fastjson.JSON;
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.Game;
+import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.mapper.GameMapper;
+import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.message.communicator.WebSocketCommunicator;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
+import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.utils.Constants;
+import com.ecnu.trivia.web.utils.ConstantsMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +29,12 @@ public class MessageService {
     private Logger logger = LoggerFactory.getLogger(MessageService.class);
 
     private Map<Integer, WebSocketCommunicator> onlineUser = WebSocketCommunicator.ONLINE_USER;
+
+    @Resource
+    private RoomService roomService;
+    @Resource
+    private GameMapper gameMapper;
+
     /**
      * 向所有终端发送消息
      * @param message 消息
@@ -59,5 +75,41 @@ public class MessageService {
                 communicator.sendMessageToUser(message,userId);
             }
         }
+    }
+
+    /**
+     * 向一组玩家发送消息
+     * @param message 消息内容（JSON串）
+     * @param players 目标用户列表（必须包含用户ID）
+     */
+    public void sendMsgToPlayers(String message, List<Player> players){
+        if(players==null) { throw new IllegalArgumentException(); }
+        for (Player player : players) {
+            Integer userId = player.getUserId();
+            if(ObjectUtils.isNotNullOrEmpty(userId)){
+                WebSocketCommunicator communicator = onlineUser.get(player.getUserId());
+                communicator.sendMessageToUser(message,userId);
+            }
+        }
+    }
+
+    /**
+     * 刷新房间界面
+     * PreCondition: 房间处于游戏状态
+     * PostCondition: 根据数据库发送刷新UI数据包
+     * @param roomId 房间ID
+     */
+    public boolean refreshUI(Integer roomId){
+        if(ObjectUtils.isNullOrEmpty(roomId)){
+            return false;
+        }
+        RoomVO room = roomService.getRoomById(roomId);
+        if(room.getStatus().equals(Constants.ROOM_PLAYING)){
+            Game game = gameMapper.getGameById(roomId);
+            room.setGame(game);
+            sendMsgToPlayers(JSON.toJSONString(room),room.getPlayerList());
+            return true;
+        }
+        return false;
     }
 }
