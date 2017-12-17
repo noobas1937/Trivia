@@ -18,21 +18,17 @@ package com.ecnu.trivia.web.question.controller;
 
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.service.QuestionService;
-import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
-import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @RestController
-@RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class QuestionController {
     @Resource
     protected QuestionService questionService;
@@ -53,5 +49,24 @@ public class QuestionController {
         questionService.addQuestion(questionParam.getDescription(),questionParam.getChooseA(),questionParam.getChooseB(),
                 questionParam.getChooseC(),questionParam.getChooseD(),questionParam.getAnswer(),questionParam.getTypeId());
         return new Resp(HttpRespCode.SUCCESS);
+    }
+
+    /**
+     * 为系统删除问题
+     * @Author: Lucto
+     * * @Date: 21:17 2017/12/17
+     */
+    @RequestMapping(value = "/delete/{id}/", method = RequestMethod.DELETE)
+    public Resp deleteQuestion(@PathVariable("id")Integer questionId) {
+        if (questionId==null) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        Game game = questionService.getGameByQuestionId(questionId);
+        //判断当前问题是否正在游戏中被使用
+        if(ObjectUtils.isNullOrEmpty(game)) {
+            questionService.deleteQuestion(questionId);
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+        return new Resp(HttpRespCode.QUESTION_ARE_USED);
     }
 }

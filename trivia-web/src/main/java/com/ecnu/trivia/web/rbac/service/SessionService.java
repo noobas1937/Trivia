@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.UUID;
 
 
-@Service("sessionService")
+@Service
 public class SessionService implements Logable{
 
     private static Logger logger = LoggerFactory.getLogger(SessionService.class);

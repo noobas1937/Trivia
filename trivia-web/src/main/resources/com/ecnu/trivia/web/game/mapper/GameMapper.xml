@@ -7,4 +7,8 @@
         SELECT * FROM game WHERE room_id = ${id}
     </select>
 
+    <select id="getGameByQuestionId" resultType="com.ecnu.trivia.web.game.domain.Game">
+        SELECT * FROM game WHERE question_id = ${id}
+    </select>
+
 </mapper>

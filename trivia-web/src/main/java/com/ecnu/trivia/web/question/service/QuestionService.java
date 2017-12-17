@@ -11,6 +11,9 @@
 package com.ecnu.trivia.web.question.service;
 
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.web.game.domain.Game;
+import com.ecnu.trivia.web.game.mapper.GameMapper;
+import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.slf4j.Logger;
@@ -26,23 +29,34 @@ public class QuestionService implements Logable{
 
     @Resource
     private QuestionMapper questionMapper;
+    @Resource
+    private GameMapper gameMapper;
 
-    public void addQuestion(String content,String chooserA,String chooserB,String chooserC,String chooserD,Integer answer,Integer type){
-        questionMapper.addQuestion(content,chooserA,chooserB,chooserC,chooserD,answer,type);
-        return;
+    /**
+     * 为系统增加问题
+     * @Author: Lucto
+     * * @Date: 19:51 2017/12/17
+     */
+    public void addQuestion(String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type){
+        questionMapper.addQuestion(content,chooseA,chooseB,chooseC,chooseD,answer,type);
     }
 
-/*
-    public User getUserByAccount(String account,String password){
-        User user = questionMapper.getUserByAccount(account,password);
-        user.setPassword("");
-        return user;
+    /**
+     * 通过问题id获取游戏
+     * @Author: Lucto
+     * * @Date: 21:20 2017/12/17
+     */
+    public Game getGameByQuestionId(Integer questionId){
+        return gameMapper.getGameByQuestionId(questionId);
     }
 
-    public User getUserById(Integer id){
-        User user = questionMapper.getUserById(id);
-        user.setPassword("");
-        return user;
+    /**
+     * 删除问题
+     * @Author: Lucto
+     * * @Date: 21:39 2017/12/17
+     */
+    public void deleteQuestion(Integer questionId) {
+        questionMapper.deleteQuestion(questionId);
     }
-    */
+
 }

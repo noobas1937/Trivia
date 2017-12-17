@@ -3,6 +3,7 @@ package com.ecnu.trivia.web.game.mapper;
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.question.domain.Question;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,7 @@ public interface GameMapper extends Mapper<Player> {
                           @Param("diceNum")Integer diceNumber,
                           @Param("qid")Integer questionId,
                           @Param("stage")Integer stage);
+
+    /**根据问题ID获取游戏**/
+    Game getGameByQuestionId(@Param("id") Integer id);
 }

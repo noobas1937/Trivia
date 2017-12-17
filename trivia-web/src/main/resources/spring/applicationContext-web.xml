@@ -47,7 +47,7 @@
             <mvc:exclude-mapping path="/session/**"/>
             <bean class="com.ecnu.trivia.web.common.interceptor.SessionRequiredInterceptor">
                 <property name="mappingURL"
-                          value="^/trivia/(common|user|game|message|room)/.*$"/>
+                          value="^/trivia/(common|user|game|message|room|question)/.*$"/>
             </bean>
         </mvc:interceptor>
     </mvc:interceptors>
