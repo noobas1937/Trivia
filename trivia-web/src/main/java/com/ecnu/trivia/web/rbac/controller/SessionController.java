@@ -25,6 +25,7 @@ import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.JwtUtils;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,7 +42,7 @@ public class SessionController {
     protected SessionService sessionService;
 
     /**
-     * @Description: 登录
+     * 登录
      * @Author: Lucto Zhang
      * @Date: 20:30 2017/12/07
      */
@@ -61,7 +62,7 @@ public class SessionController {
     }
 
     /**
-    * @Description: 登出
+    * 登出
     * @Author: Jack Chen
     * @Date: 16:29 2017/10/12
     */
@@ -96,14 +97,16 @@ public class SessionController {
      * @Date: 22:10 2017/12/14
      */
     @RequestMapping(value = "/upload/", method = RequestMethod.POST)
-    public Resp register(MultipartFile request) {
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        String uri = sessionService.uploadHeadPic(multipartRequest);
+    public Resp register(@Param("file") MultipartFile file) {
+        String uri = sessionService.uploadHeadPic(file);
+        if(uri.equals("1001") || uri.equals("1002")){
+            return new Resp(HttpRespCode.FILE_UPLOAD_FAIL);
+        }
         return new Resp(HttpRespCode.SUCCESS,uri);
     }
 
     /**
-     * @Description: 从Session获取当前用户信息
+     * 从Session获取当前用户信息
      * @Author: Lucto Zhang
      * @Date: 15:14 2017/12/11
      */

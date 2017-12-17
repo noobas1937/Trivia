@@ -40,7 +40,7 @@ public class GameController {
     }
 
 /*    *//**
-     * @Description: 用户掷骰子
+     * 用户掷骰子
      * @Author: Handsome Zhao
      * @Date: 20:05 2017/12/11
      *//*

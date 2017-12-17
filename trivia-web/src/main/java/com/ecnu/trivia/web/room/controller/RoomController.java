@@ -30,13 +30,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/room", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/room", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class RoomController {
     @Resource
     protected RoomService roomService;
 
     /**
-    * @Description: 获取房间列表
+    * 获取房间列表
     * @Author: Handsome Zhao
     * @Date: 16:29 2017/12/7
     */
@@ -47,7 +47,7 @@ public class RoomController {
     }
 
     /**
-     * @Description: 根据id号获取特定的房间
+     * 根据id号获取特定的房间
      * @Author: Handsome Zhao
      * @Date: 16:29 2017/12/7
      */

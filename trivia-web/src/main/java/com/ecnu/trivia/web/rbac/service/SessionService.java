@@ -31,7 +31,7 @@ import java.util.UUID;
 @Service("sessionService")
 public class SessionService implements Logable{
 
-    @Value("${jwt.secretKey}")
+    @Value("${file.path}")
     private String url;
     private static Logger logger = LoggerFactory.getLogger(SessionService.class);
 
@@ -62,35 +62,31 @@ public class SessionService implements Logable{
         return user;
     }
 
-    public String uploadHeadPic(MultipartHttpServletRequest request){
+    public String uploadHeadPic(MultipartFile file){
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         /** 构建文件保存的目录* */
         String logoPathDir = "/upload/"
                 + dateformat.format(new Date());
-        /** 得到文件保存目录的真实路径* */
-        String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
         /** 根据真实路径创建目录* */
-        File logoSaveFile = new File(logoRealPathDir);
+        File logoSaveFile = new File(url);
         if (!logoSaveFile.exists()) {
             logoSaveFile.mkdirs();
         }
-        /** 页面控件的文件流* */
-        MultipartFile multipartFile = request.getFile("headpic");
         /** 获取文件的后缀* */
-        String suffix = multipartFile.getOriginalFilename().substring(
-                multipartFile.getOriginalFilename().lastIndexOf("."));
+        String suffix = file.getOriginalFilename().substring(
+                file.getOriginalFilename().lastIndexOf("."));
         /** 使用UUID生成文件名称* */
         // 构建文件名称
         String logImageName = UUID.randomUUID().toString() + suffix;
         /** 拼成完整的文件保存路径加文件* */
-        String fileName = logoRealPathDir + File.separator + logImageName;
-        File file = new File(fileName);
+        String fileName = url + File.separator + logImageName;
+        File files = new File(fileName);
         try {
-            multipartFile.transferTo(file);
+            file.transferTo(files);
         } catch (IllegalStateException e) {
-            return "0";
+            return "1001";
         } catch (IOException e) {
-            return "0";
+            return "1002";
         }
         /** 打印出上传到服务器的文件的绝对路径* */
         System.out.println("****************"+fileName+"**************");
