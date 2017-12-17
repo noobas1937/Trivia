@@ -22,10 +22,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuestionMapper extends Mapper<Question> {
 
+    /**添加问题**/
     void addQuestion(@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
                      @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
                      @Param("type") Integer type);
 
-
+    /**删除问题**/
     void deleteQuestion(@Param("id") Integer questionId);
+
+    /**通过id获取问题**/
+    Question getQuestionById(@Param("id") Integer questionId);
+
+    /**修改问题**/
+    void modifyQuestion(@Param("id") Integer id,@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
+                        @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
+                        @Param("type") Integer type);
 }

@@ -69,4 +69,19 @@ public class QuestionController {
         }
         return new Resp(HttpRespCode.QUESTION_ARE_USED);
     }
+
+    /**
+     * 编辑系统中问题
+     * @Author: Lucto
+     * * @Date: 22:24 2017/12/17
+     */
+    @RequestMapping(value = "/modify/", method = RequestMethod.POST)
+    public Resp modifyQuestion(@RequestBody Question questionParam) {
+        if (ObjectUtils.isNullOrEmpty(questionParam.getId())) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        questionService.modifyQuestion(questionParam.getId(),questionParam.getDescription(),questionParam.getChooseA(),questionParam.getChooseB(),
+                questionParam.getChooseC(),questionParam.getChooseD(),questionParam.getAnswer(),questionParam.getTypeId());
+        return new Resp(HttpRespCode.SUCCESS);
+    }
 }

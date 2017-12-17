@@ -11,6 +11,7 @@
 package com.ecnu.trivia.web.question.service;
 
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.question.domain.Question;
@@ -57,6 +58,37 @@ public class QuestionService implements Logable{
      */
     public void deleteQuestion(Integer questionId) {
         questionMapper.deleteQuestion(questionId);
+    }
+
+    /**
+     * 编辑问题
+     * @Author: Lucto
+     * * @Date: 22:32 2017/12/17
+     */
+    public void modifyQuestion(Integer id,String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type) {
+        Question question = questionMapper.getQuestionById(id);
+        if(ObjectUtils.isNullOrEmpty(content)){
+            content = question.getDescription();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseA)){
+            chooseA = question.getChooseA();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseB)){
+            chooseB = question.getChooseB();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseC)){
+            chooseC = question.getChooseC();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseD)){
+            chooseD = question.getChooseD();
+        }
+        if(ObjectUtils.isNullOrEmpty(answer)){
+            answer = question.getAnswer();
+        }
+        if(ObjectUtils.isNullOrEmpty(type)){
+            type = question.getTypeId();
+        }
+        questionMapper.modifyQuestion(id,content,chooseA,chooseB,chooseC,chooseD,answer,type);
     }
 
 }
