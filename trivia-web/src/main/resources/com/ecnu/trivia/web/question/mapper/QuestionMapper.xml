@@ -27,4 +27,33 @@
         SELECT * FROM question
     </select>
 
+    <select id="getQuestionTypeList" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+        SELECT * FROM question_type
+    </select>
+
+    <select id="getQuestionTypeByQuestionTypeDescription" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+        SELECT * FROM question_type WHERE name = #{description}
+    </select>
+
+    <select id="getQuestionListByQuestionTypeId" resultType="com.ecnu.trivia.web.question.domain.Question">
+        SELECT *
+        FROM question
+        WHERE type_id = ${typeId}
+    </select>
+
+    <delete id="deleteQuestionTypeByQuestionTypeId">
+        DELETE FROM question_type WHERE id = ${typeId}
+    </delete>
+
+    <insert id="addQuestionTypeByDescription">
+        INSERT INTO question_type (id, name, gmt_created, gmt_modified)
+        VALUES (null,#{description},NOW(),NOW())
+    </insert>
+
+    <update id="updateQuestionTypeName">
+        UPDATE question_type
+        SET name = #{description}
+        WHERE id = ${typeId}
+    </update>
+
 </mapper>

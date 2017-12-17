@@ -19,6 +19,8 @@ import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.utils.Constants;
@@ -29,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,8 +63,56 @@ public class QuestionService implements Logable{
      * @Author: Lucto
      * * @Date: 21:20 2017/12/17
      */
-    public Game getGameByQuestionId(Integer questionId){
+    public Game getGameByQuestionId(Integer questionId) {
         return gameMapper.getGameByQuestionId(questionId);
+    }
+
+    public List<QuestionType> getQuestionTypeList(){
+        return questionMapper.getQuestionTypeList();
+    }
+
+    public boolean deleteQuestionTypeById(Integer questionTypeId){
+        //查找是否存在该类型的问题，存在的话不能删除
+        List<Question> questionList = questionMapper.getQuestionListByQuestionTypeId(questionTypeId);
+        if(questionList.isEmpty()){
+            questionMapper.deleteQuestionTypeByQuestionTypeId(questionTypeId);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean addQuestionType(String description){
+        //查找是否有名字重复的问题类型
+        List<QuestionType> questionTypeList = questionMapper.getQuestionTypeByQuestionTypeDescription(description);
+        if(questionTypeList.isEmpty()){
+            questionMapper.addQuestionTypeByDescription(description);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean modifyQuestionTypeName(Integer questionId, String description){
+        //查找是否有名字重复的问题类型
+        List<QuestionType> questionTypeList = questionMapper.getQuestionTypeByQuestionTypeDescription(description);
+        if(questionTypeList.isEmpty()){
+            questionMapper.updateQuestionTypeName(questionId,description);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+/*
+    public User getUserByAccount(String account,String password){
+        User user = questionMapper.getUserByAccount(account,password);
+        user.setPassword("");
+        return user;
     }
 
     /**

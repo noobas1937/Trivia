@@ -20,20 +20,26 @@ import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.service.QuestionService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
+import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QuestionController {
     @Resource
     protected QuestionService questionService;
@@ -108,6 +114,51 @@ public class QuestionController {
                 questionParam.getChooseC(),questionParam.getChooseD(),questionParam.getAnswer(),questionParam.getTypeId());
         return new Resp(HttpRespCode.SUCCESS);
     }
+
+    /**
+     * 问题类型的CRUD
+     * @Author: Handsome Zhao
+     * @Date: 19:55 2017/12/17
+     */
+
+    /*查找*/
+    @RequestMapping(value = "/type/", method = RequestMethod.GET)
+    public Resp getQuestionTypeList() {
+        List<QuestionType> list = questionService.getQuestionTypeList();
+        return new Resp(HttpRespCode.SUCCESS,list);
+    }
+
+    /*删除*/
+    @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
+    public Resp getQuestionTypeList(@PathVariable("id") Integer questionTypeId) {
+        boolean result = questionService.deleteQuestionTypeById(questionTypeId);
+        if(result)
+            return new Resp(HttpRespCode.SUCCESS);
+        else
+            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+    }
+
+    /*增加*/
+    @RequestMapping(value = "/type/", method = RequestMethod.POST)
+    public Resp addQuestionType(@RequestParam("description") String description) {
+        boolean result = questionService.addQuestionType(description);
+        if(result)
+            return new Resp(HttpRespCode.SUCCESS);
+        else
+            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+    }
+
+    /*修改*/
+    @RequestMapping(value = "/type/modify", method = RequestMethod.POST)
+    public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
+                                       @RequestParam("description") String description) {
+        boolean result = questionService.modifyQuestionTypeName(questionId,description);
+        if(result)
+            return new Resp(HttpRespCode.SUCCESS);
+        else
+            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+    }
+
 
     /**
      * 获取所有问题列表

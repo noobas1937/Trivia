@@ -15,6 +15,7 @@ package com.ecnu.trivia.web.question.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,9 @@ import java.util.List;
 
 @Repository
 public interface QuestionMapper extends Mapper<Question> {
+    User getUserByAccount(@Param("account") String account, @Param("password") String password);
 
-    /**添加问题**/
-    void addQuestion(@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
-                     @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
-                     @Param("type") Integer type);
+    User getUserById(@Param("id") Integer id);
 
      /**删除问题**/
     void deleteQuestion(@Param("id") Integer questionId);
@@ -39,6 +38,22 @@ public interface QuestionMapper extends Mapper<Question> {
     void modifyQuestion(@Param("id") Integer id,@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
                         @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
                         @Param("type") Integer type);
+    void addQuestion(@Param("content") String content,@Param("chooserA") String chooserA,@Param("chooserB") String chooserB,
+                     @Param("chooserC") String chooserC,@Param("chooserD") String chooserD,@Param("answer") Integer answer,
+                     @Param("type") Integer type);
+
+    List<QuestionType> getQuestionTypeList();
+
+    List<QuestionType> getQuestionTypeByQuestionTypeDescription(@Param("description") String description);
+
+    List<Question> getQuestionListByQuestionTypeId(@Param("typeId") Integer typeId);
+
+    void deleteQuestionTypeByQuestionTypeId(@Param("typeId") Integer typeId);
+
+    void addQuestionTypeByDescription(@Param("description") String description);
+
+    void updateQuestionTypeName(@Param("typeId") Integer typeId,@Param("description") String description);
+
 
     /**获取所有问题**/
     List<Question> getQuestionList();
