@@ -42,7 +42,7 @@ public class QuestionController {
      * @author: Lucto
      * @Date: 19:51 2017/12/17
      */
-    @RequestMapping(value = "/add/", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public Resp addQuestion(@RequestBody Question questionParam) {
         if (ObjectUtils.isNullOrEmpty(questionParam.getDescription()) || ObjectUtils.isNullOrEmpty(questionParam.getChooseA())
                 ||  ObjectUtils.isNullOrEmpty(questionParam.getChooseB()) || ObjectUtils.isNullOrEmpty(questionParam.getChooseC())
@@ -79,7 +79,7 @@ public class QuestionController {
      * @author: Lucto
      * @Date: 21:17 2017/12/17
      */
-    @RequestMapping(value = "/delete/{id}/", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
     public Resp deleteQuestion(@PathVariable("id")Integer questionId) {
         if (questionId==null) {
             return new Resp(HttpRespCode.PARAM_ERROR);
