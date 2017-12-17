@@ -22,9 +22,8 @@
         DELETE FROM player WHERE user_id=${userID}
     </delete>
 
-    <select id="getPlayerIdByUserId" resultType="java.lang.Integer">
-        SELECT
-        p.id
+    <select id="getPlayerByUserId" resultType="com.ecnu.trivia.web.game.domain.Player">
+        SELECT *
         FROM
         player AS p
         WHERE

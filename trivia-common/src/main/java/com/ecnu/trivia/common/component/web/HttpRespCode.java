@@ -78,6 +78,7 @@ public enum HttpRespCode implements Serializable {
     FILE_CONTENT_EMPTY("415", "上传文件内容为空！"),
     USER_ACCOUNT_EXISTS("416","用户名已存在"),
     FILE_UPLOAD_FAIL("417", "文件上传失败！"),
+    USER_ALREADY_IN_ROOM("418", "当前用户已在房间中！"),
 
     TASK_START_ERROR("520", "定时任务启动失败"),
     UPLOAD_FILE_ERROR("521", "上传文件失败"),

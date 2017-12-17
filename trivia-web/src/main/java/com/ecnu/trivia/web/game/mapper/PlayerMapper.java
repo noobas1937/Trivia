@@ -21,8 +21,8 @@ public interface PlayerMapper extends Mapper<Player> {
     /**获取房间中玩家的数量*/
     Integer getPlayerCount(@Param("roomID")Integer roomID);
 
-    /**根据user_id获取player_id*/
-    Integer getPlayerIdByUserId(@Param("userID")Integer userID);
+    /**根据user_id获取player**/
+    Player getPlayerByUserId(@Param("userID")Integer userID);
 
     /**根据player_id获取房间*/
     Room getRoomByPlayerID(@Param("id")Integer playerID);
