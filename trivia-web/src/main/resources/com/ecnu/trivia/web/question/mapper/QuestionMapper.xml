@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecnu.trivia.web.question.mapper.QuestionMapper">
+
+    <select id="getGameById" resultType="com.ecnu.trivia.web.question.domain.Question">
+        SELECT * FROM game WHERE room_id = ${id}
+    </select>
+
+</mapper>
