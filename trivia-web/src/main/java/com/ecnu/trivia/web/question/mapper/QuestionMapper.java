@@ -14,12 +14,13 @@
 package com.ecnu.trivia.web.question.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
+import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface QuestionMapper extends Mapper<User> {
+public interface QuestionMapper extends Mapper<Question> {
     User getUserByAccount(@Param("account") String account, @Param("password") String password);
 
     User getUserById(@Param("id") Integer id);

@@ -14,6 +14,7 @@
 package com.ecnu.trivia.web.room.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
+import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RoomMapper extends Mapper<User> {
+public interface RoomMapper extends Mapper<Room> {
     /**获取房间列表*/
     List<RoomVO>  getRoomList();
 

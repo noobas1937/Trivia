@@ -19,12 +19,17 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserMapper extends Mapper<User> {
+public interface UserMapper{
     User getUserByAccount(@Param("account")String account,@Param("password")String password);
+
+    User getUserByAccountWithoutPassword(@Param("account")String account);
 
     User getUserById(@Param("id")Integer id);
 
     void setLastLogin(@Param("account")String account);
 
     void setUserRegisterInfo(@Param("nickname")String nickname,@Param("headpic")String headpic,@Param("account")String account,@Param("password")String password);
+
+    /**上传头像**/
+    void upload(@Param("account")String account,@Param("uri")String uri);
 }
