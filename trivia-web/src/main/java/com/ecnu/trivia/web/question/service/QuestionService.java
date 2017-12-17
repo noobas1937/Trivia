@@ -63,6 +63,7 @@ public class QuestionService implements Logable{
     public Game getGameByQuestionId(Integer questionId){
         return gameMapper.getGameByQuestionId(questionId);
     }
+
     /**
      * 删除问题
      * @Author: Lucto
@@ -142,7 +143,6 @@ public class QuestionService implements Logable{
         //刷新UI包
         messageService.refreshUI(game.getRoomId());
 
-
         //检查游戏是否结束（即玩家是否达到6枚金币）
         Integer curPlayerId = player.getId();
         List<Player> players = playerMapper.getPlayers(curPlayerId);
@@ -171,5 +171,15 @@ public class QuestionService implements Logable{
         //刷新UI
         messageService.refreshUI(player.getRoomId());
         return new Resp(HttpRespCode.SUCCESS,answerResult);
+    }
+
+    /**
+     * 获取所有问题
+     * @Author: Lucto
+     * * @Date: 23:03 2017/12/17
+     */
+    public List<Question> getAllQuestions() {
+        List<Question> questions = questionMapper.getQuestionList();
+        return questions;
     }
 }

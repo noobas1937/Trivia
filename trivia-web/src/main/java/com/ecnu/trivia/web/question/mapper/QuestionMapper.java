@@ -19,6 +19,8 @@ import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface QuestionMapper extends Mapper<Question> {
 
@@ -37,4 +39,7 @@ public interface QuestionMapper extends Mapper<Question> {
     void modifyQuestion(@Param("id") Integer id,@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
                         @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
                         @Param("type") Integer type);
+
+    /**获取所有问题**/
+    List<Question> getQuestionList();
 }

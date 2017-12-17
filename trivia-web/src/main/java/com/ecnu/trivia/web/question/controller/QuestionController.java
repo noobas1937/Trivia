@@ -30,6 +30,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -107,4 +108,17 @@ public class QuestionController {
                 questionParam.getChooseC(),questionParam.getChooseD(),questionParam.getAnswer(),questionParam.getTypeId());
         return new Resp(HttpRespCode.SUCCESS);
     }
+
+    /**
+     * 获取所有问题列表
+     * @Author: Lucto
+     * * @Date: 22:59 2017/12/17
+     */
+    @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
+    public Resp getAllQuestion() {
+        List<Question> questions = questionService.getAllQuestions();
+        return new Resp(HttpRespCode.SUCCESS,questions);
+    }
+
+
 }

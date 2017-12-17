@@ -23,4 +23,8 @@
         WHERE id = ${id}
     </update>
 
+    <select id="getQuestionList" resultType="com.ecnu.trivia.web.question.domain.Question">
+        SELECT * FROM question
+    </select>
+
 </mapper>
