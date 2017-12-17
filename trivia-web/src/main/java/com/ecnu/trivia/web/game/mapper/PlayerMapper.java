@@ -2,6 +2,7 @@ package com.ecnu.trivia.web.game.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.room.domain.Room;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,8 +24,8 @@ public interface PlayerMapper extends Mapper<Player> {
     /**根据user_id获取player_id*/
     Integer getPlayerIdByUserId(@Param("userID")Integer userID);
 
-    /**根据player_id获取其所在房间的current_player_id*/
-    Integer getRoomCurrentPlayerIdByPlayerId(@Param("playerID")Integer playerID);
+    /**根据player_id获取房间*/
+    Room getRoomByPlayerID(@Param("id")Integer playerID);
 
     /**根据player_id获取其状态*/
     Integer getPlayerStatusByPlayerId(@Param("playerID")Integer playerID);

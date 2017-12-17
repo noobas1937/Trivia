@@ -2,6 +2,8 @@ package com.ecnu.trivia.web.game.service;
 import com.ecnu.trivia.common.log.Logable;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
+import com.ecnu.trivia.web.message.service.MessageService;
+import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ public class GameService implements Logable {
 
     @Resource
     private PlayerMapper playerMapper;
+    @Resource
+    private MessageService messageService;
 
     public void isReady(int userId,int isReady){
         playerMapper.isReady(userId,isReady);
@@ -25,19 +29,21 @@ public class GameService implements Logable {
 
         //检验该玩家掷骰子的行为是否合法
         Integer playerId = playerMapper.getPlayerIdByUserId(userId);
-        if(playerId == null)
+        if(playerId == null) {
             return false;
-        Integer currentPlayerId = playerMapper.getRoomCurrentPlayerIdByPlayerId(playerId);
-        if(currentPlayerId == null || !currentPlayerId.equals(playerId))
+        }
+        Room room = playerMapper.getRoomByPlayerID(playerId);
+        if(currentPlayerId == null || !currentPlayerId.equals(playerId)) {
             return false;
+        }
 
         Integer questionCount = playerMapper.getQuestionCount();
-        Integer questionNumber = new Integer((new Random().nextInt(questionCount.intValue()))+1);
-        Integer diceNumber = new Integer((new Random().nextInt(6))+1);
+        Integer questionNumber = (new Random().nextInt(questionCount)) + 1;
+        Integer diceNumber = (new Random().nextInt(6)) + 1;
         //打包发送1 此时stage = GAME_DICE_RESULT ,current_player = player_id
-
+        messageService.refreshUI();
         boolean isPlayerCanAnswerQuestion;
-        if(playerMapper.getPlayerStatusByPlayerId(playerId).equals(new Integer(Constants.PLAYER_GAMING_HOLD))
+        if(playerMapper.getPlayerStatusByPlayerId(playerId).equals(Constants.PLAYER_GAMING_HOLD)
                 && (diceNumber%2) == 1){
             //打包发送2 在监狱中而且不能脱困,此时stage = GAME_READY ,current_player = next_player
         }
