@@ -28,7 +28,7 @@ public class Player extends Domain<Player>{
     private Integer position;
 
     @Column(value = "status", jdbcType = JdbcType.INTEGER)
-    private String status;
+    private Integer status;
 
     @Column(value = "gmt_created", jdbcType = JdbcType.TIMESTAMP)
     private Timestamp gmtCreated;
@@ -83,11 +83,11 @@ public class Player extends Domain<Player>{
         this.position = position;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

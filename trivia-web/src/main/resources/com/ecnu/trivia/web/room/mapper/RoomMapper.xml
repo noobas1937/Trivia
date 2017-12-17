@@ -22,6 +22,11 @@
     </select>
 
 
+    <select id="getRoomByPlayerID" resultType="com.ecnu.trivia.web.room.domain.Room">
+        SELECT * FROM room WHERE id IN (
+            SELECT p.room_id FROM player AS p WHERE p.id = ${id}
+        )
+    </select>
 
     <select id="getRoomById" resultMap="RoomDataMap">
         SELECT

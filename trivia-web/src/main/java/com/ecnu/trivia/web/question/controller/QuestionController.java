@@ -29,9 +29,5 @@ public class QuestionController {
     @Resource
     protected RoomService roomService;
 
-    /**
-     * @Description: 登录
-     * @Author: Jack Chen
-     * @Date: 16:29 2017/10/12
-     */
+
 }

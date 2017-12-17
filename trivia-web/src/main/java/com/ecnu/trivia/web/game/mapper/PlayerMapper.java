@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Repository
 public interface PlayerMapper extends Mapper<Player> {
     /**用户准备/取消准备*/
@@ -21,14 +23,11 @@ public interface PlayerMapper extends Mapper<Player> {
     /**获取房间中玩家的数量*/
     Integer getPlayerCount(@Param("roomID")Integer roomID);
 
+    /**获取房间中的玩家*/
+    List<Player> getPlayers(@Param("id")Integer lastPlayerId);
+
     /**根据user_id获取player**/
     Player getPlayerByUserId(@Param("userID")Integer userID);
-
-    /**根据player_id获取房间*/
-    Room getRoomByPlayerID(@Param("id")Integer playerID);
-
-    /**根据player_id获取其状态*/
-    Integer getPlayerStatusByPlayerId(@Param("playerID")Integer playerID);
 
     /**获取问题的总数量*/
     Integer getQuestionCount();

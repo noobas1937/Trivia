@@ -4,6 +4,7 @@ import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
@@ -39,17 +40,22 @@ public class GameController {
         return new Resp(HttpRespCode.SUCCESS);
     }
 
-/*    *//**
+   /**
      * 用户掷骰子
      * @Author: Handsome Zhao
      * @Date: 20:05 2017/12/11
-     *//*
-    @RequestMapping(value = "/playing/roll", method = RequestMethod.POST)
-    public Resp rollDice(HttpSession session) {
-        User user = (User) session.getAttribute(Constants.ONLINE_USER);
+     */
+    @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
+    public Resp rollDice() {
+        User user = UserUtils.fetchUser();
         if(!ObjectUtils.isNullOrEmpty(user)){
-            String result = gameService.rollDice(user.getId());
+            boolean result = gameService.rollDice(user.getId());
+            if(!result) {
+                return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+            }else{
+                return new Resp(HttpRespCode.SUCCESS);
+            }
         }
-        return new Resp(HttpRespCode.LENGTH_REQUIRED);
-    }*/
+        return new Resp(HttpRespCode.USER_NOT_LOGIN);
+    }
 }
