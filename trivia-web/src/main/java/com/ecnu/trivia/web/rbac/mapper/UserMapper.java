@@ -18,6 +18,8 @@ import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserMapper{
     User getUserByAccount(@Param("account")String account,@Param("password")String password);
@@ -29,6 +31,16 @@ public interface UserMapper{
     void setLastLogin(@Param("account")String account);
 
     void setUserRegisterInfo(@Param("nickname")String nickname,@Param("headpic")String headpic,@Param("account")String account,@Param("password")String password);
+
+    List<User> getUserList();
+
+    void addNewUser(@Param("account")String account,@Param("password")String password,@Param("nickName")String nickName,@Param("headPic")String headPic);
+
+    void deleteUserById(@Param("userId")Integer userId);
+
+    void modifyUserInfoWithNewPassword(@Param("userID")Integer userID,@Param("password")String password,@Param("nickName")String nickName,@Param("headPic")String headPic);
+
+    void modifyUserInfoWithoutNewPassword(@Param("userID")Integer userID,@Param("password")String password,@Param("nickName")String nickName,@Param("headPic")String headPic);
 
     /**上传头像**/
     void upload(@Param("account")String account,@Param("uri")String uri);

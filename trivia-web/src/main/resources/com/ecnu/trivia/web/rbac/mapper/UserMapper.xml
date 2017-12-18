@@ -20,7 +20,7 @@
     <select id="getUserById" resultType="com.ecnu.trivia.web.rbac.domain.User">
         SELECT *
         FROM user AS u
-        WHERE u.status = 1
+        WHERE u.status = 0
         AND u.id = ${id}
     </select>
 
@@ -28,6 +28,31 @@
         UPDATE user SET last_login = NOW()
         WHERE account = #{account}
     </select>
+
+    <select id="getUserList" resultType="com.ecnu.trivia.web.rbac.domain.User">
+        SELECT * FROM user
+    </select>
+
+    <insert id="addNewUser">
+        INSERT INTO user (id, nick_name, head_pic, account,`password`, user_type, balance, status, last_login, gmt_created, gmt_modified)
+        VALUES (null,#{nickName},#{headPic},#{account},MD5(#{password}),0,100000,0,NOW(),NOW(),NOW())
+    </insert>
+
+    <delete id="deleteUserById">
+        DELETE FROM user WHERE id = ${userId}
+    </delete>
+
+    <update id="modifyUserInfoWithNewPassword">
+        UPDATE user
+        SET `password` = MD5(#{password}),nick_name = #{nickName},head_pic = #{headPic},gmt_modified = NOW()
+        WHERE id = ${userID}
+    </update>
+
+    <update id="modifyUserInfoWithoutNewPassword">
+        UPDATE user
+        SET `password` = #{password},nick_name = #{nickName},head_pic = #{headPic},gmt_modified = NOW()
+        WHERE id = ${userID}
+    </update>
 
     <select id="setUserRegisterInfo" resultType="com.ecnu.trivia.web.rbac.domain.User">
         INSERT INTO user (nick_name,head_pic,account,`password`,user_type,balance,status,last_login,gmt_created,gmt_modified)

@@ -11,12 +11,16 @@
 package com.ecnu.trivia.web.rbac.service;
 
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -41,6 +46,9 @@ public class SessionService implements Logable{
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private PlayerMapper playerMapper;
 
     public User getUserByAccount(String account,String password){
         User user = userMapper.getUserByAccount(account,password);
@@ -64,6 +72,61 @@ public class SessionService implements Logable{
         User user = userMapper.getUserById(id);
         user.setPassword("");
         return user;
+    }
+
+    public List<User> getUserList(){
+        List<User> list = userMapper.getUserList();
+        return list;
+    }
+
+    public boolean addNewUser(String account,
+                              String password,
+                              String nickName,
+                              String headPic){
+        //查看是否有account相同的user账号,重复的话不能添加并返回false，不重复的话不允许添加
+        User tempUser = userMapper.getUserByAccountWithoutPassword(account);
+        if(ObjectUtils.isNullOrEmpty(tempUser)){
+            userMapper.addNewUser(account, password, nickName, headPic);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public boolean deleteUserById(Integer userId){
+        Player tempPlayer = playerMapper.getPlayerByUserId(userId);
+        //查看尝试删除的user相联的player是否存在，若存在的话则不删除
+        if(ObjectUtils.isNullOrEmpty(tempPlayer)){
+            userMapper.deleteUserById(userId);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public void modifyUserInfo(Integer userID,
+                               String password,
+                               String nickName,
+                               String headPic) {
+        User user = userMapper.getUserById(userID);
+        boolean isPassWordNull = ObjectUtils.isNullOrEmpty(password);
+        boolean isNickNameNull = ObjectUtils.isNullOrEmpty(nickName);
+        boolean isHeadPicNull = ObjectUtils.isNullOrEmpty(headPic);
+        if(isNickNameNull){
+            nickName = user.getNickName();
+        }
+        if(isHeadPicNull){
+            headPic = user.getHeadPic();
+        }
+
+        //因为MD5加密不可逆，所以有两种修改情况
+        if(isPassWordNull){
+            password = user.getPassword();
+            userMapper.modifyUserInfoWithoutNewPassword(userID,password,nickName,headPic);
+        }
+        else{
+            userMapper.modifyUserInfoWithNewPassword(userID,password,nickName,headPic);
+        }
     }
 
     public String uploadHeadPic(MultipartFile file){
