@@ -122,13 +122,9 @@ public class GameService implements Logable {
      * @author: Lucto Zhang
      * @Date: 20:57 2017/12/20
      */
-    public boolean roomWaiting(Integer userId){
+    public RoomVO getRoom(Integer userId){
         Player player = playerMapper.getPlayerByUserId(userId);
         RoomVO room = roomMapper.getRoomById(player.getRoomId());
-        if(room.getStatus()==Constants.ROOM_WAITING) {
-            return true;
-        }else{
-            return false;
-        }
+        return room;
     }
 }

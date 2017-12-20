@@ -3,8 +3,10 @@ package com.ecnu.trivia.web.game.controller;
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.service.GameService;
+import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
@@ -23,6 +25,10 @@ public class GameController {
     @Resource
     protected GameService gameService;
 
+    @Resource
+    protected MessageService messageService;
+
+
     /**
      * 用户准备（取消准备）
      * @author: Lucto Zhang
@@ -34,9 +40,11 @@ public class GameController {
             User user = (User) session.getAttribute(Constants.ONLINE_USER);
             if (!ObjectUtils.isNullOrEmpty(user)) {
                 int userId = user.getId();
-                if (gameService.roomWaiting(userId)) {
+                RoomVO room = gameService.getRoom(userId);
+                if (room.getStatus() == Constants.ROOM_WAITING) {
                     //将当前用户的准备状态设为相应的状态
                     gameService.isReady(userId, ready);
+                    messageService.refreshUI(room.getId());
                     //如果当前用户准备，检测是否当前房间所有用户已准备
                     if (ready == Constants.PLAYER_READY) {
                         //遍历当前房间所有用户是否已准备,
