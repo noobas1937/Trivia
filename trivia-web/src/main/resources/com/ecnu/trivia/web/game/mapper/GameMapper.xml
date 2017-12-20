@@ -11,4 +11,9 @@
         SELECT * FROM game WHERE question_id = ${id}
     </select>
 
+    <insert id="addGame">
+        INSERT INTO game (room_id, current_player_id, dice_number, question_id, stage, gmt_created, gmt_modified)
+        VALUES (${roomId},${playerId},-1,-1,0,NOW(),NOW())
+    </insert>
+
 </mapper>

@@ -34,7 +34,15 @@ public class GameController {
             User user = (User) session.getAttribute(Constants.ONLINE_USER);
             if (!ObjectUtils.isNullOrEmpty(user)) {
                 int userId = user.getId();
-                gameService.isReady(userId, ready);
+                if (gameService.roomWaiting(userId)) {
+                    //将当前用户的准备状态设为相应的状态
+                    gameService.isReady(userId, ready);
+                    //如果当前用户准备，检测是否当前房间所有用户已准备
+                    if (ready == Constants.PLAYER_READY) {
+                        //遍历当前房间所有用户是否已准备,
+                        gameService.isAllReady(userId);
+                    }
+                }
             }
         }
         return new Resp(HttpRespCode.SUCCESS);

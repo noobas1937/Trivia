@@ -46,4 +46,10 @@
         UPDATE player SET balance=${balance},position=${position},status=${status}
         WHERE id = ${id}
     </update>
+
+    <select id="getNotReadyPlayer" resultType="com.ecnu.trivia.web.game.domain.Player">
+        SELECT * FROM player
+        WHERE room_id=${roomId} and status = 0
+    </select>
+
 </mapper>

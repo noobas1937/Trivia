@@ -20,4 +20,8 @@ public interface GameMapper extends Mapper<Player> {
 
     /**根据问题ID获取游戏**/
     Game getGameByQuestionId(@Param("id") Integer id);
+
+    /**添加游戏**/
+    void addGame(@Param("roomId")Integer roomId,@Param("playerId")Integer currentPlayerId);
+
 }

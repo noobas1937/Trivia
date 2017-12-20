@@ -132,20 +132,24 @@ public class QuestionController {
     @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
     public Resp getQuestionTypeList(@PathVariable("id") Integer questionTypeId) {
         boolean result = questionService.deleteQuestionTypeById(questionTypeId);
-        if(result)
+        if(result) {
             return new Resp(HttpRespCode.SUCCESS);
-        else
+        }
+        else {
             return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        }
     }
 
     /*增加*/
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public Resp addQuestionType(@RequestParam("description") String description) {
         boolean result = questionService.addQuestionType(description);
-        if(result)
+        if(result) {
             return new Resp(HttpRespCode.SUCCESS);
-        else
+        }
+        else {
             return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        }
     }
 
     /*修改*/
@@ -153,10 +157,12 @@ public class QuestionController {
     public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
                                        @RequestParam("description") String description) {
         boolean result = questionService.modifyQuestionTypeName(questionId,description);
-        if(result)
+        if(result) {
             return new Resp(HttpRespCode.SUCCESS);
-        else
+        }
+        else {
             return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        }
     }
 
 

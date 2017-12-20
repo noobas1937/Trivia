@@ -3,6 +3,7 @@ package com.ecnu.trivia.web.game.mapper;
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.room.domain.Room;
+import gherkin.lexer.Pl;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,5 +38,8 @@ public interface PlayerMapper extends Mapper<Player> {
                       @Param("balance")Integer balance,
                       @Param("position")Integer position,
                       @Param("status")Integer status);
+
+    /**根据房间id获取未准备好的玩家**/
+    List<Player> getNotReadyPlayer(@Param("roomId")Integer roomId);
 
 }

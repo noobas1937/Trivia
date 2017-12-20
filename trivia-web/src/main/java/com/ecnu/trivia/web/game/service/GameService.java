@@ -1,14 +1,17 @@
 package com.ecnu.trivia.web.game.service;
 import com.ecnu.trivia.common.log.Logable;
+import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.room.domain.Room;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.ConstantsMsg;
+import gherkin.lexer.Pl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,10 @@ public class GameService implements Logable {
     @Resource
     private MessageService messageService;
 
+    /**
+     * 用户准备（取消准备）
+     * @author: Lucto Zhang
+     */
     public void isReady(int userId,int isReady){
         playerMapper.isReady(userId,isReady);
     }
@@ -84,5 +91,44 @@ public class GameService implements Logable {
             messageService.refreshUI(player.getRoomId());
         }
         return true;
+    }
+
+    /**
+     * 判断当前房间是否所有用户都已准备
+     * @author: Lucto Zhang
+     * @Date: 20:39 2017/12/18
+     */
+    public void isAllReady(Integer userId) {
+        Player player = playerMapper.getPlayerByUserId(userId);
+        if (!ObjectUtils.isNullOrEmpty(player)) {
+            List<Player> notReadyPlayers = playerMapper.getNotReadyPlayer(player.getRoomId());
+            //判断当前房间中所有玩家是否都已准备好
+            if(ObjectUtils.isNullOrEmpty(notReadyPlayers)){
+                //准备开始游戏
+                Game game = gameMapper.getGameById(player.getRoomId());
+                if(!ObjectUtils.isNullOrEmpty(game)){
+                    Integer currentPlayerId = playerMapper.getPlayers(player.getId()).get(0).getId();
+                    gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
+                }else{
+                    Integer currentPlayerId = playerMapper.getPlayers(player.getId()).get(0).getId();
+                    gameMapper.addGame(player.getRoomId(),currentPlayerId);
+                }
+            }
+        }
+    }
+
+    /**
+     * 判断房间是否已开始游戏
+     * @author: Lucto Zhang
+     * @Date: 20:57 2017/12/20
+     */
+    public boolean roomWaiting(Integer userId){
+        Player player = playerMapper.getPlayerByUserId(userId);
+        RoomVO room = roomMapper.getRoomById(player.getRoomId());
+        if(room.getStatus()==Constants.ROOM_WAITING) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }
