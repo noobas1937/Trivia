@@ -72,7 +72,9 @@ public class MessageService {
             Integer userId = user.getId();
             if(ObjectUtils.isNotNullOrEmpty(userId)){
                 WebSocketCommunicator communicator = onlineUser.get(user.getId());
-                communicator.sendMessageToUser(message,userId);
+                if(ObjectUtils.isNotNullOrEmpty(communicator)) {
+                    communicator.sendMessageToUser(message, userId);
+                }
             }
         }
     }
@@ -88,7 +90,9 @@ public class MessageService {
             Integer userId = player.getUserId();
             if(ObjectUtils.isNotNullOrEmpty(userId)){
                 WebSocketCommunicator communicator = onlineUser.get(player.getUserId());
-                communicator.sendMessageToUser(message,userId);
+                if(ObjectUtils.isNotNullOrEmpty(communicator)){
+                    communicator.sendMessageToUser(message,userId);
+                }
             }
         }
     }
@@ -104,12 +108,9 @@ public class MessageService {
             return false;
         }
         RoomVO room = roomService.getRoomById(roomId);
-        if(room.getStatus().equals(Constants.ROOM_PLAYING)){
-            Game game = gameMapper.getGameById(roomId);
-            room.setGame(game);
-            sendMsgToPlayers(JSON.toJSONString(room),room.getPlayerList());
-            return true;
-        }
-        return false;
+        Game game = gameMapper.getGameById(roomId);
+        room.setGame(game);
+        sendMsgToPlayers(JSON.toJSONString(room),room.getPlayerList());
+        return true;
     }
 }

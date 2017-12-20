@@ -16,4 +16,14 @@
         VALUES (${roomId},${playerId},-1,-1,0,NOW(),NOW())
     </insert>
 
+    <update id="updateGameStatus">
+        UPDATE game
+        SET
+            current_player_id = ${pid},
+            dice_number = ${diceNum},
+            question_id = ${qid},
+            stage = ${stage}
+        WHERE id = ${id}
+
+    </update>
 </mapper>

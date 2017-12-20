@@ -8,6 +8,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.alibaba.fastjson.JSON;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.message.config.GetHttpSessionConfigurator;
 import com.ecnu.trivia.web.rbac.domain.User;
@@ -55,6 +56,7 @@ public class WebSocketCommunicator {
         }else {
             logger.info("用户id:{}登录",id);
             ONLINE_USER.put(id, this);
+            session.getBasicRemote().sendText(JSON.toJSONString(this.user));
         }
         logger.info("当前在线用户数为：{}",ONLINE_USER.size());
     }
@@ -110,7 +112,7 @@ public class WebSocketCommunicator {
      */
     public void sendMessageToUser(String message,Integer userId){
         WebSocketCommunicator communicator = ONLINE_USER.get(userId);
-        if (ObjectUtils.isNullOrEmpty(communicator)) {
+        if (ObjectUtils.isNotNullOrEmpty(communicator)) {
             try {
                 communicator.session.getBasicRemote().sendText(message);
                 logger.info(" 给用户id为：{}的终端发送消息：{}",communicator.user.getId(),message);

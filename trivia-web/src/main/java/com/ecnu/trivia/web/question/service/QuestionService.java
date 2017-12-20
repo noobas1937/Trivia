@@ -192,6 +192,7 @@ public class QuestionService implements Logable{
                     player.getPosition(),Constants.PLAYER_GAMING_HOLD);
         }
         //刷新UI包
+        gameMapper.updateGameStatus(game.getId(),curPlayerID,game.getDiceNumber(),game.getQuestionId(),Constants.GAME_ANSWER_QUESTION_RESULT);
         messageService.refreshUI(game.getRoomId());
 
         //检查游戏是否结束（即玩家是否达到6枚金币）

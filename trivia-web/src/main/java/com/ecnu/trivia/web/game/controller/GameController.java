@@ -49,6 +49,7 @@ public class GameController {
                     if (ready == Constants.PLAYER_READY) {
                         //遍历当前房间所有用户是否已准备,
                         gameService.isAllReady(userId);
+                        messageService.refreshUI(room.getId());
                     }
                 }
             }
