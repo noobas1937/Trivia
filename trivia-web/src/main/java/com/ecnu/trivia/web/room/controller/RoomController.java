@@ -18,6 +18,7 @@ package com.ecnu.trivia.web.room.controller;
 
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
@@ -33,7 +34,7 @@ import java.util.List;
 @RequestMapping(value = "/room", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class RoomController {
     @Resource
-    protected RoomService roomService;
+    private RoomService roomService;
 
     /**
     * 获取房间列表

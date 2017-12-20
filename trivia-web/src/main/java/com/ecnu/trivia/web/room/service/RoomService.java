@@ -15,6 +15,7 @@ import com.ecnu.trivia.common.log.Logable;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
+import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
@@ -37,6 +38,8 @@ public class RoomService implements Logable{
     private RoomMapper roomMapper;
     @Resource
     private PlayerMapper playerMapper;
+    @Resource
+    private MessageService messageService;
 
     public List<RoomVO> getRoomList(){
         return roomMapper.getRoomList();
@@ -55,11 +58,13 @@ public class RoomService implements Logable{
             Player player = playerMapper.getPlayerByUserId(userID);
             if(ObjectUtils.isNullOrEmpty(player)){
                 playerMapper.addPlayer(roomId, userID);
+                messageService.refreshUI(roomId);
             }else{
                 return new Resp(HttpRespCode.USER_ALREADY_IN_ROOM);
             }
         }else if (Objects.equals(isEnter, Constants.ROOM_EXIT)){
             playerMapper.removePlayer(userID);
+            messageService.refreshUI(roomId);
         }
         return new Resp(HttpRespCode.SUCCESS);
     }
