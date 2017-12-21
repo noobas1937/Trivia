@@ -6,7 +6,6 @@ import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
-import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;

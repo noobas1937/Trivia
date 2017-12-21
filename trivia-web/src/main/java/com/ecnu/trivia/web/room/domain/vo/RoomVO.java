@@ -2,6 +2,7 @@ package com.ecnu.trivia.web.room.domain.vo;
 
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.domain.vo.PlayerVO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -13,7 +14,7 @@ public class RoomVO {
     private Timestamp gmtCreated;
     private Timestamp gmtModified;
     private Game game;
-    private List<Player> playerList;
+    private List<PlayerVO> playerList;
 
     public RoomVO() {
     }
@@ -58,11 +59,11 @@ public class RoomVO {
         this.gmtModified = gmtModified;
     }
 
-    public List<Player> getPlayerList() {
+    public List<PlayerVO> getPlayerList() {
         return playerList;
     }
 
-    public void setPlayerList(List<Player> playerList) {
+    public void setPlayerList(List<PlayerVO> playerList) {
         this.playerList = playerList;
     }
 

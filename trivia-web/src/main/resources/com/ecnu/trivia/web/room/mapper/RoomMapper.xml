@@ -17,10 +17,17 @@
         p.position AS p_position,
         p.status AS p_status,
         p.gmt_created AS p_gmtCreated,
-        p.gmt_modified AS p_gmtModified
+        p.gmt_modified AS p_gmtModified,
+        u.head_pic AS u_headPic
         FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
+        LEFT OUTER JOIN user as u ON p.user_id = u.id ORDER BY r.id
     </select>
 
+    <update id="updateRoomStatus">
+        UPDATE room
+        SET status=${status}
+        WHERE id=${id}
+    </update>
 
     <select id="getRoomByPlayerID" resultType="com.ecnu.trivia.web.room.domain.Room">
         SELECT * FROM room WHERE id IN (
@@ -53,7 +60,7 @@
         <result property="status" column="r_status" />
         <result property="gmtCreated" column="r_gmtCreated" />
         <result property="gmtModified" column="r_gmtModified" />
-        <collection property="playerList" ofType="com.ecnu.trivia.web.game.domain.Player">
+        <collection property="playerList" ofType="com.ecnu.trivia.web.game.domain.vo.PlayerVO">
             <id property="id" column="p_id" />
             <result property="userId" column="p_userId" />
             <result property="roomId" column="p_roomId" />
@@ -62,6 +69,7 @@
             <result property="status" column="p_status" />
             <result property="gmtCreated" column="p_gmtCreated" />
             <result property="gmtModified" column="p_gmtModified" />
+            <result property="headPic" column="u_headPic" />
         </collection>
     </resultMap>
 

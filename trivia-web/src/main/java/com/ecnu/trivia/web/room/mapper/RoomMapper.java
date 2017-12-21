@@ -32,4 +32,7 @@ public interface RoomMapper extends Mapper<Room> {
 
     /**根据player_id获取房间*/
     Room getRoomByPlayerID(@Param("id")Integer playerID);
+
+    /**改变房间状态**/
+    void updateRoomStatus(@Param("id")Integer id,@Param("status")Integer roomStatus);
 }

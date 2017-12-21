@@ -116,6 +116,7 @@ public class GameService implements Logable {
         }else{
             gameMapper.addGame(room.getId(),currentPlayerId);
         }
+        roomMapper.updateRoomStatus(room.getId(),Constants.ROOM_PLAYING);
         messageService.refreshUI(room.getId());
         return new Resp(HttpRespCode.SUCCESS);
     }
