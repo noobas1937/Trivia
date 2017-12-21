@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface PlayerMapper extends Mapper<Player> {
     /**用户准备/取消准备*/
-    void setupUserState(@Param("userID")Integer userID, @Param("setupUserState")Integer isReady);
+    void setupUserState(@Param("userID")Integer userID, @Param("isReady")Integer isReady);
 
     /**向房间添加玩家*/
     void addPlayer(@Param("roomID")Integer roomID, @Param("userID")Integer userID);

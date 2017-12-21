@@ -18,7 +18,8 @@
         p.status AS p_status,
         p.gmt_created AS p_gmtCreated,
         p.gmt_modified AS p_gmtModified,
-        u.head_pic AS u_headPic
+        u.head_pic AS u_headPic,
+        u.nick_name AS u_nickName
         FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
         LEFT OUTER JOIN user as u ON p.user_id = u.id ORDER BY r.id
     </select>
@@ -49,9 +50,11 @@
         p.position AS p_position,
         p.status AS p_status,
         p.gmt_created AS p_gmtCreated,
-        p.gmt_modified AS p_gmtModified
+        p.gmt_modified AS p_gmtModified,
+        u.head_pic AS u_headPic,
+        u.nick_name AS u_nickName
         FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
-        WHERE r.id = ${id}
+        LEFT OUTER JOIN user as u ON p.user_id = u.id WHERE r.id = ${id}
     </select>
 
     <resultMap id="RoomDataMap" type="com.ecnu.trivia.web.room.domain.vo.RoomVO" >
@@ -70,6 +73,7 @@
             <result property="gmtCreated" column="p_gmtCreated" />
             <result property="gmtModified" column="p_gmtModified" />
             <result property="headPic" column="u_headPic" />
+            <result property="nickName" column="u_nickName" />
         </collection>
     </resultMap>
 

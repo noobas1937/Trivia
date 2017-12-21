@@ -131,4 +131,14 @@ public class GameService implements Logable {
         RoomVO room = roomMapper.getRoomById(player.getRoomId());
         return room;
     }
+
+    /**
+     * 根据userId刷新用户房间
+     * @param userId
+     * @author Jack Chen
+     */
+    public void refreshUserRoom(Integer userId) {
+        RoomVO room = getRoomByUserId(userId);
+        messageService.refreshUI(room.getId());
+    }
 }

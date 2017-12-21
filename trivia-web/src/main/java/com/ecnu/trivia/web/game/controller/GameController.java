@@ -41,6 +41,21 @@ public class GameController {
         return gameService.checkReady(user.getId(),ready);
     }
 
+    /**
+     * 用户主动刷新UI
+     * @return
+     * @author Jack Chen
+     */
+    @RequestMapping(value = "/refresh/", method = RequestMethod.GET)
+    public Resp refreshUI() {
+        User user = UserUtils.fetchUser();
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        }
+        gameService.refreshUserRoom(user.getId());
+        return new Resp(HttpRespCode.SUCCESS);
+    }
+
    /**
      * 用户掷骰子
      * @Author: Handsome Zhao

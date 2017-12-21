@@ -20,6 +20,7 @@ public class PlayerVO {
     private Timestamp gmtCreated;
     private Timestamp gmtModified;
     private String headPic;
+    private String nickName;
 
     public Integer getId() {
         return id;
@@ -91,5 +92,13 @@ public class PlayerVO {
 
     public void setHeadPic(String headPic) {
         this.headPic = headPic;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }
