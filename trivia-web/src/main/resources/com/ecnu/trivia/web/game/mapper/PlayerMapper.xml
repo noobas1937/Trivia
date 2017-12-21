@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecnu.trivia.web.game.mapper.PlayerMapper">
 
-    <update id="isReady">
+    <update id="setupUserState">
         UPDATE player
         SET status = ${isReady}
         WHERE user_id = ${userID}

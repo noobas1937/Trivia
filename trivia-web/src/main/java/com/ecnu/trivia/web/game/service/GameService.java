@@ -1,4 +1,5 @@
 package com.ecnu.trivia.web.game.service;
+import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.log.Logable;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
@@ -6,12 +7,11 @@ import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
-import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.ConstantsMsg;
-import gherkin.lexer.Pl;
+import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -33,14 +33,6 @@ public class GameService implements Logable {
     private GameMapper gameMapper;
     @Resource
     private MessageService messageService;
-
-    /**
-     * 用户准备（取消准备）
-     * @author: Lucto Zhang
-     */
-    public void isReady(int userId,int isReady){
-        playerMapper.isReady(userId,isReady);
-    }
 
     public boolean rollDice(Integer userId){
         //判断玩家是否合法 && 游戏是否为待掷骰子状态
@@ -98,23 +90,34 @@ public class GameService implements Logable {
      * @author: Lucto Zhang
      * @Date: 20:39 2017/12/18
      */
-    public void isAllReady(Integer userId) {
-        Player player = playerMapper.getPlayerByUserId(userId);
-        if (!ObjectUtils.isNullOrEmpty(player)) {
-            List<Player> notReadyPlayers = playerMapper.getNotReadyPlayer(player.getRoomId());
-            //判断当前房间中所有玩家是否都已准备好
-            if(ObjectUtils.isNullOrEmpty(notReadyPlayers)){
-                //准备开始游戏
-                Game game = gameMapper.getGameById(player.getRoomId());
-                if(!ObjectUtils.isNullOrEmpty(game)){
-                    Integer currentPlayerId = playerMapper.getPlayers(player.getId()).get(0).getId();
-                    gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
-                }else{
-                    Integer currentPlayerId = playerMapper.getPlayers(player.getId()).get(0).getId();
-                    gameMapper.addGame(player.getRoomId(),currentPlayerId);
-                }
-            }
+    public Resp checkReady(Integer userId,Integer ready) {
+        RoomVO room = getRoomByUserId(userId);
+        if (room.getStatus() != Constants.ROOM_WAITING) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
         }
+        //将当前用户的准备状态设为相应的状态
+        playerMapper.setupUserState(userId,ready);
+        messageService.refreshUI(room.getId());
+        //如果当前用户取消准备，操作结束
+        if (ready != Constants.PLAYER_READY) {
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+
+        List<Player> notReadyPlayers = playerMapper.getNotReadyPlayer(room.getId());
+        //判断当前房间中所有玩家是否都已准备好
+        if(ObjectUtils.isNotNullOrEmpty(notReadyPlayers)||notReadyPlayers.size()!=0) {
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+        //准备开始游戏
+        Game game = gameMapper.getGameById((room.getId()));
+        Integer currentPlayerId = room.getPlayerList().get(0).getId();
+        if(!ObjectUtils.isNullOrEmpty(game)){
+            gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
+        }else{
+            gameMapper.addGame(room.getId(),currentPlayerId);
+        }
+        messageService.refreshUI(room.getId());
+        return new Resp(HttpRespCode.SUCCESS);
     }
 
     /**
@@ -122,7 +125,7 @@ public class GameService implements Logable {
      * @author: Lucto Zhang
      * @Date: 20:57 2017/12/20
      */
-    public RoomVO getRoom(Integer userId){
+    public RoomVO getRoomByUserId(Integer userId){
         Player player = playerMapper.getPlayerByUserId(userId);
         RoomVO room = roomMapper.getRoomById(player.getRoomId());
         return room;

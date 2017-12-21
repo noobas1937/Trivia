@@ -23,10 +23,10 @@ import javax.servlet.http.HttpSession;
 public class GameController {
 
     @Resource
-    protected GameService gameService;
+    private GameService gameService;
 
     @Resource
-    protected MessageService messageService;
+    private MessageService messageService;
 
 
     /**
@@ -36,25 +36,14 @@ public class GameController {
      */
     @RequestMapping(value = "/ready/{isReady}", method = RequestMethod.GET)
     public Resp isReady(@PathVariable("isReady")Integer ready, HttpSession session) {
-        if(ready == Constants.PLAYER_READY || ready == Constants.PLAYER_WAITING) {
-            User user = (User) session.getAttribute(Constants.ONLINE_USER);
-            if (!ObjectUtils.isNullOrEmpty(user)) {
-                int userId = user.getId();
-                RoomVO room = gameService.getRoom(userId);
-                if (room.getStatus() == Constants.ROOM_WAITING) {
-                    //将当前用户的准备状态设为相应的状态
-                    gameService.isReady(userId, ready);
-                    messageService.refreshUI(room.getId());
-                    //如果当前用户准备，检测是否当前房间所有用户已准备
-                    if (ready == Constants.PLAYER_READY) {
-                        //遍历当前房间所有用户是否已准备,
-                        gameService.isAllReady(userId);
-                        messageService.refreshUI(room.getId());
-                    }
-                }
-            }
+        if(ready != Constants.PLAYER_READY && ready != Constants.PLAYER_WAITING) {
+            return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        return new Resp(HttpRespCode.SUCCESS);
+        User user = (User) session.getAttribute(Constants.ONLINE_USER);
+        if (ObjectUtils.isNullOrEmpty(user)) {
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        }
+        return gameService.checkReady(user.getId(),ready);
     }
 
    /**
@@ -65,14 +54,14 @@ public class GameController {
     @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
     public Resp rollDice() {
         User user = UserUtils.fetchUser();
-        if(!ObjectUtils.isNullOrEmpty(user)){
-            boolean result = gameService.rollDice(user.getId());
-            if(!result) {
-                return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
-            }else{
-                return new Resp(HttpRespCode.SUCCESS);
-            }
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
-        return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        boolean result = gameService.rollDice(user.getId());
+        if(!result) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }else{
+            return new Resp(HttpRespCode.SUCCESS);
+        }
     }
 }
