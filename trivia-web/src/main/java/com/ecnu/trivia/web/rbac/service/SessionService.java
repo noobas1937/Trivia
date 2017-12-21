@@ -10,12 +10,14 @@
  */
 package com.ecnu.trivia.web.rbac.service;
 
+import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.log.Logable;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.mapper.UserMapper;
+import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,13 +53,11 @@ public class SessionService implements Logable{
     private PlayerMapper playerMapper;
 
     public User getUserByAccount(String account,String password){
-        User user = userMapper.getUserByAccount(account,password);
-        return user;
+        return userMapper.getUserByAccount(account,password);
     }
 
     public User getUserByAccountWithoutPassword(String account){
-        User user = userMapper.getUserByAccountWithoutPassword(account);
-        return user;
+        return userMapper.getUserByAccountWithoutPassword(account);
     }
 
     public void setUserLastLogin(String account){
@@ -75,39 +75,32 @@ public class SessionService implements Logable{
     }
 
     public List<User> getUserList(){
-        List<User> list = userMapper.getUserList();
-        return list;
+        return userMapper.getUserList();
     }
 
-    public boolean addNewUser(String account,
-                              String password,
-                              String nickName,
-                              String headPic){
+    public Resp addNewUser(String account,String password,
+                              String nickName,String headPic){
         //查看是否有account相同的user账号,重复的话不能添加并返回false，不重复的话不允许添加
         User tempUser = userMapper.getUserByAccountWithoutPassword(account);
         if(ObjectUtils.isNullOrEmpty(tempUser)){
             userMapper.addNewUser(account, password, nickName, headPic);
-            return true;
+            return new Resp(HttpRespCode.SUCCESS);
         }
-        else
-            return false;
+        return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
-    public boolean deleteUserById(Integer userId){
+    public Resp deleteUserById(Integer userId){
         Player tempPlayer = playerMapper.getPlayerByUserId(userId);
         //查看尝试删除的user相联的player是否存在，若存在的话则不删除
         if(ObjectUtils.isNullOrEmpty(tempPlayer)){
             userMapper.deleteUserById(userId);
-            return true;
+                return new Resp(HttpRespCode.SUCCESS);
         }
-        else
-            return false;
+        return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
-    public void modifyUserInfo(Integer userID,
-                               String password,
-                               String nickName,
-                               String headPic) {
+    public void modifyUserInfo(Integer userID,String password,
+                               String nickName,String headPic) {
         User user = userMapper.getUserById(userID);
         boolean isPassWordNull = ObjectUtils.isNullOrEmpty(password);
         boolean isNickNameNull = ObjectUtils.isNullOrEmpty(nickName);

@@ -51,21 +51,13 @@ public class UserController {
                             @RequestParam("password") String password,
                             @RequestParam("nickName") String nickName,
                             @RequestParam("headPic") String headPic){
-        boolean result = sessionService.addNewUser(account, password, nickName, headPic);
-        if(result)
-            return new Resp(HttpRespCode.SUCCESS);
-        else
-            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        return sessionService.addNewUser(account, password, nickName, headPic);
     }
 
     /*根据用户id删除用户*/
     @RequestMapping(value = "/{userID}/", method = RequestMethod.DELETE)
     public Resp deleteUserById(@PathVariable("userID")Integer userID) {
-        boolean result = sessionService.deleteUserById(userID);
-        if(result)
-            return new Resp(HttpRespCode.SUCCESS);
-        else
-            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        return sessionService.deleteUserById(userID);
     }
 
     /*修改用户资料*/
@@ -74,7 +66,7 @@ public class UserController {
         if(ObjectUtils.isNullOrEmpty(user.getId())){
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        sessionService.modifyUserInfo(new Integer(user.getId()),user.getPassword(),user.getNickName(),user.getHeadPic());
+        sessionService.modifyUserInfo(user.getId(),user.getPassword(),user.getNickName(),user.getHeadPic());
         return new Resp(HttpRespCode.SUCCESS);
     }
 

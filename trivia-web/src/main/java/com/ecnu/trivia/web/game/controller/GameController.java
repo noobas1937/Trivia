@@ -25,10 +25,6 @@ public class GameController {
     @Resource
     private GameService gameService;
 
-    @Resource
-    private MessageService messageService;
-
-
     /**
      * 用户准备（取消准备）
      * @author: Lucto Zhang
