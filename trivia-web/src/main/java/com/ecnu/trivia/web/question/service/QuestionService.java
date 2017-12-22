@@ -52,7 +52,7 @@ public class QuestionService implements Logable{
     /**
      * 为系统增加问题
      * @author: Lucto
-     * @Date: 19:51 2017/12/17
+     * @date: 19:51 2017/12/17
      */
     public void addQuestion(String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type){
         questionMapper.addQuestion(content,chooseA,chooseB,chooseC,chooseD,answer,type);
@@ -61,57 +61,16 @@ public class QuestionService implements Logable{
     /**
      * 通过问题id获取游戏
      * @author: Lucto
-     * @Date: 21:20 2017/12/17
+     * @date: 21:20 2017/12/17
      */
     public Game getGameByQuestionId(Integer questionId) {
         return gameMapper.getGameByQuestionId(questionId);
     }
 
-    public List<QuestionType> getQuestionTypeList(){
-        return questionTypeMapper.getQuestionTypeList();
-    }
-
-    public boolean deleteQuestionTypeById(Integer questionTypeId){
-        //查找是否存在该类型的问题，存在的话不能删除
-        List<Question> questionList = questionMapper.getQuestionListByQuestionTypeId(questionTypeId);
-        if(questionList.isEmpty()){
-            questionTypeMapper.deleteQuestionTypeByQuestionTypeId(questionTypeId);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public boolean addQuestionType(String description){
-        //查找是否有名字重复的问题类型
-        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByQuestionTypeDescription(description);
-        if(questionTypeList.isEmpty()){
-            questionTypeMapper.addQuestionTypeByDescription(description);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public boolean modifyQuestionTypeName(Integer questionId, String description){
-        //查找是否有名字重复的问题类型
-        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByQuestionTypeDescription(description);
-        if(questionTypeList.isEmpty()){
-            questionTypeMapper.updateQuestionTypeName(questionId,description);
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-
     /**
      * 删除问题
      * @author: Lucto
-     * @Date: 21:39 2017/12/17
+     * @date: 21:39 2017/12/17
      */
     public void deleteQuestion(Integer questionId) {
         questionMapper.deleteQuestion(questionId);
@@ -120,7 +79,7 @@ public class QuestionService implements Logable{
     /**
      * 编辑问题
      * @author: Lucto
-     * @Date: 22:32 2017/12/17
+     * @date: 22:32 2017/12/17
      */
     public void modifyQuestion(Integer id,String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type) {
         Question question = questionMapper.getQuestionById(id);
@@ -147,6 +106,35 @@ public class QuestionService implements Logable{
         }
         questionMapper.modifyQuestion(id,content,chooseA,chooseB,chooseC,chooseD,answer,type);
     }
+
+    /**
+     * 根据问题ID获取问题题干和选项
+     * @param userId
+     * @param questionId
+     * @author Jack Chen
+     */
+    public Resp getQuestionById(Integer userId, Integer questionId){
+        //判断玩家是否合法 && 游戏是否为待回答问题状态
+        Player player = playerMapper.getPlayerByUserId(userId);
+        if(player == null) { return new Resp(HttpRespCode.METHOD_NOT_ALLOWED); }
+        Game game = gameMapper.getGameByRoomId(player.getRoomId());
+        if(!game.getStage().equals(Constants.GAME_ANSWERING_QUESTION)){
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }
+        //判断当前玩家是不是该玩家
+        Integer curPlayerID = game.getCurrentPlayerId();
+        if(curPlayerID == null || !Objects.equals(curPlayerID, player.getId())) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }
+        Question question = questionMapper.getQuestionById(questionId);
+        if(ObjectUtils.isNullOrEmpty(question)){
+            logger.error(ConstantsMsg.GET_QUESTION_ERROR,questionId);
+            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
+        }
+        question.setAnswer(null);
+        return new Resp(HttpRespCode.SUCCESS,question);
+    }
+
     /**
      * 用户回答问题逻辑
      *  1、当玩家答题正确，添加一枚金币
@@ -155,11 +143,10 @@ public class QuestionService implements Logable{
      *  检查游戏是否结束，若已结束，组织游戏结果发送到客户端
      *                  若未结束，组织下一个玩家操作的UI包发送到客户端
      * @param userId
-     * @param questionId
      * @param userAnswer
      * @return
      */
-    public Resp checkQuestionAnswer(Integer userId, Integer questionId, Integer userAnswer){
+    public Resp checkQuestionAnswer(Integer userId, Integer userAnswer){
         //判断玩家是否合法 && 游戏是否为待回答问题状态
         Player player = playerMapper.getPlayerByUserId(userId);
         if(player == null) { return new Resp(HttpRespCode.METHOD_NOT_ALLOWED); }
@@ -173,7 +160,7 @@ public class QuestionService implements Logable{
             return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
         }
         //校验问题答案
-        Question question = questionMapper.getQuestionById(questionId);
+        Question question = questionMapper.getQuestionByUserId(userId);
         boolean answerResult = Objects.equals(question.getAnswer(), userAnswer);
         if(answerResult){
             //回答正确 && 加鸡腿
@@ -220,7 +207,7 @@ public class QuestionService implements Logable{
     /**
      * 获取所有问题
      * @author: Lucto
-     * @Date: 23:03 2017/12/17
+     * @date: 23:03 2017/12/17
      */
     public List<Question> getAllQuestions() {
         return questionMapper.getQuestionList();
@@ -234,7 +221,6 @@ public class QuestionService implements Logable{
      * @param userId
      * @param type
      * @author Jack Chen
-     * @return
      */
     public Resp generateRandomQuestion(Integer userId, Integer type) {
         //判断玩家是否合法 && 游戏是否为选择问题类型状态

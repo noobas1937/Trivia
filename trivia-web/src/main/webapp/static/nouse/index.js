@@ -71,7 +71,7 @@ if ( typeof define === 'function' && define.amd ) {
 /*!
  * css-filters-polyfill.js
  *
- * Author: Christian Schepp Schaefer
+ * author: Christian Schepp Schaefer
  * Summary: A polyfill for CSS filter effects
  * License: MIT
  * Version: 0.22

@@ -38,8 +38,8 @@ public class RoomController {
 
     /**
     * 获取房间列表
-    * @Author: Handsome Zhao
-    * @Date: 16:29 2017/12/7
+    * @author: Handsome Zhao
+    * @date: 16:29 2017/12/7
     */
     @RequestMapping(value = "/list/", method = RequestMethod.GET)
     public Resp getRoomList() {
@@ -49,8 +49,8 @@ public class RoomController {
 
     /**
      * 根据id号获取特定的房间
-     * @Author: Handsome Zhao
-     * @Date: 16:29 2017/12/7
+     * @author: Handsome Zhao
+     * @date: 16:29 2017/12/7
      */
     @RequestMapping(value = "/detail/", method = RequestMethod.GET)
     public Resp getRoomList(Integer roomId) {

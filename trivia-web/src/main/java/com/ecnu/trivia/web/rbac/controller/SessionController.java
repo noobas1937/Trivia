@@ -44,8 +44,8 @@ public class SessionController {
 
     /**
      * 登录
-     * @Author: Lucto Zhang
-     * @Date: 20:30 2017/12/07
+     * @author: Lucto Zhang
+     * @date: 20:30 2017/12/07
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public Resp login(@RequestBody UserAccountVO userParam,HttpSession session) {
@@ -64,8 +64,8 @@ public class SessionController {
 
     /**
     * 登出
-    * @Author: Jack Chen
-    * @Date: 16:29 2017/10/12
+    * @author: Jack Chen
+    * @date: 16:29 2017/10/12
     */
     @RequestMapping(value = "/logout/", method = RequestMethod.GET)
     public Resp logout(HttpSession session) {
@@ -76,7 +76,7 @@ public class SessionController {
     /**
      * 注册
      * @author: Lucto Zhang
-     * @Date: 22:24 2017/12/07
+     * @date: 22:24 2017/12/07
      */
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
     public Resp register(HttpSession session, @RequestBody UserRegisterVO userParam) {
@@ -94,8 +94,8 @@ public class SessionController {
 
     /**
      * 上传
-     * @Author: Lucto Zhang
-     * @Date: 22:10 2017/12/14
+     * @author: Lucto Zhang
+     * @date: 22:10 2017/12/14
      */
     @RequestMapping(value = "/upload/", method = RequestMethod.POST)
     public Resp register(@RequestParam("file") MultipartFile file) {
@@ -108,8 +108,8 @@ public class SessionController {
 
     /**
      * 从Session获取当前用户信息
-     * @Author: Lucto Zhang
-     * @Date: 15:14 2017/12/11
+     * @author: Lucto Zhang
+     * @date: 15:14 2017/12/11
      */
     @RequestMapping(value = "/current/", method = RequestMethod.GET)
     public User getUserInfo(HttpSession session) {

@@ -22,6 +22,7 @@ import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.service.QuestionService;
+import com.ecnu.trivia.web.question.service.QuestionTypeService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
@@ -42,12 +43,14 @@ import java.util.List;
 @RequestMapping(value = "/question", produces = MediaType.APPLICATION_JSON_VALUE)
 public class QuestionController {
     @Resource
-    protected QuestionService questionService;
+    private QuestionService questionService;
+    @Resource
+    private QuestionTypeService questionTypeService;
 
     /**
      * 增加问题到题库
      * @author: Lucto
-     * @Date: 19:51 2017/12/17
+     * @date: 19:51 2017/12/17
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Resp addQuestion(@RequestBody Question questionParam) {
@@ -65,7 +68,7 @@ public class QuestionController {
     /**
      * 删除题库中的问题
      * @author: Lucto
-     * @Date: 21:17 2017/12/17
+     * @date: 21:17 2017/12/17
      */
     @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
     public Resp deleteQuestion(@PathVariable("id")Integer questionId) {
@@ -84,7 +87,7 @@ public class QuestionController {
     /**
      * 编辑系统中问题
      * @author: Lucto
-     * @Date: 22:24 2017/12/17
+     * @date: 22:24 2017/12/17
      */
     @RequestMapping(value = "/modify/", method = RequestMethod.POST)
     public Resp modifyQuestion(@RequestBody Question questionParam) {
@@ -98,23 +101,23 @@ public class QuestionController {
 
     /**
      * 问题类型的查询
-     * @Author: Handsome Zhao
-     * @Date: 19:55 2017/12/17
+     * @author: Handsome Zhao
+     * @date: 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
     public Resp getQuestionTypeList() {
-        List<QuestionType> list = questionService.getQuestionTypeList();
+        List<QuestionType> list = questionTypeService.getQuestionTypeList();
         return new Resp(HttpRespCode.SUCCESS,list);
     }
 
     /**
      * 问题类型的删除
      * @author: Handsome Zhao
-     * @Date: 19:55 2017/12/17
+     * @date: 19:55 2017/12/17
      */
-    @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/type/{id}/", method = RequestMethod.DELETE)
     public Resp getQuestionTypeList(@PathVariable("id") Integer questionTypeId) {
-        boolean result = questionService.deleteQuestionTypeById(questionTypeId);
+        boolean result = questionTypeService.deleteQuestionTypeById(questionTypeId);
         if(result) {
             return new Resp(HttpRespCode.SUCCESS);
         }
@@ -126,11 +129,11 @@ public class QuestionController {
     /**
      * 问题类型的新增
      * @author: Handsome Zhao
-     * @Date: 19:55 2017/12/17
+     * @date: 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public Resp addQuestionType(@RequestParam("description") String description) {
-        boolean result = questionService.addQuestionType(description);
+        boolean result = questionTypeService.addQuestionType(description);
         if(result) {
             return new Resp(HttpRespCode.SUCCESS);
         }
@@ -142,12 +145,12 @@ public class QuestionController {
     /**
      * 问题类型的修改
      * @author: Handsome Zhao
-     * @Date: 19:55 2017/12/17
+     * @date: 19:55 2017/12/17
      */
-    @RequestMapping(value = "/type/modify", method = RequestMethod.POST)
+    @RequestMapping(value = "/type/modify/", method = RequestMethod.POST)
     public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
                                        @RequestParam("description") String description) {
-        boolean result = questionService.modifyQuestionTypeName(questionId,description);
+        boolean result = questionTypeService.modifyQuestionTypeName(questionId,description);
         if(result) {
             return new Resp(HttpRespCode.SUCCESS);
         }
@@ -159,8 +162,8 @@ public class QuestionController {
 
     /**
      * 获取所有问题列表
-     * @Author: Lucto
-     * * @Date: 22:59 2017/12/17
+     * @author: Lucto
+     * @date: 22:59 2017/12/17
      */
     @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
     public Resp getAllQuestion() {

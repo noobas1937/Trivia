@@ -3,7 +3,7 @@ package com.ecnu.trivia.web.rbac.domain.vo;
 /**
  * @Description: 注册参数VO
  * @author: Lucto Zhang
- * @Date: 22:03 2017/12/07
+ * @date: 22:03 2017/12/07
  */
 public class UserRegisterVO {
     private String nickname;

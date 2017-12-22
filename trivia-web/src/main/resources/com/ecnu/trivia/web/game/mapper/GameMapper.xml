@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecnu.trivia.web.game.mapper.GameMapper">
 
-    <select id="getGameById" resultType="com.ecnu.trivia.web.game.domain.Game">
+    <select id="getGameByRoomId" resultType="com.ecnu.trivia.web.game.domain.Game">
         SELECT * FROM game WHERE room_id = ${id}
     </select>
 

@@ -21,6 +21,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * 游戏逻辑服务，主要关注游戏过程中的相关操作
+ * @author Jack Chen
+ */
 @Service
 public class GameService implements Logable {
     private static Logger logger = LoggerFactory.getLogger(GameService.class);
@@ -86,7 +90,7 @@ public class GameService implements Logable {
     /**
      * 判断当前房间是否所有用户都已准备
      * @author: Lucto Zhang
-     * @Date: 20:39 2017/12/18
+     * @date: 20:39 2017/12/18
      */
     public Resp checkReady(Integer userId,Integer ready) {
         RoomVO room = getRoomByUserId(userId);
@@ -122,12 +126,11 @@ public class GameService implements Logable {
     /**
      * 判断房间是否已开始游戏
      * @author: Lucto Zhang
-     * @Date: 20:57 2017/12/20
+     * @date: 20:57 2017/12/20
      */
     public RoomVO getRoomByUserId(Integer userId){
         Player player = playerMapper.getPlayerByUserId(userId);
-        RoomVO room = roomMapper.getRoomById(player.getRoomId());
-        return room;
+        return roomMapper.getRoomById(player.getRoomId());
     }
 
     /**

@@ -16,6 +16,14 @@
         SELECT * FROM question WHERE id = ${id}
     </select>
 
+    <select id="getQuestionByUserId" resultType="com.ecnu.trivia.web.question.domain.Question">
+        SELECT * FROM question WHERE id IN (
+            SELECT id FROM game WHERE game.current_player_id IN (
+                SELECT id FROM player WHERE user_id = ${id}
+            )
+        )
+    </select>
+
     <update id="modifyQuestion">
         UPDATE question
         SET description = #{content},type_id = ${type},choose_a = #{chooseA},choose_b = #{chooseB},choose_c = #{chooseC},choose_d = #{chooseD},

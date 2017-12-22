@@ -44,4 +44,5 @@ public class ConstantsMsg {
     public static final String ROOM_STATE_ERROR = "房间状态出错！";
     public static final String ROOM_GAME_OVER = "房间：{} 游戏结束！";
     public static final String QUESTION_CHOOSE_ERROR = "为玩家：{} 随机选择题目类型：{}出错！";
+    public static final String GET_QUESTION_ERROR = "获取问题(ID: {}) 出错!";
 }

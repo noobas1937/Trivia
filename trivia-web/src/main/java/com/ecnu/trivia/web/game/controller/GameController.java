@@ -5,6 +5,7 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.question.service.QuestionService;
+import com.ecnu.trivia.web.question.service.QuestionTypeService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.utils.Constants;
@@ -23,11 +24,13 @@ public class GameController {
     private GameService gameService;
     @Resource
     private QuestionService questionService;
+    @Resource
+    private QuestionTypeService questionTypeService;
 
     /**
      * 用户准备（取消准备）
      * @author: Lucto Zhang
-     * @Date: 16:05 2017/12/11
+     * @date: 16:05 2017/12/11
      */
     @RequestMapping(value = "/ready/{isReady}", method = RequestMethod.GET)
     public Resp isReady(@PathVariable("isReady")Integer ready, HttpSession session) {
@@ -57,8 +60,8 @@ public class GameController {
 
     /**
      * 用户掷骰子
-     * @Author: Handsome Zhao
-     * @Date: 20:05 2017/12/11
+     * @author: Handsome Zhao
+     * @date: 20:05 2017/12/11
      */
     @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
     public Resp rollDice() {
@@ -75,10 +78,19 @@ public class GameController {
     }
 
     /**
-     * 根据用户选择的类型随机选取题目
+     * 获取问题类型列表
      * @author Jack Chen
      */
     @RequestMapping(value = "/question/type/", method = RequestMethod.GET)
+    public Resp getQuestionTypeList(){
+        return new Resp(HttpRespCode.SUCCESS,questionTypeService.getQuestionTypeList());
+    }
+
+    /**
+     * 根据用户选择的类型随机选取题目
+     * @author Jack Chen
+     */
+    @RequestMapping(value = "/question/choose/", method = RequestMethod.GET)
     public Resp getQuestionByQuestionType(@RequestParam("type")Integer questionType){
         if(ObjectUtils.isNullOrEmpty(questionType)
                 ||ObjectUtils.isNullOrEmpty(UserUtils.fetchUserId())){
@@ -88,21 +100,31 @@ public class GameController {
     }
 
     /**
+     * 获取问题题干及选项
+     */
+    @RequestMapping(value = "/question/", method = RequestMethod.GET)
+    public Resp getQuestionById(@RequestParam("id")Integer questionId){
+        if(ObjectUtils.isNullOrEmpty(questionId)
+                ||ObjectUtils.isNullOrEmpty(UserUtils.fetchUserId())){
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        return questionService.getQuestionById(UserUtils.fetchUserId(),questionId);
+    }
+
+    /**
      * 校验用户回答
-     * @param questionId
      * @param userAnswer
-     * @return
      * @author Jack Chen
      */
-    @RequestMapping(value = "/answer/", method = RequestMethod.POST)
-    public Resp checkQuestionAnswer(@RequestParam("questionId") Integer questionId, @RequestParam("answer") Integer userAnswer) {
-        if (ObjectUtils.isNullOrEmpty(questionId) || ObjectUtils.isNullOrEmpty(userAnswer)) {
+    @RequestMapping(value = "/question/answer/", method = RequestMethod.POST)
+    public Resp checkQuestionAnswer(@RequestParam("answer") Integer userAnswer) {
+        if (ObjectUtils.isNullOrEmpty(userAnswer)) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         User user = UserUtils.fetchUser();
         if(user.equals(User.nullUser())){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
-        return questionService.checkQuestionAnswer(user.getId(),questionId,userAnswer);
+        return questionService.checkQuestionAnswer(user.getId(),userAnswer);
     }
 }

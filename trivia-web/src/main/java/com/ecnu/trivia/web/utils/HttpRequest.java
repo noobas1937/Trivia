@@ -13,7 +13,7 @@ import java.net.URLConnection;
 /**
 * @Description: Http请求类
 * @author: Jack Chen
-* @Date: 13:58 2017/10/15
+* @date: 13:58 2017/10/15
 */
 public class HttpRequest {
 

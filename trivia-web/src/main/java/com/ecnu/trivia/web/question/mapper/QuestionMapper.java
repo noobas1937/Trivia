@@ -31,6 +31,9 @@ public interface QuestionMapper extends Mapper<Question> {
     /**通过id获取问题**/
     Question getQuestionById(@Param("id") Integer questionId);
 
+    /**通过userID获取问题**/
+    Question getQuestionByUserId(@Param("id") Integer userId);
+
     /**修改问题**/
     void modifyQuestion(@Param("id") Integer id,@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
                         @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
