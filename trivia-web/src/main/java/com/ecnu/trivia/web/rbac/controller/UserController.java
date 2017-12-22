@@ -5,11 +5,14 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
+import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
+import com.sun.tools.internal.jxc.ap.Const;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -40,9 +43,13 @@ public class UserController {
 
     /*获得所有用户列表*/
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public Resp getUserList() {
-        List<User> list = sessionService.getUserList();
-        return new Resp(HttpRespCode.SUCCESS,list);
+    public Resp getUserList(HttpSession session) {
+        User currentUser = (User)session.getAttribute(Constants.ONLINE_USER);
+        if(currentUser.getUserType()==0) {
+            List<User> list = sessionService.getUserList();
+            return new Resp(HttpRespCode.SUCCESS, list);
+        }
+        return new Resp(HttpRespCode.USER_NO_JURISDICTION);
     }
 
     /*增加用户*/
