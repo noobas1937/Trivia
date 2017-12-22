@@ -56,4 +56,20 @@
         WHERE id = ${typeId}
     </update>
 
+    <select id="generateRandomQuestion" resultType="java.lang.Integer">
+        SELECT  * FROM question AS q1
+        JOIN (
+             SELECT ROUND(
+                 RAND() * (
+                     (SELECT  MAX(id) FROM question WHERE type_id = ${type})
+                     - (SELECT MIN(id) FROM question WHERE type_id = ${type})
+                 ) + (SELECT MIN(id) FROM question WHERE type_id = ${type})
+                ) AS qid
+             ) AS q2
+        WHERE
+            q1.id >= q2.qid
+        ORDER BY
+            q1.id
+        LIMIT 1
+    </select>
 </mapper>

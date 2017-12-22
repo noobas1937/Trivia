@@ -34,6 +34,7 @@ public class Constants {
 	public static final int GAME_ANSWERING_QUESTION = 2;
 	public static final int GAME_ANSWER_QUESTION_RESULT = 3;
 	public static final int GAME_OVER = 4;
+	public static final int GAME_CHOOSE_TYPE = 5;
 
 	/**账户状态定义*/
 	public static final int ACCOUNT_NORMAL = 0;

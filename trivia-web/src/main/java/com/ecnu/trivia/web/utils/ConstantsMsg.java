@@ -43,4 +43,5 @@ public class ConstantsMsg {
     public static final String REMOTE_URI_ERROR = "服务器地址未配置，请检查服务器路径！";
     public static final String ROOM_STATE_ERROR = "房间状态出错！";
     public static final String ROOM_GAME_OVER = "房间：{} 游戏结束！";
+    public static final String QUESTION_CHOOSE_ERROR = "为玩家：{} 随机选择题目类型：{}出错！";
 }

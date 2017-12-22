@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GameMapper extends Mapper<Player> {
     /**根据房间ID获取游戏状态*/
-    Game getGameById(@Param("id")Integer roomId);
+    Game getGameByRoomId(@Param("id")Integer roomId);
     /**更新 游戏信息*/
     void updateGameStatus(@Param("id")Integer gameId,
                           @Param("pid")Integer curPlayerId,

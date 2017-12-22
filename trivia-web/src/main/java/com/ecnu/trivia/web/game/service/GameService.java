@@ -38,7 +38,7 @@ public class GameService implements Logable {
         //判断玩家是否合法 && 游戏是否为待掷骰子状态
         Player player = playerMapper.getPlayerByUserId(userId);
         if(player == null) { return false; }
-        Game game = gameMapper.getGameById(player.getRoomId());
+        Game game = gameMapper.getGameByRoomId(player.getRoomId());
         if(!game.getStage().equals(Constants.GAME_READY)){ return false; }
         //判断当前玩家是不是该玩家
         Integer curPlayerID = game.getCurrentPlayerId();
@@ -46,19 +46,17 @@ public class GameService implements Logable {
             return false;
         }
 
-        //开始掷骰子 && 生成随机题目
-        Integer questionCount = playerMapper.getQuestionCount();
+        //开始掷骰子
         Random random = new Random();
-        Integer questionOrder = (random.nextInt(questionCount));
         Integer diceNumber = (random.nextInt(6)) + 1;
-        gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,questionOrder,Constants.GAME_DICE_RESULT);
+        gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,game.getQuestionId(),Constants.GAME_DICE_RESULT);
         //发送掷骰子结果
         messageService.refreshUI(player.getRoomId());
 
         //判断玩家状态（能否答题）
         if(player.getStatus().equals(Constants.PLAYER_GAMING_HOLD)
                 && (diceNumber%2) == 1){
-            //在监狱中而且不能脱困,此时stage = GAME_READY ,current_player = next_player
+            //在监狱中而且不能脱困
             Integer curPlayerId = player.getId();
             List<Player> players = playerMapper.getPlayers(curPlayerId);
             Integer nextPlayer = null;
@@ -72,14 +70,14 @@ public class GameService implements Logable {
                 return false;
             }
             //转向下一个玩家
-            gameMapper.updateGameStatus(game.getId(),nextPlayer,diceNumber,questionOrder,Constants.GAME_READY);
+            gameMapper.updateGameStatus(game.getId(),nextPlayer,diceNumber,game.getQuestionId(),Constants.GAME_READY);
             messageService.refreshUI(player.getRoomId());
         }
         else{
-            //玩家前进 && 当前玩家答题操作
+            //玩家前进 && 当前玩家选择答题类型
             playerMapper.updatePlayer(curPlayerID,player.getBalance()+1,
                     player.getPosition()+game.getDiceNumber(),Constants.PLAYER_GAMING_FREE);
-            gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,questionOrder,Constants.GAME_ANSWERING_QUESTION);
+            gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,game.getQuestionId(),Constants.GAME_CHOOSE_TYPE);
             messageService.refreshUI(player.getRoomId());
         }
         return true;
@@ -109,7 +107,7 @@ public class GameService implements Logable {
             return new Resp(HttpRespCode.SUCCESS);
         }
         //准备开始游戏
-        Game game = gameMapper.getGameById((room.getId()));
+        Game game = gameMapper.getGameByRoomId((room.getId()));
         Integer currentPlayerId = room.getPlayerList().get(0).getId();
         if(!ObjectUtils.isNullOrEmpty(game)){
             gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);

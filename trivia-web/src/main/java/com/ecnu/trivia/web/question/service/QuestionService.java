@@ -19,10 +19,9 @@ import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.question.domain.Question;
-import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
-import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.ConstantsMsg;
 import com.ecnu.trivia.web.utils.Resp;
@@ -31,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,6 +41,8 @@ public class QuestionService implements Logable{
     @Resource
     private QuestionMapper questionMapper;
     @Resource
+    private QuestionTypeMapper questionTypeMapper;
+    @Resource
     private PlayerMapper playerMapper;
     @Resource
     private GameMapper gameMapper;
@@ -51,8 +51,8 @@ public class QuestionService implements Logable{
 
     /**
      * 为系统增加问题
-     * @Author: Lucto
-     * * @Date: 19:51 2017/12/17
+     * @author: Lucto
+     * @Date: 19:51 2017/12/17
      */
     public void addQuestion(String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type){
         questionMapper.addQuestion(content,chooseA,chooseB,chooseC,chooseD,answer,type);
@@ -60,22 +60,22 @@ public class QuestionService implements Logable{
 
     /**
      * 通过问题id获取游戏
-     * @Author: Lucto
-     * * @Date: 21:20 2017/12/17
+     * @author: Lucto
+     * @Date: 21:20 2017/12/17
      */
     public Game getGameByQuestionId(Integer questionId) {
         return gameMapper.getGameByQuestionId(questionId);
     }
 
     public List<QuestionType> getQuestionTypeList(){
-        return questionMapper.getQuestionTypeList();
+        return questionTypeMapper.getQuestionTypeList();
     }
 
     public boolean deleteQuestionTypeById(Integer questionTypeId){
         //查找是否存在该类型的问题，存在的话不能删除
         List<Question> questionList = questionMapper.getQuestionListByQuestionTypeId(questionTypeId);
         if(questionList.isEmpty()){
-            questionMapper.deleteQuestionTypeByQuestionTypeId(questionTypeId);
+            questionTypeMapper.deleteQuestionTypeByQuestionTypeId(questionTypeId);
             return true;
         }
         else{
@@ -85,9 +85,9 @@ public class QuestionService implements Logable{
 
     public boolean addQuestionType(String description){
         //查找是否有名字重复的问题类型
-        List<QuestionType> questionTypeList = questionMapper.getQuestionTypeByQuestionTypeDescription(description);
+        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByQuestionTypeDescription(description);
         if(questionTypeList.isEmpty()){
-            questionMapper.addQuestionTypeByDescription(description);
+            questionTypeMapper.addQuestionTypeByDescription(description);
             return true;
         }
         else{
@@ -97,9 +97,9 @@ public class QuestionService implements Logable{
 
     public boolean modifyQuestionTypeName(Integer questionId, String description){
         //查找是否有名字重复的问题类型
-        List<QuestionType> questionTypeList = questionMapper.getQuestionTypeByQuestionTypeDescription(description);
+        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByQuestionTypeDescription(description);
         if(questionTypeList.isEmpty()){
-            questionMapper.updateQuestionTypeName(questionId,description);
+            questionTypeMapper.updateQuestionTypeName(questionId,description);
             return true;
         }
         else{
@@ -108,17 +108,10 @@ public class QuestionService implements Logable{
     }
 
 
-/*
-    public User getUserByAccount(String account,String password){
-        User user = questionMapper.getUserByAccount(account,password);
-        user.setPassword("");
-        return user;
-    }
-
     /**
      * 删除问题
-     * @Author: Lucto
-     * * @Date: 21:39 2017/12/17
+     * @author: Lucto
+     * @Date: 21:39 2017/12/17
      */
     public void deleteQuestion(Integer questionId) {
         questionMapper.deleteQuestion(questionId);
@@ -126,8 +119,8 @@ public class QuestionService implements Logable{
 
     /**
      * 编辑问题
-     * @Author: Lucto
-     * * @Date: 22:32 2017/12/17
+     * @author: Lucto
+     * @Date: 22:32 2017/12/17
      */
     public void modifyQuestion(Integer id,String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type) {
         Question question = questionMapper.getQuestionById(id);
@@ -170,7 +163,7 @@ public class QuestionService implements Logable{
         //判断玩家是否合法 && 游戏是否为待回答问题状态
         Player player = playerMapper.getPlayerByUserId(userId);
         if(player == null) { return new Resp(HttpRespCode.METHOD_NOT_ALLOWED); }
-        Game game = gameMapper.getGameById(player.getRoomId());
+        Game game = gameMapper.getGameByRoomId(player.getRoomId());
         if(!game.getStage().equals(Constants.GAME_ANSWERING_QUESTION)){
             return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
         }
@@ -202,9 +195,8 @@ public class QuestionService implements Logable{
             logger.info(ConstantsMsg.ROOM_GAME_OVER,game.getRoomId());
             //更新玩家状态 和 游戏状态
             gameMapper.updateGameStatus(game.getId(),-1,-1,-1,Constants.GAME_OVER);
-            for (int i = 0; i < players.size(); i++) {
-                Player p = players.get(i);
-                playerMapper.updatePlayer(p.getId(),p.getBalance(),p.getPosition(),Constants.PLAYER_READY);
+            for (Player p : players) {
+                playerMapper.updatePlayer(p.getId(), p.getBalance(), p.getPosition(), Constants.PLAYER_READY);
             }
         }else{
             //游戏未结束，转向下一个玩家
@@ -227,11 +219,53 @@ public class QuestionService implements Logable{
 
     /**
      * 获取所有问题
-     * @Author: Lucto
-     * * @Date: 23:03 2017/12/17
+     * @author: Lucto
+     * @Date: 23:03 2017/12/17
      */
     public List<Question> getAllQuestions() {
-        List<Question> questions = questionMapper.getQuestionList();
-        return questions;
+        return questionMapper.getQuestionList();
+    }
+
+    /**
+     * 根据问题类型随机生成问题
+     *  1、判断是否为该玩家操作阶段
+     *  2、判断问题类型是否存在
+     *  3、随机生成问题，更新数据库，刷新数据包
+     * @param userId
+     * @param type
+     * @author Jack Chen
+     * @return
+     */
+    public Resp generateRandomQuestion(Integer userId, Integer type) {
+        //判断玩家是否合法 && 游戏是否为选择问题类型状态
+        Player player = playerMapper.getPlayerByUserId(userId);
+        if (player == null) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }
+        Game game = gameMapper.getGameByRoomId(player.getRoomId());
+        if (!game.getStage().equals(Constants.GAME_CHOOSE_TYPE)) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }
+        //判断当前玩家是不是该玩家
+        Integer curPlayerID = game.getCurrentPlayerId();
+        if (curPlayerID == null || !Objects.equals(curPlayerID, player.getId())) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }
+        //2、校验问题类型是否合法
+        QuestionType questionType = questionTypeMapper.getQuestionTypeById(type);
+        if(ObjectUtils.isNullOrEmpty(questionType)){
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        //3.1、生成相应类型的随机题目
+        Integer questionId = questionMapper.generateRandomQuestion(type);
+        if (ObjectUtils.isNullOrEmpty(questionId)) {
+            logger.error(ConstantsMsg.QUESTION_CHOOSE_ERROR, userId, type);
+            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
+        }
+        //3.2、更新数据库
+        gameMapper.updateGameStatus(game.getId(), player.getId(), game.getDiceNumber(), questionId, Constants.GAME_ANSWERING_QUESTION);
+        //3.3、刷新数据包
+        messageService.refreshUI(player.getRoomId());
+        return new Resp(HttpRespCode.SUCCESS);
     }
 }

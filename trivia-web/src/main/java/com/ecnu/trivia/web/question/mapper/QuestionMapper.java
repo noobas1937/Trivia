@@ -24,9 +24,6 @@ import java.util.List;
 
 @Repository
 public interface QuestionMapper extends Mapper<Question> {
-    User getUserByAccount(@Param("account") String account, @Param("password") String password);
-
-    User getUserById(@Param("id") Integer id);
 
      /**删除问题**/
     void deleteQuestion(@Param("id") Integer questionId);
@@ -42,19 +39,11 @@ public interface QuestionMapper extends Mapper<Question> {
                      @Param("chooserC") String chooserC,@Param("chooserD") String chooserD,@Param("answer") Integer answer,
                      @Param("type") Integer type);
 
-    List<QuestionType> getQuestionTypeList();
-
-    List<QuestionType> getQuestionTypeByQuestionTypeDescription(@Param("description") String description);
-
     List<Question> getQuestionListByQuestionTypeId(@Param("typeId") Integer typeId);
-
-    void deleteQuestionTypeByQuestionTypeId(@Param("typeId") Integer typeId);
-
-    void addQuestionTypeByDescription(@Param("description") String description);
-
-    void updateQuestionTypeName(@Param("typeId") Integer typeId,@Param("description") String description);
-
 
     /**获取所有问题**/
     List<Question> getQuestionList();
+
+    /**随机获取问题*/
+    Integer generateRandomQuestion(@Param("type") Integer type);
 }

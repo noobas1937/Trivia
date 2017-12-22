@@ -3,10 +3,8 @@ package com.ecnu.trivia.web.message.service;
 import com.alibaba.fastjson.JSON;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
-import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.domain.vo.PlayerVO;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
-import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.message.communicator.WebSocketCommunicator;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
@@ -107,7 +105,7 @@ public class MessageService {
             return false;
         }
         RoomVO room = roomService.getRoomById(roomId);
-        Game game = gameMapper.getGameById(roomId);
+        Game game = gameMapper.getGameByRoomId(roomId);
         room.setGame(game);
         sendMsgToPlayers(JSON.toJSONString(room),room.getPlayerList());
         return true;

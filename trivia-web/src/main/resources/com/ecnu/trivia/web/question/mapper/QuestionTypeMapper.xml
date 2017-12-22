@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecnu.trivia.web.question.mapper.QuestionMapper">
+
+    <select id="getQuestionTypeList" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+        SELECT * FROM question_type
+    </select>
+
+    <select id="getQuestionTypeByQuestionTypeDescription" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+        SELECT * FROM question_type WHERE name = #{description}
+    </select>
+
+    <delete id="deleteQuestionTypeByQuestionTypeId">
+        DELETE FROM question_type WHERE id = ${typeId}
+    </delete>
+
+    <insert id="addQuestionTypeByDescription">
+        INSERT INTO question_type (id, name, gmt_created, gmt_modified)
+        VALUES (null,#{description},NOW(),NOW())
+    </insert>
+
+    <update id="updateQuestionTypeName">
+        UPDATE question_type
+        SET name = #{description}
+        WHERE id = ${typeId}
+    </update>
+
+    <select id="getQuestionTypeById" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+        SELECT * FROM question_type WHERE id = ${type}
+    </select>
+</mapper>

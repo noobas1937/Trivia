@@ -63,25 +63,6 @@ public class QuestionController {
     }
 
     /**
-     * 校验用户回答
-     * @param questionId
-     * @param userAnswer
-     * @return
-     * @author Jack Chen
-     */
-    @RequestMapping(value = "/answer/", method = RequestMethod.POST)
-    public Resp checkQuestionAnswer(@RequestParam("questionId") Integer questionId,@RequestParam("answer") Integer userAnswer) {
-        if (ObjectUtils.isNullOrEmpty(questionId) || ObjectUtils.isNullOrEmpty(userAnswer)) {
-            return new Resp(HttpRespCode.PARAM_ERROR);
-        }
-        User user = UserUtils.fetchUser();
-        if(user.equals(User.nullUser())){
-            return new Resp(HttpRespCode.USER_NOT_LOGIN);
-        }
-        return questionService.checkQuestionAnswer(user.getId(),questionId,userAnswer);
-    }
-
-    /**
      * 删除题库中的问题
      * @author: Lucto
      * @Date: 21:17 2017/12/17
@@ -116,19 +97,21 @@ public class QuestionController {
     }
 
     /**
-     * 问题类型的CRUD
+     * 问题类型的查询
      * @Author: Handsome Zhao
      * @Date: 19:55 2017/12/17
      */
-
-    /*查找*/
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
     public Resp getQuestionTypeList() {
         List<QuestionType> list = questionService.getQuestionTypeList();
         return new Resp(HttpRespCode.SUCCESS,list);
     }
 
-    /*删除*/
+    /**
+     * 问题类型的删除
+     * @author: Handsome Zhao
+     * @Date: 19:55 2017/12/17
+     */
     @RequestMapping(value = "/type/{id}", method = RequestMethod.DELETE)
     public Resp getQuestionTypeList(@PathVariable("id") Integer questionTypeId) {
         boolean result = questionService.deleteQuestionTypeById(questionTypeId);
@@ -140,7 +123,11 @@ public class QuestionController {
         }
     }
 
-    /*增加*/
+    /**
+     * 问题类型的新增
+     * @author: Handsome Zhao
+     * @Date: 19:55 2017/12/17
+     */
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public Resp addQuestionType(@RequestParam("description") String description) {
         boolean result = questionService.addQuestionType(description);
@@ -152,7 +139,11 @@ public class QuestionController {
         }
     }
 
-    /*修改*/
+    /**
+     * 问题类型的修改
+     * @author: Handsome Zhao
+     * @Date: 19:55 2017/12/17
+     */
     @RequestMapping(value = "/type/modify", method = RequestMethod.POST)
     public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
                                        @RequestParam("description") String description) {
