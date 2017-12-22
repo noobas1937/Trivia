@@ -55,6 +55,7 @@
         u.nick_name AS u_nickName
         FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
         LEFT OUTER JOIN user as u ON p.user_id = u.id WHERE r.id = ${id}
+        ORDER BY p.id
     </select>
 
     <resultMap id="RoomDataMap" type="com.ecnu.trivia.web.room.domain.vo.RoomVO" >

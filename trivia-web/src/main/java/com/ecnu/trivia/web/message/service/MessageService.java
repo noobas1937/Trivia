@@ -11,8 +11,6 @@ import com.ecnu.trivia.web.message.communicator.WebSocketCommunicator;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.service.RoomService;
-import com.ecnu.trivia.web.utils.Constants;
-import com.ecnu.trivia.web.utils.ConstantsMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

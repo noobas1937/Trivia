@@ -34,7 +34,7 @@ public class WebSocketCommunicator {
     private User user;
 
     /**
-     * WebSocket 连接建立时的操作
+     * WebSocket 连接建立时的操作(重复登录时断开旧的连接)
      * @param session WebSocket连接的session属性
      * @throws IOException
      */
@@ -51,13 +51,15 @@ public class WebSocketCommunicator {
         this.user = (User) httpSession.getAttribute(Constants.ONLINE_USER);
         Integer id= user.getId();
         if (ONLINE_USER.containsKey(this.user.getId())) {
-            logger.info("当前用户id:{}已有其他终端登录",id);
-            session.close(new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT,"已有其他终端登录"));
-        }else {
-            logger.info("用户id:{}登录",id);
-            ONLINE_USER.put(id, this);
-            session.getBasicRemote().sendText(JSON.toJSONString(this.user));
+            //断开旧连接
+            logger.info("当前用户id:{}已有其他终端登录,强退旧session",id);
+            ONLINE_USER.get(this.user.getId()).session.close(
+                    new CloseReason(CloseReason.CloseCodes.CANNOT_ACCEPT,"已有其他终端登录"));
+            ONLINE_USER.remove(this.user.getId());
         }
+        logger.info("用户id:{}登录",id);
+        ONLINE_USER.put(id, this);
+        session.getBasicRemote().sendText(JSON.toJSONString(this.user));
         logger.info("当前在线用户数为：{}",ONLINE_USER.size());
     }
 
