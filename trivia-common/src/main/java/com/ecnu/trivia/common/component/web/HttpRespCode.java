@@ -32,6 +32,7 @@ public enum HttpRespCode implements Serializable {
     REQUEST_ENTITY_TOO_LARGE("413", "请求资源过大"),
     UNSUPPORTED_MEDIA_TYPE("415", "提交或请求数据格式不支持"),
     EXPECTATION_FAILED("417", "服务器无法满足预期内容"),
+    USER_NO_JURISDICTION("418","当前用户没有权限"),
     TOO_MANY_CONNECTIONS("421", "连接用户数过多"),
     UNPROCESSABLE_ENTITY("422", "语义错误"),                 //请求格式正确，但语义错误
     LOCKED("423", "资源被锁定"),
