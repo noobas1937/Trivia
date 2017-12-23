@@ -21,7 +21,7 @@
         u.head_pic AS u_headPic,
         u.nick_name AS u_nickName
         FROM room as r left OUTER JOIN player as p ON r.id = p.room_id
-        LEFT OUTER JOIN user as u ON p.user_id = u.id ORDER BY r.id
+        LEFT OUTER JOIN user as u ON p.user_id = u.id WHERE r.id != -1 ORDER BY r.id
     </select>
 
     <update id="updateRoomStatus">
