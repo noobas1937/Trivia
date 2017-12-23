@@ -98,6 +98,7 @@ public class GameService implements Logable {
         if (room.getStatus() != Constants.ROOM_WAITING) {
             return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
         }
+
         //将当前用户的准备状态设为相应的状态
         playerMapper.setupUserState(userId,ready);
         messageService.refreshUI(room.getId());
