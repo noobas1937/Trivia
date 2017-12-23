@@ -187,14 +187,15 @@ public class QuestionService implements Logable{
             //更新玩家状态 和 游戏状态
             gameMapper.updateGameStatus(game.getId(),game.getCurrentPlayerId(),0,-1,Constants.GAME_OVER);
             roomMapper.updateRoomStatus(game.getRoomId(),Constants.ROOM_WAITING);
-            for (Player p : players) {
-                playerMapper.updatePlayer(p.getId(), p.getBalance(), p.getPosition(), Constants.PLAYER_WAITING);
-            }
             //刷新一波游戏结果
             messageService.refreshUI(player.getRoomId());
             for (Player p : players) {
+                playerMapper.updatePlayer(p.getId(), p.getBalance(), p.getPosition(), Constants.PLAYER_WAITING);
+            }
+            for (Player p : players) {
                 playerMapper.updatePlayer(p.getId(), 0, 0, Constants.PLAYER_WAITING);
             }
+            gameMapper.updateGameStatus(game.getId(),-1,0,-1,Constants.GAME_HANDLE);
         }else{
             //游戏未结束，转向下一个玩家
             Integer nextPlayer = null;
