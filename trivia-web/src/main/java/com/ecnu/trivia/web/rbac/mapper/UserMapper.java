@@ -32,7 +32,7 @@ public interface UserMapper{
 
     void setUserRegisterInfo(@Param("nickname")String nickname,@Param("headpic")String headpic,@Param("account")String account,@Param("password")String password);
 
-    List<User> getUserList();
+    List<User> getUserList(@Param("pno")Integer pno,@Param("PAGE_SIZE")Integer PAGE_SIZE);
 
     void addNewUser(@Param("account")String account,@Param("password")String password,@Param("nickName")String nickName,@Param("headPic")String headPic);
 
@@ -44,4 +44,6 @@ public interface UserMapper{
 
     /**上传头像**/
     void upload(@Param("account")String account,@Param("uri")String uri);
+
+    Integer getUserCount();
 }

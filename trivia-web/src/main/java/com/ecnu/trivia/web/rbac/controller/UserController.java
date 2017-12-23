@@ -6,6 +6,7 @@ import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.utils.Constants;
+import com.ecnu.trivia.web.utils.QuestionResp;
 import com.ecnu.trivia.web.utils.Resp;
 import com.sun.tools.internal.jxc.ap.Const;
 import org.springframework.http.MediaType;
@@ -40,16 +41,16 @@ public class UserController {
     /**
      * 用户的CRUD
      */
-
     /*获得所有用户列表*/
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public Resp getUserList(HttpSession session) {
+    public QuestionResp getUserList(@RequestParam("pno") Integer pno, @RequestParam("PAGE_SIZE") Integer PAGE_SIZE,HttpSession session) {
         User currentUser = (User)session.getAttribute(Constants.ONLINE_USER);
         if(currentUser.getUserType()==0) {
-            List<User> list = sessionService.getUserList();
-            return new Resp(HttpRespCode.SUCCESS, list);
+            List<User> list = sessionService.getUserList(pno,PAGE_SIZE);
+            Integer count = sessionService.getUserCount();
+            return new QuestionResp(HttpRespCode.SUCCESS, list,count);
         }
-        return new Resp(HttpRespCode.USER_NO_JURISDICTION);
+        return new QuestionResp(HttpRespCode.USER_NO_JURISDICTION);
     }
 
     /*增加用户*/

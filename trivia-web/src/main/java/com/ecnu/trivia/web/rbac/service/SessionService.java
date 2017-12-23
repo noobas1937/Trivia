@@ -68,14 +68,19 @@ public class SessionService implements Logable{
         userMapper.setUserRegisterInfo(nickname, headpic, account, password);
     }
 
+    public Integer getUserCount(){
+        return userMapper.getUserCount();
+    }
+
     public User getUserById(Integer id){
         User user = userMapper.getUserById(id);
         user.setPassword("");
         return user;
     }
 
-    public List<User> getUserList(){
-        return userMapper.getUserList();
+    public List<User> getUserList(Integer pno,Integer PAGE_SIZE){
+        Integer pageNumber = (pno - 1) * PAGE_SIZE;
+        return userMapper.getUserList(pageNumber,PAGE_SIZE);
     }
 
     public Resp addNewUser(String account,String password,

@@ -29,8 +29,12 @@
         WHERE account = #{account}
     </select>
 
+    <select id="getUserCount" resultType="java.lang.Integer">
+       SELECT count(*) FROM user WHERE id != -1
+    </select>
+
     <select id="getUserList" resultType="com.ecnu.trivia.web.rbac.domain.User">
-        SELECT * FROM user WHERE id != -1
+        SELECT * FROM user WHERE id != -1 LIMIT ${pno},${PAGE_SIZE}
     </select>
 
     <insert id="addNewUser">
