@@ -29,6 +29,7 @@ import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.utils.QuestionResp;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -166,9 +167,11 @@ public class QuestionController {
      * @date: 22:59 2017/12/17
      */
     @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
-    public Resp getAllQuestion() {
-        List<Question> questions = questionService.getAllQuestions();
-        return new Resp(HttpRespCode.SUCCESS,questions);
+    public QuestionResp getAllQuestion(@RequestParam("pno") Integer pno,
+                                       @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
+        List<Question> questions = questionService.getAllQuestions(pno, PAGE_SIZE);
+        Integer count = questionService.getAllQuestionsCount();
+        return new QuestionResp(HttpRespCode.SUCCESS,questions,count);
     }
 
 

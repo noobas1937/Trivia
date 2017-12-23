@@ -45,7 +45,9 @@ public interface QuestionMapper extends Mapper<Question> {
     List<Question> getQuestionListByQuestionTypeId(@Param("typeId") Integer typeId);
 
     /**获取所有问题**/
-    List<Question> getQuestionList();
+    List<Question> getQuestionList(@Param("pno")Integer pno,@Param("pagesize")Integer PAGE_SIZE);
+
+    Integer getAllQuestionsCount();
 
     /**随机获取问题*/
     Integer generateRandomQuestion(@Param("type") Integer type);

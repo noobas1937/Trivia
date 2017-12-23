@@ -29,6 +29,7 @@ import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -221,9 +222,12 @@ public class QuestionService implements Logable{
      * @author: Lucto
      * @date: 23:03 2017/12/17
      */
-    public List<Question> getAllQuestions() {
-        return questionMapper.getQuestionList();
+    public List<Question> getAllQuestions(Integer pno,Integer PAGE_SIZE) {
+        Integer npno = (pno - 1) * PAGE_SIZE;
+        return questionMapper.getQuestionList(npno,PAGE_SIZE);
     }
+
+    public Integer getAllQuestionsCount() { return questionMapper.getAllQuestionsCount(); }
 
     /**
      * 根据问题类型随机生成问题
