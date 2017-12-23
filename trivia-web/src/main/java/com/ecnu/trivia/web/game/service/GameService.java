@@ -78,11 +78,10 @@ public class GameService implements Logable {
             //转向下一个玩家
             gameMapper.updateGameStatus(game.getId(),nextPlayer,diceNumber,game.getQuestionId(),Constants.GAME_READY);
             messageService.refreshUI(player.getRoomId());
-        }
-        else{
+        } else {
             //玩家前进 && 当前玩家选择答题类型
-            playerMapper.updatePlayer(curPlayerID,player.getBalance()+1,
-                    player.getPosition()+diceNumber,Constants.PLAYER_GAMING_FREE);
+            playerMapper.updatePlayer(curPlayerID,player.getBalance(),
+                    (player.getPosition()+diceNumber)%Constants.MAX_GRID_COUNT,Constants.PLAYER_GAMING_FREE);
             gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,game.getQuestionId(),Constants.GAME_CHOOSE_TYPE);
             messageService.refreshUI(player.getRoomId());
         }
