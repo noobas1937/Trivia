@@ -113,18 +113,18 @@ public class GameController {
 
     /**
      * 校验用户回答
-     * @param userAnswer
+     * @param answer
      * @author Jack Chen
      */
     @RequestMapping(value = "/question/answer/", method = RequestMethod.POST)
-    public Resp checkQuestionAnswer(@RequestParam("answer") Integer userAnswer) {
-        if (ObjectUtils.isNullOrEmpty(userAnswer)) {
+    public Resp checkQuestionAnswer(@RequestBody Integer answer) {
+        if (ObjectUtils.isNullOrEmpty(answer)) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         User user = UserUtils.fetchUser();
         if(user.equals(User.nullUser())){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
-        return questionService.checkQuestionAnswer(user.getId(),userAnswer);
+        return questionService.checkQuestionAnswer(user.getId(),answer);
     }
 }

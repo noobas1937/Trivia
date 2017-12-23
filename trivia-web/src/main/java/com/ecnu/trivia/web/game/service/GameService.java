@@ -67,6 +67,8 @@ public class GameService implements Logable {
             for (int i = 0; i < players.size(); i++) {
                 if(Objects.equals(players.get(i).getId(), curPlayerId)){
                     nextPlayer = ++i%players.size();
+                    nextPlayer = players.get(nextPlayer).getId();
+                    break;
                 }
             }
             if(nextPlayer==null){
@@ -80,7 +82,7 @@ public class GameService implements Logable {
         else{
             //玩家前进 && 当前玩家选择答题类型
             playerMapper.updatePlayer(curPlayerID,player.getBalance()+1,
-                    player.getPosition()+game.getDiceNumber(),Constants.PLAYER_GAMING_FREE);
+                    player.getPosition()+diceNumber,Constants.PLAYER_GAMING_FREE);
             gameMapper.updateGameStatus(game.getId(),player.getId(),diceNumber,game.getQuestionId(),Constants.GAME_CHOOSE_TYPE);
             messageService.refreshUI(player.getRoomId());
         }

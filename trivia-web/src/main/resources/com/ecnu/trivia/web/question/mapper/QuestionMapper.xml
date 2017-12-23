@@ -20,6 +20,8 @@
         SELECT * FROM question WHERE id IN (
             SELECT id FROM game WHERE game.current_player_id IN (
                 SELECT id FROM player WHERE user_id = ${id}
+            ) AND game.room_id IN (
+                SELECT player.room_id FROM player WHERE user_id = ${id}
             )
         )
     </select>

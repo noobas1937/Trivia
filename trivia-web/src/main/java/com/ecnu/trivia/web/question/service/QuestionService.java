@@ -22,6 +22,7 @@ import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
+import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.ConstantsMsg;
 import com.ecnu.trivia.web.utils.Resp;
@@ -48,6 +49,8 @@ public class QuestionService implements Logable{
     private GameMapper gameMapper;
     @Resource
     private MessageService messageService;
+    @Resource
+    private RoomMapper roomMapper;
 
     /**
      * 为系统增加问题
@@ -181,9 +184,15 @@ public class QuestionService implements Logable{
         if(player.getBalance()+1>=Constants.MAX_BALANCE_COUNT){
             logger.info(ConstantsMsg.ROOM_GAME_OVER,game.getRoomId());
             //更新玩家状态 和 游戏状态
-            gameMapper.updateGameStatus(game.getId(),-1,-1,-1,Constants.GAME_OVER);
+            gameMapper.updateGameStatus(game.getId(),game.getCurrentPlayerId(),0,-1,Constants.GAME_OVER);
+            roomMapper.updateRoomStatus(game.getRoomId(),Constants.ROOM_WAITING);
             for (Player p : players) {
-                playerMapper.updatePlayer(p.getId(), p.getBalance(), p.getPosition(), Constants.PLAYER_READY);
+                playerMapper.updatePlayer(p.getId(), p.getBalance(), p.getPosition(), Constants.PLAYER_WAITING);
+            }
+            //刷新一波游戏结果
+            messageService.refreshUI(player.getRoomId());
+            for (Player p : players) {
+                playerMapper.updatePlayer(p.getId(), 0, 0, Constants.PLAYER_WAITING);
             }
         }else{
             //游戏未结束，转向下一个玩家
@@ -191,12 +200,14 @@ public class QuestionService implements Logable{
             for (int i = 0; i < players.size(); i++) {
                 if(Objects.equals(players.get(i).getId(), curPlayerId)){
                     nextPlayer = ++i%players.size();
+                    nextPlayer = players.get(nextPlayer).getId();
+                    break;
                 }
             }
             if(nextPlayer==null){
                 logger.error(ConstantsMsg.ROOM_STATE_ERROR);
             }else{
-                gameMapper.updateGameStatus(game.getId(),nextPlayer,game.getDiceNumber(),game.getQuestionId(),Constants.GAME_READY);
+                gameMapper.updateGameStatus(game.getId(),nextPlayer,-1,-1,Constants.GAME_READY);
             }
         }
         //刷新UI
