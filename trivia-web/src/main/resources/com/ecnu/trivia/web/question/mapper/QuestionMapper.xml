@@ -34,7 +34,7 @@
     </update>
 
     <select id="getQuestionList" resultType="com.ecnu.trivia.web.question.domain.Question">
-        SELECT * FROM question
+        SELECT * FROM question WHERE id != -1
     </select>
 
     <select id="getQuestionTypeList" resultType="com.ecnu.trivia.web.question.domain.QuestionType">

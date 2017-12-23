@@ -30,7 +30,7 @@
     </select>
 
     <select id="getUserList" resultType="com.ecnu.trivia.web.rbac.domain.User">
-        SELECT * FROM user
+        SELECT * FROM user WHERE id != -1
     </select>
 
     <insert id="addNewUser">
