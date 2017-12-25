@@ -105,25 +105,37 @@ public class SessionService implements Logable{
     }
 
     public void modifyUserInfo(Integer userID,String password,
-                               String nickName,String headPic) {
+                               String nickName,String headPic,Integer userType,Integer status,Integer balance) {
         User user = userMapper.getUserById(userID);
         boolean isPassWordNull = ObjectUtils.isNullOrEmpty(password);
         boolean isNickNameNull = ObjectUtils.isNullOrEmpty(nickName);
         boolean isHeadPicNull = ObjectUtils.isNullOrEmpty(headPic);
+        boolean isUserTypeNull = ObjectUtils.isNullOrEmpty(userType);
+        boolean isStatusNull = ObjectUtils.isNullOrEmpty(status);
+        boolean isBalanceNull = ObjectUtils.isNullOrEmpty(balance);
         if(isNickNameNull){
             nickName = user.getNickName();
         }
         if(isHeadPicNull){
             headPic = user.getHeadPic();
         }
+        if(isUserTypeNull){
+            userType = user.getUserType();
+        }
+        if(isStatusNull){
+            status = user.getStatus();
+        }
+        if(isBalanceNull){
+            balance = user.getBalance();
+        }
 
         //因为MD5加密不可逆，所以有两种修改情况
         if(isPassWordNull){
             password = user.getPassword();
-            userMapper.modifyUserInfoWithoutNewPassword(userID,password,nickName,headPic);
+            userMapper.modifyUserInfoWithoutNewPassword(userID,password,nickName,headPic,userType,status,balance);
         }
         else{
-            userMapper.modifyUserInfoWithNewPassword(userID,password,nickName,headPic);
+            userMapper.modifyUserInfoWithNewPassword(userID,password,nickName,headPic,userType,status,balance);
         }
     }
 

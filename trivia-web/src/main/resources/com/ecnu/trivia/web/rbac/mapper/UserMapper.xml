@@ -48,13 +48,13 @@
 
     <update id="modifyUserInfoWithNewPassword">
         UPDATE user
-        SET `password` = MD5(#{password}),nick_name = #{nickName},head_pic = #{headPic},gmt_modified = NOW()
+        SET `password` = MD5(#{password}),nick_name = #{nickName},head_pic = #{headPic},user_type = ${userType},status = ${status},balance = ${balance},gmt_modified = NOW()
         WHERE id = ${userID}
     </update>
 
     <update id="modifyUserInfoWithoutNewPassword">
         UPDATE user
-        SET `password` = #{password},nick_name = #{nickName},head_pic = #{headPic},gmt_modified = NOW()
+        SET `password` = #{password},nick_name = #{nickName},head_pic = #{headPic},user_type = ${userType},status = ${status},balance = ${balance},gmt_modified = NOW()
         WHERE id = ${userID}
     </update>
 
