@@ -20,6 +20,7 @@ import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
+import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
@@ -222,7 +223,7 @@ public class QuestionService implements Logable{
      * @author: Lucto
      * @date: 23:03 2017/12/17
      */
-    public List<Question> getAllQuestions(Integer pno,Integer PAGE_SIZE) {
+    public List<QuestionVO> getAllQuestions(Integer pno, Integer PAGE_SIZE) {
         Integer npno = (pno - 1) * PAGE_SIZE;
         return questionMapper.getQuestionList(npno,PAGE_SIZE);
     }

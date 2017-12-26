@@ -21,6 +21,7 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
+import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.question.service.QuestionService;
 import com.ecnu.trivia.web.question.service.QuestionTypeService;
 import com.ecnu.trivia.web.rbac.domain.User;
@@ -169,7 +170,7 @@ public class QuestionController {
     @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
     public QuestionResp getAllQuestion(@RequestParam("pno") Integer pno,
                                        @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
-        List<Question> questions = questionService.getAllQuestions(pno, PAGE_SIZE);
+        List<QuestionVO> questions = questionService.getAllQuestions(pno, PAGE_SIZE);
         Integer count = questionService.getAllQuestionsCount();
         return new QuestionResp(HttpRespCode.SUCCESS,questions,count);
     }

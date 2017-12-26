@@ -33,8 +33,20 @@
         WHERE id = ${id}
     </update>
 
-    <select id="getQuestionList" resultType="com.ecnu.trivia.web.question.domain.Question">
-        SELECT * FROM question WHERE id != -1 LIMIT ${pno},${pagesize}
+    <select id="getQuestionList" resultType="com.ecnu.trivia.web.question.domain.vo.QuestionVO">
+        SELECT q.id AS id
+        ,q.description AS description
+        ,q.type_id AS typeId
+        ,qt.name AS type
+        ,q.choose_a AS chooseA
+        ,q.choose_b AS chooseB
+        ,q.choose_c AS chooseC
+        ,q.choose_d AS chooseD
+        ,q.answer AS answer
+        ,q.status AS status
+        ,q.gmt_created AS gmtCreated
+        ,q.gmt_modified AS gmtModified
+        FROM question as q,question_type as qt WHERE q.id != -1 AND q.type_id = qt.id  LIMIT ${pno},${pagesize}
     </select>
 
     <select id="getAllQuestionsCount" resultType="java.lang.Integer">

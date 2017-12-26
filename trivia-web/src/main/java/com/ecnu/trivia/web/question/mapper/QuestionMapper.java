@@ -16,6 +16,7 @@ package com.ecnu.trivia.web.question.mapper;
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
+import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.rbac.domain.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -38,14 +39,14 @@ public interface QuestionMapper extends Mapper<Question> {
     void modifyQuestion(@Param("id") Integer id,@Param("content") String content,@Param("chooseA") String chooseA,@Param("chooseB") String chooseB,
                         @Param("chooseC") String chooseC,@Param("chooseD") String chooseD,@Param("answer") Integer answer,
                         @Param("type") Integer type);
-    void addQuestion(@Param("content") String content,@Param("chooserA") String chooserA,@Param("chooserB") String chooserB,
-                     @Param("chooserC") String chooserC,@Param("chooserD") String chooserD,@Param("answer") Integer answer,
+    void addQuestion(@Param("content") String content,@Param("chooseA") String chooserA,@Param("chooseB") String chooserB,
+                     @Param("chooseC") String chooserC,@Param("chooseD") String chooserD,@Param("answer") Integer answer,
                      @Param("type") Integer type);
 
     List<Question> getQuestionListByQuestionTypeId(@Param("typeId") Integer typeId);
 
     /**获取所有问题**/
-    List<Question> getQuestionList(@Param("pno")Integer pno,@Param("pagesize")Integer PAGE_SIZE);
+    List<QuestionVO> getQuestionList(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
 
     Integer getAllQuestionsCount();
 
