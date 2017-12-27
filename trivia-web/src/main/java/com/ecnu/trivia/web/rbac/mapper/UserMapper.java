@@ -15,6 +15,7 @@ package com.ecnu.trivia.web.rbac.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.domain.vo.UserGameVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -46,4 +47,6 @@ public interface UserMapper{
     void upload(@Param("account")String account,@Param("uri")String uri);
 
     Integer getUserCount();
+
+    List<UserGameVO> getUserInGame();
 }

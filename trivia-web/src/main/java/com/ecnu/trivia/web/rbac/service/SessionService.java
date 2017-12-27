@@ -16,6 +16,7 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.domain.vo.UserGameVO;
 import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
@@ -170,5 +171,9 @@ public class SessionService implements Logable{
         String uri = url+ "/"+logImageName;
 
         return uri;
+    }
+
+    public List<UserGameVO> getUserInGame(){
+        return userMapper.getUserInGame();
     }
 }

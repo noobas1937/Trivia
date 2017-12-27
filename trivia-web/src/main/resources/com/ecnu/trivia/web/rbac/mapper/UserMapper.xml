@@ -63,4 +63,9 @@
         VALUES (#{nickname},#{headpic},#{account},MD5(#{password}),0,100000,0,NOW(),NOW(),NOW())
     </select>
 
+    <select id="getUserInGame" resultType="com.ecnu.trivia.web.rbac.domain.vo.UserGameVO">
+        SELECT u.nick_name AS nickName,r.room_name AS roomName ,p.`status` AS `status`,u.balance AS balance
+        FROM player AS p LEFT OUTER JOIN `user` AS u on p.user_id = u.id LEFT OUTER JOIN room AS r on p.room_id = r.id
+        WHERE p.id != -1
+    </select>
 </mapper>

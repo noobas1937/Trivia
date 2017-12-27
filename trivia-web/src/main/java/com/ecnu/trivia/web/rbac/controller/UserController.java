@@ -3,6 +3,7 @@ package com.ecnu.trivia.web.rbac.controller;
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.domain.vo.UserGameVO;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.utils.Constants;
@@ -75,5 +76,18 @@ public class UserController {
         return new Resp(HttpRespCode.SUCCESS);
     }
 
+
+    /**
+     * 获取游戏中玩家列表
+     * @return
+     */
+    @RequestMapping(value = "/getUserInGame/", method = RequestMethod.GET)
+    public Resp getUserInGame() {
+        List<UserGameVO> userInGame = sessionService.getUserInGame();
+        if(ObjectUtils.isNullOrEmpty(userInGame)){
+            return new Resp(HttpRespCode.PARAM_ERROR);
+        }
+        return new Resp(HttpRespCode.SUCCESS,userInGame);
+    }
 
 }
