@@ -43,7 +43,7 @@ public class Constants {
 	public static final int ACCOUNT_DELETE = -1;
 
     /**房间参数定义（进入退出房间）*/
-	public static Integer ROOM_ENTER = 0;
+	public static Integer ROOM_ENTER = 1;
 	public static Integer ROOM_EXIT = 0;
 
 	/**系统环境变量定义*/
