@@ -63,8 +63,13 @@ public class RoomService implements Logable{
                 return new Resp(HttpRespCode.SUCCESS);
             }
         }else if (Objects.equals(isEnter, Constants.ROOM_EXIT)){
+            RoomVO roomVO = getRoomById(roomId);
+            if(roomVO.getStatus()==Constants.ROOM_PLAYING){
+                return new Resp(HttpRespCode.ROOM_PLAYING);
+            }
             playerMapper.removePlayer(userID);
             messageService.refreshUI(roomId);
+            messageService.refreshHall();
         }
         return new Resp(HttpRespCode.SUCCESS);
     }

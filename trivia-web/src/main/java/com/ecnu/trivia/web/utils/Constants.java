@@ -37,6 +37,12 @@ public class Constants {
 	public static final int GAME_OVER = 4;
 	public static final int GAME_CHOOSE_TYPE = 5;
 
+	/**大厅消息类型定义*/
+	public static final int DATAGRAM_PLAYERS_CHANGE = 0;
+	public static final int DATAGRAM_MESSAGE = 1;
+
+
+
 	/**账户状态定义*/
 	public static final int ACCOUNT_NORMAL = 0;
 	public static final int ACCOUNT_ADMIN = 1;

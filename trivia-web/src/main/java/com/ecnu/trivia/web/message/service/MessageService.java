@@ -5,10 +5,14 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.vo.PlayerVO;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
+import com.ecnu.trivia.web.message.communicator.HallCommunicator;
 import com.ecnu.trivia.web.message.communicator.WebSocketCommunicator;
+import com.ecnu.trivia.web.message.domain.WSDatagram;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.utils.Constants;
+import com.ecnu.trivia.web.utils.json.JSONUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * WebSocket通讯封装服务层
@@ -26,6 +31,7 @@ public class MessageService {
     private Logger logger = LoggerFactory.getLogger(MessageService.class);
 
     private Map<Integer, WebSocketCommunicator> onlineUser = WebSocketCommunicator.ONLINE_USER;
+    private Map<Integer, HallCommunicator> hallOnlineUser = HallCommunicator.ONLINE_USER;
 
     @Resource
     private RoomService roomService;
@@ -40,6 +46,43 @@ public class MessageService {
     public void sendToAllTerminal(String message){
         for (Integer userId : onlineUser.keySet()) {
             onlineUser.get(userId).sendMessageToUser(message,userId);
+        }
+    }
+
+    /**
+     * 向所有终端发送消息
+     * @param message 消息
+     * @return
+     */
+    public void sendToAllHallTerminal(String message){
+        for (Integer userId : hallOnlineUser.keySet()) {
+            hallOnlineUser.get(userId).sendMessageToUser(message,userId);
+        }
+    }
+
+    /**
+     * 向所有终端发送消息(除了自己)
+     * @param message 消息
+     * @param userId 除去的user
+     * @return
+     */
+    public void sendToAllTerminal(String message,Integer userId){
+        for (Integer uid : onlineUser.keySet()) {
+            if(Objects.equals(uid, userId)){ continue; }
+            onlineUser.get(userId).sendMessageToUser(message,userId);
+        }
+    }
+
+    /**
+     * 向所有终端发送消息(除了自己)
+     * @param message 消息
+     * @param userId 除去的user
+     * @return
+     */
+    public void sendToAllHallTerminal(String message,Integer userId){
+        for (Integer uid : hallOnlineUser.keySet()) {
+            if(Objects.equals(uid, userId)){ continue; }
+            hallOnlineUser.get(uid).sendMessageToUser(message,uid);
         }
     }
 
@@ -108,6 +151,23 @@ public class MessageService {
         Game game = gameMapper.getGameByRoomId(roomId);
         room.setGame(game);
         sendMsgToPlayers(JSON.toJSONString(room),room.getPlayerList());
+        return true;
+    }
+
+    /**
+     * 从房间中删除玩家
+     */
+    public boolean removePlayerFromRoom(Integer roomId,Integer playerId){
+        return true;
+    }
+
+    /**
+     * 刷新大厅界面
+     * @return
+     */
+    public boolean refreshHall(){
+        WSDatagram datagram = new WSDatagram(Constants.DATAGRAM_PLAYERS_CHANGE);
+        sendToAllTerminal(JSONUtils.toJsonString(datagram));
         return true;
     }
 }
