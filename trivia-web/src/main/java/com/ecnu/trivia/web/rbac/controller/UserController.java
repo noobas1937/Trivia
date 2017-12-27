@@ -55,11 +55,8 @@ public class UserController {
 
     /*增加用户*/
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Resp addNewUser(@RequestParam("account") String account,
-                            @RequestParam("password") String password,
-                            @RequestParam("nickName") String nickName,
-                            @RequestParam("headPic") String headPic){
-        return sessionService.addNewUser(account, password, nickName, headPic);
+    public Resp addNewUser(@RequestBody User user){
+        return sessionService.addNewUser(user.getAccount(), user.getPassword(), user.getNickName());
     }
 
     /*根据用户id删除用户*/

@@ -59,4 +59,6 @@ public class Constants {
 	public static final int JWT_REFRESH_TTL = 12*60*60*1000;
 	public static int MAX_BALANCE_COUNT = 6;
 	public static int MAX_GRID_COUNT = 58;
+
+	public static String defaultHeadPic = "http://bpic.588ku.com/element_pic/00/16/07/2857995a340e5e6.jpg";
 }

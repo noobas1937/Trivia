@@ -17,7 +17,9 @@ import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.mapper.UserMapper;
+import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
+import org.aspectj.apache.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -84,11 +86,11 @@ public class SessionService implements Logable{
     }
 
     public Resp addNewUser(String account,String password,
-                              String nickName,String headPic){
+                              String nickName){
         //查看是否有account相同的user账号,重复的话不能添加并返回false，不重复的话不允许添加
         User tempUser = userMapper.getUserByAccountWithoutPassword(account);
         if(ObjectUtils.isNullOrEmpty(tempUser)){
-            userMapper.addNewUser(account, password, nickName, headPic);
+            userMapper.addNewUser(account, password, nickName, Constants.defaultHeadPic);
             return new Resp(HttpRespCode.SUCCESS);
         }
         return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
