@@ -7,6 +7,10 @@
         SELECT * FROM question_type
     </select>
 
+    <select id="getQuestionTypeListByPage" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+        SELECT * FROM question_type LIMIT ${pno},${pagesize}
+    </select>
+
     <select id="getQuestionTypeByQuestionTypeDescription" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
         SELECT * FROM question_type WHERE name = #{description}
     </select>

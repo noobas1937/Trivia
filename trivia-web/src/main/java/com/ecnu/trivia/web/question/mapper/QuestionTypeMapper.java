@@ -25,6 +25,8 @@ public interface QuestionTypeMapper extends Mapper<QuestionType> {
 
     List<QuestionType> getQuestionTypeList();
 
+    List<QuestionType> getQuestionTypeListByPage(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
+
     List<QuestionType> getQuestionTypeByQuestionTypeDescription(@Param("description") String description);
 
     void deleteQuestionTypeByQuestionTypeId(@Param("typeId") Integer typeId);
