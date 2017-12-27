@@ -60,7 +60,7 @@ public class RoomService implements Logable{
                 playerMapper.addPlayer(roomId, userID);
                 messageService.refreshUI(roomId);
             }else{
-                return new Resp(HttpRespCode.USER_ALREADY_IN_ROOM);
+                return new Resp(HttpRespCode.SUCCESS);
             }
         }else if (Objects.equals(isEnter, Constants.ROOM_EXIT)){
             playerMapper.removePlayer(userID);

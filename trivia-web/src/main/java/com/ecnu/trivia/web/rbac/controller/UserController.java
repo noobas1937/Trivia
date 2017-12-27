@@ -81,7 +81,7 @@ public class UserController {
      * 获取游戏中玩家列表
      * @return
      */
-    @RequestMapping(value = "/getUserInGame/", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/", method = RequestMethod.GET)
     public Resp getUserInGame() {
         List<UserGameVO> userInGame = sessionService.getUserInGame();
         if(ObjectUtils.isNullOrEmpty(userInGame)){
