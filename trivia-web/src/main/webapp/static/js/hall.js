@@ -5,9 +5,9 @@ window.onload = function getTables() {
         console.log("此浏览器支持websocket");
         websocket = new WebSocket("ws://115.159.35.11:8080/trivia/ws/hall/");
     } else if('MozWebSocket' in window) {
-        alert("此浏览器只支持MozWebSocket");
+        layer.msg("此浏览器只支持MozWebSocket");
     } else {
-        alert("此浏览器只支持SockJS");
+        layer.msg("此浏览器只支持SockJS");
     }
     websocket.onopen = function(evnt) {
         $("#tou").html("链接服务器成功!")
@@ -38,7 +38,7 @@ window.onload = function getTables() {
                 console.log(data);
                 var obj = data.data;
                 if (obj.length == 0) {
-                    alert("目前暂无房间开放，请稍后尝试！");
+                    layer.msg("目前暂无房间开放，请稍后尝试！");
                 } else {
                     var s="<div><div class=\"desk\"><img class=\"pic\" src=\"../static/image/room.png\"  alt=\"#\"/>\n" +
                         "        <img class=\"t1_\">\n" +
@@ -61,7 +61,7 @@ window.onload = function getTables() {
                 }
             }
             else {
-                alert("出错啦！");
+                layer.msg("请确认是否登陆！");
             }
         }
     });
@@ -89,7 +89,7 @@ window.onload = function getTables() {
                 });
             }
             else {
-                alert("出错啦！");
+                layer.msg("出错啦！");
             }
         }
     });
@@ -109,7 +109,7 @@ function enterRoom(roomId){
             if (data.resCode === "200") {
                 location.href='../game/bin/index.html';
             }else{
-                alert("您开不了房！");
+                layer.msg("您开不了房！");
             }
         }
     });
@@ -128,7 +128,7 @@ function refreshPlayerList(){
                 console.log(data);
                 var obj = data.data;
                 if (obj.length == 0) {
-                    alert("目前暂无房间开放，请稍后尝试！");
+                    layer.msg("目前暂无房间开放，请稍后尝试！");
                 } else {
                     var s="<div><div class=\"desk\"><img class=\"pic\" src=\"../static/image/room.png\"  alt=\"#\"/>\n" +
                         "        <img class=\"t1_\">\n" +
@@ -151,7 +151,7 @@ function refreshPlayerList(){
                 }
             }
             else {
-                alert("出错啦！");
+                layer.msg("请检查是否登陆！");
             }
         }
     });
@@ -177,8 +177,8 @@ function sendMessage(){
 
     var now = year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m)+":"+p(s);
     var message = $("#inputText").val();
-    if (message = "") {
-        alert("发送消息不能为空！");
+    if (message === "") {
+        layer.msg("发送消息不能为空！");
     } else {
         $.ajax({
             url: "/trivia/message/hall/all/",
@@ -194,7 +194,7 @@ function sendMessage(){
                     $("#chatinf").append(chat);
                     $("#inputText").val("");
                 } else {
-                    alert("您发不了消息！");
+                    layer.msg("您发不了消息！");
                 }
             }
         });

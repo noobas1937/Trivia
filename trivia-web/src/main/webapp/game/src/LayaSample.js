@@ -542,8 +542,8 @@ function btnTConfirmClicked(){
         success: function (body) {
             if (body.resCode !== "200") {
                 msgDialog.msgContent.text = body.resMsg+"请更换选项尝试！";
-                questionTypeDialog.show();
                 msgDialog.show();
+                questionTypeDialog.show();
             }
         }
     });
