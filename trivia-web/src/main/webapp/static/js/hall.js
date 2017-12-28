@@ -66,33 +66,7 @@ window.onload = function getTables() {
         }
     });
 
-    $.ajax({
-        type: "GET",
-        url: "/trivia/user/list/",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data.resCode === "200") {
-                console.log(data);
-                var obj = data.data;
-                $.each(obj, function(index, item) {
-                    var s="<tr>";
-                    s+="<td>"+item.nickName+"</td>";
-                    s+="<td>"+item.roomName+"</td>";
-                    if(item.status === 0){
-                        s+="<td>等待中</td>";
-                    }else{
-                        s+="<td>游戏中</td>";
-                    }
-                    s+="<td>"+item.balance+"</td></tr>";
-                    $("#user-table").append(s);
-                });
-            }
-            else {
-                layer.msg("出错啦！");
-            }
-        }
-    });
+    getPlayerList();
 };
 
 function enterRoom(roomId){
@@ -155,6 +129,9 @@ function refreshPlayerList(){
             }
         }
     });
+
+    $("#user-table").clear();
+    getPlayerList();
 }
 
 function getMessage(data){
@@ -202,5 +179,35 @@ function sendMessage(){
 }
 
 function p(s) {
-    return s < 10 ? '0' + s: s;
+    return s < 10 ? '0' + s : s;
+}
+
+function getPlayerList(){
+    $.ajax({
+        type: "GET",
+        url: "/trivia/user/list/",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.resCode === "200") {
+                console.log(data);
+                var obj = data.data;
+                $.each(obj, function(index, item) {
+                    var s="<tr>";
+                    s+="<td>"+item.nickName+"</td>";
+                    s+="<td>"+item.roomName+"</td>";
+                    if(item.status === 0){
+                        s+="<td>等待中</td>";
+                    }else{
+                        s+="<td>游戏中</td>";
+                    }
+                    s+="<td>"+item.balance+"</td></tr>";
+                    $("#user-table").append(s);
+                });
+            }
+            else {
+                alert("出错啦！");
+            }
+        }
+    });
 }
