@@ -190,7 +190,7 @@ function sendMessage(){
             },
             success: function (data) {
                 if (data.resCode === "200") {
-                    var chat = "<div>我 " + now + "\n" + message + "</div>";
+                    var chat = "<div style='color:white;font-size:15px'>我 " + now + "\n" +"<br />"+ message + "</div>";
                     $("#chatinf").append(chat);
                     $("#inputText").val("");
                 } else {

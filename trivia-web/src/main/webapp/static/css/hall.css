@@ -249,21 +249,26 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu{
     position: relative;
 
 }
+.heng{
+    postion:relative;
+    width:100px;
+    height:50px;
+}
 .input
 {
     left: 0;
-    position: absolute;
-    bottom: 6px;
+    position: relative;
+    bottom: -4px;
     display: block;
 }
 .chatbtn
 {
     bottom: 6px;
     width: 43px;
-    position: absolute;
+    position: relative;
     height: 25px;
     /* right: -75%; */
-    top: 204px;
+    top: -18px;
     left: 185px;
     font-size: 10px;
     background-color: #4d92d9;

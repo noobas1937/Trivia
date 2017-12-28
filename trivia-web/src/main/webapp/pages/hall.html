@@ -99,7 +99,7 @@
                         <td>余额</td>
                     </tr>
                 </table>
-                <div style="overflow-y:scroll;height: 200px;">
+                <div  id="wanjia" style="overflow-y:scroll;height: 200px;">
                 <table  width="200px" id="user-table">
                 </table>
             </div>
@@ -107,11 +107,11 @@
 
         <!--输入框-->
         <div class="chat">
-            <div style="overflow-y:scroll;overflow-x:hidden;height: 200px;">
-            <div class="chatinf"  id="chatinf">
+            <div  id="gundong" style="overflow-y:scroll;overflow-x:hidden;height: 230px;">
+            <div class="chatinf"   style="height: 230px;" id="chatinf">
             </div>
             </div>
-                <div>
+                <div class="heng">
                 <input type="text" class="input" name="名称" value="" id="inputText"/>
 
                     <button class="chatbtn" onclick="sendMessage()">发送</button>
@@ -199,6 +199,13 @@
         if (event.keyCode == "13") {//keyCode=13是回车键
             $('.chatbtn').click();
         }
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#gundong').scrollTop( $('#gundong')[0].scrollHeight);
+        $('#wanjia').scrollTop( $('#wanjia')[0].scrollHeight);
+
     });
 </script>
 </html>
