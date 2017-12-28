@@ -118,7 +118,8 @@ public class GameService implements Logable {
         if(!ObjectUtils.isNullOrEmpty(game)){
             gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
         }else{
-            gameMapper.addGame(room.getId(),currentPlayerId);
+            logger.error(ConstantsMsg.NO_GAME_ERROR,room.getId());
+            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
         }
         roomMapper.updateRoomStatus(room.getId(),Constants.ROOM_PLAYING);
         messageService.refreshUI(room.getId());

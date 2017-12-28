@@ -45,7 +45,7 @@ var questionTypes2ID;
 
 layui.use('layer', function() { //独立版的layer无需执行这一句
     var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
-}
+});
 function OperationPanel()
 {
 	OperationPanel.super(this);   
@@ -175,19 +175,34 @@ function refreshUI(message){
 function refreshOpeartionpanel(message){
     var stage = message.game.stage;
     var curPlayer,curPlayerName;
+    var roomStatus,myStatus,curPlayerStatus;
     //获取当前玩家ID
     $.each(message.playerList,function(index,item){
         if(item.id === message.game.currentPlayerId) {
             curPlayer = item.userId;
             curPlayerName = item.nickName;
-            return false;
+            curPlayerStatus = item.status;
+        }
+        if(myUserId === item.userId){
+            myStatus = item.status;
+            roomStatus = message.status;
         }
     });
     switch(stage){
         case GAME_READY:
             //新一轮游戏就绪 UI数据包
-            if(curPlayer===myUserId){
-                setBtnVisibility(false,false,true);
+            if(roomStatus === ROOM_WAITING) {
+                if(myStatus===PLAYER_WAITING){
+                    setBtnVisibility(true,true,false);
+                }else if(myStatus === PLAYER_READY){
+                    setBtnVisibility(true,false,false);
+                }
+            }else if (roomStatus === ROOM_PLAYING){
+                if(curPlayer===myUserId){
+                    setBtnVisibility(false,false,true);
+                }else{
+                    setBtnVisibility(false,false,false);
+                }
             }
         break;
         case GAME_DICE_RESULT:
@@ -207,13 +222,10 @@ function refreshOpeartionpanel(message){
                 dice.removeClass("dice_e").addClass("dice_"+num); 
                 $("#result").html("掷得点数是<span>"+num+"</span>"); 
                 $("#dice_mask").remove();//移除遮罩 
-            }); 
-            if(curPlayer===myUserId){
-            }else{
-                
-            }
+            });
         break;
         case GAME_CHOOSE_TYPE:
+            if(curPlayer!==myUserId){break;}
             setBtnVisibility(false,false,false);
             //选择问题类型
             $.ajax({
@@ -224,7 +236,7 @@ function refreshOpeartionpanel(message){
                 success: function (body) {
                     if (body.resCode === "200") {
                         var label = "";
-                        questionTypes2ID= new Array();
+                        questionTypes2ID= [];
                         $.each(body.data,function(index,item){
                             label+=item.name+",";
                             questionTypes2ID[index] = item.id;
@@ -239,6 +251,7 @@ function refreshOpeartionpanel(message){
             });
             break;
         case GAME_ANSWERING_QUESTION:
+            if(curPlayer!==myUserId){break;}
             setBtnVisibility(false,false,false);
             //获取问题中（回答中） UI数据包
             $.ajax({
@@ -265,33 +278,21 @@ function refreshOpeartionpanel(message){
                     }  
                 }
             });
-            if(curPlayer===myUserId){
-            }else{
-                
-            }
         break;
         case GAME_ANSWER_QUESTION_RESULT:
             //回答问题结果 UI数据包
             if(curPlayer===myUserId){//我的轮次
-                $.each(message.playerList,function(index,item){
-                    if(item.userId === curPlayer){
-                        if(item.status === PLAYER_GAMING_HOLD){
-                            layer.msg("抱歉哦！您被关在监狱中了~ 只有下局掷得偶数才可以前进哦~");
-                        }else{
-                            layer.msg("恭喜您答对了，给你一个小金币~");
-                        }
-                    }
-                });
+                if(myStatus === PLAYER_GAMING_HOLD){
+                    layer.msg("抱歉哦！您被关在监狱中了~ 只有下局掷得偶数才可以前进哦~");
+                }else{
+                    layer.msg("恭喜您答对了，给你一个小金币~");
+                }
             }else{//其他人的轮次
-                $.each(message.playerList,function(index,item){
-                    if(item.userId !== curPlayer){
-                        if(item.status === PLAYER_GAMING_HOLD){
-                            layer.msg("恭喜玩家："+curPlayerName+",答错题目被关入监狱~");
-                        }else{
-                            layer.msg("恭喜玩家："+curPlayerName+",答对题目获得一个小金币~");
-                        }
-                    }
-                });
+                if(curPlayerStatus === PLAYER_GAMING_HOLD){
+                    layer.msg("恭喜玩家："+curPlayerName+",答错题目被关入监狱~");
+                }else{
+                    layer.msg("恭喜玩家："+curPlayerName+",答对题目获得一个小金币~");
+                }
             }
         break;
         case GAME_OVER:

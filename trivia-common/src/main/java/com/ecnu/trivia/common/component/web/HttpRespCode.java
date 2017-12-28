@@ -91,7 +91,8 @@ public enum HttpRespCode implements Serializable {
     PERMISSION_ERROR("8002", "权限不足"),
     DATA_SET_SUCCESS("200","修改成功"),
     USER_NOT_IN_ROOM("418","用户未进入房间！" ),
-    ROOM_PLAYING("405", "房间正在游戏中...");
+    ROOM_PLAYING("405", "房间正在游戏中..."),
+    PLAYER_ADD_FAILED("503", "创建玩家失败！");
 
 
     //enum结构定义

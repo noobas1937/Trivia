@@ -79,7 +79,7 @@ public class RoomController {
      * 退出房间接口
      * @return
      */
-    @RequestMapping(value = "/exit/", method = RequestMethod.GET)
+    @RequestMapping(value = "/exit/", method = RequestMethod.POST)
     public Resp enterRoom() {
         User user = UserUtils.fetchUser();
         if(ObjectUtils.isNullOrEmpty(user)){
