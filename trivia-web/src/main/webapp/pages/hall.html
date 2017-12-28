@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- SCRIPTS -->
+    <script src="../static/jQuery/jquery-1.9.1.min.js"></script>
+    <script src="../static/js/hall.js"></script>
+    <script src="../static/js/jquery.zlight.menu.1.0.min.js"></script>
+
+    <!-- STYLES -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css" media="screen">
+    <link rel="stylesheet" href="../static/css/style.css" media="screen">
+    <link rel="stylesheet" href="../static/css/zlight.menu.css" media="screen">
+    <link rel="stylesheet" href="../static/css/hall.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link rel="stylesheet" bootstrap="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootsnav.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/1.css">
+    <link rel="stylesheet" href="../static/css/layui.css"  media="all">
+
+    <style>
+        #navbar-menu{
+            background-color: rgba(255,255,255,0.4);
+            left:105px;
+            width:1140px;
+
+
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container" id="main">
+
+    <div class="jq22-container" >
+
+        <div class="demo" style="padding: 2em 0;" >
+            <div class="container">
+                <div class="row" style="position:fixed;z-index:1001">
+                    <div class="col-md-12">
+                        <nav class="navbar navbar-default navbar-mobile bootsnav">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="navbar-menu">
+                                <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                                    <li><a href="#">快速加入</a></li>
+                                    <li><a href="#">个人中心</a></li>
+                   </ul>
+                                <div class="gerenzhongxin">
+
+
+
+                                </ul>
+                                <div class="gerenzhongxin">
+
+                                    <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;border-radius:50px;width:50px;height:50px;">
+                                        <div class="pic1" style="width:50px;height:50px"><div style="border-radius: 50px;width:50px;height:50px;" data-method="offset" data-type="auto"
+                                                                                              class="layui-btn layui-btn-normal"></div></div>
+
+                                    </div>
+                                    <div class="name">dsf</div>
+                                </div>
+
+
+
+                                        </ul>
+
+
+
+                            </ul>
+                        </nav>
+
+                    </div>
+                        </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="desks" >
+
+
+    </div>
+    <div id="right">
+        <!--显示当前玩家-->
+        <div id="player">
+            <div id="players">
+
+                <table  width="200px">
+                    <tr>
+                        <td>昵称</td>
+                        <td>房间</td>
+                        <td>状态</td>
+                        <td>余额</td>
+                    </tr>
+                </table>
+                <div style="overflow-y:scroll;height: 200px;">
+                <table  width="200px" id="user-table">
+                </table>
+            </div>
+        </div>
+
+        <!--输入框-->
+        <div class="chat">
+            <div style="overflow-y:scroll;overflow-x:hidden;height: 200px;">
+            <div class="chatinf"  id="chatinf">
+            </div>
+            </div>
+                <div>
+                <input type="text" class="input" name="名称" value="" id="inputText"/>
+
+                    <button class="chatbtn" onclick="sendMessage()">发送</button>
+
+                </div>
+
+
+
+</div>
+        </div>
+</body>
+
+
+
+
+
+
+<script src="../static/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+        //触发事件
+        var active = {
+            setTop: function(){
+                var that = this;
+                //多窗口模式，层叠置顶
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '当你选择该窗体时，即会在最顶端'
+                    ,area: ['390px', '260px']
+                    ,shade: 0
+                    ,maxmin: true
+                    ,offset: [ //为了演示，随机坐标
+                        Math.random()*($(window).height()-300)
+                        ,Math.random()*($(window).width()-390)
+                    ]
+                    ,content: 'http://layer.layui.com/test/settop.html'
+                    ,btn: ['继续弹出', '全部关闭'] //只是为了演示
+                    ,yes: function(){
+                        $(that).click();
+                    }
+                    ,btn2: function(){
+                        layer.closeAll();
+                    }
+
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero){
+                        layer.setTop(layero); //重点2
+                    }
+                });
+            }
+
+
+            ,offset: function(othis){
+                var type = othis.data('type')
+                    ,text = othis.text();
+
+                layer.open({
+                    type: 1
+                    ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'layerDemo'+type //防止重复弹出
+                    ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
+                    ,btn: '关闭全部'
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0 //不显示遮罩
+                    ,yes: function(){
+                        layer.closeAll();
+                    }
+                });
+            }
+        };
+
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+</script>
+</html>

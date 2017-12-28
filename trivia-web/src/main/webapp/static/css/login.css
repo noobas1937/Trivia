@@ -1,4 +1,4 @@
-    <style type="text/css">
+
         @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);  
         * {  
           box-sizing: border-box;  
@@ -71,7 +71,7 @@
         form {  
           padding: 20px 0;  
           position: relative;  
-          z-index: 2;  
+          z-index: 2;
         }  
         form input {  
           -webkit-appearance: none;  
@@ -131,7 +131,8 @@
           z-index: 1;  
         }  
         .bg-bubbles li {  
-          position: absolute;  
+          position: absolute;
+            opacity: 0.5;
           list-style: none;  
           display: block;  
           width: 40px;  
@@ -207,7 +208,8 @@
         .bg-bubbles li:nth-child(9) {  
           left: 25%;  
           width: 10px;  
-          height: 10px;  
+          height: 10px;
+            opacity: 0.5;
           -webkit-animation-delay: 2s;  
                   animation-delay: 2s;  
           -webkit-animation-duration: 40s;  
@@ -241,8 +243,8 @@
                     transform: translateY(-700px) rotate(600deg);  
           }  
         }  
-        .cc{  
-            text-decoration: none;  
+    /*    .cc{
+            text-decoration: none;
             #FF8000;
-            }  
-    </style>  
+            }
+*/

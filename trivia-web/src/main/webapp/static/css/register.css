@@ -1,4 +1,4 @@
-<style type="text/css">
+
         @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
         * {
           box-sizing: border-box;
@@ -239,6 +239,5 @@
         .cc{
             text-decoration: none;
             color: white;
-            font:white
+            font:white;
         }
- </style>

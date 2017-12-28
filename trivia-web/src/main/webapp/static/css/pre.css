@@ -1,0 +1,67 @@
+html, body{ margin:0; height:100%;width: 100% }
+body{
+    background-color:darkgray;
+}
+#table{
+
+    width:600px;
+}
+.chair{
+
+    width: 50px;
+    height: 66px;
+}
+
+#pl1{
+    position: relative;
+    top:25px;
+    left:175px;
+    height:66px;
+}
+#pl2{
+    float:left;
+    position: relative;
+    left:60px;
+    top:13px;
+
+
+}
+#desk{
+    position: relative;
+    float: left;
+    background-color: black;
+    width:200px;
+    height:114px;
+    background-image: url("../image/12.jpg");
+    left:50px;
+
+}
+#pl3{
+    position: relative;
+    float:left;
+    left: 40px;
+    top:5px;
+}
+#pl4{
+    position: relative;
+    top:-30px;
+    clear: left;
+    left: 180px;
+}
+#right{
+    position: relative;
+    float: right;
+    width:20%;
+    height:100%;
+    background-color:gainsboro;
+    margin-top: -246px;
+}
+#info{
+     height:50%;
+    background-color: #007DDB;
+     position: relative;
+ }
+#chat{
+    height:50%;
+    position: relative;
+}

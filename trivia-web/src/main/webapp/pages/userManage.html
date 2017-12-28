@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>用户列表</title>
+    <meta name="description" content="user manager">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="icon" type="image/png" href="../static/image/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../static/image/app-icon72x72@2x.png">
+    <link rel="stylesheet" href="../static/css/amazeui.min.css" />
+    <link rel="stylesheet" href="../static/css/admin.css">
+    <link rel="stylesheet" href="../static/css/app.css">
+    <link rel="stylesheet" href="../static/layui/css/layui.css">
+
+</head>
+
+<body>
+
+<div class="tpl-portlet-components">
+    <div class="portlet-title">
+        <div class="caption font-green bold">
+            <span></span> 用户列表
+        </div>
+
+    </div>
+    <div class="tpl-block">
+        <div class="layui-btn-group demoTable">
+            <button class="layui-btn" data-type="getCheckData" id="userAddBtn">增加用户</button>
+        </div>
+        <div class="am-g">
+            <div class="am-u-sm-12">
+                <table id="table" class="layui-table" lay-filter="table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/amazeui.min.js"></script>
+<script src="../static/js/userManage.js"></script>
+<script type="text/javascript" src="../static/layui/layui.js"></script>
+<script type="text/html" id="picTpl">
+    <img src="{{ d.headPic }}" onerror="this.src='../static/image/timg.jpg'" style="vertical-align: middle;" width="35" height="40"/>
+</script>
+<script type="text/html" id="userTypeTpl">
+    {{#  if(d.userType == 0){ }}
+    管理员
+    {{# } else { }}
+    普通用户
+    {{# } }}
+</script>
+<script type="text/html" id="statusTpl">
+    {{#  if(d.status == 0){ }}
+    等待中
+    {{# } else if(d.status == 1){ }}
+    准备中
+    {{# } else if(d.status == 2){ }}
+    自由
+    {{# } else { }}
+    监狱中
+    {{# } }}
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
+
+</html>

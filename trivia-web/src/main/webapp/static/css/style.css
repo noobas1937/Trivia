@@ -1,0 +1,41 @@
+body{
+	padding: 0;
+	margin: 0;
+	background-color: silver;
+	height:100%;width: 100%
+}
+#main{
+	position:relative;
+
+	background-color: rgba(255,255,255,0.4);
+	height:auto;
+	width:100%
+}
+#main > .row{
+	margin-bottom: 30px;
+	left: auto;
+
+}
+h1,h2,h3,h4,h5,h6{
+	text-transform: uppercase;
+}
+.prev-con{
+	text-align: center;
+}
+.prev{
+	display: inline-block;
+	margin-bottom: 20px;
+	text-align: center;
+}
+h5{
+	font-weight: bold;
+}
+.fec{
+	font-size: 34px;
+	color: white;
+	padding-right: 10px;
+}
+.zlight-hhh{
+	padding-bottom: 10px;
+	border-bottom: 1px solid ;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>问题增加</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../static/css/layui.css"  media="all">
+    <link rel="stylesheet" href="../static/css/manage.css"  media="all">
+
+</head>
+<body>
+<div class='layui-form-item'><label class='layui-form-label'>问题描述</label>
+    <div class='layui-input-block'  style="width:720px;">
+        <input id='questionDescription' type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入问题描述' class='layui-input' ></input>
+    </div>
+</div>
+<div class='layui-form-item'><label class='layui-form-label'>选择A</label>
+    <div class='layui-input-block' style="width:720px;">
+        <input id='chooseA' type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入选择A' class='layui-input'></input>
+    </div>
+</div>
+<div class='layui-form-item'><label class='layui-form-label'>选择B</label>
+    <div class='layui-input-block' style="width:720px;">
+        <input id='chooseB' type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入选择B' class='layui-input'></input>
+    </div>
+</div>
+<div class='layui-form-item'><label class='layui-form-label'>选择C</label>
+    <div class='layui-input-block' style="width:720px;">
+        <input id='chooseC' type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入选择C' class='layui-input'></input>
+    </div>
+</div>
+<div class='layui-form-item'><label class='layui-form-label'>选择D</label>
+    <div class='layui-input-block' style="width:720px;">
+        <input id='chooseD' type='text' name='title' lay-verify='title' autocomplete='off' placeholder='请输入选择D' class='layui-input'></input>
+    </div>
+</div>
+
+<div class="layui-form-item">
+    <label class="layui-form-label">正确答案</label>
+    <div class="layui-input-block">
+      <select name="rightanwser" id="selectAnwser" lay-filter="rightanwser">
+        <option value="1" selected="">A</option>
+        <option value="2">B</option>
+        <option value="3">C</option>
+        <option value="4">D</option>
+      </select>
+    </div>
+  </div>
+
+<div class="layui-form-item">
+    <label class="layui-form-label">问题类型</label>
+    <div class="layui-input-block" id="selectTypeBody">
+      
+    </div>
+  </div>
+</body>
+<script src="../static/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" language="javascript"></script>
+<script>
+$(function(){ 　　
+    //动态加载所有的问题类型
+    $.ajax({
+        type: "GET",
+        url: "/trivia/question/type/",
+        contentType: "application/json; charset=utf-8",
+        dataType:"json",
+        success: function (result) {
+            console.log(result);
+            var r = result;
+            var data = r.data;
+            if (r.resCode === "200") {
+                console.log("hahah");
+                var shtml = "<select name='questionType' id='selectType' lay-filter='questionType'>";
+                var optionCount = 1;
+                $.each(data, function(index, item) {
+                        shtml += "<option value='"
+                        + optionCount +"' id='" 
+                        + item.id + "'>" 
+                        + item.name + "</option>";
+                        optionCount++;
+                });
+                shtml += "</select>";
+                $("#selectTypeBody").append(shtml);
+            }
+            else {}
+        }
+    })
+
+    
+}); 
+</script>
+</html>

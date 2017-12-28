@@ -1,0 +1,71 @@
+{
+    "frames": {
+        "btn_alert dialogLeftButton.png": {
+            "frame": {
+                "h": 178,
+                "idx": 0,
+                "w": 271,
+                "x": 0,
+                "y": 0
+            },
+            "rotated": false,
+            "sourceSize": {
+                "h": 178,
+                "w": 271
+            },
+            "spriteSourceSize": {
+                "h": 178,
+                "w": 271,
+                "x": 0,
+                "y": 0
+            },
+            "trimmed": false
+        },
+        "btn_alert dialogRightButton.png": {
+            "frame": {
+                "h": 178,
+                "idx": 0,
+                "w": 271,
+                "x": 0,
+                "y": 179
+            },
+            "rotated": false,
+            "sourceSize": {
+                "h": 178,
+                "w": 271
+            },
+            "spriteSourceSize": {
+                "h": 178,
+                "w": 271,
+                "x": 0,
+                "y": 0
+            },
+            "trimmed": false
+        },
+        "label.png": {
+            "frame": {
+                "h": 18,
+                "idx": 0,
+                "w": 120,
+                "x": 0,
+                "y": 358
+            },
+            "rotated": false,
+            "sourceSize": {
+                "h": 18,
+                "w": 120
+            },
+            "spriteSourceSize": {
+                "h": 18,
+                "w": 120,
+                "x": 0,
+                "y": 0
+            },
+            "trimmed": false
+        }
+    },
+    "meta": {
+        "image": "Warn.png",
+        "prefix": "template/Warn/"
+    }
+}
