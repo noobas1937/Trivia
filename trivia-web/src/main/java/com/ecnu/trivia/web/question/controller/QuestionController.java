@@ -107,9 +107,11 @@ public class QuestionController {
      * @date: 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
-    public Resp getQuestionTypeList() {
-        List<QuestionType> list = questionTypeService.getQuestionTypeList();
-        return new Resp(HttpRespCode.SUCCESS,list);
+    public QuestionResp getQuestionTypeList(@RequestParam("pno") Integer pno,
+                                    @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
+        List<QuestionType> list = questionTypeService.getQuestionTypeListByPage(pno,PAGE_SIZE);
+        Integer count = questionTypeService.getQuestionTypeListCount();
+        return new QuestionResp(HttpRespCode.SUCCESS,list,count);
     }
 
     /**

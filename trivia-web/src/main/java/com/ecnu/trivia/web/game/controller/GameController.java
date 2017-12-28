@@ -63,6 +63,24 @@ public class GameController {
      * @author: Handsome Zhao
      * @date: 20:05 2017/12/11
      */
+    @RequestMapping(value = "/quickjoin", method = RequestMethod.GET)
+    public Resp quickJoin() {
+        User user = UserUtils.fetchUser();
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        }
+        boolean result = gameService.rollDice(user.getId());
+        if(!result) {
+            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
+        }else{
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+    }
+    /**
+     * 用户快速加入游戏
+     * @author: Handsome Zhao
+     * @date: 22:43 2017/12/27
+     */
     @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
     public Resp rollDice() {
         User user = UserUtils.fetchUser();

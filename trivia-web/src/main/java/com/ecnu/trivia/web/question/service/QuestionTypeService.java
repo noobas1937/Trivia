@@ -28,6 +28,7 @@ import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -53,8 +54,21 @@ public class QuestionTypeService implements Logable{
     @Resource
     private MessageService messageService;
 
-    public List<QuestionType> getQuestionTypeList(){
+    public List<QuestionType> getQuestionTypeListByPage(@RequestParam("pno") Integer pno,
+                                                  @RequestParam("PAGE_SIZE") Integer PAGE_SIZE)
+    {
+        Integer npno = (pno - 1) * PAGE_SIZE;
+        return questionTypeMapper.getQuestionTypeListByPage(npno, PAGE_SIZE);
+    }
+
+    public List<QuestionType> getQuestionTypeList()
+    {
         return questionTypeMapper.getQuestionTypeList();
+    }
+
+    public Integer getQuestionTypeListCount()
+    {
+        return questionTypeMapper.getQuestionTypeList().size();
     }
 
     public boolean deleteQuestionTypeById(Integer questionTypeId){
