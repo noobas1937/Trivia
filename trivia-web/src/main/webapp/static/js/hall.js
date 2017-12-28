@@ -177,24 +177,28 @@ function sendMessage(){
 
     var now = year+'-'+p(month)+"-"+p(date)+" "+p(h)+':'+p(m)+":"+p(s);
     var message = $("#inputText").val();
-    $.ajax({
-        url: "/trivia/message/hall/all/",
-        type: "GET",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data:{
-            "message":message,
-        },
-        success: function(data){
-            if (data.resCode === "200") {
-                var chat = "<div>我 "+ now + "\n" + message + "</div>";
-                $("#chatinf").append(chat);
-                $("#inputText").clear();
-            }else{
-                alert("您发不了消息！");
+    if (message = "") {
+        alert("发送消息不能为空！");
+    } else {
+        $.ajax({
+            url: "/trivia/message/hall/all/",
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: {
+                "message": message
+            },
+            success: function (data) {
+                if (data.resCode === "200") {
+                    var chat = "<div>我 " + now + "\n" + message + "</div>";
+                    $("#chatinf").append(chat);
+                    $("#inputText").val("");
+                } else {
+                    alert("您发不了消息！");
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 function p(s) {
