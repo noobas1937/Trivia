@@ -58,18 +58,34 @@ public class RoomController {
         return new Resp(HttpRespCode.SUCCESS,roomVO);
     }
 
-    @RequestMapping(value = "/type/", method = RequestMethod.GET)
-    public Resp editPlayerRoom(@RequestParam("isEnter") Integer isEnter,
-                               @RequestParam("roomId") Integer roomId) {
-        if(ObjectUtils.isNullOrEmpty(isEnter)
-                ||ObjectUtils.isNullOrEmpty(roomId)){
+    /**
+     * 进入房间接口
+     * @param roomId
+     * @return
+     */
+    @RequestMapping(value = "/enter/", method = RequestMethod.GET)
+    public Resp enterRoom(@RequestParam("roomId") Integer roomId) {
+        if(ObjectUtils.isNullOrEmpty(roomId)){
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         User user = UserUtils.fetchUser();
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
-        return roomService.editPlayerRoom(roomId,user.getId(),isEnter);
+        return roomService.enterRoom(roomId,user.getId());
+    }
+
+    /**
+     * 退出房间接口
+     * @return
+     */
+    @RequestMapping(value = "/exit/", method = RequestMethod.GET)
+    public Resp enterRoom() {
+        User user = UserUtils.fetchUser();
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return new Resp(HttpRespCode.USER_NOT_LOGIN);
+        }
+        return roomService.exitRoom(user.getId());
     }
 
 }

@@ -25,8 +25,8 @@ import java.util.Date;
 public class Resp implements Serializable {
     private static final long serialVersionUID = -8660197629749596025L;
 
-    protected String resCode;
-    protected String resMsg;
+    private String resCode;
+    private String resMsg;
 
     /**
      * @return the resTime
@@ -45,7 +45,7 @@ public class Resp implements Serializable {
         this.resTime = resTime;
     }
 
-    protected Date resTime;
+    private Date resTime;
     protected Object data;
 
     public Resp() {

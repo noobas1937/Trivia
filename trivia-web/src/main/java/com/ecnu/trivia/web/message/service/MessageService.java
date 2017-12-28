@@ -138,7 +138,7 @@ public class MessageService {
     }
 
     /**
-     * 刷新房间界面
+     * 刷新游戏界面
      * PreCondition: 房间处于游戏状态
      * PostCondition: 根据数据库发送刷新UI数据包
      * @param roomId 房间ID

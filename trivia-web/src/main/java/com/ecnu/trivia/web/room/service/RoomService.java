@@ -16,6 +16,7 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
+import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
@@ -49,27 +50,38 @@ public class RoomService implements Logable{
         return roomMapper.getRoomById(id);
     }
 
-    public Resp editPlayerRoom(Integer roomId, Integer userID, Integer isEnter) {
-        if(Objects.equals(isEnter, Constants.ROOM_ENTER)) {
-            Integer integer = playerMapper.getPlayerCount(roomId);
-            if (ObjectUtils.isNotNullOrEmpty(integer) && integer > Constants.MAX_PLAYER_COUNT) {
-                return new Resp(HttpRespCode.ROOM_FULL);
-            }
-            Player player = playerMapper.getPlayerByUserId(userID);
-            if(ObjectUtils.isNullOrEmpty(player)){
-                playerMapper.addPlayer(roomId, userID);
-                messageService.refreshUI(roomId);
-            }else{
-                return new Resp(HttpRespCode.SUCCESS);
-            }
-        }else if (Objects.equals(isEnter, Constants.ROOM_EXIT)){
-            RoomVO roomVO = getRoomById(roomId);
-            if(roomVO.getStatus()==Constants.ROOM_PLAYING){
-                return new Resp(HttpRespCode.ROOM_PLAYING);
-            }
-            playerMapper.removePlayer(userID);
+
+    /**
+     * 退出房间
+     * @param userID 退出用户ID
+     */
+    public Resp exitRoom(Integer userID) {
+        Room room = roomMapper.getRoomByUserID(userID);
+        if(room.getStatus()==Constants.ROOM_PLAYING){
+            return new Resp(HttpRespCode.ROOM_PLAYING);
+        }
+        playerMapper.removePlayer(userID);
+        messageService.refreshUI(room.getId());
+        messageService.refreshHall();
+        return new Resp(HttpRespCode.SUCCESS);
+    }
+
+    /**
+     * 进入房间
+     * @param roomId 进入房间ID
+     * @param userID 退出用户ID
+     */
+    public Resp enterRoom(Integer roomId, Integer userID) {
+        Integer integer = playerMapper.getPlayerCount(roomId);
+        if (ObjectUtils.isNotNullOrEmpty(integer) && integer > Constants.MAX_PLAYER_COUNT) {
+            return new Resp(HttpRespCode.ROOM_FULL);
+        }
+        Player player = playerMapper.getPlayerByUserId(userID);
+        if(ObjectUtils.isNullOrEmpty(player)){
+            playerMapper.addPlayer(roomId, userID);
             messageService.refreshUI(roomId);
-            messageService.refreshHall();
+        }else{
+            return new Resp(HttpRespCode.SUCCESS);
         }
         return new Resp(HttpRespCode.SUCCESS);
     }
