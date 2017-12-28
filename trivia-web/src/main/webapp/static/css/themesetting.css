@@ -33,7 +33,7 @@
 }
 
 .themeSetting_head .current {
-	background: url("../images/tab_background.gif") repeat-x scroll left top	white;
+	background: url("../../images/tab_background.gif") repeat-x scroll left top	white;
 	border-color: #a1b4b0;
 	border-style: solid;
 	border-width: 1px 1px 0;
@@ -211,7 +211,7 @@ html.ie6_0 .themeSetting_wallpaper_del {
 }
 
 .wallpaper_loading {
-	background: url("../images/loading.gif") no-repeat scroll 1px 2px
+	background: url("../../images/loading.gif") no-repeat scroll 1px 2px
 		transparent;
 	color: #ccc;
 	cursor: default;

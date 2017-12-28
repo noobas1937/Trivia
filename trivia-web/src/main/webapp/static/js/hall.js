@@ -81,7 +81,7 @@ function enterRoom(roomId){
         },
         success: function(data){
             if (data.resCode === "200") {
-                location.href='../game/bin/index.html';
+                location.href='../gameui/bin/index.html';
             }else{
                 layer.msg("您开不了房！");
             }
@@ -90,6 +90,21 @@ function enterRoom(roomId){
 
 }
 
+function quickJoinGame(){
+    $.ajax({
+        url: "/trivia/game/qucikJoin/",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data){
+            if (data.resCode === "200") {
+                location.href='../game/bin/index.html';
+            }else{
+                alert("快速加入游戏失败！");
+            }
+        }
+    });
+}
 function refreshPlayerList(){
     $("#desks").clear();
     $.ajax({
