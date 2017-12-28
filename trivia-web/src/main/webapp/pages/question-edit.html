@@ -63,7 +63,7 @@ $(function(){ 　　
     //动态加载所有的问题类型
     $.ajax({
         type: "GET",
-        url: "/trivia/question/type/",
+        url: "http://localhost:8081/trivia/question/type/",
         contentType: "application/json; charset=utf-8",
         dataType:"json",
         success: function (result) {

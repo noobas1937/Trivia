@@ -189,7 +189,7 @@ function sendMessage(){
             if (data.resCode === "200") {
                 var chat = "<div>我 "+ now + "\n" + message + "</div>";
                 $("#chatinf").append(chat);
-                $("#inputText").clear();
+                $("#inputText").val("");
             }else{
                 alert("您发不了消息！");
             }
