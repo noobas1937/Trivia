@@ -43,6 +43,9 @@ var myUserId;
 var players;
 var questionTypes2ID;
 
+layui.use('layer', function() { //独立版的layer无需执行这一句
+    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+}
 function OperationPanel()
 {
 	OperationPanel.super(this);   
@@ -87,8 +90,7 @@ function initData(){
         dataType:"json",
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = "拉取房间数据出错！";
-                msgDialog.show();
+                layer.msg("拉取房间数据出错！");
             }   
         }
     });
@@ -107,8 +109,7 @@ function initDiceBtnListener(){
         dataType:"json",
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                layer.msg(body.resMsg);
             }
         }
     });
@@ -138,8 +139,7 @@ function onSocketOpen()
 
 function onSocketClose()
 {
-    msgDialog.msgContent.text = "socket连接关闭，请检查登录状态";
-    msgDialog.show();
+    layer.msg("socket连接关闭，请检查登录状态");
 }
 
 function onMessageReveived(message)
@@ -154,8 +154,7 @@ function onMessageReveived(message)
 function onConnectError(e)
 {
     console.log("error");
-    msgDialog.msgContent.text = "socket建立失败！";
-    msgDialog.show();
+    layer.msg("socket建立失败！");
 }
 
 function refreshUI(message){
@@ -234,8 +233,7 @@ function refreshOpeartionpanel(message){
                         questionTypeDialog.typeRadio.labels = label;
                         setTimeout("questionTypeDialog.show()",2000);
                     } else{
-                        msgDialog.msgContent.text = body.resMsg;
-                        msgDialog.show();
+                        layer.msg(body.resMsg);
                     }  
                 }
             });
@@ -263,8 +261,7 @@ function refreshOpeartionpanel(message){
                         questionDialog.questionRadio.labels = label;
                         questionDialog.show();
                     } else{
-                        msgDialog.msgContent.text = body.resMsg;
-                        msgDialog.show();
+                        layer.msg(body.resMsg);
                     }  
                 }
             });
@@ -279,11 +276,9 @@ function refreshOpeartionpanel(message){
                 $.each(message.playerList,function(index,item){
                     if(item.userId === curPlayer){
                         if(item.status === PLAYER_GAMING_HOLD){
-                            msgDialog.msgContent.text = "抱歉哦！您被关在监狱中了~ 只有下局掷得偶数才可以前进哦~";
-                            msgDialog.show();
+                            layer.msg("抱歉哦！您被关在监狱中了~ 只有下局掷得偶数才可以前进哦~");
                         }else{
-                            msgDialog.msgContent.text = "恭喜您答对了，给你一个小金币~";
-                            msgDialog.show();
+                            layer.msg("恭喜您答对了，给你一个小金币~");
                         }
                     }
                 });
@@ -291,11 +286,9 @@ function refreshOpeartionpanel(message){
                 $.each(message.playerList,function(index,item){
                     if(item.userId !== curPlayer){
                         if(item.status === PLAYER_GAMING_HOLD){
-                            msgDialog.msgContent.text = "恭喜玩家："+curPlayerName+",答错题目被关入监狱~";
-                            msgDialog.show();
+                            layer.msg("恭喜玩家："+curPlayerName+",答错题目被关入监狱~");
                         }else{
-                            msgDialog.msgContent.text = "恭喜玩家："+curPlayerName+",答对题目获得一个小金币~";
-                            msgDialog.show();
+                            layer.msg("恭喜玩家："+curPlayerName+",答对题目获得一个小金币~");
                         }
                     }
                 });
@@ -487,11 +480,9 @@ function btnExitClicked(){
         dataType:"json",
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                layer.msg(body.resMsg);
             }else{
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                layer.msg(body.resMsg);
                 location.href = "../../pages/hall.html"
             }
         }
@@ -518,9 +509,8 @@ function btnQConfirmClicked(){
         ),
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg+"请重新尝试！";
+                layer.msg(body.resMsg+"请重新尝试！");
                 questionDialog.show();
-                msgDialog.show();
             }
         }
     });
@@ -541,8 +531,7 @@ function btnTConfirmClicked(){
         },
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg+"请更换选项尝试！";
-                msgDialog.show();
+                layer.msg(body.resMsg+"请更换选项尝试！");
                 questionTypeDialog.show();
             }
         }
@@ -553,6 +542,7 @@ function btnTConfirmClicked(){
  * 准备按钮点击事件 
  */
 function btnReadyClicked(){
+    setBtnVisibility(false,false,false);
     $.ajax({
         type: "GET",
         url: "/trivia/game/ready/1",
@@ -563,10 +553,10 @@ function btnReadyClicked(){
                 operationView.btnReady.label="取消准备";
                 operationView.btnReady._events = null
                 operationView.btnReady.on(Event.CLICK, this, btnCancelReadyClicked);
-            }
-            else {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                setBtnVisibility(true,false,false);
+            } else {
+                layer.msg(body.resMsg);
+                setBtnVisibility(true,false,false);
             }
         }
     });
@@ -576,7 +566,7 @@ function btnReadyClicked(){
  * 取消准备监听
  */
 function btnCancelReadyClicked(){
-    operationView.btnReady.click
+    setBtnVisibility(false,false,false);
     $.ajax({
         type: "GET",
         url: "/trivia/game/ready/0",
@@ -585,12 +575,12 @@ function btnCancelReadyClicked(){
         success: function (body) {
             if (body.resCode === "200") {
                 operationView.btnReady.label="准备";
-                operationView.btnReady._events = null
+                operationView.btnReady._events = null;
                 operationView.btnReady.on(Event.CLICK, this, btnReadyClicked);
-            }
-            else {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                setBtnVisibility(true,true,false);
+            } else {
+                layer.msg(body.resMsg);
+                setBtnVisibility(true,false,false);
             }
         }
     });
