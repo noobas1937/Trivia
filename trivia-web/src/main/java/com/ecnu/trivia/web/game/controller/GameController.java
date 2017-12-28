@@ -23,6 +23,7 @@ public class GameController {
 
     @Resource
     private GameService gameService;
+    @Resource
     private RoomService roomService;
     @Resource
     private QuestionService questionService;
