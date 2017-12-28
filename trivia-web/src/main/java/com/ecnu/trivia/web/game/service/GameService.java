@@ -136,6 +136,16 @@ public class GameService implements Logable {
     }
 
     /**
+     * 房间按用户人数从高到低排序，返回人数最多未满且未开始游戏的房间id
+     * @author: Handsome Zhao
+     * @date: 22:43 2017/12/27
+     */
+    public Integer getAppropriateReadyRoomId(){
+        Integer maxPlayerCount = Constants.MAX_PLAYER_COUNT;
+        return gameMapper.getAppropriateReadyRoomId(maxPlayerCount);
+    }
+
+    /**
      * 根据userId刷新用户房间
      * @param userId
      * @author Jack Chen
