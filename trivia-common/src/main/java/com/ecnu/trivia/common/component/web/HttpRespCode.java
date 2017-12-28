@@ -86,6 +86,7 @@ public enum HttpRespCode implements Serializable {
     UPLOAD_FILE_ERROR("521", "上传文件失败"),
     UPLOAD_IMAGE_ERROR("522", "图片上传失败"),
     TASK_RECORD_ADD_ERROR("523", "任务记录插入失败"),
+    NOT_AVAILABLE_ROOM_ERROR("520", "暂时没有适合的房间快速加入"),
     USER_NOT_LOGIN("8001", "用户未登陆"),
     PERMISSION_ERROR("8002", "权限不足"),
     DATA_SET_SUCCESS("200","修改成功"),

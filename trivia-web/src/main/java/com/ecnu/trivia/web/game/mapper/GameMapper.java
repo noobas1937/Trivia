@@ -24,4 +24,7 @@ public interface GameMapper extends Mapper<Player> {
     /**添加游戏**/
     void addGame(@Param("roomId")Integer roomId,@Param("playerId")Integer currentPlayerId);
 
+    /**返回适合快速游戏的房间**/
+    Integer getAppropriateReadyRoomId(@Param("maxPlayerCount")Integer maxPlayerCount);
+
 }

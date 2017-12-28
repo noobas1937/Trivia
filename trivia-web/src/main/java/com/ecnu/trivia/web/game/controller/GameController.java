@@ -8,6 +8,7 @@ import com.ecnu.trivia.web.question.service.QuestionService;
 import com.ecnu.trivia.web.question.service.QuestionTypeService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
+import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ public class GameController {
 
     @Resource
     private GameService gameService;
+    private RoomService roomService;
     @Resource
     private QuestionService questionService;
     @Resource
@@ -63,8 +65,8 @@ public class GameController {
      * @author: Handsome Zhao
      * @date: 20:05 2017/12/11
      */
-    @RequestMapping(value = "/quickjoin", method = RequestMethod.GET)
-    public Resp quickJoin() {
+    @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
+    public Resp rollDice() {
         User user = UserUtils.fetchUser();
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
@@ -81,18 +83,17 @@ public class GameController {
      * @author: Handsome Zhao
      * @date: 22:43 2017/12/27
      */
-    @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
-    public Resp rollDice() {
+    @RequestMapping(value = "/qucikJoin/", method = RequestMethod.POST)
+    public Resp qucikJoinGameRoom() {
         User user = UserUtils.fetchUser();
         if(ObjectUtils.isNullOrEmpty(user)){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
-        boolean result = gameService.rollDice(user.getId());
-        if(!result) {
-            return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
-        }else{
-            return new Resp(HttpRespCode.SUCCESS);
+        Integer roomId = gameService.getAppropriateReadyRoomId();
+        if(ObjectUtils.isNullOrEmpty(roomId)){
+            return new Resp(HttpRespCode.NOT_AVAILABLE_ROOM_ERROR);
         }
+        return roomService.enterRoom(roomId,user.getId());
     }
 
     /**

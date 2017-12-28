@@ -26,4 +26,15 @@
         WHERE id = ${id}
 
     </update>
+
+    <select id="getAppropriateReadyRoomId" resultType="java.lang.Integer">
+        SELECT t.roomId
+        FROM (SELECT r.id AS roomId,count(p.id) AS playerNum
+        FROM room as r left OUTER JOIN player as p ON r.id = p.room_id WHERE r.id != -1
+        GROUP BY r.id
+        HAVING playerNum!=${maxPlayerCount} AND playerNum!=0
+        ORDER BY playerNum DESC) AS t
+        LIMIT 1
+    </select>
+
 </mapper>
