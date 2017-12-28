@@ -150,7 +150,7 @@ function refreshPlayerList(){
 }
 
 function getMessage(data){
-    var chat = "<div>"+data.user.nickName+" "+data.gmtCreated+"\n"+data.content+"</div>";
+    var chat = "<div style='color:white;font-size:15px'>"+data.user.nickName+" "+data.gmtCreated+"\n"+data.content+"</div>";
     $("#chatinf").append(chat);
 }
 
