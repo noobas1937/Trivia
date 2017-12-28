@@ -43,4 +43,11 @@
 </body>
 <script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" language="javascript"></script>
 <script type="text/javascript" src="../static/js/login.js" language="javascript"></script>
+<script>
+    $("body").keydown(function() {
+        if (event.keyCode == "13") {//keyCode=13是回车键
+            $('#login-button').click();
+        }
+    });
+</script>
 </html>

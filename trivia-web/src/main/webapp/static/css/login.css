@@ -38,7 +38,7 @@
           font-weight: 300;  
         }  
         .wrapper {  
-          background-color: black;
+          background-color: dodgerblue;
           /*background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
           background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);  */
           position: absolute;  
@@ -79,7 +79,7 @@
                   appearance: none;  
           outline: 0;  
           border: 1px solid rgba(255, 255, 255, 0.4);  
-          background-color: rgba(255, 255, 255, 0.2);  
+          background-color: darkgray;
           width: 250px;  
           border-radius: 3px;  
           padding: 10px 15px;  
@@ -108,10 +108,10 @@
              -moz-appearance: none;  
                   appearance: none;  
           outline: 0;  
-          background-color: white;  
+          background-color: lightgray;
           border: 0;  
           padding: 10px 15px;  
-          color: gray;
+          color: gainsboro;
           border-radius: 3px;  
           width: 125px;  
           cursor: pointer;  
@@ -132,12 +132,12 @@
         }  
         .bg-bubbles li {  
           position: absolute;
-            opacity: 0.5;
+            opacity: 0.8;
           list-style: none;  
           display: block;  
           width: 40px;  
           height: 40px;  
-          background-color: #FF8000;
+          background-color:hotpink;
           bottom: -160px;  
           -webkit-animation: square 25s infinite;  
           animation: square 25s infinite;  
@@ -176,7 +176,7 @@
           height: 60px;  
           -webkit-animation-duration: 22s;  
                   animation-duration: 22s;  
-          background-color: #FF8000;
+          background-color: hotpink;
         }  
         .bg-bubbles li:nth-child(5) {  
           left: 70%;  
@@ -187,7 +187,7 @@
           height: 120px;  
           -webkit-animation-delay: 3s;  
                   animation-delay: 3s;  
-          background-color: #FF8000;
+          background-color: hotpink;
         }  
         .bg-bubbles li:nth-child(7) {  
           left: 32%;  
@@ -214,7 +214,7 @@
                   animation-delay: 2s;  
           -webkit-animation-duration: 40s;  
                   animation-duration: 40s;  
-          background-color: #FF8000;
+          background-color: hotpink;
         }  
         .bg-bubbles li:nth-child(10) {  
           left: 90%;  

@@ -38,7 +38,7 @@
           font-weight: 300;
         }
         .wrapper {
-          background-color: black;
+          background-color: lightblue;
          /* background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
           background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);*/
           position: absolute;
@@ -66,7 +66,9 @@
                   transition-duration: 1s;
           -webkit-transition-timing-function: ease-in-put;
                   transition-timing-function: ease-in-put;
-          font-weight: 200;
+          font-weight: 300;
+            color:lightslategray;
+            z-index:1000;
         }
         form {
           padding: 20px 0;
@@ -105,7 +107,7 @@
              -moz-appearance: none;
                   appearance: none;
           outline: 0;
-          background-color: gray;
+          background-color:cornflowerblue;
           border: 0;
           padding: 10px 15px;
           color: white;
@@ -117,7 +119,7 @@
                   transition-duration: 0.25s;
         }
         form button:hover {
-          background-color: #f5f7f9;
+          background-color: lightslategray;
         }
         .bg-bubbles {
           position: absolute;
@@ -142,7 +144,8 @@
         }
         .bg-bubbles li:nth-child(1) {
           left: 10%;
-       background-color: rgba(255, 128, 0, 0.5);
+            opacity: 0.6;
+       background-color: hotpink;
         }
         .bg-bubbles li:nth-child(2) {
           left: 20%;
@@ -152,13 +155,15 @@
                   animation-delay: 2s;
           -webkit-animation-duration: 17s;
                   animation-duration: 17s;
-                  background-color: rgba(255, 128, 0, 0.5);
+            opacity: 0.6;
+                  background-color: hotpink;
         }
         .bg-bubbles li:nth-child(3) {
           left: 25%;
           -webkit-animation-delay: 4s;
                   animation-delay: 4s;
-                background-color: rgba(255, 128, 0, 0.5);
+                background-color: hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(4) {
           left: 40%;
@@ -166,11 +171,13 @@
           height: 60px;
           -webkit-animation-duration: 22s;
                   animation-duration: 22s;
-         background-color: rgba(255, 128, 0, 0.5);
+         background-color:hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(5) {
           left: 70%;
-         background-color: rgba(255, 128, 0, 0.5);
+         background-color: hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(6) {
           left: 80%;
@@ -178,7 +185,8 @@
           height: 120px;
           -webkit-animation-delay: 3s;
                   animation-delay: 3s;
-          background-color: rgba(255, 128, 0, 0.5);
+          background-color: hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(7) {
           left: 32%;
@@ -186,7 +194,8 @@
           height: 160px;
           -webkit-animation-delay: 7s;
                   animation-delay: 7s;
-                  background-color: rgba(255, 128, 0, 0.5);
+                  background-color: hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(8) {
           left: 55%;
@@ -196,7 +205,8 @@
                   animation-delay: 15s;
           -webkit-animation-duration: 40s;
                   animation-duration: 40s;
-                  background-color: rgba(255, 128, 0, 0.5);
+                  background-color: hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(9) {
           left: 25%;
@@ -206,7 +216,8 @@
                   animation-delay: 2s;
           -webkit-animation-duration: 40s;
                   animation-duration: 40s;
-          background-color: rgba(255, 128, 0, 0.5);
+          background-color:hotpink;
+            opacity: 0.6;
         }
         .bg-bubbles li:nth-child(10) {
           left: 90%;
@@ -214,7 +225,8 @@
           height: 160px;
           -webkit-animation-delay: 11s;
                   animation-delay: 11s;
-                  background-color: rgba(255, 128, 0, 0.5);
+                  background-color: hotpink;
+            opacity: 0.6;
         }
         @-webkit-keyframes square {
           0% {
