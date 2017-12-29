@@ -183,7 +183,7 @@ public class QuestionService implements Logable{
         //检查游戏是否结束（即玩家是否达到6枚金币）
         Integer curPlayerId = player.getId();
         List<Player> players = playerMapper.getPlayers(curPlayerId);
-        if(player.getBalance()+1>=Constants.MAX_BALANCE_COUNT){
+        if(player.getBalance()+1>Constants.MAX_BALANCE_COUNT){
             logger.info(ConstantsMsg.ROOM_GAME_OVER,game.getRoomId());
             //更新玩家状态 和 游戏状态
             gameMapper.updateGameStatus(game.getId(),game.getCurrentPlayerId(),0,-1,Constants.GAME_OVER);
