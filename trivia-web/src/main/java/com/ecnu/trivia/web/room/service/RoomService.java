@@ -79,6 +79,10 @@ public class RoomService implements Logable{
      */
     public Resp enterRoom(Integer roomId, Integer userID) {
         Integer integer = playerMapper.getPlayerCount(roomId);
+        RoomVO room = roomMapper.getRoomById(roomId);
+        if(room.getStatus()==Constants.ROOM_PLAYING){
+            return new Resp(HttpRespCode.ROOM_PLAYING);
+        }
         if (ObjectUtils.isNotNullOrEmpty(integer) && integer > Constants.MAX_PLAYER_COUNT) {
             return new Resp(HttpRespCode.ROOM_FULL);
         }

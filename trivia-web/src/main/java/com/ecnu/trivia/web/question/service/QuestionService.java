@@ -181,27 +181,25 @@ public class QuestionService implements Logable{
         messageService.refreshUI(game.getRoomId());
 
         //检查游戏是否结束（即玩家是否达到6枚金币）
-        Integer curPlayerId = player.getId();
-        List<Player> players = playerMapper.getPlayers(curPlayerId);
-        if(player.getBalance()+1>Constants.MAX_BALANCE_COUNT){
+        Player newPlayer = playerMapper.getPlayerByUserId(userId);
+        List<Player> players = playerMapper.getPlayers(newPlayer.getId());
+        if(newPlayer.getBalance()>=Constants.MAX_BALANCE_COUNT){
+            //游戏结束
             logger.info(ConstantsMsg.ROOM_GAME_OVER,game.getRoomId());
             //更新玩家状态 和 游戏状态
-            gameMapper.updateGameStatus(game.getId(),game.getCurrentPlayerId(),0,-1,Constants.GAME_OVER);
+            gameMapper.updateGameStatus(game.getId(),-1,0,-1,Constants.GAME_OVER);
             roomMapper.updateRoomStatus(game.getRoomId(),Constants.ROOM_WAITING);
             //刷新一波游戏结果
             messageService.refreshUI(player.getRoomId());
-            for (Player p : players) {
-                playerMapper.updatePlayer(p.getId(), p.getBalance(), p.getPosition(), Constants.PLAYER_WAITING);
-            }
+            //清空玩家数据
             for (Player p : players) {
                 playerMapper.updatePlayer(p.getId(), 0, 0, Constants.PLAYER_WAITING);
             }
-            gameMapper.updateGameStatus(game.getId(),-1,0,-1,Constants.GAME_HANDLE);
         }else{
             //游戏未结束，转向下一个玩家
             Integer nextPlayer = null;
             for (int i = 0; i < players.size(); i++) {
-                if(Objects.equals(players.get(i).getId(), curPlayerId)){
+                if(Objects.equals(players.get(i).getId(), newPlayer.getId())){
                     nextPlayer = ++i%players.size();
                     nextPlayer = players.get(nextPlayer).getId();
                     break;

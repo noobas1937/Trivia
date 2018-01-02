@@ -167,7 +167,7 @@ public class MessageService {
      */
     public boolean refreshHall(){
         WSDatagram datagram = new WSDatagram(Constants.DATAGRAM_PLAYERS_CHANGE);
-        sendToAllTerminal(JSONUtils.toJsonString(datagram));
+        sendToAllHallTerminal(JSONUtils.toJsonString(datagram));
         return true;
     }
 }

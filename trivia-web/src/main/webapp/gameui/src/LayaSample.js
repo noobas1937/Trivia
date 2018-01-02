@@ -35,8 +35,7 @@ var traceBits=[1,1,2,2,1,1,1,0,0,1,1,1,1,1,2,2,2,3,3,3,2,2,2,1,1,1,2,2,2,2,3,3,3
 var graph;
 var unit_x=100;
 var unit_y=80;
-var roles;
-var rolesText;
+var role;
 
 //Game Data Variables
 var myUserId;
@@ -297,11 +296,14 @@ function refreshOpeartionpanel(message){
         break;
         case GAME_OVER:
             //游戏结束 UI数据包
+            operationView.btnReady.label="准备";
+            operationView.btnReady._events = null;
+            operationView.btnReady.on(Event.CLICK, this, btnCancelReadyClicked);
             setBtnVisibility(true,true,false);
             if(message.playerList[0].status === PLAYER_WAITING){
                  break; 
             }
-            gameResultDialog.resultText.text = " \t排名\t \t\t \t昵称\t \t\t \t位置\t \t\t \t金币\n\n";
+            gameResultDialog.resultText.text = " \t序号\t \t\t \t昵称\t \t\t \t位置\t \t\t \t金币\n\n";
             $.each(message.playerList,function(index,item){
                 gameResultDialog.resultText.text += " \t\t"+(index+1)+"\t";
                 gameResultDialog.resultText.text += " \t\t\t\t"+item.nickName+"\t";
@@ -322,15 +324,15 @@ function refreshPlayerPosition(obj){
         $.each(obj.playerList,function(index,item){
             if(item.position === -1) item.position = 0;
             var position =graph[item.position];
-            roles[index].visible = true;
-            rolesText[index].visible = true;
-            rolesText[index].innerHTML = item.nickName;
-            Tween.to(roles[index],
+            role[index].role.visible = true;
+            role[index].name.visible = true;
+            role[index].name.innerHTML = item.nickName;
+            Tween.to(role[index].role,
             {
                 x: position.x,
                 y: position.y
             }, 1000);
-            Tween.to(rolesText[index],
+            Tween.to(role[index].name,
             {
                 x: position.x-20,
                 y: position.y+60
@@ -340,10 +342,10 @@ function refreshPlayerPosition(obj){
         $.each(obj.playerList,function(index,item){
             if(item.position === -1) item.position = 0;
             var position = graph[item.position];
-            roles[index].x=position.x;
-            roles[index].y=position.y; 
-            rolesText[index].x=position.x;
-            rolesText[index].y=position.y;
+            role[index].role.x=position.x;
+            role[index].role.y=position.y;
+            role[index].name.x=position.x;
+            role[index].name.y=position.y;
         });
     }
 }
@@ -424,17 +426,18 @@ function onMapLoaded(){
         }
     });
     //初始化角色列表
-    roles = [tiledMap.getLayerObject("hero","role1"),tiledMap.getLayerObject("hero","role2"),
-            tiledMap.getLayerObject("hero","role3"),tiledMap.getLayerObject("hero","role4")];
-    rolesText = [new HTMLDivElement(),new HTMLDivElement(),new HTMLDivElement(),new HTMLDivElement()];
-    $.each(roles,function(index,item){
+    role[1]={"role":tiledMap.getLayerObject("hero","role1"),"name":new HTMLDivElement()};
+    role[2]={"role":tiledMap.getLayerObject("hero","role2"),"name":new HTMLDivElement()};
+    role[3]={"role":tiledMap.getLayerObject("hero","role3"),"name":new HTMLDivElement()};
+    role[4]={"role":tiledMap.getLayerObject("hero","role4"),"name":new HTMLDivElement()};
+    $.each(role,function(index,item){
         item.visible = false;
-        rolesText[index].style.font = "Impact";
-		rolesText[index].style.fontSize = 20;
-		rolesText[index].style.color = "#000000";
-        rolesText[index].innerHTML = "";
-        rolesText[index].visible = false;
-        Laya.stage.addChild(rolesText[index]);
+        role[index].name.style.font = "Impact";
+        role[index].name.style.fontSize = 20;
+        role[index].name.style.color = "#000000";
+        role[index].name.innerHTML = "";
+        role[index].name.visible = false;
+        Laya.stage.addChild(role[index]);
     });
     //预加载资源文件后执行回调
     Laya.loader.load(["h5/res/atlas/comp.atlas","h5/res/atlas/template/ButtonTab.atlas","h5/res/atlas/template/Warn.atlas"], Handler.create(this, onDialogLoaded));
@@ -554,7 +557,7 @@ function btnReadyClicked(){
                 operationView.btnReady.label="取消准备";
                 operationView.btnReady._events = null
                 operationView.btnReady.on(Event.CLICK, this, btnCancelReadyClicked);
-                setBtnVisibility(true,false,false);
+                // setBtnVisibility(true,false,false);
             } else {
                 layer.msg(body.resMsg);
                 setBtnVisibility(true,false,false);

@@ -98,29 +98,32 @@ public class GameService implements Logable {
         if (room.getStatus() != Constants.ROOM_WAITING) {
             return new Resp(HttpRespCode.METHOD_NOT_ALLOWED);
         }
-
         //将当前用户的准备状态设为相应的状态
         playerMapper.setupUserState(userId,ready);
-        messageService.refreshUI(room.getId());
-        //如果当前用户取消准备，操作结束
+        //如果当前用户取消准备，刷新UI,操作结束
         if (ready != Constants.PLAYER_READY) {
+            messageService.refreshUI(room.getId());
             return new Resp(HttpRespCode.SUCCESS);
         }
 
         List<Player> notReadyPlayers = playerMapper.getNotReadyPlayer(room.getId());
         //判断当前房间中所有玩家是否都已准备好
-        if(ObjectUtils.isNotNullOrEmpty(notReadyPlayers)||notReadyPlayers.size()!=0) {
+        if(ObjectUtils.isNotNullOrEmpty(notReadyPlayers)) {
+            //存在玩家未准备好，刷新UI，继续等待
+            messageService.refreshUI(room.getId());
             return new Resp(HttpRespCode.SUCCESS);
         }
         //准备开始游戏
         Game game = gameMapper.getGameByRoomId((room.getId()));
         Integer currentPlayerId = room.getPlayerList().get(0).getId();
         if(!ObjectUtils.isNullOrEmpty(game)){
+            //启动游戏
             gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
         }else{
             logger.error(ConstantsMsg.NO_GAME_ERROR,room.getId());
             return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
         }
+        //更新房间状态，刷新UI
         roomMapper.updateRoomStatus(room.getId(),Constants.ROOM_PLAYING);
         messageService.refreshUI(room.getId());
         return new Resp(HttpRespCode.SUCCESS);
