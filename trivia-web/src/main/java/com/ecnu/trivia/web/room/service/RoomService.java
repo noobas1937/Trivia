@@ -13,13 +13,17 @@ package com.ecnu.trivia.web.room.service;
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.log.Logable;
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
+import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.utils.Constants;
+import com.ecnu.trivia.web.utils.ConstantsMsg;
 import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +45,8 @@ public class RoomService implements Logable{
     private PlayerMapper playerMapper;
     @Resource
     private MessageService messageService;
+    @Resource
+    private GameMapper gameMapper;
 
     public List<RoomVO> getRoomList(){
         return roomMapper.getRoomList();
@@ -73,12 +79,25 @@ public class RoomService implements Logable{
      */
     public Resp enterRoom(Integer roomId, Integer userID) {
         Integer integer = playerMapper.getPlayerCount(roomId);
+        RoomVO room = roomMapper.getRoomById(roomId);
+        if(room.getStatus()==Constants.ROOM_PLAYING){
+            return new Resp(HttpRespCode.ROOM_PLAYING);
+        }
         if (ObjectUtils.isNotNullOrEmpty(integer) && integer > Constants.MAX_PLAYER_COUNT) {
             return new Resp(HttpRespCode.ROOM_FULL);
         }
         Player player = playerMapper.getPlayerByUserId(userID);
         if(ObjectUtils.isNullOrEmpty(player)){
             playerMapper.addPlayer(roomId, userID);
+            Game game = gameMapper.getGameByRoomId(roomId);
+            //若游戏不存在，则创建该游戏！
+            if(ObjectUtils.isNullOrEmpty(game)){
+                Player currentPlayer = playerMapper.getPlayerByUserId(userID);
+                if(ObjectUtils.isNullOrEmpty(currentPlayer)){
+                    return new Resp(HttpRespCode.PLAYER_ADD_FAILED);
+                }
+                gameMapper.addGame(roomId,-1);
+            }
             messageService.refreshUI(roomId);
         }else{
             return new Resp(HttpRespCode.SUCCESS);

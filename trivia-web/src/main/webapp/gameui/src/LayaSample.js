@@ -35,14 +35,16 @@ var traceBits=[1,1,2,2,1,1,1,0,0,1,1,1,1,1,2,2,2,3,3,3,2,2,2,1,1,1,2,2,2,2,3,3,3
 var graph;
 var unit_x=100;
 var unit_y=80;
-var roles;
-var rolesText;
+var role;
 
 //Game Data Variables
 var myUserId;
 var players;
 var questionTypes2ID;
 
+layui.use('layer', function() { //独立版的layer无需执行这一句
+    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+});
 function OperationPanel()
 {
 	OperationPanel.super(this);   
@@ -87,8 +89,7 @@ function initData(){
         dataType:"json",
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = "拉取房间数据出错！";
-                msgDialog.show();
+                layer.msg("拉取房间数据出错！");
             }   
         }
     });
@@ -107,8 +108,7 @@ function initDiceBtnListener(){
         dataType:"json",
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                layer.msg(body.resMsg);
             }
         }
     });
@@ -138,8 +138,7 @@ function onSocketOpen()
 
 function onSocketClose()
 {
-    msgDialog.msgContent.text = "socket连接关闭，请检查登录状态";
-    msgDialog.show();
+    layer.msg("socket连接关闭，请检查登录状态");
 }
 
 function onMessageReveived(message)
@@ -154,8 +153,7 @@ function onMessageReveived(message)
 function onConnectError(e)
 {
     console.log("error");
-    msgDialog.msgContent.text = "socket建立失败！";
-    msgDialog.show();
+    layer.msg("socket建立失败！");
 }
 
 function refreshUI(message){
@@ -176,19 +174,34 @@ function refreshUI(message){
 function refreshOpeartionpanel(message){
     var stage = message.game.stage;
     var curPlayer,curPlayerName;
+    var roomStatus,myStatus,curPlayerStatus;
     //获取当前玩家ID
     $.each(message.playerList,function(index,item){
         if(item.id === message.game.currentPlayerId) {
             curPlayer = item.userId;
             curPlayerName = item.nickName;
-            return false;
+            curPlayerStatus = item.status;
+        }
+        if(myUserId === item.userId){
+            myStatus = item.status;
+            roomStatus = message.status;
         }
     });
     switch(stage){
         case GAME_READY:
             //新一轮游戏就绪 UI数据包
-            if(curPlayer===myUserId){
-                setBtnVisibility(false,false,true);
+            if(roomStatus === ROOM_WAITING) {
+                if(myStatus===PLAYER_WAITING){
+                    setBtnVisibility(true,true,false);
+                }else if(myStatus === PLAYER_READY){
+                    setBtnVisibility(true,false,false);
+                }
+            }else if (roomStatus === ROOM_PLAYING){
+                if(curPlayer===myUserId){
+                    setBtnVisibility(false,false,true);
+                }else{
+                    setBtnVisibility(false,false,false);
+                }
             }
         break;
         case GAME_DICE_RESULT:
@@ -208,13 +221,10 @@ function refreshOpeartionpanel(message){
                 dice.removeClass("dice_e").addClass("dice_"+num); 
                 $("#result").html("掷得点数是<span>"+num+"</span>"); 
                 $("#dice_mask").remove();//移除遮罩 
-            }); 
-            if(curPlayer===myUserId){
-            }else{
-                
-            }
+            });
         break;
         case GAME_CHOOSE_TYPE:
+            if(curPlayer!==myUserId){break;}
             setBtnVisibility(false,false,false);
             //选择问题类型
             $.ajax({
@@ -225,7 +235,7 @@ function refreshOpeartionpanel(message){
                 success: function (body) {
                     if (body.resCode === "200") {
                         var label = "";
-                        questionTypes2ID= new Array();
+                        questionTypes2ID= [];
                         $.each(body.data,function(index,item){
                             label+=item.name+",";
                             questionTypes2ID[index] = item.id;
@@ -234,13 +244,13 @@ function refreshOpeartionpanel(message){
                         questionTypeDialog.typeRadio.labels = label;
                         setTimeout("questionTypeDialog.show()",2000);
                     } else{
-                        msgDialog.msgContent.text = body.resMsg;
-                        msgDialog.show();
+                        layer.msg(body.resMsg);
                     }  
                 }
             });
             break;
         case GAME_ANSWERING_QUESTION:
+            if(curPlayer!==myUserId){break;}
             setBtnVisibility(false,false,false);
             //获取问题中（回答中） UI数据包
             $.ajax({
@@ -263,51 +273,37 @@ function refreshOpeartionpanel(message){
                         questionDialog.questionRadio.labels = label;
                         questionDialog.show();
                     } else{
-                        msgDialog.msgContent.text = body.resMsg;
-                        msgDialog.show();
+                        layer.msg(body.resMsg);
                     }  
                 }
             });
-            if(curPlayer===myUserId){
-            }else{
-                
-            }
         break;
         case GAME_ANSWER_QUESTION_RESULT:
             //回答问题结果 UI数据包
             if(curPlayer===myUserId){//我的轮次
-                $.each(message.playerList,function(index,item){
-                    if(item.userId === curPlayer){
-                        if(item.status === PLAYER_GAMING_HOLD){
-                            msgDialog.msgContent.text = "抱歉哦！您被关在监狱中了~ 只有下局掷得偶数才可以前进哦~";
-                            msgDialog.show();
-                        }else{
-                            msgDialog.msgContent.text = "恭喜您答对了，给你一个小金币~";
-                            msgDialog.show();
-                        }
-                    }
-                });
+                if(myStatus === PLAYER_GAMING_HOLD){
+                    layer.msg("抱歉哦！您被关在监狱中了~ 只有下局掷得偶数才可以前进哦~");
+                }else{
+                    layer.msg("恭喜您答对了，给你一个小金币~");
+                }
             }else{//其他人的轮次
-                $.each(message.playerList,function(index,item){
-                    if(item.userId !== curPlayer){
-                        if(item.status === PLAYER_GAMING_HOLD){
-                            msgDialog.msgContent.text = "恭喜玩家："+curPlayerName+",答错题目被关入监狱~";
-                            msgDialog.show();
-                        }else{
-                            msgDialog.msgContent.text = "恭喜玩家："+curPlayerName+",答对题目获得一个小金币~";
-                            msgDialog.show();
-                        }
-                    }
-                });
+                if(curPlayerStatus === PLAYER_GAMING_HOLD){
+                    layer.msg("恭喜玩家："+curPlayerName+",答错题目被关入监狱~");
+                }else{
+                    layer.msg("恭喜玩家："+curPlayerName+",答对题目获得一个小金币~");
+                }
             }
         break;
         case GAME_OVER:
             //游戏结束 UI数据包
+            operationView.btnReady.label="准备";
+            operationView.btnReady._events = null;
+            operationView.btnReady.on(Event.CLICK, this, btnCancelReadyClicked);
             setBtnVisibility(true,true,false);
             if(message.playerList[0].status === PLAYER_WAITING){
                  break; 
             }
-            gameResultDialog.resultText.text = " \t排名\t \t\t \t昵称\t \t\t \t位置\t \t\t \t金币\n\n";
+            gameResultDialog.resultText.text = " \t序号\t \t\t \t昵称\t \t\t \t位置\t \t\t \t金币\n\n";
             $.each(message.playerList,function(index,item){
                 gameResultDialog.resultText.text += " \t\t"+(index+1)+"\t";
                 gameResultDialog.resultText.text += " \t\t\t\t"+item.nickName+"\t";
@@ -328,15 +324,15 @@ function refreshPlayerPosition(obj){
         $.each(obj.playerList,function(index,item){
             if(item.position === -1) item.position = 0;
             var position =graph[item.position];
-            roles[index].visible = true;
-            rolesText[index].visible = true;
-            rolesText[index].innerHTML = item.nickName;
-            Tween.to(roles[index],
+            role[index].role.visible = true;
+            role[index].name.visible = true;
+            role[index].name.innerHTML = item.nickName;
+            Tween.to(role[index].role,
             {
                 x: position.x,
                 y: position.y
             }, 1000);
-            Tween.to(rolesText[index],
+            Tween.to(role[index].name,
             {
                 x: position.x-20,
                 y: position.y+60
@@ -346,10 +342,10 @@ function refreshPlayerPosition(obj){
         $.each(obj.playerList,function(index,item){
             if(item.position === -1) item.position = 0;
             var position = graph[item.position];
-            roles[index].x=position.x;
-            roles[index].y=position.y; 
-            rolesText[index].x=position.x;
-            rolesText[index].y=position.y;
+            role[index].role.x=position.x;
+            role[index].role.y=position.y;
+            role[index].name.x=position.x;
+            role[index].name.y=position.y;
         });
     }
 }
@@ -430,17 +426,18 @@ function onMapLoaded(){
         }
     });
     //初始化角色列表
-    roles = [tiledMap.getLayerObject("hero","role1"),tiledMap.getLayerObject("hero","role2"),
-            tiledMap.getLayerObject("hero","role3"),tiledMap.getLayerObject("hero","role4")];
-    rolesText = [new HTMLDivElement(),new HTMLDivElement(),new HTMLDivElement(),new HTMLDivElement()];
-    $.each(roles,function(index,item){
+    role[1]={"role":tiledMap.getLayerObject("hero","role1"),"name":new HTMLDivElement()};
+    role[2]={"role":tiledMap.getLayerObject("hero","role2"),"name":new HTMLDivElement()};
+    role[3]={"role":tiledMap.getLayerObject("hero","role3"),"name":new HTMLDivElement()};
+    role[4]={"role":tiledMap.getLayerObject("hero","role4"),"name":new HTMLDivElement()};
+    $.each(role,function(index,item){
         item.visible = false;
-        rolesText[index].style.font = "Impact";
-		rolesText[index].style.fontSize = 20;
-		rolesText[index].style.color = "#000000";
-        rolesText[index].innerHTML = "";
-        rolesText[index].visible = false;
-        Laya.stage.addChild(rolesText[index]);
+        role[index].name.style.font = "Impact";
+        role[index].name.style.fontSize = 20;
+        role[index].name.style.color = "#000000";
+        role[index].name.innerHTML = "";
+        role[index].name.visible = false;
+        Laya.stage.addChild(role[index]);
     });
     //预加载资源文件后执行回调
     Laya.loader.load(["h5/res/atlas/comp.atlas","h5/res/atlas/template/ButtonTab.atlas","h5/res/atlas/template/Warn.atlas"], Handler.create(this, onDialogLoaded));
@@ -487,11 +484,9 @@ function btnExitClicked(){
         dataType:"json",
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                layer.msg(body.resMsg);
             }else{
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                layer.msg(body.resMsg);
                 location.href = "../../pages/hall.html"
             }
         }
@@ -518,9 +513,8 @@ function btnQConfirmClicked(){
         ),
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg+"请重新尝试！";
+                layer.msg(body.resMsg+"请重新尝试！");
                 questionDialog.show();
-                msgDialog.show();
             }
         }
     });
@@ -541,8 +535,7 @@ function btnTConfirmClicked(){
         },
         success: function (body) {
             if (body.resCode !== "200") {
-                msgDialog.msgContent.text = body.resMsg+"请更换选项尝试！";
-                msgDialog.show();
+                layer.msg(body.resMsg+"请更换选项尝试！");
                 questionTypeDialog.show();
             }
         }
@@ -553,6 +546,7 @@ function btnTConfirmClicked(){
  * 准备按钮点击事件 
  */
 function btnReadyClicked(){
+    setBtnVisibility(false,false,false);
     $.ajax({
         type: "GET",
         url: "/trivia/game/ready/1",
@@ -563,10 +557,10 @@ function btnReadyClicked(){
                 operationView.btnReady.label="取消准备";
                 operationView.btnReady._events = null
                 operationView.btnReady.on(Event.CLICK, this, btnCancelReadyClicked);
-            }
-            else {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                // setBtnVisibility(true,false,false);
+            } else {
+                layer.msg(body.resMsg);
+                setBtnVisibility(true,false,false);
             }
         }
     });
@@ -576,7 +570,7 @@ function btnReadyClicked(){
  * 取消准备监听
  */
 function btnCancelReadyClicked(){
-    operationView.btnReady.click
+    setBtnVisibility(false,false,false);
     $.ajax({
         type: "GET",
         url: "/trivia/game/ready/0",
@@ -585,12 +579,12 @@ function btnCancelReadyClicked(){
         success: function (body) {
             if (body.resCode === "200") {
                 operationView.btnReady.label="准备";
-                operationView.btnReady._events = null
+                operationView.btnReady._events = null;
                 operationView.btnReady.on(Event.CLICK, this, btnReadyClicked);
-            }
-            else {
-                msgDialog.msgContent.text = body.resMsg;
-                msgDialog.show();
+                setBtnVisibility(true,true,false);
+            } else {
+                layer.msg(body.resMsg);
+                setBtnVisibility(true,false,false);
             }
         }
     });

@@ -78,7 +78,7 @@ a#startingChangeEvn {
     z-index: 1000000;
 }
 #startingLogo {
-    background: url("../images/starting_logo.gif") repeat scroll 0 0 transparent;
+    background: url("../../images/starting_logo.gif") repeat scroll 0 0 transparent;
     height: 100px;
     left: 50%;
     margin: -50px 0 0 -50px;
@@ -89,7 +89,7 @@ a#startingChangeEvn {
 #startingText {
     color: white;
     cursor: default;
-    font-family: Arial,Tahoma,Î¢ÈíÑÅºÚ;
+    font-family: Arial,Tahoma,Î¢ï¿½ï¿½ï¿½Åºï¿½;
     font-size: 20px;
     height: 50px;
     left: 50%;
@@ -113,7 +113,7 @@ a#startingChangeEvn {
     width: 100px;
 }
 #startingBar {
-    background: url("../images/starting_bar.gif") repeat scroll 0 0 #FE780A;
+    background: url("../../images/starting_bar.gif") repeat scroll 0 0 #FE780A;
     font-size: 0;
     height: 2px;
     overflow: hidden;
@@ -142,7 +142,7 @@ a#startingChangeEvn {
     width: 40px;
 }
 .loading {
-    background: url("../images/loading.gif") no-repeat scroll 1px 2px transparent;
+    background: url("../../images/loading.gif") no-repeat scroll 1px 2px transparent;
     color: #999999;
     cursor: default;
     height: 16px;
@@ -182,7 +182,7 @@ a#startingChangeEvn {
     top: -200px;
 }
 .copyrightBar {
-    background: url("../images/portal_all_png.png") no-repeat scroll -80px -230px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -80px -230px transparent;
     bottom: 6px;
     height: 14px;
     left: 50%;
@@ -214,7 +214,7 @@ a#startingChangeEvn {
     width: 50px;
 }
 .alloy_start_button {
-    background: url("../images/portal_all_png.png") no-repeat scroll -440px -320px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -440px -320px transparent;
     cursor: pointer;
     float: left;
     height: 40px;
@@ -228,10 +228,10 @@ a#startingChangeEvn {
     background-position: -480px -320px;
 }
 .ie6_0 .alloy_start_button, .ie7_0 .alloy_start_button {
-    background-image: url("../images/portal_all_gif.gif");
+    background-image: url("../../images/portal_all_gif.gif");
 }
 .statusBarButton {
-    background: url("../images/portal_all_png.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll 0 0 transparent;
     cursor: pointer;
     display: inline;
     float: left;
@@ -246,7 +246,7 @@ a#startingChangeEvn {
     width: 36px;
 }
 .ie6_0 .statusBarButton, .ie7_0 .statusBarButton {
-    background-image: url("../images/portal_all_gif.gif");
+    background-image: url("../../images/portal_all_gif.gif");
 }
 .statusBar_login_level_1 .login_level_1, .statusBar_login_level_2 .login_level_2, .statusBar_login_level_2 .login_level_1, .statusBar_login_level_3 .statusBarButton {
     display: inline-block;
@@ -308,23 +308,23 @@ a#startingChangeEvn {
     float: none;
 }
 .appIframeAlter {
-    background: url("../images/alter_image.png") no-repeat scroll center top transparent;
+    background: url("../../images/alter_image.png") no-repeat scroll center top transparent;
     height: 75px;
     margin: 0 auto;
     width: 90px;
 }
 .appComingSoon {
-    background: url("../images/coming_soon.png") no-repeat scroll center top transparent;
+    background: url("../../images/coming_soon.png") no-repeat scroll center top transparent;
     height: 28px;
     margin-left: 10px;
     margin-top: 45px;
 }
 .appWarning {
-    background: url("../images/warn_image.png") no-repeat scroll center top transparent;
+    background: url("../../images/warn_image.png") no-repeat scroll center top transparent;
     height: 52px;
 }
 .appIframeAlterTxt {
-    font-family: Î¢ÈíÑÅºÚ;
+    font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½;
     font-size: 14px;
     margin-top: 30px;
 }
@@ -340,7 +340,7 @@ a.plain_text {
 }
 .appWarningTxt .strong_text {
     display: block;
-    font-family: Î¢ÈíÑÅºÚ;
+    font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½;
     font-size: 14px;
     font-weight: bold;
 }
@@ -413,7 +413,7 @@ a.plain_text {
     width: 20px;
 }
 .statusBar_lock_icon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -120px -20px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -120px -20px transparent;
     cursor: pointer;
     display: none;
     float: left;
@@ -422,11 +422,11 @@ a.plain_text {
     width: 20px;
 }
 .ie6_0 .statusBar_lock_icon, .ie7_0 .statusBar_lock_icon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -120px -20px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -120px -20px transparent;
 }
 #dangerTip {
     background: none repeat scroll 0 0 #FFFFFF;
-    font-family: Î¢ÈíÑÅºÚ;
+    font-family: Î¢ï¿½ï¿½ï¿½Åºï¿½;
     height: 100%;
     padding-left: 40px;
     padding-top: 30px;
@@ -462,7 +462,7 @@ a.plain_text {
     width: 100%;
 }
 #EQQlogin_Logining {
-    background: url("../images/loading.gif") no-repeat scroll 1px 2px transparent;
+    background: url("../../images/loading.gif") no-repeat scroll 1px 2px transparent;
     color: #AAAAAA;
     cursor: default;
     height: 16px;
@@ -476,7 +476,7 @@ a.plain_text {
     width: 60px;
 }
 .accountAvatar {
-    background: url("../images/portal_all_png.png") no-repeat scroll 0 -159px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll 0 -159px transparent;
     display: block;
     height: 40px;
     margin: 50px auto 5px;
@@ -514,44 +514,44 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .loginIcon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -110px -125px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -110px -125px transparent;
     cursor: pointer;
     height: 32px;
     margin: 60px auto 10px;
     width: 107px;
 }
 .ie6_0 .loginIcon, .ie7_0 .loginIcon {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -110px -125px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -110px -125px transparent;
 }
 .loginIconClicked {
-    background: url("../images/portal_all_png.png") no-repeat scroll -330px -125px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -330px -125px transparent;
     cursor: default;
     height: 32px;
     margin: 60px auto 10px;
     width: 107px;
 }
 .ie6_0 .loginIconClicked, .ie7_0 .loginIconClicked {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -330px -125px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -330px -125px transparent;
 }
 .loginIcon_go {
-    background: url("../images/portal_all_png.png") no-repeat scroll 0 -125px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll 0 -125px transparent;
     cursor: pointer;
     height: 32px;
     margin: 10px auto;
     width: 107px;
 }
 .ie6_0 .loginIcon_go, .ie7_0 .loginIcon_go {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll 0 -125px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll 0 -125px transparent;
 }
 .loginIcon_goClicked {
-    background: url("../images/portal_all_png.png") no-repeat scroll -220px -125px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -220px -125px transparent;
     cursor: default;
     height: 32px;
     margin: 10px auto;
     width: 107px;
 }
 .ie6_0 .loginIcon_goClicked, .ie7_0 .loginIcon_goClicked {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -220px -125px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -220px -125px transparent;
 }
 .loginControl {
     height: 24px;
@@ -625,28 +625,28 @@ a.plain_text {
     background-position: 0 0;
 }
 .qqLevel_queen {
-    background: url("../images/portal_all_png.png") no-repeat scroll -2px -82px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -2px -82px transparent;
 }
 .ie6_0 .qqLevel_queen, .ie7_0 .qqLevel_queen {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -2px -82px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -2px -82px transparent;
 }
 .qqLevel_sun {
-    background: url("../images/portal_all_png.png") no-repeat scroll -22px -82px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -22px -82px transparent;
 }
 .ie6_0 .qqLevel_sun, .ie7_0 .qqLevel_sun {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -22px -82px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -22px -82px transparent;
 }
 .qqLevel_moon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -42px -82px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -42px -82px transparent;
 }
 .ie6_0 .qqLevel_moon, .ie7_0 .qqLevel_moon {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -42px -82px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -42px -82px transparent;
 }
 .qqLevel_star {
-    background: url("../images/portal_all_png.png") no-repeat scroll -62px -82px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -62px -82px transparent;
 }
 .ie6_0 .qqLevel_star, .ie7_0 .qqLevel_star {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -62px -82px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -62px -82px transparent;
 }
 .widget_toolBar {
     display: block;
@@ -656,7 +656,7 @@ a.plain_text {
     top: 3px;
 }
 .widget {
-    background: url("../images/transparent.gif") repeat scroll 0 0 transparent;
+    background: url("../../images/transparent.gif") repeat scroll 0 0 transparent;
     display: block;
     position: absolute;
 }
@@ -713,7 +713,7 @@ a.plain_text {
     width: 100%;
 }
 .flash_alt {
-    background: url("../images/alter_bg.png") repeat-x scroll 0 0 #FFFFFF;
+    background: url("../../images/alter_bg.png") repeat-x scroll 0 0 #FFFFFF;
     display: none;
     height: 100%;
     padding-top: 60px;
@@ -757,7 +757,7 @@ a.plain_text {
     background: none repeat scroll 0 0 #BEECFC;
 }
 #quickPanelPopupArrow {
-    background: url("../images/btn_more.png") no-repeat scroll center center transparent;
+    background: url("../../images/btn_more.png") no-repeat scroll center center transparent;
     cursor: pointer;
     display: none;
     float: left;
@@ -832,7 +832,7 @@ a.plain_text {
     width: 100%;
 }
 .divSelect_arr {
-    background: url("../images/bg_sel_arr.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_sel_arr.gif") no-repeat scroll 0 0 transparent;
 }
 .animate_proxy {
     background: none repeat scroll 0 0 transparent;
@@ -1053,7 +1053,7 @@ a.plain_text {
     margin: 0 auto;
 }
 .dock_tool_icon {
-    background: url("../images/portal_all_png.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll 0 0 transparent;
     cursor: pointer;
     display: block;
     float: left;
@@ -1105,10 +1105,10 @@ a.plain_text {
     background-position: -140px 0;
 }
 .dock_menu_select_left .dock_menu_item_left, .dock_menu_select_top .dock_menu_item_top, .dock_menu_select_right .dock_menu_item_right {
-    background: url("../images/portal_all_png.png") no-repeat scroll -100px -460px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -100px -460px transparent;
 }
 .ie6_0 .dock_menu_select_left .dock_menu_item_left, .ie6_0 .dock_menu_select_top .dock_menu_item_top, .ie6_0 .dock_menu_select_right .dock_menu_item_right {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -100px -460px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -100px -460px transparent;
 }
 .dock_top {
     height: 10px;
@@ -1121,13 +1121,13 @@ a.plain_text {
     height: 10px;
 }
 .dock_pos_left .dock_middle {
-    background: url("../images/dock_l.png ") no-repeat scroll 0 0 transparent;
+    background: url("../../images/dock_l.png ") no-repeat scroll 0 0 transparent;
 }
 .dock_pos_left .dock_tool_list {
     left: 0;
 }
 .dock_pos_right .dock_middle {
-    background: url("../images/dock_r.png ") no-repeat scroll 0 0 transparent;
+    background: url("../../images/dock_r.png ") no-repeat scroll 0 0 transparent;
     overflow: hidden;
     padding-left: 5px;
 }
@@ -1158,7 +1158,7 @@ a.plain_text {
     width: 10px;
 }
 .dock_pos_top .dock_middle {
-    background: url("../images/dock_up.png ") no-repeat scroll 0 0 transparent;
+    background: url("../../images/dock_up.png ") no-repeat scroll 0 0 transparent;
     height: 69px;
     padding-left: 10px;
     padding-top: 0;
@@ -1283,7 +1283,7 @@ a.plain_text {
     width: 90px;
 }
 .helpMenuImg {
-    background-image: url("../images/helpmenu.png ");
+    background-image: url("../../images/helpmenu.png ");
     display: block;
 }
 .ie6_0 .helpMenuImg, .ie7_0 .helpMenuImg {
@@ -1420,10 +1420,10 @@ a.plain_text {
     width: 171px;
 }
 .startMenuImg {
-    background-image: url("../images/startmenu.png ");
+    background-image: url("../../images/startmenu.png ");
 }
 .ie7_0 .startMenuImg, .ie6_0 .startMenuImg {
-    background-image: url("../images/startmenu.gif ");
+    background-image: url("../../images/startmenu.gif ");
 }
 .taskbar_start_menu_body {
     background-position: -33px -69px;
@@ -1530,7 +1530,7 @@ a.plain_text {
     padding: 4px 10px 6px 15px;
 }
 .taskbar_start_menu li:hover, .taskbar_start_menu_hover {
-    background: url("../images/startmenu.png ") repeat scroll -264px -153px transparent;
+    background: url("../../images/startmenu.png ") repeat scroll -264px -153px transparent;
 }
 .taskbar_start_menu li a {
     color: #FFFFFF;
@@ -1576,7 +1576,7 @@ a.plain_text {
     background-position: -23px -355px;
 }
 .taskbar_start_button {
-    background: url("../images/portal_all_png.png") no-repeat scroll -480px -320px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -480px -320px transparent;
     cursor: pointer;
     display: inline;
     float: left;
@@ -1661,7 +1661,7 @@ a.plain_text {
     display: none;
 }
 .appListContainer .appButton_appName_inner {
-    background: url("../images/portal_all_png.png") no-repeat scroll -80px -560px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -80px -560px transparent;
     display: inline-block;
     height: 20px;
     line-height: 18px;
@@ -1675,7 +1675,7 @@ a.plain_text {
     width: auto;
 }
 .appListContainer .appButton_appName_inner_right {
-    background: url("../images/portal_all_png.png") no-repeat scroll -166px -560px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -166px -560px transparent;
     display: inline-block;
     height: 20px;
     margin: 0;
@@ -1732,14 +1732,14 @@ a.plain_text {
     position: absolute;
 }
 .appListContainer .scrollBar_bg_t {
-    background: url("../images/scrollbar_bg.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../images/scrollbar_bg.gif") no-repeat scroll 0 0 transparent;
     height: 5px;
     overflow: hidden;
     top: -5px;
     width: 10px;
 }
 .appListContainer .scrollBar_bg_b {
-    background: url("../images/scrollbar_bg.gif") no-repeat scroll 0 -5px transparent;
+    background: url("../../images/scrollbar_bg.gif") no-repeat scroll 0 -5px transparent;
     bottom: -5px;
     height: 5px;
     overflow: hidden;
@@ -1759,7 +1759,7 @@ a.plain_text {
     width: 48px;
 }
 .appButton_appIcon_warp {
-    background-image: url("../images/iconbg_4.png");
+    background-image: url("../../images/iconbg_4.png");
 }
 .ie6_0 .appButton_appIcon_warp {
     background: none repeat scroll 0 50% transparent;
@@ -1792,7 +1792,7 @@ a.plain_text {
     border-radius: 5px 5px 5px 5px;
 }
 .appButton_loadingIcon {
-    background: url("../images/ico_loading2.gif ") no-repeat scroll 0 0 transparent;
+    background: url("../../images/ico_loading2.gif ") no-repeat scroll 0 0 transparent;
     height: 16px;
     left: 50%;
     margin-left: -8px;
@@ -1825,7 +1825,7 @@ a.plain_text {
     width: 1000px;
 }
 .appButton_delete {
-    background: url("../images/portal_all_png.png") no-repeat scroll 0 -560px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll 0 -560px transparent;
     cursor: pointer;
     display: none;
     font-size: 0;
@@ -1839,7 +1839,7 @@ a.plain_text {
     z-index: 10;
 }
 .ie6_0 .appButton_delete {
-    background-image: url("../images/portal_all_gif.gif");
+    background-image: url("../../images/portal_all_gif.gif");
 }
 .appListContainer .appButton_delete, .dock_container .appButton_delete {
     background-position: -30px -560px;
@@ -1849,7 +1849,7 @@ a.plain_text {
     width: 24px;
 }
 .appButton_notify {
-    background: url("../images/portal_all_png.png") no-repeat scroll 10000px 0 transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll 10000px 0 transparent;
     cursor: pointer;
     display: none;
     font-size: 11px;
@@ -1862,7 +1862,7 @@ a.plain_text {
     top: -5px;
 }
 .ie6_0 .appButton_notify {
-    background-image: url("../images/portal_all_gif.gif");
+    background-image: url("../../images/portal_all_gif.gif");
 }
 .appButton_notify_1 {
     background-position: -60px -290px;
@@ -1887,10 +1887,10 @@ a.plain_text {
     display: block;
 }
 .appButton:hover, .appButtonEditState .appButton, .appButtonEditState .addQuickLinkButton:hover {
-    background: url("../images/appbutton_mouseover_bg3.png") no-repeat scroll 1px 0 transparent;
+    background: url("../../images/appbutton_mouseover_bg3.png") no-repeat scroll 1px 0 transparent;
 }
 .dock_container .appButton:hover, .dock_container .appButtonEditState .appButton, .aMg_dock_container .appButton:hover {
-    background: url("../images/appbutton_mouseover_bg4.png") no-repeat scroll center center transparent;
+    background: url("../../images/appbutton_mouseover_bg4.png") no-repeat scroll center center transparent;
 }
 .dock_container .appButton {
     height: 58px;
@@ -1936,7 +1936,7 @@ a.plain_text {
     width: 265px;
 }
 .navbarSetTopIcon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -100px -459px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -100px -459px transparent;
 }
 .indicator_wrapper {
     height: 100%;
@@ -1953,7 +1953,7 @@ a.plain_text {
     cursor: pointer;
     display: inline-block;
     float: left;
-    font-family: ËÎÌå;
+    font-family: ï¿½ï¿½ï¿½ï¿½;
     font-size: 18px;
     font-weight: bold;
     height: 20px;
@@ -2242,14 +2242,14 @@ a.plain_text {
     margin-top: 8px;
 }
 .addQuickLinkButtonInner {
-    background: url("../images/portal_all_png.png") no-repeat scroll -380px -500px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -380px -500px transparent;
     cursor: pointer;
     height: 50px;
     margin: 5px auto;
     width: 50px;
 }
 .ie6_0 .addQuickLinkButtonInner {
-    background-image: url("../images/portal_all_gif.gif");
+    background-image: url("../../images/portal_all_gif.gif");
 }
 .appButtonEditState .addQuickLinkButtonInner {
     background-position: -460px -500px;
@@ -2297,7 +2297,7 @@ a.plain_text {
     width: 15px;
 }
 .pagelet_search_delete {
-    background: url("../images/portal_all_png.png") no-repeat scroll -20px -560px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -20px -560px transparent;
     cursor: pointer;
     height: 20px;
     position: absolute;
@@ -2356,7 +2356,7 @@ a.plain_text {
     top: -66px;
 }
 .pagelet_search_suggest .sb_pageIcon, .pagelet_search_suggest .sb_appIcon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -423px -558px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -423px -558px transparent;
     cursor: pointer;
     float: left;
     height: 25px;
@@ -2371,13 +2371,13 @@ a.plain_text {
     vertical-align: middle;
 }
 .pagelet_search_suggest .sb_appIcon {
-    background: url("../images/portal_all_png.png") no-repeat scroll -377px -558px transparent;
+    background: url("../../images/portal_all_png.png") no-repeat scroll -377px -558px transparent;
 }
 .ie6_0 .pagelet_search_suggest .sb_pageIcon {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -423px -558px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -423px -558px transparent;
 }
 .ie6_0 .pagelet_search_suggest .sb_appIcon {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -377px -558px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -377px -558px transparent;
 }
 .pagelet_search_suggest ul {
     color: #FFFFFF;
@@ -2406,7 +2406,7 @@ a.plain_text {
     width: 190px;
 }
 .ie6_0 .pagelet_search_suggest li a .listInner {
-    background: url("../images/portal_all_gif.gif") no-repeat scroll -490px -558px transparent;
+    background: url("../../images/portal_all_gif.gif") no-repeat scroll -490px -558px transparent;
 }
 .flashContent {
     height: 1px;
@@ -2453,7 +2453,7 @@ a.plain_text {
     top: 172px;
 }
 .airInstallPopup .mytip2 {
-    background: url("../images/air_install_point.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/air_install_point.png") no-repeat scroll 0 0 transparent;
     font-size: 12px;
     left: 2px;
     padding-left: 18px;
@@ -2477,7 +2477,7 @@ a.plain_text {
     top: 180px;
 }
 .airInstallPopup .myBtn {
-    background: url("../images/air_install_btn.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/air_install_btn.png") no-repeat scroll 0 0 transparent;
     color: #000000;
     display: block;
     height: 23px;
@@ -2492,14 +2492,14 @@ a.plain_text {
     text-decoration: none;
 }
 .airInstallPopup .closeText {
-    background: url("../images/air_install_point.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/air_install_point.png") no-repeat scroll 0 0 transparent;
     padding-left: 20px;
 }
 #airWebTopDownload {
     position: absolute;
 }
 #airWebTopDownloadIcon {
-    background: url("../images/air_download_icon.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/air_download_icon.png") no-repeat scroll 0 0 transparent;
     cursor: pointer;
     height: 16px;
     position: absolute;
@@ -2543,7 +2543,7 @@ a.plain_text {
     background: none repeat scroll 0 0 #FFFFFF;
 }
 .bottomBarBg {
-    background: url("../images/bg_task_main.png") repeat-x scroll 0 0 transparent;
+    background: url("../../images/bg_task_main.png") repeat-x scroll 0 0 transparent;
     bottom: 0;
     height: 130px;
     position: absolute;
@@ -2553,7 +2553,7 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .bottomBarBgTask {
-    background: url("../images/bg_task_b.png") repeat-x scroll 0 41px transparent;
+    background: url("../../images/bg_task_b.png") repeat-x scroll 0 41px transparent;
     bottom: 0;
     height: 64px;
     position: absolute;
@@ -2629,7 +2629,7 @@ a.plain_text {
     -moz-transform: scale(1, 1);
 }
 .taskItem {
-    background: url("../images/bg_task_nor.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_nor.png") no-repeat scroll 0 0 transparent;
     display: block;
     float: left;
     height: 100%;
@@ -2641,19 +2641,19 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .bottomBar .taskGroup .taskItem:hover {
-    background: url("../images/bg_task_over.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_over.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .bottomBar .taskGroup .taskItem:hover {
     background: none repeat scroll 0 50% transparent;
 }
 .bottomBar .taskCurrent .taskItem {
-    background: url("../images/bg_task_cur.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_cur.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .bottomBar .taskCurrent .taskItem {
     background: none repeat scroll 0 50% transparent;
 }
 .bottomBar .taskJumpUp .taskItem {
-    background: url("../images/bg_task_msg.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_msg.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .bottomBar .taskJumpUp .taskItem {
     background: none repeat scroll 0 50% transparent;
@@ -2693,14 +2693,14 @@ a.plain_text {
     width: 70px;
 }
 .taskMenuBox .taskItem {
-    background: url("../images/bg_task_group_m.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_m.png") no-repeat scroll 0 0 transparent;
     height: 40px;
 }
 .ie6_0 .taskMenuBox .taskItem {
     background: none repeat scroll 0 50% transparent;
 }
 .taskMenuBox .taskItem:hover {
-    background: url("../images/bg_task_group_m_over.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_m_over.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuBox .taskItem:hover {
     background: none repeat scroll 0 50% transparent;
@@ -2716,22 +2716,22 @@ a.plain_text {
     margin-top: 0;
 }
 .taskMenuBox .fistTaskItem {
-    background: url("../images/bg_task_group_t.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_t.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuBox .fistTaskItem {
     background: none repeat scroll 0 50% transparent;
 }
 .taskMenuBox .fistTaskItem:hover {
-    background: url("../images/bg_task_group_t_over.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_t_over.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuBox .fistTaskItem:hover {
     background: none repeat scroll 0 50% transparent;
 }
 .taskMenuBox .taskItemHight {
-    background: url("../images/bg_task_group_m_msg.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_m_msg.png") no-repeat scroll 0 0 transparent;
 }
 .taskMenuBox .firstTaskItemHight {
-    background: url("../images/bg_task_group_t_msg.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_t_msg.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuBox .taskItemHight {
     background: none repeat scroll 0 50% transparent;
@@ -2763,10 +2763,10 @@ a.plain_text {
     width: 100%;
 }
 .taskMenuUp {
-    background: url("../images/taskmenu_up.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/taskmenu_up.png") no-repeat scroll 0 0 transparent;
 }
 .taskMenuDown {
-    background: url("../images/taskmenu_down.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/taskmenu_down.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuUp {
     background: none repeat scroll 0 50% transparent;
@@ -2775,10 +2775,10 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .taskMenuUp:hover {
-    background: url("../images/taskmenu_up_over.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/taskmenu_up_over.png") no-repeat scroll 0 0 transparent;
 }
 .taskMenuDown:hover {
-    background: url("../images/taskmenu_down_over.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/taskmenu_down_over.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuUp:hover {
     background: none repeat scroll 0 50% transparent;
@@ -2787,10 +2787,10 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .taskMenuUpDisable, .taskMenuUpDisable:hover {
-    background: url("../images/taskmenu_up_disable.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/taskmenu_up_disable.png") no-repeat scroll 0 0 transparent;
 }
 .taskMenuDownDisable, .taskMenuDownDisable:hover {
-    background: url("../images/taskmenu_down_disable.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/taskmenu_down_disable.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskMenuUpDisable, .ie6_0 .taskMenuUpDisable:hover {
     background: none repeat scroll 0 50% transparent;
@@ -2806,7 +2806,7 @@ a.plain_text {
     height: 100%;
 }
 .taskNextBox {
-    background: url("../images/bg_task_page_r.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_page_r.png") no-repeat scroll 0 0 transparent;
     display: none;
     float: right;
     height: 100%;
@@ -2815,7 +2815,7 @@ a.plain_text {
     width: 54px;
 }
 .taskPreBox {
-    background: url("../images/bg_task_page_l.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_page_l.png") no-repeat scroll 0 0 transparent;
     display: none;
     float: right;
     height: 100%;
@@ -2830,7 +2830,7 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .taskPre {
-    background: url("../images/bg_task_page.png") no-repeat scroll -15px -50px transparent;
+    background: url("../../images/bg_task_page.png") no-repeat scroll -15px -50px transparent;
     display: block;
     height: 35px;
     margin-left: 17px;
@@ -2838,7 +2838,7 @@ a.plain_text {
     width: 20px;
 }
 .ie6_0 .taskPre {
-    background: url("../images/bg_task_page.gif") no-repeat scroll -15px -50px transparent;
+    background: url("../../images/bg_task_page.gif") no-repeat scroll -15px -50px transparent;
     position: relative;
 }
 .taskPre:hover {
@@ -2849,7 +2849,7 @@ a.plain_text {
     cursor: default;
 }
 .taskNext {
-    background: url("../images/bg_task_page.png") no-repeat scroll -65px -50px transparent;
+    background: url("../../images/bg_task_page.png") no-repeat scroll -65px -50px transparent;
     display: block;
     height: 35px;
     margin-left: 15px;
@@ -2857,7 +2857,7 @@ a.plain_text {
     width: 45px;
 }
 .ie6_0 .taskNext {
-    background: url("../images/bg_task_page.gif") no-repeat scroll -65px -50px transparent;
+    background: url("../../images/bg_task_page.gif") no-repeat scroll -65px -50px transparent;
     position: relative;
 }
 .taskNext:hover {
@@ -2888,17 +2888,17 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .taskGroupItemOpen {
-    background: url("../images/bg_task_group_b.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_b.png") no-repeat scroll 0 0 transparent;
     height: 47px;
     margin-top: 17px;
 }
 .bottomBar .taskGroup .taskGroupItemOpen:hover {
-    background: url("../images/bg_task_group_b_over.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_b_over.png") no-repeat scroll 0 0 transparent;
     height: 47px;
     margin-top: 17px;
 }
 .bottomBar .taskCurrent .taskGroupItemOpen {
-    background: url("../images/bg_task_group_b_cur.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_b_cur.png") no-repeat scroll 0 0 transparent;
 }
 .taskGroupItemOpen .taskItemIcon {
     margin: 5px 5px 0;
@@ -2916,7 +2916,7 @@ a.plain_text {
     margin-top: 25px;
 }
 .bottomBar .taskJumpUp .taskGroupItemOpen {
-    background: url("../images/bg_task_group_b_msg.png") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_group_b_msg.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .taskGroupItemOpen {
     background: none repeat scroll 0 50% transparent;
@@ -2925,7 +2925,7 @@ a.plain_text {
     background: none repeat scroll 0 50% transparent;
 }
 .taskItemIconState {
-    background: url("../images/bg_task_eqq.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_eqq.gif") no-repeat scroll 0 0 transparent;
     display: none;
     float: left;
     height: 15px;
@@ -2935,7 +2935,7 @@ a.plain_text {
     width: 15px;
 }
 .ie6_0 .taskItemIconState {
-    background: url("../images/bg_task_eqq.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../images/bg_task_eqq.gif") no-repeat scroll 0 0 transparent;
 }
 .taskItem_callme .taskItemIconState {
     background-position: -67px 3px;
@@ -2977,7 +2977,7 @@ a.plain_text {
     right: 1px;
 }
 .aMg_dock_container {
-    background: url("../images/amg_top.png") repeat-x scroll 0 0 transparent;
+    background: url("../../images/amg_top.png") repeat-x scroll 0 0 transparent;
     height: 60px;
     overflow: hidden;
     padding: 10px;
@@ -2993,7 +2993,7 @@ a.plain_text {
     width: 100%;
 }
 .aMg_line_y {
-    background: url("../images/line_y.png") repeat-y scroll 0 0 transparent;
+    background: url("../../images/line_y.png") repeat-y scroll 0 0 transparent;
     height: 100%;
     left: -1px;
     position: absolute;
@@ -3005,7 +3005,7 @@ a.plain_text {
     width: 2px;
 }
 .aMg_folder_container {
-    background: url("../images/amg_body.png") repeat scroll 0 0 transparent;
+    background: url("../../images/amg_body.png") repeat scroll 0 0 transparent;
     overflow: hidden;
 }
 .ie7_0 .aMg_folder_container, .ie6_0 .aMg_folder_container {
@@ -3047,19 +3047,19 @@ a.plain_text {
     width: 70px;
 }
 .folder_bg1 {
-    background: url("../images/amg_1.png ") no-repeat scroll right top transparent;
+    background: url("../../images/amg_1.png ") no-repeat scroll right top transparent;
 }
 .folder_bg2 {
-    background: url("../images/amg_2.png ") no-repeat scroll right top transparent;
+    background: url("../../images/amg_2.png ") no-repeat scroll right top transparent;
 }
 .folder_bg3 {
-    background: url("../images/amg_3.png ") no-repeat scroll right top transparent;
+    background: url("../../images/amg_3.png ") no-repeat scroll right top transparent;
 }
 .folder_bg4 {
-    background: url("../images/amg_4.png ") no-repeat scroll right top transparent;
+    background: url("../../images/amg_4.png ") no-repeat scroll right top transparent;
 }
 .folder_bg5 {
-    background: url("../images/amg_5.png ") no-repeat scroll right top transparent;
+    background: url("../../images/amg_5.png ") no-repeat scroll right top transparent;
 }
 .folderOuter {
     height: 100%;
@@ -3080,7 +3080,7 @@ a.plain_text {
     width: auto;
 }
 .aMg_folder_container .appButton:hover, .aMg_folder_container .appButtonEditState .appButton {
-    background: url("../images/appbutton_mouseover_bg5.png ") repeat-x scroll 0 0 transparent;
+    background: url("../../images/appbutton_mouseover_bg5.png ") repeat-x scroll 0 0 transparent;
 }
 .amg_folder_appbutton .appButton_appIcon {
     background: none repeat scroll 0 0 transparent !important;
@@ -3115,7 +3115,7 @@ a.plain_text {
     display: none;
 }
 .aMg_close {
-    background: url("../images/back_normal.png ") repeat scroll 0 0 transparent;
+    background: url("../../images/back_normal.png ") repeat scroll 0 0 transparent;
     cursor: pointer;
     height: 37px;
     position: absolute;
@@ -3124,10 +3124,10 @@ a.plain_text {
     width: 90px;
 }
 .aMg_close:hover {
-    background: url("../images/back_hover.png ") repeat scroll 0 0 transparent;
+    background: url("../../images/back_hover.png ") repeat scroll 0 0 transparent;
 }
 .aMg_close:active {
-    background: url("../images/back_click.png ") repeat scroll 0 0 transparent;
+    background: url("../../images/back_click.png ") repeat scroll 0 0 transparent;
 }
 
 
@@ -3159,7 +3159,7 @@ a.plain_text {
 .ie6_0 .toolBar_bg, .ie7_0 .toolBar_bg {
 }
 .window {
-	background: url("../images/transparent.gif") repeat scroll 0 0 transparent;
+	background: url("../../images/transparent.gif") repeat scroll 0 0 transparent;
 }
 .window_title {
 	height: 25px;
@@ -3198,7 +3198,7 @@ a.plain_text {
 	background: none repeat scroll 0 0 #E9E9E9;
 }
 a.window_action_button {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -122px -22px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -122px -22px transparent;
 	height: 19px;
 	width: 21px;
 }
@@ -3260,7 +3260,7 @@ a.window_pinDown:hover {
 	background-position: -152px -53px;
 }
 a.window_button {
-	background: url("../images/sprite_main_png.png") no-repeat scroll 0 -80px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll 0 -80px transparent;
 }
 a.window_button:hover {
 	background-position: 0 -86px;
@@ -3319,7 +3319,7 @@ a.window_next:hover {
 	background-position: 0 -100px;
 }
 .window_rt {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -10px 0 transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -10px 0 transparent;
 }
 .ie6_0 .window_rt, .ie7_0 .window_rt {
 	background-image: url("../images/sprite_main_gif.gif");
@@ -3337,7 +3337,7 @@ a.window_next:hover {
 	background-position: -30px 0;
 }
 .window_rb {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -10px -10px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -10px -10px transparent;
 }
 .ie6_0 .window_rb, .ie7_0 .window_rb {
 	background-image: url("../images/sprite_main_gif.gif");
@@ -3355,7 +3355,7 @@ a.window_next:hover {
 	background-position: 0 -110px;
 }
 .window_lb {
-	background: url("../images/sprite_main_png.png") no-repeat scroll 0 -10px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll 0 -10px transparent;
 }
 .ie6_0 .window_lb, .ie7_0 .window_lb {
 	background-image: url("../images/sprite_main_gif.gif");
@@ -3373,7 +3373,7 @@ a.window_next:hover {
 	background-position: -20px 0;
 }
 .window_lt {
-	background: url("../images/sprite_main_png.png") no-repeat scroll 0 0 transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll 0 0 transparent;
 }
 .ie6_0 .window_lt, .ie7_0 .window_lt {
 	background-image: url("../images/sprite_main_gif.gif");
@@ -3397,7 +3397,7 @@ a.window_next:hover {
 	background-image: url("../images/sprite_repeat_x_gif.gif");
 }
 .panel_1_rt {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -50px -5px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -50px -5px transparent;
 }
 .ie6_0 .panel_1_rt, .ie7_0 .panel_1_rt {
 	background-image: url("../images/sprite_main_gif.gif");
@@ -3409,7 +3409,7 @@ a.window_next:hover {
 	background-image: url("../images/sprite_repeat_y_gif.gif");
 }
 .panel_1_rb {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -50px -10px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -50px -10px transparent;
 }
 .ie6_0 .panel_1_rb, .ie7_0 .panel_1_rb {
 	background-image: url("../images/sprite_main_gif.gif");
@@ -3421,7 +3421,7 @@ a.window_next:hover {
 	background-image: url("../images/sprite_repeat_x_gif.gif ");
 }
 .panel_1_lb {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -45px -10px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -45px -10px transparent;
 }
 .ie6_0 .panel_1_lb, .ie7_0 .panel_1_lb {
 	background-image: url("images/sprite_main_gif.gif");
@@ -3433,7 +3433,7 @@ a.window_next:hover {
 	background-image: url("../images/sprite_repeat_y_gif.gif");
 }
 .panel_1_lt {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -45px -5px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -45px -5px transparent;
 }
 .ie6_0 .panel_1_lt, .ie7_0 .panel_1_lt {
 	background-image: url("../images/sprite_main_gif.gif ");
@@ -3443,12 +3443,12 @@ a.window_next:hover {
 	cursor: pointer;
 }
 .indicator_wrapper {
-	background: url("../images/sprite_main_png.png") no-repeat scroll -140px -5px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll -140px -5px transparent;
 	position: static;
 	top: 0;
 }
 .indicator, .indicator_icon_bg, .indicator_icon {
-	background-image: url("../images/sprite_main_png.png");
+	background-image: url("../../images/sprite_main_png.png");
 }
 .no_sysbtn .indicator_wrapper {
 	background-position: -140px -45px;
@@ -3457,13 +3457,13 @@ a.window_next:hover {
 	margin-right: 6px;
 }
 #navbar .system_button {
-	background: url("../images/sprite_main_png.png") no-repeat scroll 134px -98px transparent;
+	background: url("../../images/sprite_main_png.png") no-repeat scroll 134px -98px transparent;
 }
 .pagelet_search_bar, .pagelet_search_button, #pagelet_search_suggest .sb_page, #pagelet_search_suggest .sb_app, #pagelet_search_suggest a:hover, #pagelet_search_suggest .rsSeledBg, .pagelet_search_pointer {
-	background-image: url("../images/sprite_main_png.png");
+	background-image: url("../../images/sprite_main_png.png");
 }
 #pagelet_search_suggest #sb_resultBox {
-	background: url("../images/suggess_list_bg.png") repeat-y scroll 0 0 transparent;
+	background: url("../../images/suggess_list_bg.png") repeat-y scroll 0 0 transparent;
 }
 .mobileSafari #navbar {
 	width: 222px;

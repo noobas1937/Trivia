@@ -44,6 +44,9 @@
             <mvc:exclude-mapping path="/*.html"/>
             <mvc:exclude-mapping path="/pages/*.html"/>
             <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/icon/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <mvc:exclude-mapping path="/gameui/**"/>
             <mvc:exclude-mapping path="/session/**"/>
             <bean class="com.ecnu.trivia.web.common.interceptor.SessionRequiredInterceptor">
                 <property name="mappingURL"

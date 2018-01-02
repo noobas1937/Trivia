@@ -84,9 +84,6 @@ public class UserController {
     @RequestMapping(value = "/list/", method = RequestMethod.GET)
     public Resp getUserInGame() {
         List<UserGameVO> userInGame = sessionService.getUserInGame();
-        if(ObjectUtils.isNullOrEmpty(userInGame)){
-            return new Resp(HttpRespCode.PARAM_ERROR);
-        }
         return new Resp(HttpRespCode.SUCCESS,userInGame);
     }
 

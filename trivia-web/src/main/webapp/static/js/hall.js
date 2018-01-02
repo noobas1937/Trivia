@@ -66,33 +66,7 @@ window.onload = function getTables() {
         }
     });
 
-    $.ajax({
-        type: "GET",
-        url: "/trivia/user/list/",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (data) {
-            if (data.resCode === "200") {
-                console.log(data);
-                var obj = data.data;
-                $.each(obj, function(index, item) {
-                    var s="<tr>";
-                    s+="<td>"+item.nickName+"</td>";
-                    s+="<td>"+item.roomName+"</td>";
-                    if(item.status === 0){
-                        s+="<td>等待中</td>";
-                    }else{
-                        s+="<td>游戏中</td>";
-                    }
-                    s+="<td>"+item.balance+"</td></tr>";
-                    $("#user-table").append(s);
-                });
-            }
-            else {
-                layer.msg("出错啦！");
-            }
-        }
-    });
+    getPlayerList();
 };
 
 function enterRoom(roomId){
@@ -107,7 +81,7 @@ function enterRoom(roomId){
         },
         success: function(data){
             if (data.resCode === "200") {
-                location.href='../game/bin/index.html';
+                location.href='../gameui/bin/index.html';
             }else{
                 layer.msg("您开不了房！");
             }
@@ -116,6 +90,21 @@ function enterRoom(roomId){
 
 }
 
+function quickJoinGame(){
+    $.ajax({
+        url: "/trivia/game/qucikJoin/",
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data){
+            if (data.resCode === "200") {
+                location.href='../game/bin/index.html';
+            }else{
+                alert("快速加入游戏失败！");
+            }
+        }
+    });
+}
 function refreshPlayerList(){
     $("#desks").clear();
     $.ajax({
@@ -155,10 +144,13 @@ function refreshPlayerList(){
             }
         }
     });
+
+    $("#user-table").clear();
+    getPlayerList();
 }
 
 function getMessage(data){
-    var chat = "<div>"+data.user.nickName+" "+data.gmtCreated+"\n"+data.content+"</div>";
+    var chat = "<div style='color:white;font-size:15px'>"+data.user.nickName+" "+data.gmtCreated+"\n"+data.content+"</div>";
     $("#chatinf").append(chat);
 }
 
@@ -202,5 +194,35 @@ function sendMessage(){
 }
 
 function p(s) {
-    return s < 10 ? '0' + s: s;
+    return s < 10 ? '0' + s : s;
+}
+
+function getPlayerList(){
+    $.ajax({
+        type: "GET",
+        url: "/trivia/user/list/",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data.resCode === "200") {
+                console.log(data);
+                var obj = data.data;
+                $.each(obj, function(index, item) {
+                    var s="<tr>";
+                    s+="<td>"+item.nickName+"</td>";
+                    s+="<td>"+item.roomName+"</td>";
+                    if(item.status === 0){
+                        s+="<td>等待中</td>";
+                    }else{
+                        s+="<td>游戏中</td>";
+                    }
+                    s+="<td>"+item.balance+"</td></tr>";
+                    $("#user-table").append(s);
+                });
+            }
+            else {
+                alert("出错啦！");
+            }
+        }
+    });
 }
