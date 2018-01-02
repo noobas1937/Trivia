@@ -1,6 +1,4 @@
 
-
-
 function register() {
     console.log($("#nickname").val());
     $.ajax({
@@ -16,11 +14,12 @@ function register() {
             }),
 
             contentType: "application/json; charset=utf-8",
+            dataType:"json",
             success: function (data) {
                 console.log(data);
-                if (data == "200") {
-                    location.href = "index.aspx";
-                    return true;
+                if (data.resCode  == "200") {
+                    location.href = "register.html";
+
                 }
                 else {
                     alert("用户名已存在！");
