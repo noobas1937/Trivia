@@ -10,11 +10,7 @@
  */
 package com.ecnu.trivia.web.question.service;
 
-import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.log.Logable;
-import com.ecnu.trivia.common.util.ObjectUtils;
-import com.ecnu.trivia.web.game.domain.Game;
-import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.message.service.MessageService;
@@ -22,9 +18,6 @@ import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
-import com.ecnu.trivia.web.utils.Constants;
-import com.ecnu.trivia.web.utils.ConstantsMsg;
-import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 问题类型服务，主要提供问题类型相关的操作服务
@@ -58,24 +50,24 @@ public class QuestionTypeService implements Logable{
                                                   @RequestParam("PAGE_SIZE") Integer PAGE_SIZE)
     {
         Integer npno = (pno - 1) * PAGE_SIZE;
-        return questionTypeMapper.getQuestionTypeListByPage(npno, PAGE_SIZE);
+        return questionTypeMapper.getQuestionTypesByPage(npno, PAGE_SIZE);
     }
 
     public List<QuestionType> getQuestionTypeList()
     {
-        return questionTypeMapper.getQuestionTypeList();
+        return questionTypeMapper.getQuestionTypes();
     }
 
     public Integer getQuestionTypeListCount()
     {
-        return questionTypeMapper.getQuestionTypeList().size();
+        return questionTypeMapper.getQuestionTypes().size();
     }
 
     public boolean deleteQuestionTypeById(Integer questionTypeId){
         //查找是否存在该类型的问题，存在的话不能删除
-        List<Question> questionList = questionMapper.getQuestionListByQuestionTypeId(questionTypeId);
+        List<Question> questionList = questionMapper.getQuestionsByQuestionTypeId(questionTypeId);
         if(questionList.isEmpty()){
-            questionTypeMapper.deleteQuestionTypeByQuestionTypeId(questionTypeId);
+            questionTypeMapper.deleteQuestionTypeById(questionTypeId);
             return true;
         }
         else{
@@ -85,9 +77,9 @@ public class QuestionTypeService implements Logable{
 
     public boolean addQuestionType(String description){
         //查找是否有名字重复的问题类型
-        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByQuestionTypeDescription(description);
+        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByDesc(description);
         if(questionTypeList.isEmpty()){
-            questionTypeMapper.addQuestionTypeByDescription(description);
+            questionTypeMapper.addQuestionType(description);
             return true;
         }
         else{
@@ -97,9 +89,9 @@ public class QuestionTypeService implements Logable{
 
     public boolean modifyQuestionTypeName(Integer questionId, String description){
         //查找是否有名字重复的问题类型
-        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByQuestionTypeDescription(description);
+        List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByDesc(description);
         if(questionTypeList.isEmpty()){
-            questionTypeMapper.updateQuestionTypeName(questionId,description);
+            questionTypeMapper.updateQuestionType(questionId,description);
             return true;
         }
         else{

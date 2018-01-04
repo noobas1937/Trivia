@@ -36,7 +36,7 @@ public class GameMapperTest {
 
     @Test
     public void updateGameStatus() throws Exception {
-        gameMapper.updateGameStatus();
+//        gameMapper.updateGameStatus();
 
 
     }
