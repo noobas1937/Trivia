@@ -23,7 +23,6 @@ public class UserController {
     @Resource
     private SessionService sessionService;
 
-
     /**
      * 获取当前用户资料
      * @return

@@ -23,6 +23,7 @@ import com.ecnu.trivia.web.rbac.domain.vo.UserAccountVO;
 import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.rbac.utils.JwtUtils;
+import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.apache.commons.io.monitor.FileEntry;
@@ -48,7 +49,7 @@ public class SessionController {
      * @date: 20:30 2017/12/07
      */
     @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public Resp login(@RequestBody UserAccountVO userParam,HttpSession session) {
+    public Resp login(@RequestBody UserAccountVO userParam) {
         if (ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
@@ -57,7 +58,7 @@ public class SessionController {
             return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
         }
         user.setPassword("");
-        session.setAttribute(Constants.ONLINE_USER,user);
+        UserUtils.addUser(Constants.ONLINE_USER,user);
         sessionService.setUserLastLogin(userParam.getAccount());
         return new Resp(HttpRespCode.SUCCESS);
     }
