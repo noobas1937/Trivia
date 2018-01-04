@@ -31,12 +31,4 @@
 
     <context:load-time-weaver/>
 
-    <!--<bean id="websocket" class="com.ecnu.trivia.web.common.websocket.WebSocketHandler"/>-->
-
-    <!-- 加载bean end -->
-
-    <!--<context:load-time-weaver/>-->
-    <!--<aop:aspectj-autoproxy />-->
-    <!--<bean class="com.ecnu.trivia.web.olap.interceptor.OlapAdvice"/>-->
-
 </beans>
