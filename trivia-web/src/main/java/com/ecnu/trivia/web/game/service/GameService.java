@@ -156,6 +156,9 @@ public class GameService implements Logable {
      */
     public void refreshUserRoom(Integer userId) {
         RoomVO room = getRoomByUserId(userId);
+        if (ObjectUtils.isNullOrEmpty(room)){
+            return;
+        }
         messageService.refreshUI(room.getId());
     }
 }

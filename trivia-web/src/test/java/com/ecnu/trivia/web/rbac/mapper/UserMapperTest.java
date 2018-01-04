@@ -142,7 +142,7 @@ public class UserMapperTest {
     @Test
     public void getUserCount() throws Exception {
         Integer res = userMapper.getUserCount();
-        if(res == null){
+        if(res == null || res < 0){
             AssertJUnit.fail("null");
         }
     }
