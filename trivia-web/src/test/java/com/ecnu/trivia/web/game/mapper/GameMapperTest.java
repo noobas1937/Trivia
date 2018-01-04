@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 /**
  * @author miss guo
- * @date:2018.1.4
+ * @date 2018.1.4
  */
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
@@ -29,10 +29,10 @@ public class GameMapperTest {
         Game res=gameMapper.getGameByRoomId(roomid);
         Game res1=gameMapper.getGameByRoomId(roomid1);
        if(res!=null){
-           AssertJUnit.fail("fail ");
+           AssertJUnit.fail();
        }
         if(res1==null){
-            AssertJUnit.fail("fail ");
+            AssertJUnit.fail();
         }
     }
 
@@ -44,16 +44,16 @@ public class GameMapperTest {
         Integer quesid=gameMapper.getGameByRoomId(5).getQuestionId();
         Integer stage=gameMapper.getGameByRoomId(5).getStage();
         if(CurrentPlayerId!=79){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
         if(dicenumber!=1){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
         if(quesid!=3){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
         if(stage!=1){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
     }
 
@@ -61,7 +61,7 @@ public class GameMapperTest {
     public void getGameByQuestionId() throws Exception {
         Game res=gameMapper.getGameByQuestionId(17);
         if(res==null){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
     }
 
@@ -70,7 +70,7 @@ public class GameMapperTest {
         gameMapper.addGame(10,79);
         Game res=gameMapper.getGameByRoomId(10);
         if(res==null){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
     }
 
@@ -78,7 +78,7 @@ public class GameMapperTest {
     public void getAppropriateReadyRoomId() throws Exception {
         Integer res=gameMapper.getAppropriateReadyRoomId(4);
         if(res!=3){
-            AssertJUnit.fail("fail");
+            AssertJUnit.fail();
         }
     }
 
