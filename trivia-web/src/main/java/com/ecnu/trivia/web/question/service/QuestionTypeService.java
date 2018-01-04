@@ -46,19 +46,18 @@ public class QuestionTypeService implements Logable{
     @Resource
     private MessageService messageService;
 
-    public List<QuestionType> getQuestionTypeListByPage(@RequestParam("pno") Integer pno,
-                                                  @RequestParam("PAGE_SIZE") Integer PAGE_SIZE)
-    {
-        Integer npno = (pno - 1) * PAGE_SIZE;
-        return questionTypeMapper.getQuestionTypesByPage(npno, PAGE_SIZE);
+    public List<QuestionType> getQuestionTypesByPage(@RequestParam("pno") Integer pno,
+                                                     @RequestParam("PAGE_SIZE") Integer pageSize) {
+        Integer npno = (pno - 1) * pageSize;
+        return questionTypeMapper.getQuestionTypesByPage(npno, pageSize);
     }
 
-    public List<QuestionType> getQuestionTypeList()
+    public List<QuestionType> getQuestionTypes()
     {
         return questionTypeMapper.getQuestionTypes();
     }
 
-    public Integer getQuestionTypeListCount()
+    public Integer getQuestionTypesCount()
     {
         return questionTypeMapper.getQuestionTypes().size();
     }
@@ -87,7 +86,7 @@ public class QuestionTypeService implements Logable{
         }
     }
 
-    public boolean modifyQuestionTypeName(Integer questionId, String description){
+    public boolean modifyQuestionType(Integer questionId, String description){
         //查找是否有名字重复的问题类型
         List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByDesc(description);
         if(questionTypeList.isEmpty()){

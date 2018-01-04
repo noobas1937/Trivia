@@ -20,8 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 @RunWith(value = SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
-        ,"classpath:spring/applicationContext-web.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 @Transactional
 public class RoomMapperTest {
     @Resource

@@ -103,7 +103,7 @@ public class GameController {
      */
     @RequestMapping(value = "/question/type/", method = RequestMethod.GET)
     public Resp getQuestionTypeList(){
-        return new Resp(HttpRespCode.SUCCESS,questionTypeService.getQuestionTypeList());
+        return new Resp(HttpRespCode.SUCCESS,questionTypeService.getQuestionTypes());
     }
 
     /**

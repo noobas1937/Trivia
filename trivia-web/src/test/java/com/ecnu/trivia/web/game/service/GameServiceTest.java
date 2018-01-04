@@ -11,9 +11,12 @@ import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
 
+/**
+ * @author Jack Chen
+ * @date 2018/1/4
+ */
 @RunWith(value = SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
-,"classpath:spring/applicationContext-web.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 @Transactional
 public class GameServiceTest {
 
