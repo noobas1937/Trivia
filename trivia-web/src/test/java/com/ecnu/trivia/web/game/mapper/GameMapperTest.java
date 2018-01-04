@@ -1,6 +1,5 @@
 package com.ecnu.trivia.web.game.mapper;
-/*author:miss guo
-  date:2018.1.4*/
+
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import org.junit.Test;
@@ -12,7 +11,10 @@ import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
 
-import static org.junit.Assert.*;
+/**
+ * @author miss guo
+ * @date:2018.1.4
+ */
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
         ,"classpath:spring/applicationContext-web.xml"})

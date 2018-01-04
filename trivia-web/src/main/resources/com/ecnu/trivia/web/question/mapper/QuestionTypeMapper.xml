@@ -3,28 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecnu.trivia.web.question.mapper.QuestionTypeMapper">
 
-    <select id="getQuestionTypeList" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+    <select id="getQuestionTypes" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
         SELECT * FROM question_type
     </select>
 
-    <select id="getQuestionTypeListByPage" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+    <select id="getQuestionTypesByPage" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
         SELECT * FROM question_type LIMIT ${pno},${pagesize}
     </select>
 
-    <select id="getQuestionTypeByQuestionTypeDescription" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
+    <select id="getQuestionTypeByDesc" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
         SELECT * FROM question_type WHERE name = #{description}
     </select>
 
-    <delete id="deleteQuestionTypeByQuestionTypeId">
+    <delete id="deleteQuestionTypeById">
         DELETE FROM question_type WHERE id = ${typeId}
     </delete>
 
-    <insert id="addQuestionTypeByDescription">
+    <insert id="addQuestionType">
         INSERT INTO question_type (id, name, gmt_created, gmt_modified)
         VALUES (null,#{description},NOW(),NOW())
     </insert>
 
-    <update id="updateQuestionTypeName">
+    <update id="updateQuestionType">
         UPDATE question_type
         SET name = #{description}
         WHERE id = ${typeId}

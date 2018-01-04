@@ -23,17 +23,17 @@ import java.util.List;
 @Repository
 public interface QuestionTypeMapper extends Mapper<QuestionType> {
 
-    List<QuestionType> getQuestionTypeList();
+    List<QuestionType> getQuestionTypes();
 
-    List<QuestionType> getQuestionTypeListByPage(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
+    List<QuestionType> getQuestionTypesByPage(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
 
-    List<QuestionType> getQuestionTypeByQuestionTypeDescription(@Param("description") String description);
+    List<QuestionType> getQuestionTypeByDesc(@Param("description") String description);
 
-    void deleteQuestionTypeByQuestionTypeId(@Param("typeId") Integer typeId);
+    void deleteQuestionTypeById(@Param("typeId") Integer typeId);
 
-    void addQuestionTypeByDescription(@Param("description") String description);
+    void addQuestionType(@Param("description") String description);
 
-    void updateQuestionTypeName(@Param("typeId") Integer typeId, @Param("description") String description);
+    void updateQuestionType(@Param("typeId") Integer typeId, @Param("description") String description);
 
     QuestionType getQuestionTypeById(@Param("type") Integer type);
 }
