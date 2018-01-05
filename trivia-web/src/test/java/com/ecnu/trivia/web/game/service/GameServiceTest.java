@@ -141,6 +141,13 @@ public class GameServiceTest {
     }
 
     @Test
+    public void check_ready_when_room_is_playing() throws Exception {
+        roomMapper.updateRoomStatus(10,Constants.ROOM_PLAYING);
+        Resp resp = gameService.checkReady(mockUser.getId(),Constants.PLAYER_READY);
+        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),resp.getResCode());
+    }
+
+    @Test
     public void check_ready_when_user_cancel_ready() throws Exception {
         Resp resp = gameService.checkReady(mockUser.getId(), Constants.PLAYER_WAITING);
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
