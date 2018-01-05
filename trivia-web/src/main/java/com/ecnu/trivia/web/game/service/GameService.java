@@ -90,8 +90,8 @@ public class GameService implements Logable {
 
     /**
      * 判断当前房间是否所有用户都已准备
-     * @author: Lucto Zhang
-     * @date: 20:39 2017/12/18
+     * @author Lucto Zhang
+     * @date 20:39 2017/12/18
      */
     public Resp checkReady(Integer userId,Integer ready) {
         RoomVO room = getRoomByUserId(userId);
@@ -125,8 +125,8 @@ public class GameService implements Logable {
 
     /**
      * 判断房间是否已开始游戏
-     * @author: Lucto Zhang
-     * @date: 20:57 2017/12/20
+     * @author Lucto Zhang
+     * @date 20:57 2017/12/20
      */
     public RoomVO getRoomByUserId(Integer userId){
         Player player = playerMapper.getPlayerByUserId(userId);
@@ -138,8 +138,8 @@ public class GameService implements Logable {
 
     /**
      * 房间按用户人数从高到低排序，返回人数最多未满且未开始游戏的房间id
-     * @author: Handsome Zhao
-     * @date: 22:43 2017/12/27
+     * @author Handsome Zhao
+     * @date 22:43 2017/12/27
      */
     public Integer getAppropriateReadyRoomId(){
         Integer maxPlayerCount = Constants.MAX_PLAYER_COUNT;
