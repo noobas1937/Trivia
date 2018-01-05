@@ -69,7 +69,7 @@ public class RoomController {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         User user = UserUtils.fetchUser();
-        if(ObjectUtils.isNullOrEmpty(user)){
+        if(user==User.nullUser()){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
         return roomService.enterRoom(roomId,user.getId());

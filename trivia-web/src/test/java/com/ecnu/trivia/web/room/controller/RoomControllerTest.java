@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
@@ -18,12 +19,13 @@ import javax.annotation.Resource;
 import static org.junit.Assert.*;
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+@WebAppConfiguration
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
+,"classpath:spring/applicationContext-web.xml"})
 @Transactional
 public class RoomControllerTest {
     @Resource
     private RoomController roomController;
-
     private MockMvc mockMvc;
 
     @Before
@@ -37,27 +39,17 @@ public class RoomControllerTest {
 
     @Test
     public void getRoomList() throws Exception {
-        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/list/"));
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/list/"));
         MvcResult mvcResult = resultActions.andReturn();
         String result = mvcResult.getResponse().getContentAsString();
         System.out.println("=====客户端获得反馈数据:" + result);
-        // 也可以从response里面取状态码，header,cookies...
-//        System.out.println(mvcResult.getResponse().getStatus());
     }
-
 
     @Test
     public void enterRoom() throws Exception {
-        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/enter/").param("roomId", "1"));
+            ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/enter/").param("roomId", "1"));
         MvcResult mvcResult = resultActions.andReturn();
-
         String result = mvcResult.getResponse().getContentAsString();
-
         System.out.println("=====客户端获得反馈数据:" + result);
-        // 也可以从response里面取状态码，header,cookies...
-//        System.out.println(mvcResult.getResponse().getStatus());
     }
-
-
-
 }

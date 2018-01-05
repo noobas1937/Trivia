@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<aspectj>
-    <aspects>
-        <!--<aspect name="com.yunat.newbi.web.common.interceptor.PermissionAdvice"/>-->
-        <!--<aspect name="com.yunat.newbi.web.common.interceptor.StatisticAdvice"/>-->
-    </aspects>
-</aspectj>

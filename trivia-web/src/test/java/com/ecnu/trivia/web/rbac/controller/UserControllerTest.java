@@ -31,7 +31,8 @@ import static org.junit.Assert.*;
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
+        ,"classpath:spring/applicationContext-web.xml"})
 @Transactional
 public class UserControllerTest {
     @Resource
