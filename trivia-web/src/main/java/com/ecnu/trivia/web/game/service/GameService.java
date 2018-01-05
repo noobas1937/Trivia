@@ -116,13 +116,7 @@ public class GameService implements Logable {
         //准备开始游戏
         Game game = gameMapper.getGameByRoomId((room.getId()));
         Integer currentPlayerId = room.getPlayerList().get(0).getId();
-        if(!ObjectUtils.isNullOrEmpty(game)){
-            //启动游戏
-            gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
-        }else{
-            logger.error(ConstantsMsg.NO_GAME_ERROR,room.getId());
-            return new Resp(HttpRespCode.INTERNAL_SERVER_ERROR);
-        }
+        gameMapper.updateGameStatus(game.getId(),currentPlayerId,-1,-1,Constants.GAME_READY);
         //更新房间状态，刷新UI
         roomMapper.updateRoomStatus(room.getId(),Constants.ROOM_PLAYING);
         messageService.refreshUI(room.getId());

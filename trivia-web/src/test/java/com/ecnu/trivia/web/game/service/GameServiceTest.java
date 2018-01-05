@@ -127,9 +127,16 @@ public class GameServiceTest {
 
     @Test
     public void check_ready_when_all_users_ready() throws Exception {
-
+        mockPlayer1.setStatus(Constants.PLAYER_READY);
+        playerMapper.updatePlayer(mockPlayer1.getId(),mockPlayer1.getBalance(),mockPlayer1.getPosition(),mockPlayer1.getStatus());
         Resp resp = gameService.checkReady(mockUser.getId(), Constants.PLAYER_READY);
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void get_room_by_user_id() throws Exception{
+        RoomVO room = gameService.getRoomByUserId(mockUser.getId());
+        AssertJUnit.assertEquals(10,(int)room.getId());
     }
 
     @Test
