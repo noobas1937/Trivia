@@ -1,5 +1,13 @@
 package com.ecnu.trivia.web.game.service;
 
+import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.vo.PlayerVO;
+import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.service.SessionService;
+import com.ecnu.trivia.web.room.domain.vo.RoomVO;
+import com.ecnu.trivia.web.room.mapper.RoomMapper;
+import com.ecnu.trivia.web.room.service.RoomService;
+import com.ecnu.trivia.web.utils.Constants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Jack Chen
@@ -22,18 +31,37 @@ public class GameServiceTest {
 
     @Resource
     private GameService gameService;
+    @Resource
+    private SessionService sessionService;
+    @Resource
+    private RoomMapper roomMapper;
+    @Resource
+    private RoomService roomService;
+    private User mockUser;
 
     @Before
     public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
+        //模拟用户
+        sessionService.addNewUser("test-user","123","test-user");
+        mockUser = sessionService.getUserByAccount("test-user","123");
+        //将玩家添加到10号房间
+        roomMapper.updateRoomStatus(10, Constants.ROOM_WAITING);
+        roomService.enterRoom(10,mockUser.getId());
     }
 
     @Test
     public void getRoomByUserId() throws Exception {
-        gameService.getRoomByUserId(2);
+        RoomVO roomVO = gameService.getRoomByUserId(mockUser.getId());
+        List<PlayerVO> playerList = roomVO.getPlayerList();
+        if(ObjectUtils.isNullOrEmpty(playerList)){
+            AssertJUnit.fail();
+        }
+        for (PlayerVO playerVO: playerList) {
+            if(playerVO.getUserId()==mockUser.getId()){
+                return;
+            }
+        }
+        AssertJUnit.fail();
     }
 
     @Test
@@ -49,12 +77,17 @@ public class GameServiceTest {
 
     @Test
     public void getAppropriateReadyRoomId() throws Exception {
-        Integer res = gameService.getAppropriateReadyRoomId();
+        gameService.getAppropriateReadyRoomId();
     }
 
     @Test
-    public void refreshUserRoom() throws Exception {
+    public void refresh_user_room_with_correct_user_id() throws Exception {
         gameService.refreshUserRoom(2);
+    }
+
+    @Test
+    public void refresh_user_room_with_error_user_id() throws Exception {
+        gameService.refreshUserRoom(-1000);
     }
 
 }

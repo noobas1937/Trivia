@@ -136,6 +136,9 @@ public class GameService implements Logable {
      */
     public RoomVO getRoomByUserId(Integer userId){
         Player player = playerMapper.getPlayerByUserId(userId);
+        if(ObjectUtils.isNullOrEmpty(player)){
+            return null;
+        }
         return roomMapper.getRoomById(player.getRoomId());
     }
 
