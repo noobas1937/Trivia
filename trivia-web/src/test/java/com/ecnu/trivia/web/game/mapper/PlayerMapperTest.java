@@ -14,13 +14,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
 @RunWith(value = SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
-        ,"classpath:spring/applicationContext-web.xml"})
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 @Transactional
 public class PlayerMapperTest {
     @Resource
-private PlayerMapper playerMapper;
+    private PlayerMapper playerMapper;
     @Test
     public void setupUserState() throws Exception {
         playerMapper.setupUserState(3,0);

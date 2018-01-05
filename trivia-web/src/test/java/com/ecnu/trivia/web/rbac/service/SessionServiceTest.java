@@ -22,16 +22,13 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-
-@RunWith(value = SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
-        ,"classpath:spring/applicationContext-web.xml"})
-@Transactional
-
 /**
  * @author: Lucto Zhang
  * @date: 23:01 2018/01/04
  */
+@RunWith(value = SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
+@Transactional
 public class SessionServiceTest {
     @Resource
     private SessionService sessionService;

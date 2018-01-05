@@ -30,9 +30,9 @@ import javax.servlet.http.HttpSession;
 import static org.junit.Assert.*;
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 @Transactional
-@WebAppConfiguration
 public class UserControllerTest {
     @Resource
     private SessionController sessionController;
