@@ -1,2 +1,0 @@
-Key,platCode,platUserId,platUserNick,userId,platAdminFlag,avatar,thirdOrgId,createDate
-TU1,taobao,华院数云,华院数云,-1,true,null,-1,2014-12-12 12:12:12

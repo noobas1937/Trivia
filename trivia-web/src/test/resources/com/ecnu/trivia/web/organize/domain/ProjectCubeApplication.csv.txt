@@ -1,8 +1,0 @@
-key,id,projectId,cubeId,requestUserId,reason,createDate,status,updateDate,handleUserId
-PCA1,-1,-1,-1,-1,使用,2015-07-07,applied,NULL,NULL
-PCA2,-2,-1,-2,-1,测试,2015-07-08,applied,NULL,NULL
-PCA2_1,3,-1,-2,-1,再次申请,2015-07-09,applied,NULL,NULL
-P2CA1,-4,-2,-1,-1,项目二使用,2015-07-07,applied,NULL,NULL
-P2CA2,-5,-2,-2,-1,项目二使用2,2015-07-08,applied,NULL,NULL
-PCA2_2,6,-1,-2,-1,取消的申请,2015-07-10,canceled,NULL,NULL
-PCA3,-6,-1,-1,-2,用户2使用,2015-07-07,applied,NULL,NULL

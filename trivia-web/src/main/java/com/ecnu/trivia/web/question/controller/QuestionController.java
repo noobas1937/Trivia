@@ -24,21 +24,12 @@ import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.question.service.QuestionService;
 import com.ecnu.trivia.web.question.service.QuestionTypeService;
-import com.ecnu.trivia.web.rbac.domain.User;
-import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
-import com.ecnu.trivia.web.rbac.utils.UserUtils;
-import com.ecnu.trivia.web.room.service.RoomService;
-import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
-import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.QuestionResp;
 import com.ecnu.trivia.web.utils.Resp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.List;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -109,8 +100,8 @@ public class QuestionController {
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
     public QuestionResp getQuestionTypeList(@RequestParam("pno") Integer pno,
                                     @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
-        List<QuestionType> list = questionTypeService.getQuestionTypeListByPage(pno,PAGE_SIZE);
-        Integer count = questionTypeService.getQuestionTypeListCount();
+        List<QuestionType> list = questionTypeService.getQuestionTypesByPage(pno,PAGE_SIZE);
+        Integer count = questionTypeService.getQuestionTypesCount();
         return new QuestionResp(HttpRespCode.SUCCESS,list,count);
     }
 
@@ -154,7 +145,7 @@ public class QuestionController {
     @RequestMapping(value = "/type/modify/", method = RequestMethod.POST)
     public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
                                        @RequestParam("description") String description) {
-        boolean result = questionTypeService.modifyQuestionTypeName(questionId,description);
+        boolean result = questionTypeService.modifyQuestionType(questionId,description);
         if(result) {
             return new Resp(HttpRespCode.SUCCESS);
         }

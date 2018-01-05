@@ -77,6 +77,9 @@ public class SessionService implements Logable{
 
     public User getUserById(Integer id){
         User user = userMapper.getUserById(id);
+        if(ObjectUtils.isNullOrEmpty(user)){
+            return user;
+        }
         user.setPassword("");
         return user;
     }

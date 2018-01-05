@@ -304,11 +304,11 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu{
 .pic1
 {
     position: relative;
-    width: 50px;
-    border-radius:50px;
-    height: 50px;
+    width: 40px;
+    border-radius:40px;
+    height: 40px;
     display: block;
-    background-color: black;
+
 }
 .name{
     position: relative;

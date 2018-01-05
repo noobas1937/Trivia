@@ -33,7 +33,7 @@
         WHERE id = ${id}
     </update>
 
-    <select id="getQuestionList" resultType="com.ecnu.trivia.web.question.domain.vo.QuestionVO">
+    <select id="getQuestions" resultType="com.ecnu.trivia.web.question.domain.vo.QuestionVO">
         SELECT q.id AS id
         ,q.description AS description
         ,q.type_id AS typeId
@@ -49,7 +49,7 @@
         FROM question as q,question_type as qt WHERE q.id != -1 AND q.type_id = qt.id  LIMIT ${pno},${pagesize}
     </select>
 
-    <select id="getAllQuestionsCount" resultType="java.lang.Integer">
+    <select id="getQuestionsCount" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM question WHERE id != -1
     </select>
 
@@ -57,24 +57,11 @@
         SELECT * FROM question_type
     </select>
 
-    <select id="getQuestionTypeByQuestionTypeDescription" resultType="com.ecnu.trivia.web.question.domain.QuestionType">
-        SELECT * FROM question_type WHERE name = #{description}
-    </select>
-
-    <select id="getQuestionListByQuestionTypeId" resultType="com.ecnu.trivia.web.question.domain.Question">
+    <select id="getQuestionsByQuestionTypeId" resultType="com.ecnu.trivia.web.question.domain.Question">
         SELECT *
         FROM question
         WHERE type_id = ${typeId}
     </select>
-
-    <delete id="deleteQuestionTypeByQuestionTypeId">
-        DELETE FROM question_type WHERE id = ${typeId}
-    </delete>
-
-    <insert id="addQuestionTypeByDescription">
-        INSERT INTO question_type (id, name, gmt_created, gmt_modified)
-        VALUES (null,#{description},NOW(),NOW())
-    </insert>
 
     <update id="updateQuestionTypeName">
         UPDATE question_type

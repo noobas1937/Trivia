@@ -17,7 +17,7 @@ import static com.ecnu.trivia.common.component.metric.MetricsHolder.name;
  *
  * @author Jack Chen
  */
-@Component
+//@Component
 public class MetricsJvmRegister {
 
     @PostConstruct

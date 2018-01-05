@@ -43,12 +43,12 @@ public interface QuestionMapper extends Mapper<Question> {
                      @Param("chooseC") String chooserC,@Param("chooseD") String chooserD,@Param("answer") Integer answer,
                      @Param("type") Integer type);
 
-    List<Question> getQuestionListByQuestionTypeId(@Param("typeId") Integer typeId);
+    List<Question> getQuestionsByQuestionTypeId(@Param("typeId") Integer typeId);
 
     /**获取所有问题**/
-    List<QuestionVO> getQuestionList(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
+    List<QuestionVO> getQuestions(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
 
-    Integer getAllQuestionsCount();
+    Integer getQuestionsCount();
 
     /**随机获取问题*/
     Integer generateRandomQuestion(@Param("type") Integer type);

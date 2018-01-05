@@ -1,5 +1,0 @@
-Key,id,projectId,caption,image,contentUrl,createUserId,createDate,updateUserId,updateDate
-D1,-1,-1,仪表盘1,null,null,-1,2014-12-12 12:12:12,null,null
-D2,-2,-1,仪表盘2,null,null,-1,2014-12-12 12:12:12,null,null
-D3,-3,-2,仪表盘3,NULL,NULL,-1,"2014-12-12 12:12:12",NULL,NULL
-D4,-4,-1,仪表盘1-副本,NULL,NULL,-1,"2014-12-12 12:12:12",NULL,NULL

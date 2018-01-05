@@ -152,7 +152,11 @@
       <artifactId>gherkin</artifactId>
       <version>RELEASE</version>
     </dependency>
-    <!-- 测试 end -->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>RELEASE</version>
+    </dependency>
 
   </dependencies>
 
