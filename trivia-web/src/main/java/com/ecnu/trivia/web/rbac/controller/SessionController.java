@@ -110,9 +110,8 @@ public class SessionController {
      * @date 15:14 2017/12/11
      */
     @RequestMapping(value = "/current/", method = RequestMethod.GET)
-    public User getUserInfo(HttpSession session) {
-        User user = (User)session.getAttribute(Constants.ONLINE_USER);
-        return user;
+    public User getUserInfo() {
+        return UserUtils.fetchUser();
     }
 
 }
