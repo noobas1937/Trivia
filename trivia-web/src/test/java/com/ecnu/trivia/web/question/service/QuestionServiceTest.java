@@ -67,7 +67,6 @@ public class QuestionServiceTest {
     public void getGameByQuestionId() throws Exception {
         Game successRes=questionService.getGameByQuestionId(mockQuestion.getId());
         AssertJUnit.assertNotNull(successRes);
-;
     }
 
     @Test
@@ -128,7 +127,7 @@ public class QuestionServiceTest {
     }
     @Test
     public void checkQuestionAnswer_answer_is_wrong() throws Exception{
-        Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer());
+        Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer()+1);
         AssertJUnit.assertEquals(false,successRes.getData());
     }
     @Test
@@ -156,6 +155,7 @@ public class QuestionServiceTest {
 
     @Test
     public void generateRandomQuestion() throws Exception {
+
     }
 
 }
