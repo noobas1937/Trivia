@@ -1,5 +1,6 @@
 package com.ecnu.trivia.web.game.service;
 
+import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.game.domain.Game;
 import com.ecnu.trivia.web.game.domain.Player;
@@ -12,6 +13,8 @@ import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
 import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Constants;
+import com.ecnu.trivia.web.utils.Resp;
+import com.sun.tools.internal.jxc.ap.Const;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +52,7 @@ public class GameServiceTest {
     private User mockUser1;
     private Game mockGame;
     private Player mockPlayer;
+    private Player mockPlayer1;
 
     @Before
     public void setUp() throws Exception {
@@ -60,8 +64,10 @@ public class GameServiceTest {
         //将玩家添加到10号房间
         roomMapper.updateRoomStatus(10, Constants.ROOM_WAITING);
         roomService.enterRoom(10,mockUser.getId());
+        roomService.enterRoom(10,mockUser1.getId());
         mockGame = gameMapper.getGameByRoomId(10);
         mockPlayer = playerMapper.getPlayerByUserId(mockUser.getId());
+        mockPlayer1 = playerMapper.getPlayerByUserId(mockUser1.getId());
     }
 
     @Test
@@ -93,8 +99,29 @@ public class GameServiceTest {
     }
 
     @Test
-    public void checkReady() throws Exception {
-        gameService.checkReady(2,1);
+    public void check_ready_when_room_is_playing() throws Exception {
+        roomMapper.updateRoomStatus(10,Constants.ROOM_PLAYING);
+        Resp resp = gameService.checkReady(mockUser.getId(),Constants.PLAYER_READY);
+        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void check_ready_when_user_cancel_ready() throws Exception {
+        Resp resp = gameService.checkReady(mockUser.getId(), Constants.PLAYER_WAITING);
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void check_ready_when_other_user_not_ready() throws Exception {
+        Resp resp = gameService.checkReady(mockUser.getId(), Constants.PLAYER_READY);
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void check_ready_when_all_users_ready() throws Exception {
+
+        Resp resp = gameService.checkReady(mockUser.getId(), Constants.PLAYER_READY);
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
     }
 
     @Test
