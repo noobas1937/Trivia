@@ -56,6 +56,7 @@ public class GameServiceTest {
     private QuestionMapper questionMapper;
     private User mockUser;
     private User mockUser1;
+    private User mockUser2;
     private Game mockGame;
     private Player mockPlayer;
     private Player mockPlayer1;
@@ -66,8 +67,10 @@ public class GameServiceTest {
         //模拟用户
         sessionService.addNewUser("test-user","123","test-user");
         sessionService.addNewUser("test-user1","123","test-user1");
+        sessionService.addNewUser("test-user2","123","test-user2");
         mockUser = sessionService.getUserByAccount("test-user","123");
         mockUser1 = sessionService.getUserByAccount("test-user1","123");
+        mockUser2 = sessionService.getUserByAccount("test-user2","123");
         //将玩家添加到10号房间
         roomMapper.updateRoomStatus(10, Constants.ROOM_WAITING);
         roomService.enterRoom(10,mockUser.getId());
@@ -93,24 +96,48 @@ public class GameServiceTest {
         AssertJUnit.fail();
     }
 
+
+    @Test
+    public void roll_dice_with_player_not_in_room() throws Exception {
+        boolean res = gameService.rollDice(mockUser2.getId());
+        AssertJUnit.assertEquals(false,res);
+    }
+
     @Test
     public void roll_dice_with_illegal_player() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),-1,mockQuestion.getId(), Constants.GAME_READY);
-        boolean res = gameService.rollDice(mockPlayer1.getId());
+        boolean res = gameService.rollDice(mockUser1.getId());
         AssertJUnit.assertEquals(false,res);
     }
 
     @Test
-    public void roll_dice_with_illegal_game_status() throws Exception {
-        boolean res = gameService.rollDice(2);
+    public void roll_dice_with_illegal_game_status_and_legal_player() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer1.getId(),-1,mockQuestion.getId(), Constants.GAME_ANSWERING_QUESTION);
+        boolean res = gameService.rollDice(mockUser1.getId());
         AssertJUnit.assertEquals(false,res);
     }
 
     @Test
-    public void check_ready_when_room_is_playing() throws Exception {
-        roomMapper.updateRoomStatus(10,Constants.ROOM_PLAYING);
-        Resp resp = gameService.checkReady(mockUser.getId(),Constants.PLAYER_READY);
-        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),resp.getResCode());
+    public void roll_dice_with_player_not_current() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),-1,mockQuestion.getId(), Constants.GAME_ANSWERING_QUESTION);
+        boolean res = gameService.rollDice(mockUser1.getId());
+        AssertJUnit.assertEquals(false,res);
+    }
+
+    @Test
+    public void roll_dice_with_player_legal_and_can_answer_question() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),-1,mockQuestion.getId(), Constants.GAME_READY);
+        playerMapper.updatePlayer(mockPlayer.getId(),mockPlayer.getBalance(),mockPlayer.getPosition(),Constants.PLAYER_GAMING_FREE);
+        boolean res = gameService.rollDice(mockUser.getId());
+        AssertJUnit.assertEquals(true,res);
+    }
+
+    @Test
+    public void roll_dice_with_player_legal_and_can_not_answer_question() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),-1,mockQuestion.getId(), Constants.GAME_READY);
+        playerMapper.updatePlayer(mockPlayer.getId(),mockPlayer.getBalance(),mockPlayer.getPosition(),Constants.PLAYER_GAMING_HOLD);
+        boolean res = gameService.rollDice(mockUser.getId());
+        AssertJUnit.assertEquals(true,res);
     }
 
     @Test
