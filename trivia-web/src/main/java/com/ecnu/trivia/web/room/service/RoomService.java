@@ -82,7 +82,7 @@ public class RoomService implements Logable{
         //判断房间对应的游戏是否存在
         Game game = gameMapper.getGameByRoomId(roomId);
         //若游戏不存在，则创建该游戏
-        if(ObjectUtils.isNotNullOrEmpty(game)){
+        if(ObjectUtils.isNullOrEmpty(game)){
             gameMapper.addGame(roomId,-1);
         }
         Player player = playerMapper.getPlayerByUserId(userID);
