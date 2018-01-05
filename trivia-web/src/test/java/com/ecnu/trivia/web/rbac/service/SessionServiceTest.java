@@ -101,7 +101,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void getUserCount() throws Exception {
+    public void get_user_count() throws Exception {
         Integer res = sessionService.getUserCount();
         if(res == null || res < 0){
             AssertJUnit.fail("null");
@@ -109,15 +109,19 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void getUserById() throws Exception {
+    public void get_user_by_id_with_id_exist() throws Exception {
         User successRes = sessionService.getUserById(2);
         AssertJUnit.assertNotNull(successRes);
+    }
+
+    @Test
+    public void get_user_by_id_with_id_not_exist() throws Exception {
         User failRes = sessionService.getUserById(10000);
         AssertJUnit.assertNull(failRes);
     }
 
     @Test
-    public void getUserList() throws Exception {
+    public void get_user_list() throws Exception {
         List users = sessionService.getUserList(1,10);
         AssertJUnit.assertNotNull(users);
     }
@@ -137,10 +141,14 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void deleteUserById() throws Exception {
+    public void delete_user_by_id_successfully() throws Exception {
         //成功删除 => 删除成功，返回成功码
         Resp successRes = sessionService.deleteUserById(1);
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void delete_user_by_id_when_user_in_game() throws Exception {
         //想删除的用户正在游戏中 => 不允许删除，返回错误码
         Resp failRes =  sessionService.deleteUserById(-1);
         AssertJUnit.assertEquals(HttpRespCode.OPERATE_IS_NOT_ALLOW.getCode(),failRes.getResCode());
@@ -197,7 +205,7 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void getUserInGame() throws Exception {
+    public void get_user_in_game() throws Exception {
         List res = sessionService.getUserInGame();
         AssertJUnit.assertNotNull(res);
     }
