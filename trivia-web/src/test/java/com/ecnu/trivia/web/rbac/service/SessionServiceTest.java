@@ -4,19 +4,28 @@ import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.utils.Resp;
+import com.ecnu.trivia.web.utils.json.JSONObject;
 import javafx.beans.binding.ObjectExpression;
 import org.apache.http.protocol.HTTP;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -34,25 +43,37 @@ public class SessionServiceTest {
     private SessionService sessionService;
 
     @Test
-    public void getUserByAccount() throws Exception {
+    public void get_user_by_account_successfully() throws Exception {
         User successRes = sessionService.getUserByAccount("siyuan","12345678");
         AssertJUnit.assertNotNull(successRes);
+    }
+
+    @Test
+    public void get_user_by_account_with_password_error() throws Exception {
         User pwdErrorRes = sessionService.getUserByAccount("siyuan","1234");
         AssertJUnit.assertNull(pwdErrorRes);
+    }
+
+    @Test
+    public void get_user_by_account_with_account_not_exist() throws Exception {
         User accountErrorRes = sessionService.getUserByAccount("sisi","555");
         AssertJUnit.assertNull(accountErrorRes);
     }
 
     @Test
-    public void getUserByAccountWithoutPassword() throws Exception {
+    public void get_user_by_account_without_password_successfully() throws Exception {
         User successRes = sessionService.getUserByAccountWithoutPassword("siyuan");
         AssertJUnit.assertNotNull(successRes);
+    }
+
+    @Test
+    public void get_user_by_account_without_password_with_account_not_exist() throws Exception {
         User failRes = sessionService.getUserByAccountWithoutPassword("ss");
         AssertJUnit.assertNull(failRes);
     }
 
     @Test
-    public void setUserLastLogin() throws Exception {
+    public void set_user_last_login() throws Exception {
         Timestamp last = sessionService.getUserByAccountWithoutPassword("siyuan").getLastLogin();
         sessionService.setUserLastLogin("siyuan");
         Timestamp now = sessionService.getUserByAccountWithoutPassword("siyuan").getLastLogin();
@@ -63,10 +84,14 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void setUserRegisterInfo() throws Exception {
-        sessionService.setUserRegisterInfo("承中岳","New","chenzhongyue","12345678");
+    public void set_user_register_info_successfully() throws Exception {
+        sessionService.setUserRegisterInfo("陈中岳","New","chenzhongyue","12345678");
         User successRes = sessionService.getUserByAccountWithoutPassword("chenzhongyue");
         AssertJUnit.assertNotNull(successRes);
+    }
+
+    @Test
+    public void set_user_register_info_with_account_exist() throws Exception {
         String origin = sessionService.getUserByAccountWithoutPassword("guoshuyi").getNickName();
         sessionService.setUserRegisterInfo("郭丹丹","NEW","guoshuyi","123456");
         String now = sessionService.getUserByAccountWithoutPassword("guoshuyi").getNickName();
@@ -98,10 +123,14 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void addNewUser() throws Exception {
+    public void add_new_user_with_account_not_exist() throws Exception {
         //新添加的用户名不重复 => 返回新添加的用户
         Resp successRes = sessionService.addNewUser("haifei","123","海飞");
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void add_new_user_with_account_exist() throws Exception {
         //新添加的用户名已存在 => 返回旧的用户
         Resp failRes = sessionService.addNewUser("siyuan","123","原子弹");
         AssertJUnit.assertEquals(HttpRespCode.OPERATE_IS_NOT_ALLOW.getCode(),failRes.getResCode());
@@ -118,12 +147,53 @@ public class SessionServiceTest {
     }
 
     @Test
-    public void modifyUserInfo() throws Exception {
-        sessionService.modifyUserInfo(2,"12345","远远","New",0,0,1000);
+    public void modify_user_info_with_values() throws Exception {
+        User user = new User();
+        user.setId(2);
+        user.setPassword("12345");
+        user.setHeadPic("New");
+        user.setStatus(0);
+        user.setUserType(0);
+        user.setNickName("远远");
+        user.setBalance(1000);
+        sessionService.modifyUserInfo(user);
     }
 
     @Test
-    public void uploadHeadPic() throws Exception {
+    public void modify_user_info_with_null_values() throws Exception {
+        User user = new User();
+        user.setId(2);
+        sessionService.modifyUserInfo(user);
+    }
+
+    @Test
+    public void upload_head_pic() throws Exception {
+        MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+        request.setMethod("POST");
+        request.setContentType("multipart/form-data");
+        request.addHeader("Content-type", "multipart/form-data");
+        FileInputStream fis = new FileInputStream("C:/Users/sei_z/Desktop/test.png");
+        MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "test.png", "application/vnd_ms-excel", fis);
+        String uri = sessionService.uploadHeadPic(mfile);
+        AssertJUnit.assertNotNull(uri);
+    }
+
+    @Test
+    public void upload_head_pic_with_path_not_exist() throws Exception {
+        MockMultipartHttpServletRequest request = new MockMultipartHttpServletRequest();
+        request.setMethod("POST");
+        request.setContentType("multipart/form-data");
+        request.addHeader("Content-type", "multipart/form-data");
+        FileInputStream fis = new FileInputStream("C:/Users/sei_z/Desktop/test.png");
+        MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "test.png", "application/vnd_ms-excel", fis);
+        File file = new File("E://nginx/html/image");
+        if(file.exists()){
+            if(file.isFile()) {
+                file.delete();
+            }
+        }
+        String uri = sessionService.uploadHeadPic(mfile);
+        AssertJUnit.assertNotNull(uri);
     }
 
     @Test

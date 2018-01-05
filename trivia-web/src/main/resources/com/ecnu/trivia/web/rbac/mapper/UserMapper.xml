@@ -51,7 +51,7 @@
         SET `password` = #{user.password},nick_name = #{user.nickName},head_pic = #{user.headPic},
             user_type = ${user.userType},status = ${user.status},balance = ${user.balance},
             gmt_modified = NOW()
-        WHERE id = ${userID}
+        WHERE id = ${user.id}
     </update>
 
     <select id="setUserRegisterInfo" resultType="com.ecnu.trivia.web.rbac.domain.User">

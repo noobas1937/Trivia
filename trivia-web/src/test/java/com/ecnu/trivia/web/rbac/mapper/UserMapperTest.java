@@ -103,11 +103,14 @@ public class UserMapperTest {
     @Test
     public void modifyUserInfoWithNewPassword() throws Exception {
         User last = userMapper.getUserById(2);
-        userMapper.modifyUserInfoWithNewPassword(2,"12345678","方方","New",1,0,1000);
+        User tmp= new User();
+        tmp.transform(last);
+        tmp.setId(2);
+        tmp.setNickName("远远");
+        tmp.setPassword("123456");
+        userMapper.modifyUserInfo(tmp);
         User now = userMapper.getUserById(2);
-        if(ObjectUtils.isNullOrEmpty(now)){
-            AssertJUnit.fail("null");
-        }
+        AssertJUnit.assertNotNull(now);
         if(last.getNickName().equals(now.getNickName())){
                 AssertJUnit.fail("failed");
         }
@@ -116,11 +119,13 @@ public class UserMapperTest {
     @Test
     public void modifyUserInfoWithoutNewPassword() throws Exception {
         User last = userMapper.getUserById(3);
-        userMapper.modifyUserInfoWithNewPassword(3,"12345678","阿晨","New",1,0,1000);
+        User tmp = new User();
+        tmp.transform(last);
+        tmp.setId(3);
+        tmp.setNickName("阿晨");
+        userMapper.modifyUserInfo(tmp);
         User now = userMapper.getUserById(3);
-        if(ObjectUtils.isNullOrEmpty(now)){
-            AssertJUnit.fail("null");
-        }
+        AssertJUnit.assertNotNull(now);
         if(last.getNickName().equals(now.getNickName())){
             AssertJUnit.fail("failed");
         }
