@@ -1,4 +1,0 @@
-Key,id,userId,requestBody,result,openRequestId,createDate,confirmCreateDate,confirmCreateUserId
-R1,-1,-1,我是新同事，申请加入组织,active,-1,,,
-R2,-2,-2,我是新同事R2，申请加入组织,active,-1,,,
-R3,-3,-3,我是新同事R3，申请加入组织,active,-1,,,

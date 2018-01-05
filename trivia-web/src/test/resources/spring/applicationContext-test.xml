@@ -9,7 +9,6 @@
     <context:property-placeholder location="classpath*:conf/business.properties,
                 classpath*:conf/cache-test.properties,
                 classpath*:conf/db-test.properties,
-                classpath*:conf/job.properties,
                 classpath*:conf/business.properties
         " ignore-unresolvable="true"/>
 
@@ -19,7 +18,6 @@
     </bean>
 
     <import resource="classpath:spring/applicationContext-common.xml"/>
-    <import resource="classpath:spring/applicationContext-tx.xml"/>
-    <import resource="classpath:spring/applicationContext-cache.xml"/>
+    <import resource="classpath:spring/applicationContext.xml"/>
     <import resource="classpath:spring/applicationContext-web.xml"/>
 </beans>

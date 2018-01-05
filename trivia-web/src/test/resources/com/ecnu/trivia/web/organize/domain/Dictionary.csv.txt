@@ -1,6 +1,0 @@
-Key,id,name,caption,type,ownerKey,createDate,avatar
-D1,-1,淘宝,淘宝,,,,
-D2,-2,当当网,当当网,,,,
-D3,-3,RDS,RDS,,,,
-D_1,1,淘宝,淘宝,third_platform,NULL,NULL,NULL
-D_2,2,京东,京东,third_platform,NULL,NULL,NULL

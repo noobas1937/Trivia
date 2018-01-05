@@ -1,3 +1,0 @@
-key,id,orgId,cubeId,createUserId,createDate
-OC1,-1,-1,-1,-1,2015-07-07
-OC2,-2,-1,-2,-2,2015-08-08
