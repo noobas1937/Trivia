@@ -8,6 +8,7 @@ import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
+import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.room.service.RoomService;
@@ -36,6 +37,8 @@ public class QuestionServiceTest {
     @Resource
     private SessionService sessionService;
     @Resource
+    private QuestionMapper questionMapper;
+    @Resource
     private QuestionService questionService;
     @Resource
     private GameMapper gameMapper;
@@ -46,7 +49,7 @@ public class QuestionServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        mockQuestion = questionService.getAllQuestions(1,10).get(0);
+        mockQuestion = questionMapper.getQuestions(1,10).get(0);
         sessionService.addNewUser("test-user","123","test-user");
         mockUser = sessionService.getUserByAccount("test-user","123");
         roomService.enterRoom(10,mockUser.getId());
@@ -69,7 +72,7 @@ public class QuestionServiceTest {
 
     @Test
     public void deleteQuestion() throws Exception {
-        questionService.deleteQuestion(mockQuestion.getId());
+        questionMapper.deleteQuestion(mockQuestion.getId());
         Resp successRes=questionService.getQuestionById(mockUser.getId(),mockQuestion.getId());
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
     }

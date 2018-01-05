@@ -7,6 +7,10 @@ import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.domain.vo.PlayerVO;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
+import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
+import com.ecnu.trivia.web.question.mapper.QuestionMapper;
+import com.ecnu.trivia.web.question.service.QuestionService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
@@ -48,11 +52,14 @@ public class GameServiceTest {
     private PlayerMapper playerMapper;
     @Resource
     private RoomService roomService;
+    @Resource
+    private QuestionMapper questionMapper;
     private User mockUser;
     private User mockUser1;
     private Game mockGame;
     private Player mockPlayer;
     private Player mockPlayer1;
+    private QuestionVO mockQuestion;
 
     @Before
     public void setUp() throws Exception {
@@ -68,6 +75,7 @@ public class GameServiceTest {
         mockGame = gameMapper.getGameByRoomId(10);
         mockPlayer = playerMapper.getPlayerByUserId(mockUser.getId());
         mockPlayer1 = playerMapper.getPlayerByUserId(mockUser1.getId());
+        mockQuestion = questionMapper.getQuestions(1,10).get(0);
     }
 
     @Test
@@ -87,8 +95,8 @@ public class GameServiceTest {
 
     @Test
     public void roll_dice_with_illegal_player() throws Exception {
-        boolean res = gameService.rollDice(2);
-//        gameMapper.updateGameStatus();
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),-1,mockQuestion.getId(), Constants.GAME_READY);
+        boolean res = gameService.rollDice(mockPlayer1.getId());
         AssertJUnit.assertEquals(false,res);
     }
 
