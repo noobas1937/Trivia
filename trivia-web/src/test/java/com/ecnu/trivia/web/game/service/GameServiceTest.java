@@ -1,7 +1,11 @@
 package com.ecnu.trivia.web.game.service;
 
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.Game;
+import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.game.domain.vo.PlayerVO;
+import com.ecnu.trivia.web.game.mapper.GameMapper;
+import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
@@ -32,21 +36,32 @@ public class GameServiceTest {
     @Resource
     private GameService gameService;
     @Resource
+    private GameMapper gameMapper;
+    @Resource
     private SessionService sessionService;
     @Resource
     private RoomMapper roomMapper;
     @Resource
+    private PlayerMapper playerMapper;
+    @Resource
     private RoomService roomService;
     private User mockUser;
+    private User mockUser1;
+    private Game mockGame;
+    private Player mockPlayer;
 
     @Before
     public void setUp() throws Exception {
         //模拟用户
         sessionService.addNewUser("test-user","123","test-user");
+        sessionService.addNewUser("test-user1","123","test-user1");
         mockUser = sessionService.getUserByAccount("test-user","123");
+        mockUser1 = sessionService.getUserByAccount("test-user1","123");
         //将玩家添加到10号房间
         roomMapper.updateRoomStatus(10, Constants.ROOM_WAITING);
         roomService.enterRoom(10,mockUser.getId());
+        mockGame = gameMapper.getGameByRoomId(10);
+        mockPlayer = playerMapper.getPlayerByUserId(mockUser.getId());
     }
 
     @Test
@@ -65,7 +80,14 @@ public class GameServiceTest {
     }
 
     @Test
-    public void rollDice() throws Exception {
+    public void roll_dice_with_illegal_player() throws Exception {
+        boolean res = gameService.rollDice(2);
+//        gameMapper.updateGameStatus();
+        AssertJUnit.assertEquals(false,res);
+    }
+
+    @Test
+    public void roll_dice_with_illegal_game_status() throws Exception {
         boolean res = gameService.rollDice(2);
         AssertJUnit.assertEquals(false,res);
     }
