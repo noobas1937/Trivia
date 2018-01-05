@@ -324,8 +324,7 @@ function refreshPlayerPosition(obj){
         $.each(obj.playerList,function(index,item){
             if(item.position === -1) item.position = 0;
             var position =graph[item.position];
-            role[index].role.visible = true;
-            role[index].name.visible = true;
+            role[index].role.visible = true;        role[index].name.visible = true;
             role[index].name.innerHTML = item.nickName;
             Tween.to(role[index].role,
             {
@@ -426,18 +425,19 @@ function onMapLoaded(){
         }
     });
     //初始化角色列表
-    role[1]={"role":tiledMap.getLayerObject("hero","role1"),"name":new HTMLDivElement()};
-    role[2]={"role":tiledMap.getLayerObject("hero","role2"),"name":new HTMLDivElement()};
-    role[3]={"role":tiledMap.getLayerObject("hero","role3"),"name":new HTMLDivElement()};
-    role[4]={"role":tiledMap.getLayerObject("hero","role4"),"name":new HTMLDivElement()};
+    role=[];
+    role.push({"role":tiledMap.getLayerObject("hero","role1"),"name":new HTMLDivElement()});
+    role.push({"role":tiledMap.getLayerObject("hero","role2"),"name":new HTMLDivElement()});
+    role.push({"role":tiledMap.getLayerObject("hero","role3"),"name":new HTMLDivElement()});
+    role.push({"role":tiledMap.getLayerObject("hero","role4"),"name":new HTMLDivElement()});
     $.each(role,function(index,item){
-        item.visible = false;
+        role[index].role.visible = false;
         role[index].name.style.font = "Impact";
         role[index].name.style.fontSize = 20;
         role[index].name.style.color = "#000000";
         role[index].name.innerHTML = "";
         role[index].name.visible = false;
-        Laya.stage.addChild(role[index]);
+        Laya.stage.addChild(role[index].role);
     });
     //预加载资源文件后执行回调
     Laya.loader.load(["h5/res/atlas/comp.atlas","h5/res/atlas/template/ButtonTab.atlas","h5/res/atlas/template/Warn.atlas"], Handler.create(this, onDialogLoaded));
