@@ -66,12 +66,12 @@ public class MessageService {
      * @param userId 除去的user
      * @return
      */
-    public void sendToAllTerminal(String message,Integer userId){
-        for (Integer uid : onlineUser.keySet()) {
-            if(Objects.equals(uid, userId)){ continue; }
-            onlineUser.get(userId).sendMessageToUser(message,userId);
-        }
-    }
+//    public void sendToAllTerminal(String message,Integer userId){
+//        for (Integer uid : onlineUser.keySet()) {
+//            if(Objects.equals(uid, userId)){ continue; }
+//            onlineUser.get(userId).sendMessageToUser(message,userId);
+//        }
+//    }
 
     /**
      * 向所有终端发送消息(除了自己)
@@ -92,32 +92,14 @@ public class MessageService {
      * @param user 目标用户
      * @return
      */
-    public void sendToAllTerminal(String message,User user){
-        if(user==null) { throw new IllegalArgumentException(); }
-        WebSocketCommunicator communicator = onlineUser.get(user.getId());
-
-        if (ObjectUtils.isNotNullOrEmpty(communicator)) {
-            communicator.sendMessageToUser(message,user.getId());
-        }
-    }
-
-    /**
-     * 向一组用户发送消息
-     * @param message 消息内容（JSON串）
-     * @param userList 目标用户列表（必须包含用户ID）
-     */
-    public void sendMsgToUsers(String message, List<User> userList){
-        if(userList==null) { throw new IllegalArgumentException(); }
-        for (User user : userList) {
-            Integer userId = user.getId();
-            if(ObjectUtils.isNotNullOrEmpty(userId)){
-                WebSocketCommunicator communicator = onlineUser.get(user.getId());
-                if(ObjectUtils.isNotNullOrEmpty(communicator)) {
-                    communicator.sendMessageToUser(message, userId);
-                }
-            }
-        }
-    }
+//    public void sendToAllTerminal(String message,User user){
+//        if(user==null) { throw new IllegalArgumentException(); }
+//        WebSocketCommunicator communicator = onlineUser.get(user.getId());
+//
+//        if (ObjectUtils.isNotNullOrEmpty(communicator)) {
+//            communicator.sendMessageToUser(message,user.getId());
+//        }
+//    }
 
     /**
      * 向一组玩家发送消息
@@ -128,12 +110,10 @@ public class MessageService {
         if(players==null) { throw new IllegalArgumentException(); }
         for (PlayerVO player : players) {
             Integer userId = player.getUserId();
-            if(ObjectUtils.isNotNullOrEmpty(userId)){
-                WebSocketCommunicator communicator = onlineUser.get(player.getUserId());
-                if(ObjectUtils.isNotNullOrEmpty(communicator)){
-                    communicator.sendMessageToUser(message,userId);
-                }
-            }
+            if(ObjectUtils.isNullOrEmpty(userId)){ continue; }
+            WebSocketCommunicator communicator = onlineUser.get(player.getUserId());
+            if(ObjectUtils.isNullOrEmpty(communicator)){ continue; }
+            communicator.sendMessageToUser(message,userId);
         }
     }
 
@@ -151,13 +131,6 @@ public class MessageService {
         Game game = gameMapper.getGameByRoomId(roomId);
         room.setGame(game);
         sendMsgToPlayers(JSON.toJSONString(room),room.getPlayerList());
-        return true;
-    }
-
-    /**
-     * 从房间中删除玩家
-     */
-    public boolean removePlayerFromRoom(Integer roomId,Integer playerId){
         return true;
     }
 
