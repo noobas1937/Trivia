@@ -74,34 +74,36 @@ public class RoomService implements Logable{
 
     /**
      * 进入房间
-     * @param roomId 进入房间ID
-     * @param userID 退出用户ID
+     * @param roomId 进入的房间ID
+     * @param userID 退出的用户ID
+     * @author Michael Chen
      */
     public Resp enterRoom(Integer roomId, Integer userID) {
-        Integer integer = playerMapper.getPlayerCount(roomId);
+        //判断房间对应的游戏是否存在
+        Game game = gameMapper.getGameByRoomId(roomId);
+        //若游戏不存在，则创建该游戏
+        if(ObjectUtils.isNotNullOrEmpty(game)){
+            gameMapper.addGame(roomId,-1);
+        }
+        Player player = playerMapper.getPlayerByUserId(userID);
+        if(ObjectUtils.isNotNullOrEmpty(player)){
+            //玩家已经存在，可以直接返回成功
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+
+        Integer count = playerMapper.getPlayerCount(roomId);
         RoomVO room = roomMapper.getRoomById(roomId);
+        //房间正在游戏中
         if(room.getStatus()==Constants.ROOM_PLAYING){
             return new Resp(HttpRespCode.ROOM_PLAYING);
         }
-        if (ObjectUtils.isNotNullOrEmpty(integer) && integer > Constants.MAX_PLAYER_COUNT) {
+        //玩家超限
+        if (ObjectUtils.isNotNullOrEmpty(count) && count >= Constants.MAX_PLAYER_COUNT) {
             return new Resp(HttpRespCode.ROOM_FULL);
         }
-        Player player = playerMapper.getPlayerByUserId(userID);
-        if(ObjectUtils.isNullOrEmpty(player)){
-            playerMapper.addPlayer(roomId, userID);
-            Game game = gameMapper.getGameByRoomId(roomId);
-            //若游戏不存在，则创建该游戏！
-            if(ObjectUtils.isNullOrEmpty(game)){
-                Player currentPlayer = playerMapper.getPlayerByUserId(userID);
-                if(ObjectUtils.isNullOrEmpty(currentPlayer)){
-                    return new Resp(HttpRespCode.PLAYER_ADD_FAILED);
-                }
-                gameMapper.addGame(roomId,-1);
-            }
-            messageService.refreshUI(roomId);
-        }else{
-            return new Resp(HttpRespCode.SUCCESS);
-        }
+        //玩家不存在，添加玩家
+        playerMapper.addPlayer(roomId, userID);
+        messageService.refreshUI(roomId);
         return new Resp(HttpRespCode.SUCCESS);
     }
 }

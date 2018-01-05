@@ -45,10 +45,10 @@ public class UserUtils {
         return UserUtils.fetchUser().getId();
     }
 
-    public static void addUser(String current,User user){
-        HttpServletRequest request = HttpServletContext.getRequest();
+    public static void addUser(User user){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession httpSession = request.getSession();
-        httpSession.setAttribute(current,user);
+        httpSession.setAttribute(Constants.ONLINE_USER,user);
     }
 
 }

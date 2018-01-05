@@ -64,7 +64,7 @@ public class SessionServiceTest {
 
     @Test
     public void setUserRegisterInfo() throws Exception {
-        sessionService.setUserRegisterInfo("陈中岳","New","chenzhongyue","12345678");
+        sessionService.setUserRegisterInfo("承中岳","New","chenzhongyue","12345678");
         User successRes = sessionService.getUserByAccountWithoutPassword("chenzhongyue");
         AssertJUnit.assertNotNull(successRes);
         String origin = sessionService.getUserByAccountWithoutPassword("guoshuyi").getNickName();

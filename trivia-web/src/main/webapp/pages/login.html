@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="../static/css/login.css" type="text/css" />
     <link rel="stylesheet" href="../static/css/register.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/layui.css"  media="all">
 </head>
 
 <body>
@@ -15,12 +16,12 @@
         <h1>Welcome to trivia by F4</h1>
         <div>
             <form class="login">
-                <input type=text placeholder="Username" name='username'id="username">
+                <input type=text placeholder="Username" name='username' id="username">
                 <span class="error error1"></span>
                 <input type="password" placeholder="Password" name='userpwd' id="userpwd">
                 <span class="error error2"></span>
-                <button type="button" id="login-button" value='submit'>Login</button>
-                <button type="submit" id="register-button" value='submit' >register</button>
+                <button type="button" id="login-button">Login</button>
+                <button type="button" id="register-button"><a href="register.html" class="cc">Register</a></button>
             </form>
     </div>
 
@@ -43,7 +44,11 @@
 </body>
 <script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" language="javascript"></script>
 <script type="text/javascript" src="../static/js/login.js" language="javascript"></script>
+<script src="../static/layui.js" charset="utf-8"></script>
 <script>
+    layui.use('layer', function() { //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+    });
     $("body").keydown(function() {
         if (event.keyCode == "13") {//keyCode=13是回车键
             $('#login-button').click();

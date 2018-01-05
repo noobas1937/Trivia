@@ -120,7 +120,7 @@ function initDiceBtnListener(){
 function connect()
 {
     socket = new Socket();
-    socket.connectByUrl("ws://115.159.35.11:8080/trivia/websocket/");
+    socket.connectByUrl("ws://192.168.1.101:8080/trivia/websocket/");
 
     output = socket.output;
 

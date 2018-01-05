@@ -160,7 +160,7 @@ public class SessionService implements Logable{
         // 构建文件名称
         String logImageName = UUID.randomUUID().toString() + suffix;
         /** 拼成完整的文件保存路径加文件* */
-        String fileName = path + File.separator + logImageName;
+        String fileName = path + "/"+ logImageName;
         File files = new File(fileName);
         try {
             file.transferTo(files);

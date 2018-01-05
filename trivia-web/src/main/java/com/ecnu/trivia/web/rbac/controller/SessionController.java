@@ -22,19 +22,14 @@ import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserAccountVO;
 import com.ecnu.trivia.web.rbac.domain.vo.UserRegisterVO;
 import com.ecnu.trivia.web.rbac.service.SessionService;
-import com.ecnu.trivia.web.rbac.utils.JwtUtils;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
-import org.apache.commons.io.monitor.FileEntry;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @RestController
@@ -58,7 +53,7 @@ public class SessionController {
             return new Resp(HttpRespCode.USER_PASS_NOT_MATCH);
         }
         user.setPassword("");
-        UserUtils.addUser(Constants.ONLINE_USER,user);
+        UserUtils.addUser(user);
         sessionService.setUserLastLogin(userParam.getAccount());
         return new Resp(HttpRespCode.SUCCESS);
     }
@@ -80,8 +75,9 @@ public class SessionController {
      * @date: 22:24 2017/12/07
      */
     @RequestMapping(value = "/register/", method = RequestMethod.POST)
-    public Resp register(HttpSession session, @RequestBody UserRegisterVO userParam) {
-        if (ObjectUtils.isNullOrEmpty(userParam.getNickname()) || ObjectUtils.isNullOrEmpty(userParam.getHeadpic()) || ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
+    public Resp register(@RequestBody UserRegisterVO userParam) {
+        if (ObjectUtils.isNullOrEmpty(userParam.getNickname()) || ObjectUtils.isNullOrEmpty(userParam.getHeadpic())
+                || ObjectUtils.isNullOrEmpty(userParam.getAccount()) || ObjectUtils.isNullOrEmpty(userParam.getPassword())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         if(sessionService.getUserByAccountWithoutPassword(userParam.getAccount())!=null){
@@ -89,7 +85,8 @@ public class SessionController {
         }
         sessionService.setUserRegisterInfo(userParam.getNickname(),userParam.getHeadpic(),userParam.getAccount(),userParam.getPassword());
         User user = sessionService.getUserByAccount(userParam.getAccount(),userParam.getPassword());
-        session.setAttribute(Constants.ONLINE_USER,user);
+        user.setPassword("");
+        UserUtils.addUser(user);
         return new Resp(HttpRespCode.SUCCESS);
     }
 
