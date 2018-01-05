@@ -84,9 +84,9 @@ public class SessionService implements Logable{
         return user;
     }
 
-    public List<User> getUserList(Integer pno,Integer PAGE_SIZE){
-        Integer pageNumber = (pno - 1) * PAGE_SIZE;
-        return userMapper.getUserList(pageNumber,PAGE_SIZE);
+    public List<User> getUserList(Integer pno,Integer pageSize){
+        Integer pageNumber = (pno - 1) * pageSize;
+        return userMapper.getUserList(pageNumber,pageSize);
     }
 
     public Resp addNewUser(String account,String password,
@@ -110,56 +110,30 @@ public class SessionService implements Logable{
         return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
-    public void modifyUserInfo(Integer userID,String password,
-                               String nickName,String headPic,Integer userType,Integer status,Integer balance) {
-        User user = userMapper.getUserById(userID);
-        boolean isPassWordNull = ObjectUtils.isNullOrEmpty(password);
-        boolean isNickNameNull = ObjectUtils.isNullOrEmpty(nickName);
-        boolean isHeadPicNull = ObjectUtils.isNullOrEmpty(headPic);
-        boolean isUserTypeNull = ObjectUtils.isNullOrEmpty(userType);
-        boolean isStatusNull = ObjectUtils.isNullOrEmpty(status);
-        boolean isBalanceNull = ObjectUtils.isNullOrEmpty(balance);
-        if(isNickNameNull){
-            nickName = user.getNickName();
-        }
-        if(isHeadPicNull){
-            headPic = user.getHeadPic();
-        }
-        if(isUserTypeNull){
-            userType = user.getUserType();
-        }
-        if(isStatusNull){
-            status = user.getStatus();
-        }
-        if(isBalanceNull){
-            balance = user.getBalance();
-        }
-
-        //因为MD5加密不可逆，所以有两种修改情况
-        if(isPassWordNull){
-            password = user.getPassword();
-            userMapper.modifyUserInfoWithoutNewPassword(userID,password,nickName,headPic,userType,status,balance);
-        }
-        else{
-            userMapper.modifyUserInfoWithNewPassword(userID,password,nickName,headPic,userType,status,balance);
-        }
+    /**
+     * //TODO:重新单元测试
+     * @param userParam
+     * @author Michael Chen
+     */
+    public void modifyUserInfo(User userParam) {
+        User user = userMapper.getUserById(userParam.getId());
+        userParam.transform(user);
+        userMapper.modifyUserInfo(userParam);
     }
 
     public String uploadHeadPic(MultipartFile file){
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-
-        /** 根据真实路径创建目录* */
+        /* 根据真实路径创建目录* */
         File logoSaveFile = new File(path);
         if (!logoSaveFile.exists()) {
             logoSaveFile.mkdirs();
         }
-        /** 获取文件的后缀* */
+        /* 获取文件的后缀* */
         String suffix = file.getOriginalFilename().substring(
                 file.getOriginalFilename().lastIndexOf("."));
-        /** 使用UUID生成文件名称* */
+        /* 使用UUID生成文件名称* */
         // 构建文件名称
         String logImageName = UUID.randomUUID().toString() + suffix;
-        /** 拼成完整的文件保存路径加文件* */
+        /* 拼成完整的文件保存路径加文件* */
         String fileName = path + "/"+ logImageName;
         File files = new File(fileName);
         try {
@@ -169,11 +143,8 @@ public class SessionService implements Logable{
         } catch (IOException e) {
             return "1002";
         }
-        /** 打印出上传到服务器的文件的绝对路径* */
-        System.out.println("****************"+fileName+"**************");
-        String uri = url+ "/"+logImageName;
-
-        return uri;
+        /* 打印出上传到服务器的文件的绝对路径* */
+        return url+ "/"+logImageName;
     }
 
     public List<UserGameVO> getUserInGame(){

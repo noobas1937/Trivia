@@ -39,9 +39,7 @@ public interface UserMapper{
 
     void deleteUserById(@Param("userId")Integer userId);
 
-    void modifyUserInfoWithNewPassword(@Param("userID")Integer userID,@Param("password")String password,@Param("nickName")String nickName,@Param("headPic")String headPic,@Param("userType")Integer userType,@Param("status")Integer status,@Param("balance")Integer balance);
-
-    void modifyUserInfoWithoutNewPassword(@Param("userID")Integer userID,@Param("password")String password,@Param("nickName")String nickName,@Param("headPic")String headPic,@Param("userType")Integer userType,@Param("status")Integer status,@Param("balance")Integer balance);
+    void modifyUserInfo(@Param("user")User user);
 
     /**上传头像**/
     void upload(@Param("account")String account,@Param("uri")String uri);

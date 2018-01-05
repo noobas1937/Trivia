@@ -71,7 +71,7 @@ public class UserController {
         if(ObjectUtils.isNullOrEmpty(user.getId())){
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        sessionService.modifyUserInfo(user.getId(),user.getPassword(),user.getNickName(),user.getHeadPic(),user.getUserType(),user.getStatus(),user.getBalance());
+        sessionService.modifyUserInfo(user);
         return new Resp(HttpRespCode.SUCCESS);
     }
 

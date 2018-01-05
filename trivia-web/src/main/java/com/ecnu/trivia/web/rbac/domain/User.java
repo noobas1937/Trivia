@@ -11,7 +11,10 @@
 package com.ecnu.trivia.web.rbac.domain;
 
 import com.ecnu.trivia.common.component.domain.*;
+import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.utils.MD5Util;
 import org.apache.ibatis.type.JdbcType;
+import sun.security.provider.MD5;
 
 import java.sql.Timestamp;
 
@@ -166,4 +169,33 @@ public class User{
     public static User nullUser() {
         return nullUser;
     }
+
+    /**
+     * 用户资料修改替换工具
+     * @param user 用户旧资料
+     */
+    public void transform(User user) {
+        if(ObjectUtils.isNullOrEmpty(nickName)){
+            nickName = user.getNickName();
+        }
+        if(ObjectUtils.isNullOrEmpty(headPic)){
+            headPic = user.getHeadPic();
+        }
+        if(ObjectUtils.isNullOrEmpty(userType)){
+            userType = user.getUserType();
+        }
+        if(ObjectUtils.isNullOrEmpty(status)){
+            status = user.getStatus();
+        }
+        if(ObjectUtils.isNullOrEmpty(balance)){
+            balance = user.getBalance();
+        }
+        //因为MD5加密不可逆，所以有两种修改情况
+        if(ObjectUtils.isNullOrEmpty(password)){
+            password = user.getPassword();
+        }else{
+            password = MD5Util.md5(password);
+        }
+    }
+
 }
