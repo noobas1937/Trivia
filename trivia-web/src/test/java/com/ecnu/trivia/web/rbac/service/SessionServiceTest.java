@@ -7,10 +7,8 @@ import com.ecnu.trivia.web.utils.Resp;
 import com.ecnu.trivia.web.utils.json.JSONObject;
 import javafx.beans.binding.ObjectExpression;
 import org.apache.http.protocol.HTTP;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
@@ -42,6 +40,8 @@ public class SessionServiceTest {
     @Resource
     private SessionService sessionService;
 
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
     @Test
     public void get_user_by_account_successfully() throws Exception {
         User successRes = sessionService.getUserByAccount("siyuan","12345678");
@@ -180,8 +180,9 @@ public class SessionServiceTest {
         request.setMethod("POST");
         request.setContentType("multipart/form-data");
         request.addHeader("Content-type", "multipart/form-data");
-        FileInputStream fis = new FileInputStream("C:/Users/sei_z/Desktop/test.png");
-        MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "test.png", "application/vnd_ms-excel", fis);
+        File output = temporaryFolder.newFile("output.png");
+        FileInputStream fis = new FileInputStream(output);
+        MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "output.png", "application/vnd_ms-excel", fis);
         String uri = sessionService.uploadHeadPic(mfile);
         AssertJUnit.assertNotNull(uri);
     }
@@ -192,9 +193,10 @@ public class SessionServiceTest {
         request.setMethod("POST");
         request.setContentType("multipart/form-data");
         request.addHeader("Content-type", "multipart/form-data");
-        FileInputStream fis = new FileInputStream("C:/Users/sei_z/Desktop/test.png");
-        MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "test.png", "application/vnd_ms-excel", fis);
-        File file = new File("E://nginx/html/image");
+        File output = temporaryFolder.newFile("output.png");
+        FileInputStream fis = new FileInputStream(output);
+        MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "output.png", "application/vnd_ms-excel", fis);
+        File file = new File("C://nginx/html/image");
         if(file.exists()){
             if(file.isFile()) {
                 file.delete();
