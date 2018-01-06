@@ -39,6 +39,7 @@ public enum HttpRespCode implements Serializable {
     FAILED_DEPENDENCY("424", "前序请求出错"),
     UNAVAILABLE_FOR_LEGAL_REASONS("451", "该请求因法律原因不可用"),
     QUESTION_ARE_USED("425","问题正在游戏中被使用"),
+    QUESTION_DOES_NOT_EXISTS("425","问题不存在"),
 
     INTERNAL_SERVER_ERROR("500", "服务器内部出错"),         //通常是服务器源代码出错，导致无法响应请求
     NOT_IMPLEMENT("501", "服务器不支持当前请求"),

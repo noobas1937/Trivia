@@ -32,15 +32,11 @@ public interface Mapper<T extends Domain> {
     /**
      * 保存对象 C
      */
-    @CachePut(key = "args[0].key().ids()", value = CacheValue.SESSION)
-    @CacheClazz(clazz = "args[0].class")
     T save(T t);
 
     /**
      * 获取对象 R
      */
-    @Cacheable(key = "args[0].ids()")
-    @CacheClazz(clazz = "args[1]")
     T get(Key key, Class<T> clazz);
 
     /**
@@ -51,15 +47,11 @@ public interface Mapper<T extends Domain> {
     /**
      * 更新对象,该对象必须存在被更新的值，即t.recorded 返回true U
      */
-    @CachePut(key = "args[0].key().ids()")
-    @CacheClazz(clazz = "args[0].class")
     T update(T t);
 
     /**
      * 删除对象 D
      */
-    @CacheEvict(key = "args[0].key().ids()")
-    @CacheClazz(clazz = "args[0].class")
     void delete(T t);
 
     /**

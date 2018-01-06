@@ -28,9 +28,10 @@
 
     <update id="modifyQuestion">
         UPDATE question
-        SET description = #{content},type_id = ${type},choose_a = #{chooseA},choose_b = #{chooseB},choose_c = #{chooseC},choose_d = #{chooseD},
-            answer = ${answer},gmt_created = NOW(),gmt_modified = NOW()
-        WHERE id = ${id}
+        SET description = #{question.description},type_id = ${question.typeId},choose_a = #{question.chooseA},
+            choose_b = #{question.chooseB},choose_c = #{question.chooseC},choose_d = #{question.chooseD},
+            answer = ${question.answer},gmt_created = NOW(),gmt_modified = NOW()
+        WHERE id = ${question.id}
     </update>
 
     <select id="getQuestions" resultType="com.ecnu.trivia.web.question.domain.vo.QuestionVO">

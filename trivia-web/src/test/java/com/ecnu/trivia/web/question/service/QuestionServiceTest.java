@@ -33,6 +33,10 @@ import static org.junit.Assert.*;
 public class QuestionServiceTest {
     private QuestionVO mockQuestion;
     private User mockUser;
+    private User mockUser1;
+    private Player mockPlayer;
+    private Player mockPlayer1;
+    private Game mockGame;
 
     @Resource
     private SessionService sessionService;
@@ -51,37 +55,58 @@ public class QuestionServiceTest {
     public void setUp() throws Exception {
         mockQuestion = questionMapper.getQuestions(1,10).get(0);
         sessionService.addNewUser("test-user","123","test-user");
+        sessionService.addNewUser("test-user1","123","test-user1");
         mockUser = sessionService.getUserByAccount("test-user","123");
+        mockUser1 = sessionService.getUserByAccount("test-user1","123");
         roomService.enterRoom(10,mockUser.getId());
-        Player player = playerMapper.getPlayerByUserId(mockUser.getId());
-        Game game = gameMapper.getGameByRoomId(10);
-        gameMapper.updateGameStatus(game.getId(),player.getId(),10,
+        mockPlayer = playerMapper.getPlayerByUserId(mockUser.getId());
+        mockGame = gameMapper.getGameByRoomId(10);
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
                 mockQuestion.getId(),Constants.GAME_ANSWERING_QUESTION);
     }
     @Test
-    public void addQuestion() throws Exception {
+    public void add_question() throws Exception {
+        Integer before = questionMapper.getQuestionsCount();
         questionService.addQuestion("xixixi","1","2","3","4",3,1);
+        Integer after = questionMapper.getQuestionsCount();
+        AssertJUnit.assertEquals(1,after-before);
     }
 
     @Test
-    public void getGameByQuestionId() throws Exception {
-        Game successRes=questionService.getGameByQuestionId(mockQuestion.getId());
+    public void get_game_by_question_id() throws Exception {
+        List<Game> successRes=questionService.getGameByQuestionId(mockQuestion.getId());
         AssertJUnit.assertNotNull(successRes);
     }
 
     @Test
-    public void deleteQuestion() throws Exception {
-        questionMapper.deleteQuestion(mockQuestion.getId());
-        Resp successRes=questionService.getQuestionById(mockUser.getId(),mockQuestion.getId());
-        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
+    public void delete_question() throws Exception {
+        questionService.deleteQuestion(mockQuestion.getId());
+        Question question=questionMapper.getQuestionById(mockQuestion.getId());
+        AssertJUnit.assertNull(question);
     }
 
     @Test
-    public void modifyQuestion() throws Exception {
+    public void modify_question_which_is_exist_and_no_info() throws Exception {
         Question last= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
-        questionService.modifyQuestion(mockQuestion.getId(),"23",mockQuestion.getChooseA(),mockQuestion.getChooseB(),mockQuestion.getChooseC(),mockQuestion.getChooseD(),mockQuestion.getAnswer(),4);
+        Question mockQuestionParam = new Question(mockQuestion.getId(),null,null,null,null,null,null,null,null);
+        questionService.modifyQuestion(mockQuestionParam);
         Question now= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
         AssertJUnit.assertEquals(last.getAnswer(),now.getAnswer());
+    }
+
+    @Test
+    public void modify_question_which_is_exist_and_modify_all_info() throws Exception {
+        Question last= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
+        Question mockQuestionParam = new Question(mockQuestion.getId(),"23",mockQuestion.getTypeId(),"A","A","A","A",1,mockQuestion.getStatus());
+        questionService.modifyQuestion(mockQuestionParam);
+        Question now= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
+        AssertJUnit.assertEquals(last.getAnswer(),now.getAnswer());
+    }
+
+    @Test
+    public void modify_question_which_is_not_exist() throws Exception {
+        Question mockQuestionParam = new Question(-1000,null,null,null,null,null,null,null,null);
+        questionService.modifyQuestion(mockQuestionParam);
     }
 
     @Test

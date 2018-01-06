@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mvel2.ast.AssertNode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -82,7 +83,7 @@ public class GameServiceTest {
     }
 
     @Test
-    public void getRoomByUserId() throws Exception {
+    public void get_room_with_user_in() throws Exception {
         RoomVO roomVO = gameService.getRoomByUserId(mockUser.getId());
         List<PlayerVO> playerList = roomVO.getPlayerList();
         if(ObjectUtils.isNullOrEmpty(playerList)){
@@ -96,6 +97,12 @@ public class GameServiceTest {
         AssertJUnit.fail();
     }
 
+
+    @Test
+    public void get_room_with_user_not_in() throws Exception {
+        RoomVO roomVO = gameService.getRoomByUserId(mockUser2.getId());
+        AssertJUnit.assertNull(roomVO);
+    }
 
     @Test
     public void roll_dice_with_player_not_in_room() throws Exception {

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author miss guo
@@ -59,7 +60,7 @@ public class GameMapperTest {
 
     @Test
     public void getGameByQuestionId() throws Exception {
-        Game res=gameMapper.getGameByQuestionId(17);
+        List<Game> res=gameMapper.getGameByQuestionId(17);
         if(res==null){
             AssertJUnit.fail();
         }

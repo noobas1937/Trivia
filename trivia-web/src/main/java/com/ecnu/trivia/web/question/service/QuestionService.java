@@ -67,7 +67,7 @@ public class QuestionService implements Logable{
      * @author: Lucto
      * @date: 21:20 2017/12/17
      */
-    public Game getGameByQuestionId(Integer questionId) {
+    public List<Game> getGameByQuestionId(Integer questionId) {
         return gameMapper.getGameByQuestionId(questionId);
     }
 
@@ -85,30 +85,14 @@ public class QuestionService implements Logable{
      * @author: Lucto
      * @date: 22:32 2017/12/17
      */
-    public void modifyQuestion(Integer id,String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type) {
-        Question question = questionMapper.getQuestionById(id);
-        if(ObjectUtils.isNullOrEmpty(content)){
-            content = question.getDescription();
+    public Resp modifyQuestion(Question questionParam) {
+        Question question = questionMapper.getQuestionById(questionParam.getId());
+        questionParam.transform(question);
+        if(ObjectUtils.isNullOrEmpty(question)){
+            return new Resp(HttpRespCode.QUESTION_DOES_NOT_EXISTS);
         }
-        if(ObjectUtils.isNullOrEmpty(chooseA)){
-            chooseA = question.getChooseA();
-        }
-        if(ObjectUtils.isNullOrEmpty(chooseB)){
-            chooseB = question.getChooseB();
-        }
-        if(ObjectUtils.isNullOrEmpty(chooseC)){
-            chooseC = question.getChooseC();
-        }
-        if(ObjectUtils.isNullOrEmpty(chooseD)){
-            chooseD = question.getChooseD();
-        }
-        if(ObjectUtils.isNullOrEmpty(answer)){
-            answer = question.getAnswer();
-        }
-        if(ObjectUtils.isNullOrEmpty(type)){
-            type = question.getTypeId();
-        }
-        questionMapper.modifyQuestion(id,content,chooseA,chooseB,chooseC,chooseD,answer,type);
+        questionMapper.modifyQuestion(questionParam);
+        return new Resp(HttpRespCode.SUCCESS);
     }
 
     /**

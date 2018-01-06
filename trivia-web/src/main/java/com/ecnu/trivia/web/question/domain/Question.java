@@ -1,13 +1,14 @@
 package com.ecnu.trivia.web.question.domain;
 
 import com.ecnu.trivia.common.component.domain.*;
+import com.ecnu.trivia.common.util.ObjectUtils;
 import org.apache.ibatis.type.JdbcType;
 
 import java.sql.Timestamp;
 
 /**
  * 问题实体类
- * @author Jak Chen
+ * @author Michael Chen
  */
 @Table("question")
 public class Question extends Domain<Question> {
@@ -142,5 +143,45 @@ public class Question extends Domain<Question> {
 
     public void setGmtModified(Timestamp gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Question() {
+    }
+
+    public Question(Integer id, String description, Integer typeId, String chooseA, String chooseB, String chooseC, String chooseD, Integer answer, Integer status) {
+        this.id = id;
+        this.description = description;
+        this.typeId = typeId;
+        this.chooseA = chooseA;
+        this.chooseB = chooseB;
+        this.chooseC = chooseC;
+        this.chooseD = chooseD;
+        this.answer = answer;
+        this.status = status;
+    }
+
+    public void transform(Question question) {
+
+        if(ObjectUtils.isNullOrEmpty(description)){
+            description = question.getDescription();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseA)){
+            chooseA = question.getChooseA();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseB)){
+            chooseB = question.getChooseB();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseC)){
+            chooseC = question.getChooseC();
+        }
+        if(ObjectUtils.isNullOrEmpty(chooseD)){
+            chooseD = question.getChooseD();
+        }
+        if(ObjectUtils.isNullOrEmpty(answer)){
+            answer = question.getAnswer();
+        }
+        if(ObjectUtils.isNullOrEmpty(typeId)){
+            typeId = question.getTypeId();
+        }
     }
 }

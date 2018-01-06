@@ -68,7 +68,7 @@ public class QuestionController {
         if (questionId==null) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        Game game = questionService.getGameByQuestionId(questionId);
+        List<Game> game = questionService.getGameByQuestionId(questionId);
         //判断当前问题是否正在游戏中被使用
         if(ObjectUtils.isNullOrEmpty(game)) {
             questionService.deleteQuestion(questionId);
@@ -87,9 +87,7 @@ public class QuestionController {
         if (ObjectUtils.isNullOrEmpty(questionParam.getId())) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        questionService.modifyQuestion(questionParam.getId(),questionParam.getDescription(),questionParam.getChooseA(),questionParam.getChooseB(),
-                questionParam.getChooseC(),questionParam.getChooseD(),questionParam.getAnswer(),questionParam.getTypeId());
-        return new Resp(HttpRespCode.SUCCESS);
+        return questionService.modifyQuestion(questionParam);
     }
 
     /**

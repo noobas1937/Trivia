@@ -66,8 +66,9 @@ public class QuestionMapperTest {
 
     @Test
     public void modifyQuestion() throws Exception {
-        questionMapper.modifyQuestion(3,"test","A","B",
+        Question mockQuestion = new Question(3,"test",1,"A","B",
                 "C","D",1,1);
+        questionMapper.modifyQuestion(mockQuestion);
         Question question = questionMapper.getQuestionById(3);
         AssertJUnit.assertNotNull(question);
         AssertJUnit.assertEquals("test",question.getDescription());

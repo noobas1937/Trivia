@@ -7,6 +7,8 @@ import com.ecnu.trivia.web.question.domain.Question;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface GameMapper extends Mapper<Player> {
     /**根据房间ID获取游戏状态*/
@@ -19,7 +21,7 @@ public interface GameMapper extends Mapper<Player> {
                           @Param("stage")Integer stage);
 
     /**根据问题ID获取游戏**/
-    Game getGameByQuestionId(@Param("id") Integer id);
+    List<Game> getGameByQuestionId(@Param("id") Integer id);
 
     /**添加游戏**/
     void addGame(@Param("roomId")Integer roomId,@Param("playerId")Integer currentPlayerId);
