@@ -9,6 +9,7 @@ import com.ecnu.trivia.web.game.service.GameService;
 import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
+import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.room.service.RoomService;
@@ -45,11 +46,15 @@ public class QuestionServiceTest {
     @Resource
     private QuestionService questionService;
     @Resource
+    private QuestionTypeService questionTypeService;
+    @Resource
     private GameMapper gameMapper;
     @Resource
     private RoomService roomService;
     @Resource
     private PlayerMapper playerMapper;
+    @Resource
+    private QuestionTypeMapper questionTypeMapper;
 
     @Before
     public void setUp() throws Exception {
@@ -86,15 +91,6 @@ public class QuestionServiceTest {
     }
 
     @Test
-    public void modify_question_which_is_exist_and_no_info() throws Exception {
-        Question last= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
-        Question mockQuestionParam = new Question(mockQuestion.getId(),null,null,null,null,null,null,null,null);
-        questionService.modifyQuestion(mockQuestionParam);
-        Question now= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
-        AssertJUnit.assertEquals(last.getAnswer(),now.getAnswer());
-    }
-
-    @Test
     public void modify_question_which_is_exist_and_modify_all_info() throws Exception {
         Question last= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
         Question mockQuestionParam = new Question(mockQuestion.getId(),"23",mockQuestion.getTypeId(),"A","A","A","A",1,mockQuestion.getStatus());
@@ -104,21 +100,50 @@ public class QuestionServiceTest {
     }
 
     @Test
+    public void modify_question_which_is_exist_and_modify_no_info() throws Exception {
+        Question mockQuestionParam = new Question(mockQuestion.getId(),"23",mockQuestion.getTypeId(),"A","A","A","A",1,mockQuestion.getStatus());
+        questionService.modifyQuestion(mockQuestionParam);
+        Question last= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
+        mockQuestionParam = new Question(mockQuestion.getId(),null,mockQuestion.getTypeId(),null,null,null,null,1,null);
+        questionService.modifyQuestion(mockQuestionParam);
+        Question now= (Question)questionService.getQuestionById(mockUser.getId(),mockQuestion.getId()).getData();
+        AssertJUnit.assertEquals(last.getDescription(),now.getDescription());
+    }
+
+    @Test
     public void modify_question_which_is_not_exist() throws Exception {
         Question mockQuestionParam = new Question(-1000,null,null,null,null,null,null,null,null);
-        questionService.modifyQuestion(mockQuestionParam);
+        AssertJUnit.assertEquals(questionService.modifyQuestion(mockQuestionParam).getResCode(),HttpRespCode.QUESTION_DOES_NOT_EXISTS.getCode());
     }
 
     @Test
     public void getQuestionById_player_is_null() throws Exception {
-        Resp successRes=questionService.getQuestionById(mockUser.getId(),mockQuestion.getId());
+        Resp successRes=questionService.getQuestionById(mockUser1.getId(),mockQuestion.getId());
         AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
     }
+
+
+    @Test
+    public void getQuestionById_not_such_question() throws Exception {
+        Resp successRes=questionService.getQuestionById(mockUser.getId(),-1000);
+        AssertJUnit.assertEquals(HttpRespCode.INTERNAL_SERVER_ERROR.getCode(),successRes.getResCode());
+    }
+
     @Test
     public void getQuestionById_game_is_not_ready_for_answer() throws Exception {
+        roomService.enterRoom(10,mockUser1.getId());
+        Resp successRes=questionService.getQuestionById(mockUser1.getId(),mockQuestion.getId());
+        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void getQuestionById_wrong_game_status() throws Exception{
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
+                mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
         Resp successRes=questionService.getQuestionById(mockUser.getId(),mockQuestion.getId());
         AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
     }
+
     @Test
     public void getQuestionById() throws Exception{
         Resp successRes=questionService.getQuestionById(mockUser.getId(),mockQuestion.getId());
@@ -126,23 +151,29 @@ public class QuestionServiceTest {
     }
     @Test
     public void checkQuestionAnswer_player_is_null() throws Exception {
-        Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getId());
+        Resp successRes=questionService.checkQuestionAnswer(mockUser1.getId(),mockQuestion.getId());
         AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
     }
     @Test
     public void checkQuestionAnswer_game_is_not_ready_for_answer() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
+                mockQuestion.getId(),Constants.GAME_ANSWER_QUESTION_RESULT);
         Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getId());
         AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
     }
 
     @Test
     public void checkQuestionAnswer_player_is_not_the_user() throws Exception{
+        roomService.enterRoom(10,mockUser1.getId());
+        mockPlayer1 = playerMapper.getPlayerByUserId(mockUser1.getId());
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer1.getId(),6,
+                mockQuestion.getId(),Constants.GAME_ANSWERING_QUESTION);
         Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer());
         AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
     }
     @Test
     public void checkQuestionAnswer_player_is_not_exist() throws Exception{
-        Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer());
+        Resp successRes=questionService.checkQuestionAnswer(mockUser1.getId(),mockQuestion.getAnswer());
         AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
     }
     @Test
@@ -157,13 +188,14 @@ public class QuestionServiceTest {
     }
     @Test
     public void checkQuestionAnswer_game_is_over() throws Exception{
-        Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer());
-        AssertJUnit.assertEquals(true,successRes.getData());
+        playerMapper.updatePlayer(mockPlayer.getId(),Constants.MAX_BALANCE_COUNT,0,Constants.PLAYER_GAMING_FREE);
+        questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer());
+        AssertJUnit.assertEquals(mockPlayer.getStatus(),new Integer(Constants.PLAYER_WAITING));
     }
     @Test
     public void checkQuestionAnswer_game_is_not_over() throws Exception{
         Resp successRes=questionService.checkQuestionAnswer(mockUser.getId(),mockQuestion.getAnswer());
-        AssertJUnit.assertEquals(false,successRes.getData());
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
     }
 
 
@@ -174,13 +206,60 @@ public class QuestionServiceTest {
     }
 
     @Test
-    public void getAllQuestionsCount_the_player_is_elegal() throws Exception {
+    public void getAllQuestionsCountl() throws Exception {
+        Integer count = questionService.getAllQuestionsCount();
+        questionService.deleteQuestion(mockQuestion.getId());
+        Integer newCount = questionService.getAllQuestionsCount();
+        AssertJUnit.assertEquals(count,new Integer(newCount+1));
+    }
 
+    @Test
+    public void generateRandomQuestion_not_player() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
+                mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
+        Resp successRes = questionService.generateRandomQuestion(mockUser1.getId(),1);
+        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void generateRandomQuestion_not_right_stage() throws Exception {
+        Resp successRes = questionService.generateRandomQuestion(mockUser.getId(),1);
+        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void generateRandomQuestion_player_is_not_the_user() throws Exception {
+        roomService.enterRoom(10,mockUser1.getId());
+        mockPlayer1 = playerMapper.getPlayerByUserId(mockUser1.getId());
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer1.getId(),6,
+                mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
+        Resp successRes = questionService.generateRandomQuestion(mockUser.getId(),1);
+        AssertJUnit.assertEquals(HttpRespCode.METHOD_NOT_ALLOWED.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void generateRandomQuestion_not_exist_question_type() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
+                mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
+        Resp successRes = questionService.generateRandomQuestion(mockUser.getId(),-1);
+        AssertJUnit.assertEquals(HttpRespCode.PARAM_ERROR.getCode(),successRes.getResCode());
+    }
+
+    @Test
+    public void generateRandomQuestion_get_no_question() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
+                mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
+        boolean result = questionTypeService.addQuestionType("绝对不会有这种问题");
+        int expectedTypeId = questionTypeMapper.getQuestionTypes().size();
+        Resp successRes = questionService.generateRandomQuestion(mockUser.getId(),expectedTypeId-1);
+        AssertJUnit.assertEquals(HttpRespCode.INTERNAL_SERVER_ERROR.getCode(),successRes.getResCode());
     }
 
     @Test
     public void generateRandomQuestion() throws Exception {
-
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
+                mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
+        Resp successRes = questionService.generateRandomQuestion(mockUser.getId(),1);
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
     }
-
 }

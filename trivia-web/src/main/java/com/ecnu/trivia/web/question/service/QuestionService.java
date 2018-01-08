@@ -87,10 +87,10 @@ public class QuestionService implements Logable{
      */
     public Resp modifyQuestion(Question questionParam) {
         Question question = questionMapper.getQuestionById(questionParam.getId());
-        questionParam.transform(question);
         if(ObjectUtils.isNullOrEmpty(question)){
             return new Resp(HttpRespCode.QUESTION_DOES_NOT_EXISTS);
         }
+        questionParam.transform(question);
         questionMapper.modifyQuestion(questionParam);
         return new Resp(HttpRespCode.SUCCESS);
     }
@@ -167,10 +167,10 @@ public class QuestionService implements Logable{
         Player newPlayer = playerMapper.getPlayerByUserId(userId);
         List<Player> players = playerMapper.getPlayers(newPlayer.getId());
         if(newPlayer.getBalance()>=Constants.MAX_BALANCE_COUNT){
-            //游戏结束
-            logger.info(ConstantsMsg.ROOM_GAME_OVER,game.getRoomId());
-            //更新玩家状态 和 游戏状态
-            gameMapper.updateGameStatus(game.getId(),-1,0,-1,Constants.GAME_OVER);
+                //游戏结束
+                logger.info(ConstantsMsg.ROOM_GAME_OVER,game.getRoomId());
+                //更新玩家状态 和 游戏状态
+                gameMapper.updateGameStatus(game.getId(),-1,0,-1,Constants.GAME_OVER);
             roomMapper.updateRoomStatus(game.getRoomId(),Constants.ROOM_WAITING);
             //刷新一波游戏结果
             messageService.refreshUI(player.getRoomId());

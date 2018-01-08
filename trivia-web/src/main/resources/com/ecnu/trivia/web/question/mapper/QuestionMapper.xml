@@ -13,7 +13,19 @@
     </delete>
 
     <select id="getQuestionById" resultType="com.ecnu.trivia.web.question.domain.Question">
-        SELECT * FROM question WHERE id = ${id}
+        SELECT
+        q.id AS id
+        ,q.description AS description
+        ,q.type_id AS typeId
+        ,q.choose_a AS chooseA
+        ,q.choose_b AS chooseB
+        ,q.choose_c AS chooseC
+        ,q.choose_d AS chooseD
+        ,q.answer AS answer
+        ,q.status AS status
+        ,q.gmt_created AS gmtCreated
+        ,q.gmt_modified AS gmtModified
+        FROM question AS q WHERE id = ${id}
     </select>
 
     <select id="getQuestionByUserId" resultType="com.ecnu.trivia.web.question.domain.Question">
