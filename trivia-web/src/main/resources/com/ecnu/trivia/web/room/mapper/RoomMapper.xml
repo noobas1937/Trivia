@@ -30,6 +30,25 @@
         WHERE id=${id}
     </update>
 
+    <update id="modifyRoomName">
+        UPDATE room
+        SET room_name=#{name}
+        WHERE id=${id}
+    </update>
+
+    <delete id="deleteRoomById">
+        DELETE FROM room WHERE id=${id}
+    </delete>
+
+    <select id="getRoomByName" resultType="com.ecnu.trivia.web.room.domain.Room">
+        SELECT * FROM room WHERE room_name = #{name}
+    </select>
+
+    <insert id="addRoomByName">
+        INSERT INTO room (room_name, status, gmt_created, gmt_modified)
+        VALUES (#{name},0,NOW(),NOW())
+    </insert>
+
     <select id="getRoomByPlayerID" resultType="com.ecnu.trivia.web.room.domain.Room">
         SELECT * FROM room WHERE id IN (
             SELECT p.room_id FROM player AS p WHERE p.id = ${id}

@@ -56,6 +56,35 @@ public class RoomService implements Logable{
         return roomMapper.getRoomById(id);
     }
 
+    public Resp deleteRoomById(Integer id){
+        Integer playerCount = playerMapper.getPlayerCount(id);
+        if(playerCount == 0){
+            roomMapper.deleteRoomById(id);
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+        else
+            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+    }
+
+    public Resp addNewRoom(String name){
+        Room tempRoom = roomMapper.getRoomByName(name);
+        if(ObjectUtils.isNullOrEmpty(tempRoom)){
+            roomMapper.addRoomByName(name);
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+        else
+            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+    }
+
+    public Resp modifyRoomName(Integer roomId,String name){
+        Room tempRoom = roomMapper.getRoomByName(name);
+        if(ObjectUtils.isNullOrEmpty(tempRoom)) {
+            roomMapper.modifyRoomName(roomId,name);
+            return new Resp(HttpRespCode.SUCCESS);
+        }
+        else
+            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+    }
 
     /**
      * 退出房间

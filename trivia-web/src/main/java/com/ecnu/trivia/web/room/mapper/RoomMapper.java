@@ -14,6 +14,7 @@
 package com.ecnu.trivia.web.room.mapper;
 
 import com.ecnu.trivia.common.component.mapper.Mapper;
+import com.ecnu.trivia.web.game.domain.Player;
 import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.rbac.domain.User;
@@ -27,8 +28,21 @@ public interface RoomMapper extends Mapper<Room> {
     /**获取房间列表*/
     List<RoomVO>  getRoomList();
 
+
     /**根据房间ID获取房间信息*/
     RoomVO getRoomById(@Param("id")Integer id);
+
+    /**根据房间ID删除房间*/
+    void deleteRoomById(@Param("id")Integer id);
+
+    /**根据房间名字查找房间*/
+    Room getRoomByName(@Param("name")String name);
+
+    /**增加房间*/
+    void addRoomByName(@Param("name")String name);
+
+    /**修改房间名字*/
+    void modifyRoomName(@Param("id")Integer id,@Param("name")String name);
 
     /**根据player_id获取房间*/
     Room getRoomByPlayerID(@Param("id")Integer playerID);

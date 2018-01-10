@@ -21,6 +21,7 @@ import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.message.service.MessageService;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.utils.UserUtils;
+import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Resp;
@@ -53,9 +54,39 @@ public class RoomController {
      * @date: 16:29 2017/12/7
      */
     @RequestMapping(value = "/detail/", method = RequestMethod.GET)
-    public Resp getRoomList(Integer roomId) {
+    public Resp getRoomList(@RequestParam("roomId")Integer roomId) {
         RoomVO roomVO = roomService.getRoomById(roomId);
         return new Resp(HttpRespCode.SUCCESS,roomVO);
+    }
+
+    /**
+     * 根据id号删除特定的房间
+     * @author: Handsome Zhao
+     * @date: 16:29 2018/1/10
+     */
+    @RequestMapping(value = "/{roomId}/", method = RequestMethod.DELETE)
+    public Resp deleteRoom(@PathVariable("roomId") Integer roomId) {
+        return roomService.deleteRoomById(roomId);
+    }
+
+    /**
+     * 增加房间
+     * @author: Handsome Zhao
+     * @date: 16:29 2018/1/10
+     */
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public Resp addNewRoom(@RequestParam("name") String name){
+        return roomService.addNewRoom(name);
+    }
+
+    /**
+     * 修改房间名字
+     * @author: Handsome Zhao
+     * @date: 16:29 2018/1/10
+     */
+    @RequestMapping(value = "/modify/", method = RequestMethod.POST)
+    public Resp ModifyRoomName(@RequestParam("roomId") Integer roomId,@RequestParam("name") String name){
+        return roomService.modifyRoomName(roomId,name);
     }
 
     /**
