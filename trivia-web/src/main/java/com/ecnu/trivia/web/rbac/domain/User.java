@@ -27,7 +27,7 @@ public class User{
     /**
      * 表示一个不存在的用户
      */
-    public static final int USER_ID_NULL = -1000;
+    public static final Integer USER_ID_NULL = -1000;
 
     /**
      * 构建一个表示没有当前用户的用户(即userId为null)
@@ -36,7 +36,7 @@ public class User{
 
     @Id(generated = true)
     @Column(jdbcType = JdbcType.INTEGER)
-    private int id;
+    private Integer id;
 
     @Column(value = "account", jdbcType = JdbcType.VARCHAR)
     private String account;
@@ -75,11 +75,11 @@ public class User{
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -123,19 +123,19 @@ public class User{
         this.balance = balance;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getUserType() {
+    public Integer getUserType() {
         return userType;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(Integer userType) {
         this.userType = userType;
     }
 

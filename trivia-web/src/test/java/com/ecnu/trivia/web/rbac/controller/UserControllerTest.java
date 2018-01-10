@@ -5,6 +5,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.web.rbac.domain.User;
 import com.ecnu.trivia.web.rbac.domain.vo.UserAccountVO;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
+import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Constants;
 import com.ecnu.trivia.web.utils.Resp;
 import org.junit.After;
@@ -39,19 +41,23 @@ public class UserControllerTest {
     private SessionController sessionController;
     @Resource
     private UserController userController;
+    @Resource
+    private RoomService roomService;
+    @Resource
+    private UserMapper userMapper;
 
     private MockMvc mockMvc;
     @Resource
     private MockHttpSession session;
 
+    private User mockUser;
+
     @Before
     public void setUp() throws Exception {
+        userMapper.addNewUser("alucardtest","12345678","xiaotest",null);
+        mockUser = userMapper.getUserByAccount("alucardtest","12345678");
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-        User user = new User();
-        user.setId(2);
-        user.setAccount("siyuan");
-        user.setPassword("12345678");
-        session.setAttribute(Constants.ONLINE_USER,user);
+        session.setAttribute(Constants.ONLINE_USER,mockUser);
     }
 
     @After
@@ -69,5 +75,136 @@ public class UserControllerTest {
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
         // 也可以从response里面取状态码，header,cookies...
         // System.out.println(mvcResult.getResponse().getStatus());
+    }
+
+    @Test
+    public void getCurrentUserTest_not_login() throws Exception {
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/currentUser/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.USER_NOT_LOGIN.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  getUserListTest() throws Exception {
+        mockUser.setUserType(0);
+        session.setAttribute(Constants.ONLINE_USER,mockUser);
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
+                .param("pno","1").param("PAGE_SIZE","5"));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  getUserListTest_not_right_user() throws Exception {
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
+                .param("pno","1").param("PAGE_SIZE","5"));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.USER_NO_JURISDICTION.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  addNewUserTest() throws Exception {
+        User mockAddUser = new User();
+        mockAddUser.setAccount("mockAddUserTestAccount");
+        mockAddUser.setPassword("12345678");
+        mockAddUser.setNickName("mockAddUserTestNickName");
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/user/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
+                .content(JSON.toJSONString(mockAddUser)).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  addNewUserTest_exist_same_account() throws Exception {
+        userMapper.addNewUser("mockAddUserTestAccount","12345678","mockAddUserTestNickName",null);
+        User mockAddUser = new User();
+        mockAddUser.setAccount("mockAddUserTestAccount");
+        mockAddUser.setPassword("12345678");
+        mockAddUser.setNickName("mockAddUserTestNickName");
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/user/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
+                .content(JSON.toJSONString(mockAddUser)).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.OPERATE_IS_NOT_ALLOW.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  deleteUserTest() throws Exception {
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.delete("/user/"+mockUser.getId()+"/" )
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  deleteUserTest_exist_player() throws Exception {
+        roomService.enterRoom(10,mockUser.getId());
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.delete("/user/"+mockUser.getId()+"/" )
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.OPERATE_IS_NOT_ALLOW.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  modifyUserTest() throws Exception {
+        mockUser.setNickName("xiaotest2");
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/user/modify/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
+                .content(JSON.toJSONString(mockUser)).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void  modifyUserTest_no_id() throws Exception {
+        mockUser.setNickName("xiaotest2");
+        mockUser.setId(null);
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/user/modify/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
+                .content(JSON.toJSONString(mockUser)).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.PARAM_ERROR.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void getUserInGameListTest() throws Exception {
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/list/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
     }
 }

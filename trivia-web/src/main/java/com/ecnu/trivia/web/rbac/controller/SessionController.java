@@ -110,8 +110,9 @@ public class SessionController {
      * @date 15:14 2017/12/11
      */
     @RequestMapping(value = "/current/", method = RequestMethod.GET)
-    public User getUserInfo() {
-        return UserUtils.fetchUser();
+    public Resp getUserInfo() {
+        User user = UserUtils.fetchUser();
+        return new Resp(HttpRespCode.SUCCESS,user);
     }
 
 }
