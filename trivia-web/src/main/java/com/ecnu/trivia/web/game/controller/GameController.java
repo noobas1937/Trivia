@@ -139,7 +139,7 @@ public class GameController {
      * @author Jack Chen
      */
     @RequestMapping(value = "/question/answer/", method = RequestMethod.POST)
-    public Resp checkQuestionAnswer(@RequestParam Integer answer) {
+    public Resp checkQuestionAnswer(@RequestBody Integer answer) {
         if (ObjectUtils.isNullOrEmpty(answer)) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
