@@ -11,14 +11,15 @@ function loadQuestionTable(){
             elem: '#table'
             ,height: 315
             ,page: true //开启分页
-            ,url: '/trivia/room/list/'
+            ,url: '/trivia/room/list/page/'
             ,id: 'mainTable'
             ,method: 'get'
             ,page:true
             ,cols: [[ //表头
                 {field: 'id', title: 'ID', width:50, sort: true, fixed: 'left'}
                 ,{field: 'roomName', align: 'center', title: '房间名', width:239}
-                ,{field: 'status', align: 'center', title: '状态', width:100}
+                ,{field: 'status', align: 'center', title: '状态', width:100,templet:"#statusTpl"}
+                ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
             ]]
             ,request: {
                 pageName: 'pno', //页码的参数名称，默认：page
@@ -36,11 +37,11 @@ function loadQuestionTable(){
             var data = obj.data;
             globalData = data;
             if(obj.event === 'del'){
-                layer.confirm('真的要删除该问题类型么', function(index){
+                layer.confirm('真的要删除该房间么', function(index){
                     $.ajax({
                         type: "DELETE",
                         /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                        url: "http://localhost:8081/trivia/question/type/" + data.id +"/",
+                        url: "http://localhost:8081/trivia/room/" + data.id +"/",
                         contentType: "application/json; charset=utf-8",
                         dataType:"json",
                         success: function (data) {
@@ -61,32 +62,32 @@ function loadQuestionTable(){
                 layer.open({
                     id: 'editFrame',
                     type: 2,//弹出框类型
-                    title: '编辑问题类型',
+                    title: '编辑房间',
                     shadeClose: false, //点击遮罩关闭层
                     area : ['60%' , '40%'],//弹出框大小
                     shift:1,//弹出框动画效果
-                    content: 'question-type-edit.html'//发送一个请求，后台处理数据返回到一个html页面加载到layer弹出层中
+                    content: 'room-edit.html'//发送一个请求，后台处理数据返回到一个html页面加载到layer弹出层中
                     ,btn: ['确认修改', '取消']
                     ,yes: function(index, layero){
                         //得到子页面id对应的数据
                         var body = layer.getChildFrame('body', index);
-                        var description = body.find("#questionDescription").val();
+                        var name = body.find("#roomName").val();
                         console.log(data.id);
-                        console.log(description);
-                        if(description == ""){
-                            layer.alert("请确保问题类型描述已填写");
+                        console.log(name);
+                        if(name == ""){
+                            layer.alert("请确保房间名称已填写");
                         }
                         else{
                             $.ajax({
                                 type: "POST",
                                 /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                                url: "http://localhost:8081/trivia/question/type/modify/?questionId="+ data.id +"&description=" + description,
+                                url: "http://localhost:8081/trivia/room/modify/?roomId="+ data.id +"&name=" + body.find("#roomName").val(),
                                 contentType: "application/json; charset=utf-8",
                                 dataType:"json",
                                 success: function (data) {
                                     if (data.resCode === "200") {
                                         obj.update({
-                                            name : description
+                                            roomName : name
                                         });
                                         layer.alert("操作成功!");
                                         layer.close(index);
@@ -113,25 +114,25 @@ $('#questionAddBtn').click(function(){
     layer.open({
         id: 'addFrame',
         type: 2,//弹出框类型
-        title: '增加问题',
+        title: '增加房间',
         shadeClose: false, //点击遮罩关闭层
         area : ['60%' , '40%'],//弹出框大小
         shift:1,//弹出框动画效果
-        content: 'question-type-add.html'//发送一个请求，后台处理数据返回到一个html页面加载到layer弹出层中
+        content: 'room-add.html'//发送一个请求，后台处理数据返回到一个html页面加载到layer弹出层中
         ,btn: ['确认增加', '取消']
         ,yes: function(index, layero){
             //得到子页面id对应的数据
             var body = layer.getChildFrame('body', index);
-            var description = body.find("#questionDescription").val();
+            var name = body.find("#roomName").val();
 
-            if(description == ""){
-                layer.alert("请确保每项均已填写");
+            if(name == ""){
+                layer.alert("请确保房间名已填写");
             }
             else{
                 $.ajax({
                     type: "POST",
                     /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                    url: "http://localhost:8081/trivia/question/type/?description=" + description,
+                    url: "http://localhost:8081/trivia/room/?name=" + name,
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function (data) {

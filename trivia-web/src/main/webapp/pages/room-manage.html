@@ -31,5 +31,11 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
+<script type="text/html" id="statusTpl">
+    {{#  if(d.status == "0"){ }}
+    等待中
+    {{# } else if(d.status == "1"){ }}
+    游戏中
+    {{# } }}
+</script>
 </html>
