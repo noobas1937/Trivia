@@ -24,6 +24,10 @@
         LEFT OUTER JOIN user as u ON p.user_id = u.id WHERE r.id != -1 ORDER BY r.id
     </select>
 
+    <select id="getRoomByPage" resultType="com.ecnu.trivia.web.room.domain.Room">
+        SELECT * FROM room WHERE id != -1 LIMIT ${pno},${pagesize}
+    </select>
+
     <update id="updateRoomStatus">
         UPDATE room
         SET status=${status}

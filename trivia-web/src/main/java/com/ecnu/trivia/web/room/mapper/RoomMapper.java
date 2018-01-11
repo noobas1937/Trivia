@@ -28,6 +28,9 @@ public interface RoomMapper extends Mapper<Room> {
     /**获取房间列表*/
     List<RoomVO>  getRoomList();
 
+    /**分页获取房间列表*/
+    List<Room>  getRoomByPage(@Param("pno")Integer pno, @Param("pagesize")Integer PAGE_SIZE);
+
 
     /**根据房间ID获取房间信息*/
     RoomVO getRoomById(@Param("id")Integer id);
