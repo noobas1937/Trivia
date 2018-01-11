@@ -14,7 +14,7 @@ $(function() {
 	Body.init();
 	Desktop.init();
 	Deskpanel.init({//向5个桌面添加应用
-		Icon1:['readGod','sosomap','douban','yule','weather','Clock','jinshan'],
+		Icon1:['Clock','sosomap','douban','yule','weather','readGod','jinshan'],
 		Icon2:['mangguo','tuanmap','fastsearch','bianqian','wangdesk'],
 		Icon3:['friend','friendnear','friendgroup','kaikai','kxjy'],
 		Icon4:['qidianzhongwen','qqread','xiami','musicbox','vadio','leshi'],
@@ -1448,6 +1448,9 @@ appIcon_t1 = appIcon_t0.extend({
 			 	case "问答游戏":
 			 		var url ="pages/login.html";
 			 		break;
+                 case "管理员":
+                     var url ="pages/adminLogin.html";
+                     break;
 			 	case "天气":
 			 		var url ="https://tianqi.2345.com";
 			 		break;

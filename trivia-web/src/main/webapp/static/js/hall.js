@@ -29,6 +29,23 @@ window.onload = function getTables() {
         $("#tou").html("与服务器断开了链接!")
     };
     $.ajax({
+        url: "/trivia/user/currentUser/",
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data){
+            if (data.resCode === "200") {
+                console.log(data);
+                var obj = data.data;
+                $("#myPic").attr("src",obj.headPic);
+                $("#myName").empty();
+                $("#myName").append(""+obj.nickName+"");
+            }else{
+                layer.msg("无法获取当前用户信息！");
+            }
+        }
+    });
+    $.ajax({
         type: "GET",
         url: "/trivia/room/list/",
         contentType: "application/json; charset=utf-8",

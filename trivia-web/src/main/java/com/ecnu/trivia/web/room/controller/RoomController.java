@@ -40,8 +40,8 @@ public class RoomController {
 
     /**
     * 获取房间列表
-    * @author: Handsome Zhao
-    * @date: 16:29 2017/12/7
+    * @author Handsome Zhao
+    * @date 16:29 2017/12/7
     */
     @RequestMapping(value = "/list/", method = RequestMethod.GET)
     public Resp getRoomList() {
@@ -64,8 +64,8 @@ public class RoomController {
 
     /**
      * 根据id号获取特定的房间
-     * @author: Handsome Zhao
-     * @date: 16:29 2017/12/7
+     * @author Handsome Zhao
+     * @date 16:29 2017/12/7
      */
     @RequestMapping(value = "/detail/", method = RequestMethod.GET)
     public Resp getRoomList(@RequestParam("roomId")Integer roomId) {
@@ -75,8 +75,8 @@ public class RoomController {
 
     /**
      * 根据id号删除特定的房间
-     * @author: Handsome Zhao
-     * @date: 16:29 2018/1/10
+     * @author Handsome Zhao
+     * @date 16:29 2018/1/10
      */
     @RequestMapping(value = "/{roomId}/", method = RequestMethod.DELETE)
     public Resp deleteRoom(@PathVariable("roomId") Integer roomId) {
@@ -85,8 +85,8 @@ public class RoomController {
 
     /**
      * 增加房间
-     * @author: Handsome Zhao
-     * @date: 16:29 2018/1/10
+     * @author Handsome Zhao
+     * @date 16:29 2018/1/10
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Resp addNewRoom(@RequestParam("name") String name){
@@ -95,8 +95,8 @@ public class RoomController {
 
     /**
      * 修改房间名字
-     * @author: Handsome Zhao
-     * @date: 16:29 2018/1/10
+     * @author Handsome Zhao
+     * @date 16:29 2018/1/10
      */
     @RequestMapping(value = "/modify/", method = RequestMethod.POST)
     public Resp ModifyRoomName(@RequestParam("roomId") Integer roomId,@RequestParam("name") String name){
