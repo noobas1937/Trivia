@@ -93,9 +93,9 @@ public class QuestionController {
      * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
-    public QuestionResp getQuestionTypesByPage(@RequestParam("pno") Integer pno,
-                                    @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
-        List<QuestionType> list = questionTypeService.getQuestionTypesByPage(pno,PAGE_SIZE);
+    public QuestionResp getQuestionTypes(@RequestParam("pno") Integer pno,
+                                    @RequestParam("PAGE_SIZE") Integer pageSize) {
+        List<QuestionType> list = questionTypeService.getQuestionTypesByPage(pno,pageSize);
         Integer count = questionTypeService.getQuestionTypesCount();
         return new QuestionResp(HttpRespCode.SUCCESS,list,count);
     }
@@ -138,9 +138,9 @@ public class QuestionController {
      * @date 22:59 2017/12/17
      */
     @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
-    public QuestionResp getAllQuestion(@RequestParam("pno") Integer pno,
-                                       @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
-        List<QuestionVO> questions = questionService.getAllQuestions(pno, PAGE_SIZE);
+    public QuestionResp getQuestion(@RequestParam("pno") Integer pno,
+                                       @RequestParam("PAGE_SIZE") Integer pageSize) {
+        List<QuestionVO> questions = questionService.getAllQuestions(pno, pageSize);
         Integer count = questionService.getAllQuestionsCount();
         return new QuestionResp(HttpRespCode.SUCCESS,questions,count);
     }

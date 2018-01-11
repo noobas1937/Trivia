@@ -15,13 +15,6 @@ import com.ecnu.trivia.common.component.web.HttpRespCode;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @ClassName: Resp
- * @Description: TODO
- * @author Iresearch-billzhuang
- * @date 2016年3月24日 上午9:35:49
- *
- */
 public class QuestionResp implements Serializable {
     private static final long serialVersionUID = -8660197629749596025L;
 
@@ -60,46 +53,12 @@ public class QuestionResp implements Serializable {
         this.resTime = new Date();
     }
 
-    public QuestionResp(HttpRespCode resCode, Object data) {
-        this.resCode = resCode.getCode();
-        this.resMsg = resCode.getText();
-        this.resTime = new Date();
-        this.data = data;
-    }
-
     public QuestionResp(HttpRespCode resCode, Object data,Integer count) {
         this.resCode = resCode.getCode();
         this.resMsg = resCode.getText();
         this.resTime = new Date();
         this.data = data;
         this.count = count;
-    }
-
-
-    public QuestionResp(String resCode, String resMsg) {
-        this.resCode = resCode;
-        this.resMsg = resMsg;
-
-    }
-
-    public QuestionResp(String resCode, String resMsg, Date resTime) {
-        this.resCode = resCode;
-        this.resMsg = resMsg;
-        this.resTime = resTime;
-
-    }
-
-    public QuestionResp(String resCode, String resMsg, Date resTime, Object data) {
-        this.resCode = resCode;
-        this.resMsg = resMsg;
-        this.resTime = resTime;
-        this.data = data;
-    }
-
-    public QuestionResp(String resCode, String resMsg, Object data) {
-        this.resCode = resCode;
-        this.resMsg = resMsg;
-        this.data = data;
     }
 
     public String getResCode() {

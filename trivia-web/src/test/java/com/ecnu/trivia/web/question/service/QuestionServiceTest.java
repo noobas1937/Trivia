@@ -250,7 +250,7 @@ public class QuestionServiceTest {
     public void generateRandomQuestion_get_no_question() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),6,
                 mockQuestion.getId(),Constants.GAME_CHOOSE_TYPE);
-        boolean result = questionTypeService.addQuestionType("绝对不会有这种问题");
+        questionTypeService.addQuestionType("绝对不会有这种问题");
         int expectedTypeId = questionTypeMapper.getQuestionTypes().size();
         Resp successRes = questionService.generateRandomQuestion(mockUser.getId(),expectedTypeId-1);
         AssertJUnit.assertEquals(HttpRespCode.INTERNAL_SERVER_ERROR.getCode(),successRes.getResCode());
