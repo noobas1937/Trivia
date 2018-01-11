@@ -11,6 +11,7 @@ import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Constants;
@@ -32,15 +33,6 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
 @Transactional
 public class QuestionServiceTest {
-    private QuestionVO mockQuestion;
-    private User mockUser;
-    private User mockUser1;
-    private Player mockPlayer;
-    private Player mockPlayer1;
-    private Game mockGame;
-
-    @Resource
-    private SessionService sessionService;
     @Resource
     private QuestionMapper questionMapper;
     @Resource
@@ -54,15 +46,24 @@ public class QuestionServiceTest {
     @Resource
     private PlayerMapper playerMapper;
     @Resource
+    private UserMapper userMapper;
+    @Resource
     private QuestionTypeMapper questionTypeMapper;
+
+    private QuestionVO mockQuestion;
+    private User mockUser;
+    private User mockUser1;
+    private Player mockPlayer;
+    private Player mockPlayer1;
+    private Game mockGame;
 
     @Before
     public void setUp() throws Exception {
         mockQuestion = questionMapper.getQuestions(1,10).get(0);
-        sessionService.addNewUser("test-user","123","test-user");
-        sessionService.addNewUser("test-user1","123","test-user1");
-        mockUser = sessionService.getUserByAccount("test-user","123");
-        mockUser1 = sessionService.getUserByAccount("test-user1","123");
+        userMapper.addNewUser("test-user","123","test-user",null);
+        userMapper.addNewUser("test-user1","123","test-user1",null);
+        mockUser = userMapper.getUserByAccount("test-user","123");
+        mockUser1 = userMapper.getUserByAccount("test-user1","123");
         roomService.enterRoom(10,mockUser.getId());
         mockPlayer = playerMapper.getPlayerByUserId(mockUser.getId());
         mockGame = gameMapper.getGameByRoomId(10);

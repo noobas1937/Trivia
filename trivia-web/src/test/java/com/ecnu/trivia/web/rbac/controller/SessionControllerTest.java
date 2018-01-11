@@ -48,12 +48,12 @@ public class SessionControllerTest {
     private SessionController sessionController;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private MockHttpSession session;
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private MockMvc mockMvc;
-    @Resource
-    private MockHttpSession session;
 
     private User mockUser;
 
