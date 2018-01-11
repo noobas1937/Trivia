@@ -1251,7 +1251,7 @@ Windows = function(me){
 			for (var i in list) {
 				list[i].close();
 			};
-		},	
+		},
 		openSys :function(op){//打开系统窗体
 			art.dialog({
 				id :op.id,
@@ -1289,8 +1289,8 @@ Windows = function(me){
 					{   
 						"id" :id,
 						title: title,	
-						width:width,
-						height:height,			 
+						width:1530,
+						height:750,
 						close:function(){
 							me.closeMinTask(id);
 						}		    	
