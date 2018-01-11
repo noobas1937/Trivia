@@ -214,6 +214,23 @@ function p(s) {
     return s < 10 ? '0' + s : s;
 }
 
+function logout() {
+    $.ajax({
+        url: "/trivia/session/logout/",
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            if (data.resCode === "200") {
+                layer.msg("登出成功！");
+                location.href='login.html';
+            } else {
+                layer.msg("您发不了消息！");
+            }
+        }
+    });
+}
+
 function getPlayerList(){
     $.ajax({
         type: "GET",
