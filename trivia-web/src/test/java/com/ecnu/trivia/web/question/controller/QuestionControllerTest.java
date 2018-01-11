@@ -107,19 +107,6 @@ public class QuestionControllerTest {
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
     }
 
-    @Test
-    public void delete_question_without_id() throws Exception {
-        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders
-                .delete("/question/")
-                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
-        );
-        MvcResult mvcResult = resultActions.andReturn();
-        String result = mvcResult.getResponse().getContentAsString();
-        System.out.println("=====客户端获得反馈数据:" + result);
-        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
-        AssertJUnit.assertEquals(HttpRespCode.PARAM_ERROR.getCode(),resp.getResCode());
-    }
-
 
     @Test
     public void delete_question_with_question_in_use() throws Exception {
@@ -138,17 +125,46 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void modifyQuestion() throws Exception {
+    public void modify_question() throws Exception {
+        mockQuestion.setDescription("test-modify");
+        ResultActions resultActions = this.mockMvc.perform(
+                MockMvcRequestBuilders
+                        .delete("/question/modify/")
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .content(JSON.toJSONString(mockQuestion))
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        );
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void modify_question_without_id() throws Exception {
+        mockQuestion.setId(null);
+        ResultActions resultActions = this.mockMvc.perform(
+            MockMvcRequestBuilders
+                .delete("/question/modify/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(JSON.toJSONString(mockQuestion))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+        );
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.PARAM_ERROR.getCode(),resp.getResCode());
+    }
+
+    @Test
+    public void get_question_types() throws Exception {
 
     }
 
     @Test
-    public void getQuestionTypeList() throws Exception {
-
-    }
-
-    @Test
-    public void getQuestionTypeList1() throws Exception {
+    public void deleteQuestionType() throws Exception {
 
     }
 

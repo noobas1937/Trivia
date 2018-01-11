@@ -42,8 +42,8 @@ public class QuestionController {
 
     /**
      * 增加问题到题库
-     * @author: Lucto
-     * @date: 19:51 2017/12/17
+     * @author Lucto
+     * @date 19:51 2017/12/17
      */
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public Resp addQuestion(@RequestBody Question questionParam) {
@@ -60,14 +60,11 @@ public class QuestionController {
 
     /**
      * 删除题库中的问题
-     * @author: Lucto
-     * @date: 21:17 2017/12/17
+     * @author Lucto
+     * @date 21:17 2017/12/17
      */
     @RequestMapping(value = "/{id}/", method = RequestMethod.DELETE)
     public Resp deleteQuestion(@PathVariable("id")Integer questionId) {
-        if (questionId==null) {
-            return new Resp(HttpRespCode.PARAM_ERROR);
-        }
         List<Game> game = questionService.getGameByQuestionId(questionId);
         //判断当前问题是否正在游戏中被使用
         if(ObjectUtils.isNullOrEmpty(game)) {
@@ -79,8 +76,8 @@ public class QuestionController {
 
     /**
      * 编辑系统中问题
-     * @author: Lucto
-     * @date: 22:24 2017/12/17
+     * @author Lucto
+     * @date 22:24 2017/12/17
      */
     @RequestMapping(value = "/modify/", method = RequestMethod.POST)
     public Resp modifyQuestion(@RequestBody Question questionParam) {
@@ -92,11 +89,11 @@ public class QuestionController {
 
     /**
      * 问题类型的查询
-     * @author: Handsome Zhao
-     * @date: 19:55 2017/12/17
+     * @author Handsome Zhao
+     * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
-    public QuestionResp getQuestionTypeList(@RequestParam("pno") Integer pno,
+    public QuestionResp getQuestionTypesByPage(@RequestParam("pno") Integer pno,
                                     @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
         List<QuestionType> list = questionTypeService.getQuestionTypesByPage(pno,PAGE_SIZE);
         Integer count = questionTypeService.getQuestionTypesCount();
@@ -105,58 +102,40 @@ public class QuestionController {
 
     /**
      * 问题类型的删除
-     * @author: Handsome Zhao
-     * @date: 19:55 2017/12/17
+     * @author Handsome Zhao
+     * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/{id}/", method = RequestMethod.DELETE)
-    public Resp getQuestionTypeList(@PathVariable("id") Integer questionTypeId) {
-        boolean result = questionTypeService.deleteQuestionTypeById(questionTypeId);
-        if(result) {
-            return new Resp(HttpRespCode.SUCCESS);
-        }
-        else {
-            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
-        }
+    public Resp deleteQuestionType(@PathVariable("id") Integer questionTypeId) {
+        return questionTypeService.deleteQuestionTypeById(questionTypeId);
     }
 
     /**
      * 问题类型的新增
-     * @author: Handsome Zhao
-     * @date: 19:55 2017/12/17
+     * @author Handsome Zhao
+     * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.POST)
     public Resp addQuestionType(@RequestParam("description") String description) {
-        boolean result = questionTypeService.addQuestionType(description);
-        if(result) {
-            return new Resp(HttpRespCode.SUCCESS);
-        }
-        else {
-            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
-        }
+        return questionTypeService.addQuestionType(description);
     }
 
     /**
      * 问题类型的修改
-     * @author: Handsome Zhao
-     * @date: 19:55 2017/12/17
+     * @author Handsome Zhao
+     * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/modify/", method = RequestMethod.POST)
     public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
                                        @RequestParam("description") String description) {
-        boolean result = questionTypeService.modifyQuestionType(questionId,description);
-        if(result) {
-            return new Resp(HttpRespCode.SUCCESS);
-        }
-        else {
-            return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
-        }
+        return questionTypeService.modifyQuestionType(questionId,description);
     }
 
 
     /**
      * 获取所有问题列表
-     * @author: Lucto
-     * @date: 22:59 2017/12/17
+     * @author Lucto
+     * @date 22:59 2017/12/17
      */
     @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
     public QuestionResp getAllQuestion(@RequestParam("pno") Integer pno,

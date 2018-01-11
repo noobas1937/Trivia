@@ -10,6 +10,7 @@
  */
 package com.ecnu.trivia.web.question.service;
 
+import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.log.Logable;
 import com.ecnu.trivia.web.game.mapper.GameMapper;
 import com.ecnu.trivia.web.game.mapper.PlayerMapper;
@@ -18,6 +19,7 @@ import com.ecnu.trivia.web.question.domain.Question;
 import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.question.mapper.QuestionTypeMapper;
+import com.ecnu.trivia.web.utils.Resp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -62,40 +64,34 @@ public class QuestionTypeService implements Logable{
         return questionTypeMapper.getQuestionTypes().size();
     }
 
-    public boolean deleteQuestionTypeById(Integer questionTypeId){
+    public Resp deleteQuestionTypeById(Integer questionTypeId){
         //查找是否存在该类型的问题，存在的话不能删除
         List<Question> questionList = questionMapper.getQuestionsByQuestionTypeId(questionTypeId);
         if(questionList.isEmpty()){
             questionTypeMapper.deleteQuestionTypeById(questionTypeId);
-            return true;
+            return new Resp(HttpRespCode.SUCCESS);
         }
-        else{
-            return false;
-        }
+        return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
-    public boolean addQuestionType(String description){
+    public Resp addQuestionType(String description){
         //查找是否有名字重复的问题类型
         List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByDesc(description);
         if(questionTypeList.isEmpty()){
             questionTypeMapper.addQuestionType(description);
-            return true;
+            return new Resp(HttpRespCode.SUCCESS);
         }
-        else{
-            return false;
-        }
+        return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
-    public boolean modifyQuestionType(Integer questionId, String description){
+    public Resp modifyQuestionType(Integer questionId, String description){
         //查找是否有名字重复的问题类型
         List<QuestionType> questionTypeList = questionTypeMapper.getQuestionTypeByDesc(description);
         if(questionTypeList.isEmpty()){
             questionTypeMapper.updateQuestionType(questionId,description);
-            return true;
+            return new Resp(HttpRespCode.SUCCESS);
         }
-        else{
-            return false;
-        }
+        return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
 }

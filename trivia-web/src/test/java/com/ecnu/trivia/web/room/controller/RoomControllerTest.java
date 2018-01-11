@@ -159,7 +159,6 @@ public class RoomControllerTest {
 
     @Test
     public void modifyRoomNameTest() throws Exception {
-        String oldName = mockRoom.getRoomName();
         String newName = "modifyRoomNameTest";
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/room/modify/")
