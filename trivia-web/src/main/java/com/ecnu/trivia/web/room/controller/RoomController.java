@@ -113,7 +113,7 @@ public class RoomController {
     @RequestMapping(value = "/exit/", method = RequestMethod.POST)
     public Resp enterRoom() {
         User user = UserUtils.fetchUser();
-        if(ObjectUtils.isNullOrEmpty(user)){
+        if(user==User.nullUser()){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
         return roomService.exitRoom(user.getId());

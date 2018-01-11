@@ -62,6 +62,79 @@ public class RoomServiceTest {
     }
 
     @Test
+    public void deleteRoomByIdTest() throws Exception {
+        roomService.addNewRoom("testRoom112233");
+        List<RoomVO> roomList = roomService.getRoomList();
+        int count = roomList.size();
+        Integer deleteId = roomList.get(0).getId();
+        roomService.deleteRoomById(deleteId);
+        List<RoomVO> roomListNew = roomService.getRoomList();
+        int newCount = roomListNew.size();
+        AssertJUnit.assertEquals(count-1,newCount);
+    }
+
+    @Test
+    public void deleteRoomByIdTest_already_have_player() throws Exception {
+        roomService.addNewRoom("testRoom112233");
+        Room testRoom = roomMapper.getRoomByName("testRoom112233");
+        List<RoomVO> roomList = roomService.getRoomList();
+        int count = roomList.size();
+
+        roomService.enterRoom(testRoom.getId(),mockUser.getId());
+        roomService.deleteRoomById(testRoom.getId());
+
+        List<RoomVO> roomListNew = roomService.getRoomList();
+        int newCount = roomListNew.size();
+        AssertJUnit.assertEquals(count,newCount);
+    }
+
+    @Test
+    public void addNewRoomByTest() throws Exception {
+        List<RoomVO> roomList = roomService.getRoomList();
+        int count = roomList.size();
+        roomService.addNewRoom("testRoom112233");
+        List<RoomVO> roomListNew = roomService.getRoomList();
+        int newCount = roomListNew.size();
+        AssertJUnit.assertEquals(count+1,newCount);
+    }
+
+    @Test
+    public void addNewRoomByTest_exist_same() throws Exception {
+        List<RoomVO> roomList = roomService.getRoomList();
+        int count = roomList.size();
+        roomService.addNewRoom("testRoom112233");
+        roomService.addNewRoom("testRoom112233");
+        List<RoomVO> roomListNew = roomService.getRoomList();
+        int newCount = roomListNew.size();
+        AssertJUnit.assertEquals(count+1,newCount);
+    }
+
+    @Test
+    public void modifyRoomNameTest() throws Exception {
+        String oldName = "testRoomOld";
+        String newName = "testRoomNew";
+        roomService.addNewRoom(oldName);
+        Room testRoom = roomMapper.getRoomByName(oldName);
+        roomService.modifyRoomName(testRoom.getId(),newName);
+        testRoom = roomMapper.getRoomByName(newName);
+        AssertJUnit.assertEquals(testRoom.getRoomName(),newName);
+        AssertJUnit.assertNotNull(testRoom);
+    }
+
+    @Test
+    public void modifyRoomNameTest_exist_name() throws Exception {
+        String oldName = "testRoomOld";
+        String newName = "testRoomNew";
+        roomService.addNewRoom(oldName);
+        roomService.addNewRoom(newName);
+        Room testRoom = roomMapper.getRoomByName(oldName);
+        Integer testRoomId = testRoom.getId();
+        roomService.modifyRoomName(testRoomId,newName);
+        RoomVO testRoomVO = roomMapper.getRoomById(testRoomId);
+        AssertJUnit.assertEquals(oldName,testRoomVO.getRoomName());
+    }
+
+    @Test
     public void getRoomList() throws Exception {
         List<RoomVO> roomList = roomService.getRoomList();
         AssertJUnit.assertNotNull(roomList);
