@@ -74,6 +74,11 @@ public class RoomService implements Logable{
         return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
     }
 
+    public List<Room> getRoomListByPage(Integer pno,Integer PAGE_SIZE){
+        Integer npno = (pno - 1) * PAGE_SIZE;
+        return roomMapper.getRoomByPage(npno,PAGE_SIZE);
+    }
+
     public Resp modifyRoomName(Integer roomId,String name){
         Room tempRoom = roomMapper.getRoomByName(name);
         if(ObjectUtils.isNullOrEmpty(tempRoom)) {

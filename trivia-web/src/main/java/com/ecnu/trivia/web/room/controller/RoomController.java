@@ -25,6 +25,7 @@ import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.service.RoomService;
 import com.ecnu.trivia.web.utils.Resp;
+import com.ecnu.trivia.web.utils.RoomResp;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +47,19 @@ public class RoomController {
     public Resp getRoomList() {
         List<RoomVO> list = roomService.getRoomList();
         return new Resp(HttpRespCode.SUCCESS,list);
+    }
+
+    /**
+     * 分页获取房间列表
+     * @author: Handsome Zhao
+     * @date: 16:29 2017/12/7
+     */
+    @RequestMapping(value = "/list/page/", method = RequestMethod.GET)
+    public RoomResp getRoomListByPage(@RequestParam("pno") Integer pno,
+                                  @RequestParam("PAGE_SIZE") Integer PAGE_SIZE) {
+        List<Room> list = roomService.getRoomListByPage(pno,PAGE_SIZE);
+        Integer count = roomService.getRoomList().size();
+        return new RoomResp(HttpRespCode.SUCCESS,list,count);
     }
 
     /**
