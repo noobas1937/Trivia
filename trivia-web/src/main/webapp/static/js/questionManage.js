@@ -9,7 +9,7 @@ function loadQuestionTable(){
         table = layui.table;
         table.render({
             elem: '#table'
-            ,height: 315
+            ,height: 'full-200'
             ,page: true //开启分页
             ,url: '/trivia/question/retrive/'
             ,id: 'mainTable'
@@ -18,13 +18,13 @@ function loadQuestionTable(){
             ,cols: [[ //表头
             {field: 'id', title: 'ID', width:50, sort: true, fixed: 'left'}
             ,{field: 'description', align: 'center', title: '问题', width:239}
-            ,{field: 'chooseA', align: 'center', title: '选择A', width:100} 
-            ,{field: 'chooseB', align: 'center', title: '选择B', width:100} 
-            ,{field: 'chooseC', align: 'center', title: '选择C', width:100} 
-            ,{field: 'chooseD', align: 'center', title: '选择D', width:100} 
+            ,{field: 'chooseA', align: 'center', title: '选择A', width:170}
+            ,{field: 'chooseB', align: 'center', title: '选择B', width:170}
+            ,{field: 'chooseC', align: 'center', title: '选择C', width:170}
+            ,{field: 'chooseD', align: 'center', title: '选择D', width:170}
             ,{field: 'answer', align: 'center', title: '答案', width: 70, templet: "#answerTpl"}
-            ,{field: 'type', align: 'center', title: '类型', width: 100}
-            ,{field: 'typeId', align: 'center', title: '类型id', width: 70}
+            ,{field: 'type', align: 'center', title: '类型', width: 120}
+            ,{field: 'typeId', align: 'center', title: '类型ID', width: 70}
             ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
             ]]
             ,request: {

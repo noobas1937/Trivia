@@ -9,15 +9,15 @@ function loadQuestionTable(){
         table = layui.table;
         table.render({
             elem: '#table'
-            ,height: 315
+            ,height:'full-200'
             ,page: true //开启分页
             ,url: '/trivia/question/type/'
             ,id: 'mainTable'
             ,method: 'get'
             ,page:true
             ,cols: [[ //表头
-            {field: 'id', title: 'ID', width:50, sort: true, fixed: 'left'}
-            ,{field: 'name', align: 'center', title: '问题类型', width:239}
+            {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'}
+            ,{field: 'name', align: 'center', title: '问题类型', width:250}
             ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
             ]]
             ,request: {
