@@ -21,6 +21,7 @@ import org.testng.AssertJUnit;
 import javax.annotation.Resource;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 
@@ -90,7 +91,7 @@ public class RoomServiceTest {
         List<PlayerVO> players = roomVO.getPlayerList();
         AssertJUnit.assertNotNull(players);
         for (PlayerVO p : players) {
-            if(p.getUserId()==mockUser.getId()){
+            if(Objects.equals(p.getUserId(), mockUser.getId())){
                 return;
             }
         }

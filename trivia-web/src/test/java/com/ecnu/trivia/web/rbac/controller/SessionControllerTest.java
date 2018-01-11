@@ -47,10 +47,6 @@ public class SessionControllerTest {
     @Resource
     private SessionController sessionController;
     @Resource
-    private UserController userController;
-    @Resource
-    private RoomService roomService;
-    @Resource
     private UserMapper userMapper;
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();

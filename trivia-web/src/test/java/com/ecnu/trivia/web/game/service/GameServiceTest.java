@@ -31,6 +31,7 @@ import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Jack Chen
@@ -90,7 +91,7 @@ public class GameServiceTest {
             AssertJUnit.fail();
         }
         for (PlayerVO playerVO: playerList) {
-            if(playerVO.getUserId()==mockUser.getId()){
+            if(Objects.equals(playerVO.getUserId(), mockUser.getId())){
                 return;
             }
         }
