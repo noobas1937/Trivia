@@ -4,13 +4,10 @@ package com.ecnu.trivia.web.room.mapper;
 import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.utils.Constants;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.AssertJUnit;
 
@@ -26,17 +23,13 @@ public class RoomMapperTest {
     @Resource
     private RoomMapper roomMapper;
 
-
-
     @Test
     public void getRoomList() throws Exception {
         List res=roomMapper.getRoomList();
         if(res==null){
             AssertJUnit.fail("null");
         }
-
     }
-
 
     @Test
     public void getRoomById() throws Exception {
@@ -44,9 +37,6 @@ public class RoomMapperTest {
         if(res!=null) {
             AssertJUnit.fail("not exist");
         }
-
-
-
     }
 
 
@@ -63,8 +53,6 @@ public class RoomMapperTest {
         if(res1!=null) {
             AssertJUnit.fail("not exist ");
         }
-
-
     }
 
     @Test
@@ -72,20 +60,14 @@ public class RoomMapperTest {
         Integer notPlay=1;
         Integer inPlay=2;
         Room res= roomMapper.getRoomByUserID(notPlay);
-        if(res!=null)
-        {
+        if(res!=null) {
             AssertJUnit.fail("not exist");
         }
         Room res1= roomMapper.getRoomByUserID(inPlay);
-        if(res1==null)
-        {
+        if(res1==null) {
             AssertJUnit.fail("exist");
         }
-
-
     }
-
-
 
     @Test
     public void updateRoomStatus() throws Exception {
@@ -100,7 +82,6 @@ public class RoomMapperTest {
         if(roomId_status1!=2){
             AssertJUnit.fail("fail ");
         }
-
     }
 
 }
