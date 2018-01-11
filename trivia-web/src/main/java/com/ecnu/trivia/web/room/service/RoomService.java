@@ -62,8 +62,9 @@ public class RoomService implements Logable{
             roomMapper.deleteRoomById(id);
             return new Resp(HttpRespCode.SUCCESS);
         }
-        else
+        else {
             return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        }
     }
 
     public Resp addNewRoom(String name){
@@ -72,8 +73,9 @@ public class RoomService implements Logable{
             roomMapper.addRoomByName(name);
             return new Resp(HttpRespCode.SUCCESS);
         }
-        else
+        else {
             return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        }
     }
 
     public Resp modifyRoomName(Integer roomId,String name){
@@ -82,8 +84,9 @@ public class RoomService implements Logable{
             roomMapper.modifyRoomName(roomId,name);
             return new Resp(HttpRespCode.SUCCESS);
         }
-        else
+        else {
             return new Resp(HttpRespCode.OPERATE_IS_NOT_ALLOW);
+        }
     }
 
     /**

@@ -12,6 +12,7 @@ import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
 import com.ecnu.trivia.web.question.mapper.QuestionMapper;
 import com.ecnu.trivia.web.question.service.QuestionService;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import com.ecnu.trivia.web.rbac.service.SessionService;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
@@ -47,8 +48,6 @@ public class GameServiceTest {
     @Resource
     private GameMapper gameMapper;
     @Resource
-    private SessionService sessionService;
-    @Resource
     private RoomMapper roomMapper;
     @Resource
     private PlayerMapper playerMapper;
@@ -56,6 +55,8 @@ public class GameServiceTest {
     private RoomService roomService;
     @Resource
     private QuestionMapper questionMapper;
+    @Resource
+    private UserMapper userMapper;
     private User mockUser;
     private User mockUser1;
     private User mockUser2;
@@ -67,12 +68,12 @@ public class GameServiceTest {
     @Before
     public void setUp() throws Exception {
         //模拟用户
-        sessionService.addNewUser("test-user","123","test-user");
-        sessionService.addNewUser("test-user1","123","test-user1");
-        sessionService.addNewUser("test-user2","123","test-user2");
-        mockUser = sessionService.getUserByAccount("test-user","123");
-        mockUser1 = sessionService.getUserByAccount("test-user1","123");
-        mockUser2 = sessionService.getUserByAccount("test-user2","123");
+        userMapper.addNewUser("test-user","123","test-user",null);
+        userMapper.addNewUser("test-user1","123","test-user1",null);
+        userMapper.addNewUser("test-user2","123","test-user2",null);
+        mockUser = userMapper.getUserByAccount("test-user","123");
+        mockUser1 = userMapper.getUserByAccount("test-user1","123");
+        mockUser2 = userMapper.getUserByAccount("test-user2","123");
         //将玩家添加到10号房间
         roomMapper.updateRoomStatus(10, Constants.ROOM_WAITING);
         roomService.enterRoom(10,mockUser.getId());
@@ -188,7 +189,7 @@ public class GameServiceTest {
 
     @Test
     public void refresh_user_room_with_correct_user_id() throws Exception {
-        gameService.refreshUserRoom(2);
+        gameService.refreshUserRoom(mockUser.getId());
     }
 
     @Test

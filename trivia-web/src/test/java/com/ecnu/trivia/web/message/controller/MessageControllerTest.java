@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.web.utils.Resp;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,28 +24,27 @@ import javax.annotation.Resource;
 
 import static org.junit.Assert.*;
 
-
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"
         ,"classpath:spring/applicationContext-web.xml"})
 @Transactional
-public class HallMessageControllerTest {
+public class MessageControllerTest {
 
     @Resource
-    private HallMessageController hallMessageController;
+    private MessageController messageController;
     @Resource
     private MockHttpSession session;
     private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {
-        mockMvc = MockMvcBuilders.standaloneSetup(hallMessageController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(messageController).build();
     }
 
     @Test
     public void sendToAllTerminal() throws Exception {
-        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/message/hall/all/")
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/message/all/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
                 .param("message","testmsg").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();

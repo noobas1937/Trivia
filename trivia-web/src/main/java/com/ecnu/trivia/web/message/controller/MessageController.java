@@ -27,7 +27,7 @@ public class MessageController {
     private MessageService messageService;
 
     @RequestMapping(value="/all/",method= RequestMethod.GET)
-    public Resp sendToAllTerminal(@RequestParam(value="message") String message){
+    public Resp sendToAllTerminal(@RequestParam("message") String message){
         logger.info("收到用户:{}的发送请求，向所有用户发送消息：{}", UserUtils.fetchUserId(),message);
         messageService.sendToAllTerminal(message);
         return new Resp(HttpRespCode.SUCCESS);

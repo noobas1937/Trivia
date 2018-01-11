@@ -59,20 +59,6 @@ public class MessageService {
             hallOnlineUser.get(userId).sendMessageToUser(message,userId);
         }
     }
-
-    /**
-     * 向所有终端发送消息(除了自己)
-     * @param message 消息
-     * @param userId 除去的user
-     * @return
-     */
-//    public void sendToAllTerminal(String message,Integer userId){
-//        for (Integer uid : onlineUser.keySet()) {
-//            if(Objects.equals(uid, userId)){ continue; }
-//            onlineUser.get(userId).sendMessageToUser(message,userId);
-//        }
-//    }
-
     /**
      * 向所有终端发送消息(除了自己)
      * @param message 消息
@@ -85,21 +71,6 @@ public class MessageService {
             hallOnlineUser.get(uid).sendMessageToUser(message,uid);
         }
     }
-
-    /**
-     * 向单一用户发送消息
-     * @param message 消息
-     * @param user 目标用户
-     * @return
-     */
-//    public void sendToAllTerminal(String message,User user){
-//        if(user==null) { throw new IllegalArgumentException(); }
-//        WebSocketCommunicator communicator = onlineUser.get(user.getId());
-//
-//        if (ObjectUtils.isNotNullOrEmpty(communicator)) {
-//            communicator.sendMessageToUser(message,user.getId());
-//        }
-//    }
 
     /**
      * 向一组玩家发送消息

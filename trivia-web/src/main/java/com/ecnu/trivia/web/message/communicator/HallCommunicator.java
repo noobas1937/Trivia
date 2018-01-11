@@ -112,7 +112,8 @@ public class HallCommunicator {
      */
     public void sendMessageToUser(String message,Integer userId){
         HallCommunicator communicator = ONLINE_USER.get(userId);
-        if (ObjectUtils.isNotNullOrEmpty(communicator)) {
+        if (ObjectUtils.isNotNullOrEmpty(communicator)
+                &&ObjectUtils.isNotNullOrEmpty(communicator.session)) {
             try {
                 communicator.session.getBasicRemote().sendText(message);
                 logger.info(" 给用户id为：{}的终端发送消息：{}",communicator.user.getId(),message);
