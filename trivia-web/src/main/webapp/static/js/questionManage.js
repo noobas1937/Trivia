@@ -47,7 +47,7 @@ function loadQuestionTable(){
                     $.ajax({
                         type: "DELETE",
                         /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                        url: "http://localhost:8081/trivia/question/" + data.id +"/",
+                        url: "/trivia/question/" + data.id +"/",
                         contentType: "application/json; charset=utf-8",
                         dataType:"json",
                         success: function (data) {
@@ -97,7 +97,7 @@ function loadQuestionTable(){
                     $.ajax({
                         type: "POST",
                         /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                        url: "http://localhost:8081/trivia/question/modify/",
+                        url: "/trivia/question/modify/",
                         data: JSON.stringify({
                             id : data.id,
                             description : description,
@@ -176,7 +176,7 @@ $('#questionAddBtn').click(function(){
                     $.ajax({
                         type: "POST",
                         /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                        url: "http://localhost:8081/trivia/question/",
+                        url: "/trivia/question/",
                         data: JSON.stringify({
                             description : description,
                             typeId : typeId,
