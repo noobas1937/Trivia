@@ -196,6 +196,23 @@ public class QuestionControllerTest {
     }
 
     @Test
+    public void add_question_with_some_empty_information() throws Exception {
+        mockQuestion.setDescription(null);
+        ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders
+                .post("/question/")
+                .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(JSON.toJSONString(mockQuestion))
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .session(session)
+        );
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.PARAM_ERROR.getCode(),resp.getResCode());
+    }
+
+    @Test
     public void add_question_type() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(
             MockMvcRequestBuilders
@@ -211,7 +228,7 @@ public class QuestionControllerTest {
     }
 
     @Test
-    public void modifyQuestionTypeName() throws Exception {
+    public void modify_question_type_name() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(
                 MockMvcRequestBuilders
                         .post("/question/type/modify/")

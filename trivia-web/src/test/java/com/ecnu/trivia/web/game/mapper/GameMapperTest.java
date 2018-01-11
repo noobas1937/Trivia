@@ -1,7 +1,16 @@
 package com.ecnu.trivia.web.game.mapper;
 
 import com.ecnu.trivia.web.game.domain.Game;
+import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.mapper.QuestionMapper;
+import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
+import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.mapper.RoomMapper;
+import com.ecnu.trivia.web.utils.Constants;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,65 +31,66 @@ import java.util.List;
 public class GameMapperTest {
     @Resource
     private GameMapper gameMapper;
+    @Resource
+    private RoomMapper roomMapper;
+    @Resource
+    private QuestionMapper questionMapper;
+    @Resource
+    private PlayerMapper playerMapper;
+    @Resource
+    private UserMapper userMapper;
+    private User mockUser;
+    private Room mockRoom;
+    private Game mockGame;
+    private Player mockPlayer;
+    private Question mockQuestion;
 
-    @Test
-    public void getGameByRoomId() throws Exception {
-        Integer roomid=1;
-        Integer roomid1=5;
-        Game res=gameMapper.getGameByRoomId(roomid);
-        Game res1=gameMapper.getGameByRoomId(roomid1);
-       if(res!=null){
-           AssertJUnit.fail();
-       }
-        if(res1==null){
-            AssertJUnit.fail();
-        }
+    @Before
+    public void setUp() throws Exception {
+        userMapper.addNewUser("test-user","12345678","nickName",null);
+        mockUser = userMapper.getUserByAccount("test-user","12345678");
+        roomMapper.addRoomByName("test-room");
+        mockRoom = roomMapper.getRoomByName("test-room");
+        playerMapper.addPlayer(mockRoom.getId(),mockUser.getId());
+        mockPlayer =playerMapper.getPlayerByUserId(mockUser.getId());
+        questionMapper.addQuestionWithId(55555,"Test Question","a","b","c","d",1,1);
+        mockQuestion = questionMapper.getQuestionById(55555);
     }
 
     @Test
-    public void updateGameStatus() throws Exception {
-        gameMapper.updateGameStatus(23,79,1,3,1);
-        Integer CurrentPlayerId=gameMapper.getGameByRoomId(5).getCurrentPlayerId();
-        Integer dicenumber=gameMapper.getGameByRoomId(5).getDiceNumber();
-        Integer quesid=gameMapper.getGameByRoomId(5).getQuestionId();
-        Integer stage=gameMapper.getGameByRoomId(5).getStage();
-        if(CurrentPlayerId!=79){
-            AssertJUnit.fail();
-        }
-        if(dicenumber!=1){
-            AssertJUnit.fail();
-        }
-        if(quesid!=3){
-            AssertJUnit.fail();
-        }
-        if(stage!=1){
-            AssertJUnit.fail();
-        }
+    public void get_game_by_room_id() throws Exception {
+        gameMapper.addGame(mockRoom.getId(),mockPlayer.getId());
+        AssertJUnit.assertNotNull(gameMapper.getGameByRoomId(mockRoom.getId()));
     }
 
     @Test
-    public void getGameByQuestionId() throws Exception {
-        List<Game> res=gameMapper.getGameByQuestionId(17);
-        if(res==null){
-            AssertJUnit.fail();
-        }
+    public void update_game_status() throws Exception {
+        gameMapper.addGame(mockRoom.getId(),mockPlayer.getId());
+        mockGame = gameMapper.getGameByRoomId(mockRoom.getId());
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),1,mockQuestion.getId(), Constants.GAME_READY);
+        Game game = gameMapper.getGameByRoomId(mockRoom.getId());
+        AssertJUnit.assertEquals(game.getCurrentPlayerId(),mockPlayer.getId());
+        AssertJUnit.assertEquals((int)game.getDiceNumber(),1);
+        AssertJUnit.assertEquals(game.getQuestionId(),mockQuestion.getId());
+        AssertJUnit.assertEquals((int)game.getStage(),Constants.GAME_READY);
     }
 
     @Test
-    public void addGame() throws Exception {
-        gameMapper.addGame(10,79);
-        Game res=gameMapper.getGameByRoomId(10);
-        if(res==null){
-            AssertJUnit.fail();
-        }
+    public void get_game_by_question_id() throws Exception {
+        List<Game> res=gameMapper.getGameByQuestionId(mockQuestion.getId());
+        AssertJUnit.assertNotNull(res);
     }
 
     @Test
-    public void getAppropriateReadyRoomId() throws Exception {
-        Integer res=gameMapper.getAppropriateReadyRoomId(4);
-        if(res!=3){
-            AssertJUnit.fail();
-        }
+    public void add_game() throws Exception {
+        gameMapper.addGame(mockRoom.getId(),mockPlayer.getId());
+        Game res=gameMapper.getGameByRoomId(mockRoom.getId());
+        AssertJUnit.assertNotNull(res);
+    }
+
+    @Test
+    public void get_appropriate_ready_room_id() throws Exception {
+        gameMapper.getAppropriateReadyRoomId(4);
     }
 
 }

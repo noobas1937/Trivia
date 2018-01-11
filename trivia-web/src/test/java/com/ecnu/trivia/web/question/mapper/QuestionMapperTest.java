@@ -1,24 +1,29 @@
 package com.ecnu.trivia.web.question.mapper;
 
 import com.ecnu.trivia.common.util.ObjectUtils;
+import com.ecnu.trivia.web.game.domain.Game;
+import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.mapper.GameMapper;
+import com.ecnu.trivia.web.game.mapper.PlayerMapper;
 import com.ecnu.trivia.web.question.domain.Question;
+import com.ecnu.trivia.web.question.domain.QuestionType;
 import com.ecnu.trivia.web.question.domain.vo.QuestionVO;
-import org.junit.After;
+import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
+import com.ecnu.trivia.web.room.domain.Room;
+import com.ecnu.trivia.web.room.mapper.RoomMapper;
+import com.ecnu.trivia.web.utils.Constants;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 import org.testng.AssertJUnit;
 
 import javax.annotation.Resource;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * @author Jack Chen
@@ -30,52 +35,77 @@ import static org.junit.Assert.*;
 public class QuestionMapperTest {
     @Resource
     private QuestionMapper questionMapper;
+    @Resource
+    private PlayerMapper playerMapper;
+    @Resource
+    private GameMapper gameMapper;
+    @Resource
+    private RoomMapper roomMapper;
+    @Resource
+    private UserMapper userMapper;
+    @Resource
+    private QuestionTypeMapper questionTypeMapper;
+    private User mockUser;
+    private Room mockRoom;
+    private Game mockGame;
+    private Player mockPlayer;
+    private Question mockQuestion;
+    private QuestionType mockQuestionType;
+    @Before
+    public void setUp() throws Exception {
+        userMapper.addNewUser("test-user","12345678","nickName",null);
+        mockUser = userMapper.getUserByAccount("test-user","12345678");
+        roomMapper.addRoomByName("test-room");
+        mockRoom = roomMapper.getRoomByName("test-room");
+        playerMapper.addPlayer(mockRoom.getId(),mockUser.getId());
+        mockPlayer =playerMapper.getPlayerByUserId(mockUser.getId());
+        questionMapper.addQuestionWithId(55555,"Test Question","a","b","c","d",1,1);
+        mockQuestion = questionMapper.getQuestionById(55555);
+        gameMapper.addGame(mockRoom.getId(),mockPlayer.getId());
+        mockGame = gameMapper.getGameByRoomId(mockRoom.getId());
+        questionTypeMapper.addQuestionType("test-question-type");
+        mockQuestionType = questionTypeMapper.getQuestionTypeByDesc("test-question-type").get(0);
+
+    }
 
     @Test
-    public void deleteQuestion() throws Exception {
-        int DELETE_QUESTION_ID = 3;
-        questionMapper.deleteQuestion(DELETE_QUESTION_ID);
-        Question question = questionMapper.getQuestionById(DELETE_QUESTION_ID);
+    public void delete_question() throws Exception {
+        questionMapper.deleteQuestion(mockQuestion.getId());
+        Question question = questionMapper.getQuestionById(mockQuestion.getId());
         if(ObjectUtils.isNotNullOrEmpty(question)){
-            AssertJUnit.fail("删除问题："+DELETE_QUESTION_ID+" 失败！");
+            AssertJUnit.fail("删除问题："+mockQuestion.getId()+" 失败！");
         }
     }
 
     @Test
-    public void getQuestionById() throws Exception {
-        int QUERY_QUESTION_ID = 3;
-        Question question = questionMapper.getQuestionById(QUERY_QUESTION_ID);
+    public void get_question_by_id() throws Exception {
+        Question question = questionMapper.getQuestionById(mockQuestion.getId());
         if(ObjectUtils.isNullOrEmpty(question)){
-            AssertJUnit.fail("获取问题："+QUERY_QUESTION_ID+" 失败！");
+            AssertJUnit.fail("获取问题："+mockQuestion.getId()+" 失败！");
         }
     }
 
     @Test
-    public void getQuestionByUserId() throws Exception {
-        int QUERY_USER_ID = 2;
-        int QUERY_USER_ID_ERROR = 3;
-        Question question = questionMapper.getQuestionByUserId(QUERY_USER_ID);
-        if(ObjectUtils.isNullOrEmpty(question)){
-            AssertJUnit.fail("获取用户："+QUERY_USER_ID+" 的问题失败！");
-        }
-        Question questionEmpty = questionMapper.getQuestionByUserId(QUERY_USER_ID_ERROR);
-        if(ObjectUtils.isNotNullOrEmpty(questionEmpty)){
-            AssertJUnit.fail("获取到用户："+QUERY_USER_ID_ERROR+" 的问题！");
-        }
+    public void get_question_by_user_id() throws Exception {
+        gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),1,mockQuestion.getId(), Constants.GAME_READY);
+        Question question = questionMapper.getQuestionByUserId(mockUser.getId());
+        AssertJUnit.assertNotNull(question);
+        Question questionEmpty = questionMapper.getQuestionByUserId(-1000);
+        AssertJUnit.assertNull(questionEmpty);
     }
 
     @Test
-    public void modifyQuestion() throws Exception {
-        Question mockQuestion = new Question(3,"test",1,"A","B",
+    public void modify_question() throws Exception {
+        Question modifyQuestion = new Question(mockQuestion.getId(),"test",1,"A","B",
                 "C","D",1,1);
-        questionMapper.modifyQuestion(mockQuestion);
-        Question question = questionMapper.getQuestionById(3);
+        questionMapper.modifyQuestion(modifyQuestion);
+        Question question = questionMapper.getQuestionById((mockQuestion.getId()));
         AssertJUnit.assertNotNull(question);
         AssertJUnit.assertEquals("test",question.getDescription());
     }
 
     @Test
-    public void addQuestion() throws Exception {
+    public void add_question() throws Exception {
         Integer countInit = questionMapper.getQuestionsCount();
         questionMapper.addQuestion("test","A","B",
                 "C","D",1,1);
@@ -84,24 +114,19 @@ public class QuestionMapperTest {
     }
 
     @Test
-    public void getQuestionsByQuestionTypeId() throws Exception {
-        int QUERY_QUESTION_TYPE_ID = 1;
-        List<Question> questions = questionMapper.getQuestionsByQuestionTypeId(QUERY_QUESTION_TYPE_ID);
-        if(ObjectUtils.isNullOrEmpty(questions)){
-            AssertJUnit.fail("根据问题类型获取问题出错！");
-        }
+    public void get_questions_by_question_type_id() throws Exception {
+        List<Question> questions = questionMapper.getQuestionsByQuestionTypeId(mockQuestionType.getId());
+        AssertJUnit.assertNotNull(questions);
     }
 
     @Test
-    public void getQuestions() throws Exception {
+    public void get_questions() throws Exception {
         List<QuestionVO> questions = questionMapper.getQuestions(1,10);
-        if(ObjectUtils.isNullOrEmpty(questions)){
-            AssertJUnit.fail("分页获取问题列表失败");
-        }
+        AssertJUnit.assertNotNull(questions);
     }
 
     @Test
-    public void getQuestionsCount() throws Exception {
+    public void get_questions_count() throws Exception {
         Integer questionCount = questionMapper.getQuestionsCount();
         AssertJUnit.assertNotNull(questionCount);
         if(questionCount<0){
@@ -110,12 +135,11 @@ public class QuestionMapperTest {
     }
 
     @Test
-    public void generateRandomQuestion() throws Exception {
-        int QUERY_QUESTION_TYPE_ID_ERROR = 0;
-        Integer questionIdEmpty = questionMapper.generateRandomQuestion(QUERY_QUESTION_TYPE_ID_ERROR);
+    public void generate_random_question() throws Exception {
+        Integer questionIdEmpty = questionMapper.generateRandomQuestion(-1000);
         AssertJUnit.assertNull(questionIdEmpty);
-        int QUERY_QUESTION_TYPE_ID = 1;
-        Integer questionId = questionMapper.generateRandomQuestion(QUERY_QUESTION_TYPE_ID);
+        QuestionType type = questionTypeMapper.getQuestionTypes().get(0);
+        Integer questionId = questionMapper.generateRandomQuestion(type.getId());
         AssertJUnit.assertNotNull(questionId);
         Question question = questionMapper.getQuestionById(questionId);
         AssertJUnit.assertNotNull(question);

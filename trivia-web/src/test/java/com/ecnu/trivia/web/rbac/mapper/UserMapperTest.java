@@ -19,8 +19,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * @author: Lucto Zhang
- * @date: 23:01 2018/01/04
+ * @author Lucto Zhang
+ * @date 23:01 2018/01/04
  */
 
 @RunWith(value = SpringJUnit4ClassRunner.class)
@@ -31,7 +31,7 @@ public class UserMapperTest {
     private UserMapper userMapper;
 
     @Test
-    public void getUserByAccount() throws Exception {
+    public void get_user_by_account() throws Exception {
         User res = userMapper.getUserByAccount("siyuan","12345678");
         if(ObjectUtils.isNullOrEmpty(res)){
             AssertJUnit.fail("null");
@@ -39,7 +39,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void getUserByAccountWithoutPassword() throws Exception {
+    public void get_user_by_account_without_password() throws Exception {
         User res = userMapper.getUserByAccountWithoutPassword("siyuan");
         if(ObjectUtils.isNullOrEmpty(res)){
             AssertJUnit.fail("null");
@@ -47,7 +47,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void getUserById() throws Exception {
+    public void get_user_by_id() throws Exception {
         User res = userMapper.getUserById(2);
         if(ObjectUtils.isNullOrEmpty(res)){
             AssertJUnit.fail("null");
@@ -55,7 +55,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void setLastLogin() throws Exception {
+    public void set_last_login() throws Exception {
         Timestamp last = userMapper.getUserByAccountWithoutPassword("siyuan").getLastLogin();
         userMapper.setLastLogin("siyuan");
         Timestamp now = userMapper.getUserByAccountWithoutPassword("siyuan").getLastLogin();
@@ -65,7 +65,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void setUserRegisterInfo() throws Exception {
+    public void set_user_register_info() throws Exception {
         userMapper.setUserRegisterInfo("小红军","ThisIsAHeadPic","xiaohongjun","123456789");
         User res = userMapper.getUserByAccountWithoutPassword("xiaohongjun");
         if(ObjectUtils.isNullOrEmpty(res)){
@@ -82,7 +82,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void addNewUser() throws Exception {
+    public void add_new_user() throws Exception {
         userMapper.addNewUser("liqing","12345678","李钦儿","MissLi'sHeadPic");
         User res = userMapper.getUserByAccountWithoutPassword("liqing");
         if(ObjectUtils.isNullOrEmpty(res)){
@@ -91,7 +91,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void deleteUserById() throws Exception {
+    public void delete_user_by_id() throws Exception {
         userMapper.deleteUserById(8);
         User res = userMapper.getUserById(8);
         if(!ObjectUtils.isNullOrEmpty(res)){
@@ -101,7 +101,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void modifyUserInfoWithNewPassword() throws Exception {
+    public void modify_user_info_with_new_password() throws Exception {
         User last = userMapper.getUserById(2);
         User tmp= new User();
         tmp.transform(last);
@@ -117,7 +117,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void modifyUserInfoWithoutNewPassword() throws Exception {
+    public void modify_user_info_without_new_password() throws Exception {
         User last = userMapper.getUserById(3);
         User tmp = new User();
         tmp.transform(last);
@@ -145,7 +145,7 @@ public class UserMapperTest {
     }
 
     @Test
-    public void getUserCount() throws Exception {
+    public void get_user_count() throws Exception {
         Integer res = userMapper.getUserCount();
         if(res == null || res < 0){
             AssertJUnit.fail("null");

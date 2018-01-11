@@ -93,8 +93,7 @@ public class QuestionController {
      * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/", method = RequestMethod.GET)
-    public QuestionResp getQuestionTypes(@RequestParam("pno") Integer pno,
-                                    @RequestParam("PAGE_SIZE") Integer pageSize) {
+    public QuestionResp getQuestionTypes(@RequestParam("pno") Integer pno, @RequestParam("PAGE_SIZE") Integer pageSize) {
         List<QuestionType> list = questionTypeService.getQuestionTypesByPage(pno,pageSize);
         Integer count = questionTypeService.getQuestionTypesCount();
         return new QuestionResp(HttpRespCode.SUCCESS,list,count);
@@ -126,8 +125,7 @@ public class QuestionController {
      * @date 19:55 2017/12/17
      */
     @RequestMapping(value = "/type/modify/", method = RequestMethod.POST)
-    public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId,
-                                       @RequestParam("description") String description) {
+    public Resp modifyQuestionTypeName(@RequestParam("questionId") Integer questionId, @RequestParam("description") String description) {
         return questionTypeService.modifyQuestionType(questionId,description);
     }
 
@@ -138,8 +136,7 @@ public class QuestionController {
      * @date 22:59 2017/12/17
      */
     @RequestMapping(value = "/retrive/", method = RequestMethod.GET)
-    public QuestionResp getQuestion(@RequestParam("pno") Integer pno,
-                                       @RequestParam("PAGE_SIZE") Integer pageSize) {
+    public QuestionResp getQuestion(@RequestParam("pno") Integer pno, @RequestParam("PAGE_SIZE") Integer pageSize) {
         List<QuestionVO> questions = questionService.getAllQuestions(pno, pageSize);
         Integer count = questionService.getAllQuestionsCount();
         return new QuestionResp(HttpRespCode.SUCCESS,questions,count);

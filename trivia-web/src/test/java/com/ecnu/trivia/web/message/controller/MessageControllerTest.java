@@ -43,7 +43,7 @@ public class MessageControllerTest {
     }
 
     @Test
-    public void sendToAllTerminal() throws Exception {
+    public void send_to_all_terminal() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/message/all/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
                 .param("message","testmsg").contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));

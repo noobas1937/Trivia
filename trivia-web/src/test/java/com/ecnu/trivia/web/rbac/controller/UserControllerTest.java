@@ -38,8 +38,6 @@ import static org.junit.Assert.*;
 @Transactional
 public class UserControllerTest {
     @Resource
-    private SessionController sessionController;
-    @Resource
     private UserController userController;
     @Resource
     private RoomService roomService;
@@ -60,12 +58,8 @@ public class UserControllerTest {
         session.setAttribute(Constants.ONLINE_USER,mockUser);
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
-    public void getCurrentUserTest() throws Exception {
+    public void get_current_user() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/currentUser/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -78,7 +72,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getCurrentUserTest_not_login() throws Exception {
+    public void get_current_user_not_login() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/currentUser/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();
@@ -89,7 +83,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  getUserListTest() throws Exception {
+    public void  get_user_list() throws Exception {
         mockUser.setUserType(0);
         session.setAttribute(Constants.ONLINE_USER,mockUser);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/")
@@ -103,7 +97,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  getUserListTest_not_right_user() throws Exception {
+    public void  get_user_list_not_right_user() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
                 .param("pno","1").param("PAGE_SIZE","5"));
@@ -115,7 +109,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  addNewUserTest() throws Exception {
+    public void  add_new_user() throws Exception {
         User mockAddUser = new User();
         mockAddUser.setAccount("mockAddUserTestAccount");
         mockAddUser.setPassword("12345678");
@@ -131,7 +125,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  addNewUserTest_exist_same_account() throws Exception {
+    public void  add_new_user_exist_same_account() throws Exception {
         userMapper.addNewUser("mockAddUserTestAccount","12345678","mockAddUserTestNickName",null);
         User mockAddUser = new User();
         mockAddUser.setAccount("mockAddUserTestAccount");
@@ -148,7 +142,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  deleteUserTest() throws Exception {
+    public void  delete_user() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.delete("/user/"+mockUser.getId()+"/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -159,7 +153,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  deleteUserTest_exist_player() throws Exception {
+    public void  delete_user_exist_player() throws Exception {
         roomService.enterRoom(10,mockUser.getId());
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.delete("/user/"+mockUser.getId()+"/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
@@ -171,7 +165,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  modifyUserTest() throws Exception {
+    public void  modify_user() throws Exception {
         mockUser.setNickName("xiaotest2");
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/user/modify/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
@@ -184,7 +178,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void  modifyUserTest_no_id() throws Exception {
+    public void  modify_user_no_id() throws Exception {
         mockUser.setNickName("xiaotest2");
         mockUser.setId(null);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/user/modify/")
@@ -198,7 +192,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUserInGameListTest() throws Exception {
+    public void get_user_in_game_list() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/user/list/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();

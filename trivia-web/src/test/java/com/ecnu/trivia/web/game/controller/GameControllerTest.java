@@ -74,12 +74,8 @@ public class GameControllerTest {
         mockQuestion = questionMapper.getQuestionById(55555);
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
-    public void isReadyTest_success() throws Exception {
+    public void is_ready() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/ready/"+Constants.PLAYER_READY+"/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -90,7 +86,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void isReadyTest_param_error() throws Exception {
+    public void is_ready_param_error() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/ready/"+Constants.PLAYER_GAMING_FREE+"/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -101,7 +97,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void isReadyTest_user_not_login() throws Exception {
+    public void is_ready_user_not_login() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/ready/"+Constants.PLAYER_READY+"/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();
@@ -112,7 +108,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void refreshUI_success() throws Exception {
+    public void refresh_ui() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/refresh/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -123,7 +119,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void refreshUI_user_not_login() throws Exception {
+    public void refresh_ui_user_not_login() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/refresh/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();
@@ -134,7 +130,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void rollDice_success() throws Exception {
+    public void roll_dice() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/roll/dice/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -145,7 +141,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void rollDice_user_not_login() throws Exception {
+    public void roll_dice_user_not_login() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/roll/dice/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();
@@ -156,7 +152,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void qucikJoinGameRoom_success() throws Exception {
+    public void qucik_join_game_room() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/game/qucikJoin/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -167,7 +163,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void qucikJoinGameRoom_user_not_login() throws Exception {
+    public void quick_join_game_room_user_not_login() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/game/qucikJoin/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();
@@ -178,7 +174,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getQuestionTypeList() throws Exception {
+    public void get_question_type_list() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/question/type/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -189,7 +185,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getQuestionByQuestionType_success() throws Exception {
+    public void get_question_by_question_type() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),3,55555,Constants.GAME_CHOOSE_TYPE);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/question/choose/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
@@ -202,7 +198,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getQuestionByQuestionType_param_error() throws Exception {
+    public void get_question_by_question_type_param_error() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),3,55555,Constants.GAME_CHOOSE_TYPE);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/question/choose/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -215,7 +211,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getQuestionById_success() throws Exception {
+    public void get_question_by_id_success() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),3,55555,Constants.GAME_ANSWERING_QUESTION);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/question/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
@@ -228,7 +224,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void getQuestionById_param_error() throws Exception {
+    public void get_question_by_id_param_error() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),3,55555,Constants.GAME_ANSWERING_QUESTION);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/question/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -241,7 +237,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void checkQuestionAnswer_success() throws Exception {
+    public void check_question_answer_success() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),3,55555,Constants.GAME_ANSWERING_QUESTION);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/game/question/answer/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session)
@@ -254,7 +250,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void checkQuestionAnswer_user_not_login() throws Exception {
+    public void check_question_answer_user_not_login() throws Exception {
         gameMapper.updateGameStatus(mockGame.getId(),mockPlayer.getId(),3,55555,Constants.GAME_ANSWERING_QUESTION);
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/game/question/answer/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -280,7 +276,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void rollDice_result_false() throws Exception {
+    public void roll_dice_result_false() throws Exception {
         playerMapper.removePlayer(mockUser.getId());
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/game/roll/dice/" )
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));

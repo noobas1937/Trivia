@@ -31,19 +31,19 @@ public class QuestionTypeServiceTest {
     private QuestionTypeMapper questionTypeMapper;
 
     @Test
-    public void getQuestionTypesByPage() throws Exception {
+    public void get_question_types_by_page() throws Exception {
         List<QuestionType> questionTypes = questionTypeService.getQuestionTypesByPage(1,10);
         AssertJUnit.assertNotNull(questionTypes);
     }
 
     @Test
-    public void getQuestionTypes() throws Exception {
+    public void get_question_types() throws Exception {
         List<QuestionType> questionTypes = questionTypeService.getQuestionTypes();
         AssertJUnit.assertNotNull(questionTypes);
     }
 
     @Test
-    public void getQuestionTypesCount() throws Exception {
+    public void get_question_types_count() throws Exception {
         Integer count = questionTypeService.getQuestionTypesCount();
         AssertJUnit.assertNotNull(count);
         if(count<0){
@@ -52,7 +52,7 @@ public class QuestionTypeServiceTest {
     }
 
     @Test
-    public void deleteQuestionTypeById() throws Exception {
+    public void delete_questionT_type_by_id() throws Exception {
         //删除不存在的问题类型 -> 返回成功
         Resp empty = questionTypeService.deleteQuestionTypeById(-100);
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),empty.getResCode());
@@ -69,7 +69,7 @@ public class QuestionTypeServiceTest {
     }
 
     @Test
-    public void addQuestionType() throws Exception {
+    public void add_question_type() throws Exception {
         //添加重复的问题类型 -> 返回失败
         Resp fail = questionTypeService.addQuestionType("校园生活");
         AssertJUnit.assertEquals(HttpRespCode.OPERATE_IS_NOT_ALLOW.getCode(),fail.getResCode());
@@ -87,7 +87,7 @@ public class QuestionTypeServiceTest {
     }
 
     @Test
-    public void modifyQuestionType() throws Exception {
+    public void modify_question_type() throws Exception {
         //修改不存在的问题类型 -> 直接返回成功
         Resp failEmpty = questionTypeService.modifyQuestionType(-100,"new test");
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),failEmpty.getResCode());

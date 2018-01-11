@@ -18,6 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -45,13 +46,7 @@ public class RoomControllerTest {
     @Resource
     private RoomMapper roomMapper;
     @Resource
-    private PlayerMapper playerMapper;
-    @Resource
-    private MessageService messageService;
-    @Resource
     private RoomService roomService;
-    @Resource
-    private GameMapper gameMapper;
     @Resource
     private SessionService sessionService;
     @Resource
@@ -71,12 +66,8 @@ public class RoomControllerTest {
         session.setAttribute(Constants.ONLINE_USER,mockUser);
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
-    public void getRoomList() throws Exception {
+    public void get_room_list() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/list/"));
         MvcResult mvcResult = resultActions.andReturn();
         String result = mvcResult.getResponse().getContentAsString();
@@ -86,7 +77,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void enterRoom() throws Exception {
+    public void enter_room() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/enter/")
                 .param("roomId", mockRoom.getId().toString()).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -97,7 +88,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void enterRoom_user_not_login() throws Exception {
+    public void enter_room_user_not_login() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/enter/")
                 .param("roomId", mockRoom.getId().toString()));
         MvcResult mvcResult = resultActions.andReturn();
@@ -108,7 +99,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void enterRoom_roomId_null() throws Exception {
+    public void enter_room_roomId_null() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/enter/")
                 .param("roomId", ""));
         MvcResult mvcResult = resultActions.andReturn();
@@ -119,7 +110,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void getRoomByIdTest() throws Exception {
+    public void get_room_by_id() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/room/detail/")
                 .param("roomId",mockRoom.getId().toString()));
         MvcResult mvcResult = resultActions.andReturn();
@@ -130,7 +121,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void deleteRoomByIdTest() throws Exception {
+    public void delete_room_by_id() throws Exception {
         int count = roomService.getRoomList().size();
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders
                 .delete("/room/" + mockRoom.getId().toString() + "/"));
@@ -144,7 +135,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void addNewRoomTest() throws Exception {
+    public void add_new_room() throws Exception {
         int count = roomService.getRoomList().size();
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/room/")
                 .param("name","addNewRoomTest"));
@@ -158,7 +149,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void modifyRoomNameTest() throws Exception {
+    public void modify_room_name() throws Exception {
         String newName = "modifyRoomNameTest";
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/room/modify/")
@@ -173,7 +164,24 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void exitRoomTest_no_login()throws Exception {
+    public void get_room_list_by_page()throws Exception {
+        ResultActions resultActions = this.mockMvc.perform(
+                MockMvcRequestBuilders
+                        .get("/room/list/page/")
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .param("pno","1")
+                        .param("PAGE_SIZE","10")
+        );
+        MvcResult mvcResult = resultActions.andReturn();
+        String result = mvcResult.getResponse().getContentAsString();
+        System.out.println("=====客户端获得反馈数据:" + result);
+        Resp resp = JSON.parseObject(result, new TypeReference<Resp>() {});
+        AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),resp.getResCode());
+
+    }
+
+    @Test
+    public void exit_room_no_login()throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.post("/room/exit/"));
         MvcResult mvcResult = resultActions.andReturn();
         String result = mvcResult.getResponse().getContentAsString();
@@ -183,7 +191,7 @@ public class RoomControllerTest {
     }
 
     @Test
-    public void exitRoomTest() throws Exception {
+    public void exit_room() throws Exception {
         roomService.enterRoom(mockRoom.getId(),mockUser.getId());
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders
                 .post("/room/exit/")

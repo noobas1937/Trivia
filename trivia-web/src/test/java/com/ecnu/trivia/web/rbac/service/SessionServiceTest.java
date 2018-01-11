@@ -3,6 +3,7 @@ package com.ecnu.trivia.web.rbac.service;
 import com.ecnu.trivia.common.component.web.HttpRespCode;
 import com.ecnu.trivia.common.util.ObjectUtils;
 import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import com.ecnu.trivia.web.utils.Resp;
 import com.ecnu.trivia.web.utils.json.JSONObject;
 import javafx.beans.binding.ObjectExpression;
@@ -30,8 +31,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * @author: Lucto Zhang
- * @date: 23:01 2018/01/04
+ * @author Lucto Zhang
+ * @date 23:01 2018/01/04
  */
 @RunWith(value = SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/applicationContext.xml"})
@@ -39,9 +40,20 @@ import static org.junit.Assert.*;
 public class SessionServiceTest {
     @Resource
     private SessionService sessionService;
+    @Resource
+    private UserMapper userMapper;
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
+    private User mockUser;
+
+    @Before
+    public void setUp() throws Exception {
+        userMapper.addNewUser("testUser","12345678","test",null);
+        mockUser = userMapper.getUserByAccount("testUser","12345678");
+    }
+
     @Test
     public void get_user_by_account_successfully() throws Exception {
         User successRes = sessionService.getUserByAccount("siyuan","12345678");
@@ -143,7 +155,7 @@ public class SessionServiceTest {
     @Test
     public void delete_user_by_id_successfully() throws Exception {
         //成功删除 => 删除成功，返回成功码
-        Resp successRes = sessionService.deleteUserById(1);
+        Resp successRes = sessionService.deleteUserById(mockUser.getId());
         AssertJUnit.assertEquals(HttpRespCode.SUCCESS.getCode(),successRes.getResCode());
     }
 

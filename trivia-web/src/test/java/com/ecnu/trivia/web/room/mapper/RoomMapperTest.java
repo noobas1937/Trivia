@@ -1,9 +1,14 @@
 package com.ecnu.trivia.web.room.mapper;
 //Author:guo
 //Date:2018.1.4
+import com.ecnu.trivia.web.game.domain.Player;
+import com.ecnu.trivia.web.game.mapper.PlayerMapper;
+import com.ecnu.trivia.web.rbac.domain.User;
+import com.ecnu.trivia.web.rbac.mapper.UserMapper;
 import com.ecnu.trivia.web.room.domain.Room;
 import com.ecnu.trivia.web.room.domain.vo.RoomVO;
 import com.ecnu.trivia.web.utils.Constants;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,66 +27,54 @@ import static org.junit.Assert.*;
 public class RoomMapperTest {
     @Resource
     private RoomMapper roomMapper;
+    @Resource
+    private UserMapper userMapper;
+    @Resource
+    private PlayerMapper playerMapper;
+
+    private User mockUser;
+    private Player mockPlayer;
+    private Room mockRoom;
+    @Before
+    public void setUp() throws Exception {
+        userMapper.addNewUser("testUser","12345678","test",null);
+        mockUser = userMapper.getUserByAccount("testUser","12345678");
+        playerMapper.addPlayer(20,mockUser.getId());
+        mockPlayer = playerMapper.getPlayerByUserId(mockUser.getId());
+        roomMapper.addRoomByName("test-room");
+        mockRoom = roomMapper.getRoomByName("test-room");
+
+    }
 
     @Test
-    public void getRoomList() throws Exception {
+    public void get_room_list() throws Exception {
         List res=roomMapper.getRoomList();
-        if(res==null){
-            AssertJUnit.fail("null");
-        }
+        AssertJUnit.assertNotNull(res);
     }
 
     @Test
-    public void getRoomById() throws Exception {
-        RoomVO res= roomMapper.getRoomById(0);
-        if(res!=null) {
-            AssertJUnit.fail("not exist");
-        }
-    }
-
-
-    @Test
-    public void getRoomByPlayerID() throws Exception {
-        Integer notPlay=0;
-        Integer inPlay=79;
-        Room res= roomMapper.getRoomByPlayerID(inPlay);
-        if(res==null) {
-            AssertJUnit.fail("exist");
-        }
-
-        Room res1= roomMapper.getRoomByPlayerID(notPlay);
-        if(res1!=null) {
-            AssertJUnit.fail("not exist ");
-        }
+    public void get_room_by_id() throws Exception {
+        RoomVO res= roomMapper.getRoomById(mockRoom.getId());
+        AssertJUnit.assertNotNull(res);
     }
 
     @Test
-    public void getRoomByUserID() throws Exception {
-        Integer notPlay=1;
-        Integer inPlay=2;
-        Room res= roomMapper.getRoomByUserID(notPlay);
-        if(res!=null) {
-            AssertJUnit.fail("not exist");
-        }
-        Room res1= roomMapper.getRoomByUserID(inPlay);
-        if(res1==null) {
-            AssertJUnit.fail("exist");
-        }
+    public void get_room_by_player_id() throws Exception {
+        Room res= roomMapper.getRoomByPlayerID(mockPlayer.getId());
+        AssertJUnit.assertNotNull(res);
     }
 
     @Test
-    public void updateRoomStatus() throws Exception {
-        Integer invaildparam=2;
-        roomMapper.updateRoomStatus(1, Constants.ROOM_PLAYING);
-        Integer roomId_status=roomMapper.getRoomById(1).getStatus();
-        if(roomId_status!=1){
-            AssertJUnit.fail("fail ");
-        }
-        roomMapper. updateRoomStatus(3,invaildparam);
-        Integer roomId_status1=roomMapper.getRoomById(3).getStatus();
-        if(roomId_status1!=2){
-            AssertJUnit.fail("fail ");
-        }
+    public void get_room_by_user_id() throws Exception {
+        Room res= roomMapper.getRoomByUserID(mockUser.getId());
+        AssertJUnit.assertNotNull(res);
+    }
+
+    @Test
+    public void update_room_status() throws Exception {
+        roomMapper.updateRoomStatus(mockRoom.getId(), Constants.ROOM_PLAYING);
+        Integer roomStatus=roomMapper.getRoomById(1).getStatus();
+        AssertJUnit.assertEquals(Constants.ROOM_PLAYING,(int)roomStatus);
     }
 
 }

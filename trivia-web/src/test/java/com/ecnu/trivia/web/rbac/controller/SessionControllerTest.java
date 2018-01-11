@@ -65,12 +65,8 @@ public class SessionControllerTest {
         session.setAttribute(Constants.ONLINE_USER,mockUser);
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
-    public void loginTest() throws Exception {
+    public void login() throws Exception {
         UserAccountVO userAccountVO = new UserAccountVO();
         userAccountVO.setAccount(mockUser.getAccount());
         userAccountVO.setPassword("12345678");
@@ -85,7 +81,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void loginTest_no_account() throws Exception {
+    public void login_no_account() throws Exception {
         UserAccountVO userAccountVO = new UserAccountVO();
         userAccountVO.setAccount(null);
         userAccountVO.setPassword("12345678");
@@ -100,7 +96,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void loginTest_no_match_user() throws Exception {
+    public void login_no_match_user() throws Exception {
         UserAccountVO userAccountVO = new UserAccountVO();
         userAccountVO.setAccount(mockUser.getAccount());
         userAccountVO.setPassword("123456789");
@@ -115,7 +111,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void logoutTest() throws Exception {
+    public void logout() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/session/logout/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -126,7 +122,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void registerTest() throws Exception {
+    public void register() throws Exception {
         UserRegisterVO userRegisterVO = new UserRegisterVO();
         userRegisterVO.setAccount("mockRegisterAccount");
         userRegisterVO.setHeadpic("mockRegisterHeadPic");
@@ -143,7 +139,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void registerTest_info_not_complete() throws Exception {
+    public void register_info_not_complete() throws Exception {
         UserRegisterVO userRegisterVO = new UserRegisterVO();
         userRegisterVO.setAccount("mockRegisterAccount");
         userRegisterVO.setHeadpic("mockRegisterHeadPic");
@@ -160,7 +156,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void registerTest_already_exists() throws Exception {
+    public void register_already_exists() throws Exception {
         UserRegisterVO userRegisterVO = new UserRegisterVO();
         userRegisterVO.setAccount("alucardtest");
         userRegisterVO.setHeadpic("mockRegisterHeadPic");
@@ -177,7 +173,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void getUserInfoTest() throws Exception {
+    public void get_user_info() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/session/current/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE).session(session));
         MvcResult mvcResult = resultActions.andReturn();
@@ -189,7 +185,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void getUserInfoTest_wrong() throws Exception {
+    public void get_user_info_wrong() throws Exception {
         ResultActions resultActions = this.mockMvc.perform(MockMvcRequestBuilders.get("/session/current/")
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE));
         MvcResult mvcResult = resultActions.andReturn();
@@ -201,7 +197,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void uploadHeadPicTest() throws Exception {
+    public void upload_head_pic() throws Exception {
         File output = temporaryFolder.newFile("output.png");
         FileInputStream fis = new FileInputStream(output);
         MockMultipartFile mfile = new MockMultipartFile("C:/Users/sei_z/Desktop", "output.png", "application/vnd_ms-excel", fis);

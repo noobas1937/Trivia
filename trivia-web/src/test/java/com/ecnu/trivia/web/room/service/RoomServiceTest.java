@@ -62,11 +62,11 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void deleteRoomByIdTest() throws Exception {
+    public void delete_room_by_id() throws Exception {
         roomService.addNewRoom("testRoom112233");
         List<RoomVO> roomList = roomService.getRoomList();
         int count = roomList.size();
-        Integer deleteId = roomList.get(0).getId();
+        Integer deleteId = roomMapper.getRoomByName("testRoom112233").getId();
         roomService.deleteRoomById(deleteId);
         List<RoomVO> roomListNew = roomService.getRoomList();
         int newCount = roomListNew.size();
@@ -74,7 +74,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void deleteRoomByIdTest_already_have_player() throws Exception {
+    public void delete_room_by_id_test_already_have_player() throws Exception {
         roomService.addNewRoom("testRoom112233");
         Room testRoom = roomMapper.getRoomByName("testRoom112233");
         List<RoomVO> roomList = roomService.getRoomList();
@@ -89,7 +89,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void addNewRoomByTest() throws Exception {
+    public void add_new_room() throws Exception {
         List<RoomVO> roomList = roomService.getRoomList();
         int count = roomList.size();
         roomService.addNewRoom("testRoom112233");
@@ -99,7 +99,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void addNewRoomByTest_exist_same() throws Exception {
+    public void add_new_room_exist_room_name() throws Exception {
         List<RoomVO> roomList = roomService.getRoomList();
         int count = roomList.size();
         roomService.addNewRoom("testRoom112233");
@@ -110,7 +110,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void modifyRoomNameTest() throws Exception {
+    public void modify_room_name() throws Exception {
         String oldName = "testRoomOld";
         String newName = "testRoomNew";
         roomService.addNewRoom(oldName);
@@ -122,7 +122,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void modifyRoomNameTest_exist_name() throws Exception {
+    public void modify_room_name_already_exist() throws Exception {
         String oldName = "testRoomOld";
         String newName = "testRoomNew";
         roomService.addNewRoom(oldName);
@@ -135,18 +135,23 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void getRoomList() throws Exception {
+    public void get_room_list() throws Exception {
         List<RoomVO> roomList = roomService.getRoomList();
         AssertJUnit.assertNotNull(roomList);
     }
 
     @Test
-    public void getRoomById() throws Exception {
+    public void get_room_by_id() throws Exception {
         RoomVO roomNull = roomService.getRoomById(-100);
         AssertJUnit.assertNull(roomNull);
         RoomVO room = roomService.getRoomById(10);
         AssertJUnit.assertNotNull(room);
         AssertJUnit.assertEquals(10,(int)room.getId());
+    }
+    @Test
+    public void get_room_list_by_page() throws Exception {
+        List<Room> roomList = roomService.getRoomListByPage(1,10);
+        AssertJUnit.assertNotNull(roomList);
     }
 
     @Test
@@ -193,7 +198,7 @@ public class RoomServiceTest {
     }
 
     @Test
-    public void exitRoom() throws Exception {
+    public void exit_room() throws Exception {
         //退出未在游戏中的房间 -> 成功退出房间
         roomService.enterRoom(10,mockUser.getId());
         roomService.exitRoom(mockUser.getId());
