@@ -32,16 +32,16 @@ public class GameController {
 
     /**
      * 用户准备（取消准备）
-     * @author: Lucto Zhang
-     * @date: 16:05 2017/12/11
+     * @author Lucto Zhang
+     * @date 16:05 2017/12/11
      */
     @RequestMapping(value = "/ready/{isReady}", method = RequestMethod.GET)
-    public Resp isReady(@PathVariable("isReady")Integer ready, HttpSession session) {
+    public Resp isReady(@PathVariable("isReady")Integer ready) {
         if(ready != Constants.PLAYER_READY && ready != Constants.PLAYER_WAITING) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
-        User user = (User) session.getAttribute(Constants.ONLINE_USER);
-        if (ObjectUtils.isNullOrEmpty(user)) {
+        User user = UserUtils.fetchUser();
+        if (user.equals(User.nullUser())) {
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
         return gameService.checkReady(user.getId(),ready);
@@ -54,7 +54,7 @@ public class GameController {
     @RequestMapping(value = "/refresh/", method = RequestMethod.GET)
     public Resp refreshUI() {
         User user = UserUtils.fetchUser();
-        if(ObjectUtils.isNullOrEmpty(user)){
+        if(user.equals(User.nullUser())){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
         gameService.refreshUserRoom(user.getId());
@@ -63,13 +63,13 @@ public class GameController {
 
     /**
      * 用户掷骰子
-     * @author: Handsome Zhao
-     * @date: 20:05 2017/12/11
+     * @author Handsome Zhao
+     * @date 20:05 2017/12/11
      */
     @RequestMapping(value = "/roll/dice/", method = RequestMethod.GET)
     public Resp rollDice() {
         User user = UserUtils.fetchUser();
-        if(ObjectUtils.isNullOrEmpty(user)){
+        if(user.equals(User.nullUser())){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
         boolean result = gameService.rollDice(user.getId());
@@ -81,13 +81,13 @@ public class GameController {
     }
     /**
      * 用户快速加入游戏
-     * @author: Handsome Zhao
-     * @date: 22:43 2017/12/27
+     * @author Handsome Zhao
+     * @date 22:43 2017/12/27
      */
     @RequestMapping(value = "/qucikJoin/", method = RequestMethod.POST)
     public Resp qucikJoinGameRoom() {
         User user = UserUtils.fetchUser();
-        if(ObjectUtils.isNullOrEmpty(user)){
+        if(user.equals(User.nullUser())){
             return new Resp(HttpRespCode.USER_NOT_LOGIN);
         }
         Integer roomId = gameService.getAppropriateReadyRoomId();
@@ -112,8 +112,9 @@ public class GameController {
      */
     @RequestMapping(value = "/question/choose/", method = RequestMethod.GET)
     public Resp getQuestionByQuestionType(@RequestParam("type")Integer questionType){
+        User user=UserUtils.fetchUser();
         if(ObjectUtils.isNullOrEmpty(questionType)
-                ||ObjectUtils.isNullOrEmpty(UserUtils.fetchUserId())){
+                ||user.equals(User.nullUser())){
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         return questionService.generateRandomQuestion(UserUtils.fetchUserId(),questionType);
@@ -124,8 +125,9 @@ public class GameController {
      */
     @RequestMapping(value = "/question/", method = RequestMethod.GET)
     public Resp getQuestionById(@RequestParam("id")Integer questionId){
+        User user = UserUtils.fetchUser();
         if(ObjectUtils.isNullOrEmpty(questionId)
-                ||ObjectUtils.isNullOrEmpty(UserUtils.fetchUserId())){
+                ||user.equals(User.nullUser())){
             return new Resp(HttpRespCode.PARAM_ERROR);
         }
         return questionService.getQuestionById(UserUtils.fetchUserId(),questionId);
@@ -137,7 +139,7 @@ public class GameController {
      * @author Jack Chen
      */
     @RequestMapping(value = "/question/answer/", method = RequestMethod.POST)
-    public Resp checkQuestionAnswer(@RequestBody Integer answer) {
+    public Resp checkQuestionAnswer(@RequestParam Integer answer) {
         if (ObjectUtils.isNullOrEmpty(answer)) {
             return new Resp(HttpRespCode.PARAM_ERROR);
         }

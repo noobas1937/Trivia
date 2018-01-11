@@ -55,8 +55,8 @@ public class QuestionService implements Logable{
 
     /**
      * 为系统增加问题
-     * @author: Lucto
-     * @date: 19:51 2017/12/17
+     * @author Lucto
+     * @date 19:51 2017/12/17
      */
     public void addQuestion(String content,String chooseA,String chooseB,String chooseC,String chooseD,Integer answer,Integer type){
         questionMapper.addQuestion(content,chooseA,chooseB,chooseC,chooseD,answer,type);
@@ -64,8 +64,8 @@ public class QuestionService implements Logable{
 
     /**
      * 通过问题id获取游戏
-     * @author: Lucto
-     * @date: 21:20 2017/12/17
+     * @author Lucto
+     * @date 21:20 2017/12/17
      */
     public List<Game> getGameByQuestionId(Integer questionId) {
         return gameMapper.getGameByQuestionId(questionId);
@@ -73,8 +73,8 @@ public class QuestionService implements Logable{
 
     /**
      * 删除问题
-     * @author: Lucto
-     * @date: 21:39 2017/12/17
+     * @author Lucto
+     * @date 21:39 2017/12/17
      */
     public void deleteQuestion(Integer questionId) {
         questionMapper.deleteQuestion(questionId);
@@ -82,8 +82,8 @@ public class QuestionService implements Logable{
 
     /**
      * 编辑问题
-     * @author: Lucto
-     * @date: 22:32 2017/12/17
+     * @author Lucto
+     * @date 22:32 2017/12/17
      */
     public Resp modifyQuestion(Question questionParam) {
         Question question = questionMapper.getQuestionById(questionParam.getId());
@@ -201,8 +201,8 @@ public class QuestionService implements Logable{
 
     /**
      * 获取所有问题
-     * @author: Lucto
-     * @date: 23:03 2017/12/17
+     * @author Lucto
+     * @date 23:03 2017/12/17
      */
     public List<QuestionVO> getAllQuestions(Integer pno, Integer PAGE_SIZE) {
         Integer npno = (pno - 1) * PAGE_SIZE;

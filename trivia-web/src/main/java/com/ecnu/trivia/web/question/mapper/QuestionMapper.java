@@ -25,6 +25,10 @@ import java.util.List;
 
 @Repository
 public interface QuestionMapper extends Mapper<Question> {
+    /** 插入问题（包括问题ID）**/
+    void addQuestionWithId(@Param("id")Integer id,@Param("content") String content,@Param("chooseA") String chooserA,@Param("chooseB") String chooserB,
+                           @Param("chooseC") String chooserC,@Param("chooseD") String chooserD,@Param("answer") Integer answer,
+                           @Param("type") Integer type);
 
      /**删除问题**/
     void deleteQuestion(@Param("id") Integer questionId);

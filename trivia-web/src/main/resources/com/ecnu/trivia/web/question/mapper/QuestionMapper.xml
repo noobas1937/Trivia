@@ -8,6 +8,11 @@
         VALUES (#{content},${type},#{chooseA},#{chooseB},#{chooseC},#{chooseD},${answer},0,NOW(),NOW())
     </insert>
 
+    <insert id="addQuestionWithId">
+        INSERT INTO question (id,description, type_id, choose_a, choose_b, choose_c, choose_d, answer, status, gmt_created, gmt_modified)
+        VALUES (${id},#{content},${type},#{chooseA},#{chooseB},#{chooseC},#{chooseD},${answer},0,NOW(),NOW())
+    </insert>
+
     <delete id="deleteQuestion">
        DELETE FROM question WHERE id=${id}
     </delete>
