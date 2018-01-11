@@ -3,7 +3,7 @@
 		'readGod':{
 			appid:'2534',
 			icon:'readGod.png',
-			name:'读览天下',
+			name:'管理员',
 			asc :1
 		},
 		'sosomap':{

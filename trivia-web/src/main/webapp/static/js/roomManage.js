@@ -9,16 +9,16 @@ function loadQuestionTable(){
         table = layui.table;
         table.render({
             elem: '#table'
-            ,height: 315
+            ,height: 'full-200'
             ,page: true //开启分页
             ,url: '/trivia/room/list/page/'
             ,id: 'mainTable'
             ,method: 'get'
             ,page:true
             ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:50, sort: true, fixed: 'left'}
-                ,{field: 'roomName', align: 'center', title: '房间名', width:239}
-                ,{field: 'status', align: 'center', title: '状态', width:100,templet:"#statusTpl"}
+                {field: 'id', title: 'ID', width:100, sort: true, fixed: 'left'}
+                ,{field: 'roomName', align: 'center', title: '房间名', width:250}
+                ,{field: 'status', align: 'center', title: '状态', width:120,templet:"#statusTpl"}
                 ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
             ]]
             ,request: {
