@@ -466,7 +466,6 @@ function onDialogLoaded(){
     createDice();
     initDialogs();
     connect();
-    initData();
 }
 
 function initDialogs(){
