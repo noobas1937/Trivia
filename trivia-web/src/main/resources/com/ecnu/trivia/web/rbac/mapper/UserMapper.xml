@@ -8,6 +8,7 @@
         WHERE status = 0
               AND account = #{account}
               AND password = MD5(#{password})
+        LIMIT 0,1
     </select>
 
     <select id="getUserByAccountWithoutPassword" resultType="com.ecnu.trivia.web.rbac.domain.User">
@@ -15,6 +16,7 @@
         FROM user
         WHERE status = 0
         AND account = #{account}
+        LIMIT 0,1
     </select>
 
     <select id="getUserById" resultType="com.ecnu.trivia.web.rbac.domain.User">

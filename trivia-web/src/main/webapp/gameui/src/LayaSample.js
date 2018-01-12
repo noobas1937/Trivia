@@ -508,7 +508,7 @@ function btnQConfirmClicked(){
         contentType: "application/json; charset=utf-8",
         dataType:"json",
         data: JSON.stringify(
-            questionDialog.questionRadio.selectedIndex+1
+            questionDialog.questionRadio.selectedIndex + 1
         ),
         success: function (body) {
             if (body.resCode !== "200") {

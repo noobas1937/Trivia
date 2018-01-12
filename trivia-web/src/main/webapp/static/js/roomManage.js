@@ -41,7 +41,7 @@ function loadQuestionTable(){
                     $.ajax({
                         type: "DELETE",
                         /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                        url: "http://localhost:8081/trivia/room/" + data.id +"/",
+                        url: "/trivia/room/" + data.id +"/",
                         contentType: "application/json; charset=utf-8",
                         dataType:"json",
                         success: function (data) {
@@ -80,8 +80,7 @@ function loadQuestionTable(){
                         else{
                             $.ajax({
                                 type: "POST",
-                                /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                                url: "http://localhost:8081/trivia/room/modify/?roomId="+ data.id +"&name=" + body.find("#roomName").val(),
+                                url: "/trivia/room/modify/?roomId="+ data.id +"&name=" + body.find("#roomName").val(),
                                 contentType: "application/json; charset=utf-8",
                                 dataType:"json",
                                 success: function (data) {
@@ -124,15 +123,14 @@ $('#questionAddBtn').click(function(){
             //得到子页面id对应的数据
             var body = layer.getChildFrame('body', index);
             var name = body.find("#roomName").val();
-
             if(name == ""){
                 layer.alert("请确保房间名已填写");
             }
             else{
+                console.log(name);
                 $.ajax({
                     type: "POST",
-                    /*url: "http://192.168.1.111:8080/trivia/session/login/",*/
-                    url: "http://localhost:8081/trivia/room/?name=" + name,
+                    url: "/trivia/room/?name=" + name,
                     contentType: "application/json; charset=utf-8",
                     dataType:"json",
                     success: function (data) {

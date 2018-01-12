@@ -324,3 +324,18 @@ nav.navbar.bootsnav li.dropdown ul.dropdown-menu{
     display: block;
    /* background-color: black;*/
 }
+
+.logout{
+    float:right;
+    width: 70px;
+    height:70px;
+    display: block;
+    margin-top: 8px;
+    margin-right: -25px;
+    /* background-color: black;*/
+}
+
+.logoutPic{
+    width: 50%;
+    /* background-color: black;*/
+}
